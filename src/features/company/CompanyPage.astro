@@ -1,0 +1,51 @@
+---
+import EditorialStory from '@components/editorial/EditorialStory.astro';
+import BrandLockup from '@components/marketing/BrandLockup.astro';
+import type { Locale } from '@config/locales';
+import { withBasePath } from '@domain/routing/basePath';
+import { getCompanyCopy } from '@i18n/company';
+import { getPublicPageCopy } from '@i18n/publicPages';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const pageCopy = getPublicPageCopy(locale, 'company');
+const story = getCompanyCopy(locale);
+const demoHref = withBasePath(`/${locale}/book-a-demo/`);
+const productHref = withBasePath(`/${locale}/product/`);
+const brandLabel = locale === 'de' ? 'Pavurel Corporate Brand' : 'Pavurel corporate brand';
+---
+
+<div class="company-page">
+  <section class="company-page__brand" aria-labelledby="company-brand-title">
+    <p class="eyebrow">{brandLabel}</p>
+    <h2 id="company-brand-title" class="visually-hidden">Pavurel</h2>
+    <BrandLockup mode="corporate" />
+  </section>
+
+  <EditorialStory
+    eyebrow={pageCopy.eyebrow}
+    title={pageCopy.title}
+    lead={pageCopy.body}
+    sections={story.sections}
+    closing={story.closing}
+    primaryHref={demoHref}
+    secondaryHref={productHref}
+    idPrefix="company"
+  />
+</div>
+
+<style>
+  .company-page__brand {
+    display: grid;
+    gap: var(--space-4);
+    max-width: 54rem;
+    padding-block: clamp(4rem, 8vw, 7rem) 0;
+  }
+
+  .company-page__brand :global(.brand-lockup) {
+    max-width: 38rem;
+  }
+</style>
