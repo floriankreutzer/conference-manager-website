@@ -75,7 +75,10 @@ const copy: Record<Locale, HomepageCopy> = {
       title: 'One request. Everything your conference needs.',
       body: 'Conference Manager keeps the information needed to prepare a conference together. Employees get a clear request journey. Workplace Teams get a structured operational context instead of reconstructing it from separate channels.',
       cards: [
-        { title: 'Guests', body: 'Keep participant and guest context with the conference request.' },
+        {
+          title: 'Guests',
+          body: 'Keep participant and guest context with the conference request.',
+        },
         {
           title: 'Catering',
           body: 'Capture catering needs where the rest of the conference is being prepared.',

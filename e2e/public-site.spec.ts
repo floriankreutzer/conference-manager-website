@@ -72,9 +72,15 @@ test.describe('public website contracts', () => {
         name: 'Conference Manager is the product. Pavurel is the endorsement behind it.',
       }),
     ).toBeVisible();
-    await expect(page.getByText('Conference Manager is the product. by Pavurel is the endorsement.')).toBeVisible();
-    await expect(page.getByText(/operational precision with warm workplace hospitality/i)).toBeVisible();
-    await expect(page.getByText(/formal company-name, domain and trademark clearance/i)).toBeVisible();
+    await expect(
+      page.getByText('Conference Manager is the product. by Pavurel is the endorsement.'),
+    ).toBeVisible();
+    await expect(
+      page.getByText(/operational precision with warm workplace hospitality/i),
+    ).toBeVisible();
+    await expect(
+      page.getByText(/formal company-name, domain and trademark clearance/i),
+    ).toBeVisible();
     await expect(page.getByRole('link', { name: 'Book a demo' }).first()).toHaveAttribute(
       'href',
       '/en/book-a-demo/',
