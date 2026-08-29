@@ -24,51 +24,51 @@ const integrationsCopy: Record<Locale, IntegrationsCopy> = {
     sections: [
       {
         eyebrow: 'Integration principle',
-        title: 'Keep the systems that already own a responsibility.',
-        body: 'Conference Manager is designed to connect the wider conference journey to specialist systems rather than copy their job. Room booking remains responsible for reservations, identity remains part of the enterprise environment and connected workplace services keep their own operating role.',
-        statement: 'Connect the conference journey. Do not replace specialist systems by default.',
+        title: 'Keep the systems your workplace already relies on.',
+        body: 'Conference Manager is designed to add conference coordination around specialist systems rather than replace them by default. Room booking can continue to own the reservation, while identity and collaboration remain part of the enterprise environment your organisation already manages.',
+        statement: 'Improve the conference journey without creating a replacement programme.',
       },
       {
         eyebrow: 'Microsoft 365 · Initial enterprise focus',
-        title: 'Fit Conference Manager into an existing Microsoft environment.',
-        body: 'The current Microsoft integration scope covers Entra-based tenant connection and Microsoft 365 room/calendar capabilities needed for the pilot model. That allows Conference Manager to work with existing enterprise identity and room context instead of asking customers to create an isolated calendar process. Real tenant use still requires the relevant Microsoft setup and operational acceptance.',
+        title: 'Use Conference Manager with your existing Microsoft environment.',
+        body: 'The current Microsoft focus lets Conference Manager work with Entra-based access and Microsoft 365 room and calendar context used by the pilot model. That means organisations can build on familiar enterprise capabilities instead of introducing an isolated calendar process. Real use still depends on the Microsoft configuration and approvals chosen by the customer.',
         points: [
           {
-            title: 'Room resources',
-            body: 'Microsoft 365 room resources can be discovered and mapped through the controlled tenant integration.',
+            title: 'Existing room resources',
+            body: 'Use room resources already managed in Microsoft 365 as part of the conference journey.',
           },
           {
             title: 'Availability and calendar context',
-            body: 'Free/Busy and calendar synchronization are supported within the accepted integration configuration.',
+            body: 'Bring the room availability and calendar context needed for the supported conference flow into the experience.',
           },
         ],
       },
       {
-        eyebrow: 'Controlled permissions',
-        title: 'Integration access is enabled deliberately, not assumed.',
-        body: 'Calendar write capabilities remain conditional on the required Microsoft and Exchange controls. Conference Manager does not present broad provider access as a default entitlement for every tenant.',
-        statement: 'Enterprise integration should fit the customer control model, not bypass it.',
+        eyebrow: 'Controlled enterprise access',
+        title: 'Enable only the access your organisation is ready to allow.',
+        body: 'Conference Manager does not assume broad calendar access. Capabilities that can change calendar information remain dependent on the Microsoft and Exchange controls selected for the customer environment.',
+        statement: 'Integration should fit your control model, not work around it.',
       },
       {
         eyebrow: 'Designed to extend',
-        title: 'The integration model can grow without turning future plans into current claims.',
-        body: 'Conference Manager separates conference workflow responsibilities from provider-specific calendar behavior. That supports future adapters without coupling the product story to one provider. Microsoft 365 and Entra are the current focus; other providers are not presented as available until they are actually delivered and accepted.',
+        title: 'Add connected systems over time without changing the conference story.',
+        body: 'Conference Manager keeps the conference journey separate from the details of any one room or calendar provider. Microsoft 365 and Entra are the current focus. Other providers are described as available only after the relevant integration has actually been delivered and accepted.',
         points: [
           {
-            title: 'Provider-independent conference logic',
-            body: 'The conference journey remains distinct from provider-specific room and calendar references.',
+            title: 'A stable conference experience',
+            body: 'Employees and Workplace Teams can keep a consistent conference journey even when specialist systems differ between organisations.',
           },
           {
-            title: 'Trusted server-side integration',
-            body: 'Provider credentials and integration authority remain outside the public website and employee browser experience.',
+            title: 'Sensitive access stays out of the public site',
+            body: 'Credentials and privileged integration access are handled outside the public marketing website and employee browser experience.',
           },
         ],
       },
     ],
     closing: {
-      eyebrow: 'Map your environment',
-      title: 'Start with the systems your organisation already depends on.',
-      body: 'A useful integration discussion identifies room-booking authority, identity requirements, Microsoft 365 constraints and the controls needed before real provider access is enabled.',
+      eyebrow: 'Start with your environment',
+      title: 'See how Conference Manager can fit the systems you already use.',
+      body: 'Bring your current room-booking and Microsoft 365 setup to a demo. We can map what should remain in place, what Conference Manager adds and which customer controls matter before an integration is enabled.',
       primaryCta: 'Book a demo',
       secondaryCta: 'Explore the product',
     },
@@ -77,54 +77,51 @@ const integrationsCopy: Record<Locale, IntegrationsCopy> = {
     sections: [
       {
         eyebrow: 'Integrationsprinzip',
-        title: 'Behalten Sie die Systeme, die bereits eine klare Verantwortung tragen.',
-        body: 'Conference Manager verbindet den weitergehenden Konferenzablauf mit spezialisierten Systemen, statt deren Aufgabe zu kopieren. Die Raumbuchung bleibt für Reservierungen verantwortlich, Identity bleibt Teil der Enterprise-Umgebung und angebundene Workplace Services behalten ihre operative Rolle.',
-        statement:
-          'Den Konferenzablauf verbinden. Spezialisierte Systeme nicht standardmäßig ersetzen.',
+        title: 'Behalten Sie die Systeme, auf die Ihre Arbeitswelt bereits angewiesen ist.',
+        body: 'Conference Manager ergänzt die Konferenzkoordination rund um spezialisierte Systeme, statt sie standardmäßig zu ersetzen. Ihre Raumbuchung kann weiterhin die Reservierung verantworten; Identität und Zusammenarbeit bleiben Teil der Enterprise-Umgebung, die Ihr Unternehmen bereits betreibt.',
+        statement: 'Verbessern Sie den Konferenzablauf, ohne daraus ein Austauschprojekt zu machen.',
       },
       {
         eyebrow: 'Microsoft 365 · Erster Enterprise-Fokus',
-        title: 'Binden Sie Conference Manager in Ihre bestehende Microsoft-Umgebung ein.',
-        body: 'Der aktuelle Microsoft-Integrationsumfang umfasst die Entra-basierte Tenant-Anbindung sowie Microsoft-365-Raum- und Kalenderfunktionen für das Pilotmodell. So kann Conference Manager vorhandene Enterprise-Identity und Raumkontext nutzen, statt einen isolierten Kalenderprozess einzuführen. Der reale Tenant-Betrieb setzt weiterhin die passende Microsoft-Konfiguration und operative Abnahme voraus.',
+        title: 'Nutzen Sie Conference Manager mit Ihrer bestehenden Microsoft-Umgebung.',
+        body: 'Der aktuelle Microsoft-Fokus verbindet Conference Manager mit Entra-basiertem Zugang sowie dem Microsoft-365-Raum- und Kalenderkontext des Pilotmodells. Unternehmen können damit auf vertrauten Enterprise-Fähigkeiten aufbauen, statt einen isolierten Kalenderprozess einzuführen. Die reale Nutzung hängt weiterhin von der Microsoft-Konfiguration und den Freigaben ab, die der Kunde für seine Umgebung festlegt.',
         points: [
           {
-            title: 'Raumressourcen',
-            body: 'Microsoft-365-Raumressourcen können über die kontrollierte Tenant-Integration ermittelt und zugeordnet werden.',
+            title: 'Vorhandene Raumressourcen',
+            body: 'Nutzen Sie bereits in Microsoft 365 verwaltete Räume als Teil des Konferenzablaufs.',
           },
           {
             title: 'Verfügbarkeit und Kalenderkontext',
-            body: 'Free/Busy und Kalendersynchronisierung werden innerhalb der abgenommenen Integrationskonfiguration unterstützt.',
+            body: 'Binden Sie die für den unterstützten Konferenzablauf benötigte Raumverfügbarkeit und den Kalenderkontext ein.',
           },
         ],
       },
       {
-        eyebrow: 'Kontrollierte Berechtigungen',
-        title: 'Integrationszugriff wird bewusst freigegeben – nicht vorausgesetzt.',
-        body: 'Kalender-Schreibzugriffe bleiben an die erforderlichen Microsoft- und Exchange-Kontrollen gebunden. Conference Manager stellt weitreichenden Provider-Zugriff nicht als pauschalen Standard für jeden Tenant dar.',
-        statement:
-          'Enterprise-Integration soll in das Kontrollmodell des Kunden passen – nicht daran vorbeigehen.',
+        eyebrow: 'Kontrollierter Enterprise-Zugriff',
+        title: 'Aktivieren Sie nur den Zugriff, den Ihre Organisation freigeben möchte.',
+        body: 'Conference Manager setzt keinen weitreichenden Kalenderzugriff voraus. Funktionen, die Kalenderinformationen verändern können, bleiben von den Microsoft- und Exchange-Kontrollen abhängig, die für die jeweilige Kundenumgebung festgelegt werden.',
+        statement: 'Integration soll zu Ihrem Kontrollmodell passen – nicht daran vorbeiarbeiten.',
       },
       {
         eyebrow: 'Erweiterbar gedacht',
-        title:
-          'Das Integrationsmodell kann wachsen, ohne Zukunftspläne als heutige Funktionen darzustellen.',
-        body: 'Conference Manager trennt die Verantwortung des Konferenzablaufs von providerspezifischem Kalenderverhalten. Das schafft Raum für spätere Adapter, ohne die Produktstory an einen einzelnen Provider zu koppeln. Microsoft 365 und Entra sind der aktuelle Fokus; andere Provider werden erst dann als verfügbar dargestellt, wenn sie tatsächlich geliefert und abgenommen sind.',
+        title: 'Ergänzen Sie weitere angebundene Systeme, ohne die Konferenzstory neu zu bauen.',
+        body: 'Conference Manager hält den Konferenzablauf von den Details eines einzelnen Raum- oder Kalenderanbieters getrennt. Microsoft 365 und Entra sind der aktuelle Fokus. Weitere Anbieter werden erst dann als verfügbar beschrieben, wenn die jeweilige Integration tatsächlich geliefert und abgenommen ist.',
         points: [
           {
-            title: 'Providerunabhängige Konferenzlogik',
-            body: 'Der Konferenzablauf bleibt von providerspezifischen Raum- und Kalenderreferenzen getrennt.',
+            title: 'Ein konsistentes Konferenzerlebnis',
+            body: 'Mitarbeitende und Workplace Teams können einen stabilen Ablauf behalten, auch wenn spezialisierte Systeme zwischen Unternehmen unterschiedlich sind.',
           },
           {
-            title: 'Vertrauenswürdige serverseitige Integration',
-            body: 'Provider-Zugangsdaten und Integrationsautorität bleiben außerhalb der öffentlichen Website und der Employee Experience im Browser.',
+            title: 'Sensibler Zugriff bleibt außerhalb der öffentlichen Website',
+            body: 'Zugangsdaten und privilegierter Integrationszugriff werden nicht in der öffentlichen Marketingwebsite oder im Browser der Mitarbeitenden verarbeitet.',
           },
         ],
       },
     ],
     closing: {
       eyebrow: 'Ihre Umgebung als Ausgangspunkt',
-      title: 'Beginnen Sie mit den Systemen, auf die Ihre Organisation bereits angewiesen ist.',
-      body: 'Eine sinnvolle Integrationsdiskussion klärt führende Raumbuchung, Identity-Anforderungen, Microsoft-365-Rahmenbedingungen und die Kontrollen, die vor realem Provider-Zugriff erfüllt sein müssen.',
+      title: 'Sehen Sie, wie Conference Manager zu Ihren bestehenden Systemen passt.',
+      body: 'Bringen Sie Ihre heutige Raumbuchung und Microsoft-365-Umgebung mit in die Demo. Gemeinsam lässt sich klären, was bestehen bleibt, was Conference Manager ergänzt und welche Kundenvorgaben vor der Aktivierung einer Integration relevant sind.',
       primaryCta: 'Demo anfragen',
       secondaryCta: 'Produkt ansehen',
     },
