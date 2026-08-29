@@ -75,10 +75,7 @@ const copy: Record<Locale, HomepageCopy> = {
       title: 'One request. Everything your conference needs.',
       body: 'Conference Manager keeps the information needed to prepare a conference together. Employees get a clear request journey. Workplace Teams get a structured operational context instead of reconstructing it from separate channels.',
       cards: [
-        {
-          title: 'Guests',
-          body: 'Keep participant and guest context with the conference request.',
-        },
+        { title: 'Guests', body: 'Keep participant and guest context with the conference request.' },
         {
           title: 'Catering',
           body: 'Capture catering needs where the rest of the conference is being prepared.',
@@ -125,7 +122,7 @@ const copy: Record<Locale, HomepageCopy> = {
         },
         {
           number: '05',
-          title: 'Manage the lifecycle',
+          title: 'Keep changes visible',
           body: 'Keep submission, review and supported changes understandable instead of scattering decisions across channels.',
         },
       ],
@@ -158,21 +155,21 @@ const copy: Record<Locale, HomepageCopy> = {
       title: 'Keep the tools that already work.',
       body: 'Conference Manager is designed to fit alongside the workplace, identity and collaboration environment an organisation already uses instead of creating another isolated process.',
       items: [
-        'Existing room-booking systems stay authoritative',
-        'Workplace services remain part of the operating model',
-        'Identity and collaboration fit into the enterprise environment',
+        'Existing room-booking systems keep responsibility for reservations',
+        'Workplace services keep the responsibilities they already own',
+        'Identity and collaboration stay in the enterprise environment',
       ],
       microsoft:
-        'Microsoft 365 and Entra are the initial enterprise ecosystem focus. Availability still depends on the accepted tenant and integration configuration.',
+        'Microsoft 365 and Entra are the initial enterprise ecosystem focus. Real use depends on the Microsoft configuration and approvals selected for the customer environment.',
     },
     readiness: {
       eyebrow: 'Built for professional workplaces',
       title: 'Easy to use should not mean casual about control.',
-      body: 'Conference Manager separates a clear employee experience from the controls professional organisations need around access, roles, administration and integrations. Detailed technical boundaries remain available for IT evaluation without becoming the product story itself.',
+      body: 'Conference Manager separates a clear employee experience from the controls professional organisations need around access, roles, administration and integrations. Detailed technical information remains available for IT evaluation without becoming the product story itself.',
       themes: [
         'Identity & sign-in',
         'Roles & permissions',
-        'Tenant administration',
+        'Controlled administration',
         'Controlled changes',
         'Security & privacy boundaries',
         'Managed integrations',
@@ -299,7 +296,7 @@ const copy: Record<Locale, HomepageCopy> = {
         },
         {
           number: '05',
-          title: 'Den Lebenszyklus steuern',
+          title: 'Änderungen nachvollziehbar halten',
           body: 'Halten Sie Einreichung, Prüfung und unterstützte Änderungen nachvollziehbar, statt Entscheidungen auf mehrere Kanäle zu verteilen.',
         },
       ],
@@ -330,23 +327,23 @@ const copy: Record<Locale, HomepageCopy> = {
     ecosystem: {
       eyebrow: 'Vernetztes Workplace-Ökosystem',
       title: 'Behalten Sie die Systeme, die bereits funktionieren.',
-      body: 'Conference Manager ist darauf ausgelegt, sich neben die bestehende Workplace-, Identity- und Collaboration-Umgebung zu stellen, statt einen weiteren isolierten Prozess zu schaffen.',
+      body: 'Conference Manager ist darauf ausgelegt, sich in die bestehende Workplace-, Identity- und Collaboration-Umgebung einzufügen, statt einen weiteren isolierten Prozess zu schaffen.',
       items: [
-        'Bestehende Raumbuchungssysteme bleiben führend',
-        'Workplace Services bleiben Teil des Betriebsmodells',
-        'Identity und Collaboration passen in die Enterprise-Umgebung',
+        'Bestehende Raumbuchungssysteme bleiben für Reservierungen verantwortlich',
+        'Workplace Services behalten ihre bestehenden Aufgaben',
+        'Identity und Collaboration bleiben Teil der Enterprise-Umgebung',
       ],
       microsoft:
-        'Microsoft 365 und Entra bilden den ersten Enterprise-Integrationsfokus. Die Verfügbarkeit hängt weiterhin von der jeweils abgenommenen Tenant- und Integrationskonfiguration ab.',
+        'Microsoft 365 und Entra bilden den ersten Enterprise-Fokus. Die reale Nutzung hängt von der Microsoft-Konfiguration und den Freigaben ab, die für die jeweilige Kundenumgebung festgelegt werden.',
     },
     readiness: {
       eyebrow: 'Für professionelle Arbeitswelten',
       title: 'Einfach zu nutzen darf nicht bedeuten, auf Kontrolle zu verzichten.',
-      body: 'Conference Manager trennt eine klare Employee Experience von den Kontrollen, die professionelle Organisationen für Zugriff, Rollen, Administration und Integrationen benötigen. Technische Details bleiben für die IT-Evaluierung verfügbar, ohne die Produktstory zu dominieren.',
+      body: 'Conference Manager verbindet eine klare Employee Experience mit den Kontrollen, die professionelle Organisationen für Zugriff, Rollen, Administration und Integrationen benötigen. Technische Details bleiben für die IT-Evaluierung verfügbar, ohne die Produktstory zu dominieren.',
       themes: [
         'Identity & Login',
         'Rollen & Berechtigungen',
-        'Tenant-Administration',
+        'Kontrollierte Administration',
         'Kontrollierte Änderungen',
         'Security- & Datenschutzgrenzen',
         'Gesteuerte Integrationen',
