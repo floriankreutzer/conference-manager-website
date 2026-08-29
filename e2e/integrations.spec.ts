@@ -5,27 +5,30 @@ const englishPath = '/en/integrations/';
 const germanPath = '/de/integrations/';
 
 test.describe('Integrations', () => {
-  test('renders qualified English integration content', async ({ page }) => {
+  test('renders customer-led English integration content with honest qualifications', async ({
+    page,
+  }) => {
     await page.goto(englishPath);
     const main = page.locator('main');
 
     await expect(page).toHaveTitle(
-      'Keep the systems that already solve a problem well. — Conference Manager',
+      'Fit Conference Manager into the workplace you already run. — Conference Manager',
     );
     await expect(
       main.getByRole('heading', {
         level: 1,
-        name: 'Keep the systems that already solve a problem well.',
+        name: 'Fit Conference Manager into the workplace you already run.',
       }),
     ).toBeVisible();
     await expect(main.locator('article > ol > li')).toHaveCount(4);
     await expect(
       main.getByRole('heading', {
         level: 2,
-        name: 'Fit Conference Manager into an existing Microsoft environment.',
+        name: 'Use Conference Manager with your existing Microsoft environment.',
       }),
     ).toBeVisible();
-    await expect(main.getByText(/other providers are not presented as available/)).toBeVisible();
+    await expect(main.getByText(/Other providers are described as available only after/)).toBeVisible();
+    await expect(main).not.toContainText('Trusted server-side integration');
     await expect(main.getByRole('link', { name: 'Book a demo' }).first()).toHaveAttribute(
       'href',
       '/en/book-a-demo/',
@@ -36,29 +39,32 @@ test.describe('Integrations', () => {
     );
   });
 
-  test('renders qualified German integration content', async ({ page }) => {
+  test('renders customer-led German integration content with honest qualifications', async ({
+    page,
+  }) => {
     await page.goto(germanPath);
     const main = page.locator('main');
 
     await expect(page).toHaveTitle(
-      'Behalten Sie Systeme, die ein Problem bereits gut lösen. — Conference Manager',
+      'Conference Manager passt in die Arbeitswelt, die Sie bereits betreiben. — Conference Manager',
     );
     await expect(
       main.getByRole('heading', {
         level: 1,
-        name: 'Behalten Sie Systeme, die ein Problem bereits gut lösen.',
+        name: 'Conference Manager passt in die Arbeitswelt, die Sie bereits betreiben.',
       }),
     ).toBeVisible();
     await expect(main.locator('article > ol > li')).toHaveCount(4);
     await expect(
       main.getByRole('heading', {
         level: 2,
-        name: 'Binden Sie Conference Manager in Ihre bestehende Microsoft-Umgebung ein.',
+        name: 'Nutzen Sie Conference Manager mit Ihrer bestehenden Microsoft-Umgebung.',
       }),
     ).toBeVisible();
     await expect(
-      main.getByText(/andere Provider werden erst dann als verfügbar dargestellt/),
+      main.getByText(/Weitere Anbieter werden erst dann als verfügbar beschrieben/),
     ).toBeVisible();
+    await expect(main).not.toContainText('Integrationsautorität');
     await expect(main.getByRole('link', { name: 'Demo anfragen' }).first()).toHaveAttribute(
       'href',
       '/de/book-a-demo/',
@@ -82,7 +88,7 @@ test.describe('Integrations', () => {
     await expect(
       page.getByRole('heading', {
         level: 2,
-        name: 'Das Integrationsmodell kann wachsen, ohne Zukunftspläne als heutige Funktionen darzustellen.',
+        name: 'Ergänzen Sie weitere angebundene Systeme, ohne die Konferenzstory neu zu bauen.',
       }),
     ).toBeVisible();
   });
