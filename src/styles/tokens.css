@@ -6,11 +6,13 @@
     --color-canvas: #f3f2f0;
     --color-canvas-soft: #f8f7f5;
     --color-border: #d9d5d0;
+    --color-border-strong: #a9a8a5;
     --color-bordeaux: #7a1f3d;
     --color-bordeaux-dark: #651d32;
     --color-bordeaux-soft: #ead7df;
     --color-camel: #c29a6b;
     --color-camel-dark: #a97d4e;
+    --color-camel-soft: #f5eee6;
     --color-on-accent: #ffffff;
     --color-on-dark-muted: #cbc7c3;
 
@@ -26,15 +28,18 @@
     --space-7: 4.5rem;
     --space-8: 6.5rem;
 
-    --radius-sm: 0.5rem;
-    --radius-md: 0.875rem;
-    --radius-lg: 1.5rem;
+    /* Deliberately aligned with the Conference Manager application family. */
+    --radius-xs: 2px;
+    --radius-sm: 3px;
+    --radius-md: 4px;
+    --radius-lg: 8px;
     --radius-pill: 999px;
 
+    --control-height: 44px;
     --content-max: 78rem;
     --copy-max: 68ch;
     --headline-max: 16ch;
 
-    --shadow-soft: 0 1.5rem 4rem rgb(23 23 23 / 0.08);
+    --shadow-soft: 0 1rem 3rem rgb(23 23 23 / 0.07);
   }
 }
