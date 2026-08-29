@@ -27,49 +27,39 @@ export type PublicPageRoute =
       slug: PublicPageSlug;
     });
 
-const detailedVariants: ReadonlySet<PublicPageVariant> = new Set([
-  'product-story',
-  'integrations',
-  'workplace-teams',
-  'security-trust',
-  'pricing',
-]);
+function getRouteBase(locale: Locale, slug: PublicPageSlug, detailed: boolean): PublicPageRouteBase {
+  const copy = getPublicPageCopy(locale, slug);
+  const titleSource = detailed ? copy.title : copy.eyebrow;
 
-function resolveVariant(slug: PublicPageSlug): PublicPageVariant {
+  return {
+    title: `${titleSource} — Conference Manager`,
+    description: copy.description,
+  };
+}
+
+export function resolvePublicPageRoute(locale: Locale, slug: PublicPageSlug): PublicPageRoute {
   if (isProductStorySlug(slug)) {
-    return 'product-story';
+    return {
+      ...getRouteBase(locale, slug, true),
+      variant: 'product-story',
+      slug,
+    };
   }
 
   switch (slug) {
     case 'book-a-demo':
-      return 'demo-request';
+      return { ...getRouteBase(locale, slug, false), variant: 'demo-request', slug };
     case 'insights':
-      return 'insights';
+      return { ...getRouteBase(locale, slug, false), variant: 'insights', slug };
     case 'integrations':
-      return 'integrations';
+      return { ...getRouteBase(locale, slug, true), variant: 'integrations', slug };
     case 'workplace-teams':
-      return 'workplace-teams';
+      return { ...getRouteBase(locale, slug, true), variant: 'workplace-teams', slug };
     case 'security-trust':
-      return 'security-trust';
+      return { ...getRouteBase(locale, slug, true), variant: 'security-trust', slug };
     case 'pricing':
-      return 'pricing';
+      return { ...getRouteBase(locale, slug, true), variant: 'pricing', slug };
     default:
-      return 'info';
+      return { ...getRouteBase(locale, slug, false), variant: 'info', slug };
   }
-}
-
-export function resolvePublicPageRoute(locale: Locale, slug: PublicPageSlug): PublicPageRoute {
-  const copy = getPublicPageCopy(locale, slug);
-  const variant = resolveVariant(slug);
-  const titleSource = detailedVariants.has(variant) ? copy.title : copy.eyebrow;
-  const base = {
-    title: `${titleSource} — Conference Manager`,
-    description: copy.description,
-  };
-
-  if (variant === 'product-story' && isProductStorySlug(slug)) {
-    return { ...base, variant, slug };
-  }
-
-  return { ...base, variant, slug };
 }
