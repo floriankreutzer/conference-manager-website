@@ -27,7 +27,11 @@ export type PublicPageRoute =
       slug: PublicPageSlug;
     });
 
-function getRouteBase(locale: Locale, slug: PublicPageSlug, detailed: boolean): PublicPageRouteBase {
+function getRouteBase(
+  locale: Locale,
+  slug: PublicPageSlug,
+  detailed: boolean,
+): PublicPageRouteBase {
   const copy = getPublicPageCopy(locale, slug);
   const titleSource = detailed ? copy.title : copy.eyebrow;
 
