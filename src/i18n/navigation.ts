@@ -42,7 +42,7 @@ const copy: Record<Locale, NavigationCopy> = {
       resourcesHeading: 'Evaluate',
       brandHeading: 'Conference Manager by Pavurel',
       brandBody:
-        'Pavurel brings a consistent corporate frame to Conference Manager: operational precision with warm workplace hospitality. Conference Manager remains the product; by Pavurel is the corporate endorsement.',
+        'Pavurel brings a consistent corporate frame to Conference Manager: operational precision and warm workplace hospitality. Conference Manager remains the product; by Pavurel is the corporate endorsement.',
       productLinks: [
         { label: 'Product', href: '/en/product/' },
         { label: 'How it works', href: '/en/how-it-works/' },
@@ -77,7 +77,7 @@ const copy: Record<Locale, NavigationCopy> = {
       resourcesHeading: 'Evaluieren',
       brandHeading: 'Conference Manager by Pavurel',
       brandBody:
-        'Pavurel gibt Conference Manager einen konsistenten Corporate-Rahmen: operative Präzision mit warmer Workplace Hospitality. Conference Manager bleibt das Produkt; by Pavurel ist das Corporate Endorsement.',
+        'Pavurel gibt Conference Manager einen konsistenten Corporate-Rahmen: operative Präzision und warme Workplace Hospitality. Conference Manager bleibt das Produkt; by Pavurel ist das Corporate Endorsement.',
       productLinks: [
         { label: 'Produkt', href: '/de/product/' },
         { label: 'So funktioniert es', href: '/de/how-it-works/' },
