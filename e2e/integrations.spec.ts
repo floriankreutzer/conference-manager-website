@@ -22,10 +22,10 @@ test.describe('Integrations', () => {
     await expect(
       main.getByRole('heading', {
         level: 2,
-        name: 'Microsoft integration is implemented, with real-environment acceptance still required.',
+        name: 'Fit Conference Manager into an existing Microsoft environment.',
       }),
     ).toBeVisible();
-    await expect(main.getByText(/does not mean that Google, Okta/)).toBeVisible();
+    await expect(main.getByText(/other providers are not presented as available/)).toBeVisible();
     await expect(main.getByRole('link', { name: 'Book a demo' }).first()).toHaveAttribute(
       'href',
       '/en/book-a-demo/',
@@ -53,11 +53,11 @@ test.describe('Integrations', () => {
     await expect(
       main.getByRole('heading', {
         level: 2,
-        name: 'Die Microsoft-Integration ist implementiert, benötigt aber reale Umgebungsabnahme.',
+        name: 'Binden Sie Conference Manager in Ihre bestehende Microsoft-Umgebung ein.',
       }),
     ).toBeVisible();
-    await expect(main.getByText(/Das bedeutet nicht, dass Google, Okta/)).toBeVisible();
-    await expect(main.getByRole('link', { name: 'Demo buchen' }).first()).toHaveAttribute(
+    await expect(main.getByText(/andere Provider werden erst dann als verfügbar dargestellt/)).toBeVisible();
+    await expect(main.getByRole('link', { name: 'Demo anfragen' }).first()).toHaveAttribute(
       'href',
       '/de/book-a-demo/',
     );
@@ -80,7 +80,7 @@ test.describe('Integrations', () => {
     await expect(
       page.getByRole('heading', {
         level: 2,
-        name: 'Künftige Provider können in das Modell passen, ohne heutige Produktclaims zu werden.',
+        name: 'Das Integrationsmodell kann wachsen, ohne Zukunftspläne als heutige Funktionen darzustellen.',
       }),
     ).toBeVisible();
   });
