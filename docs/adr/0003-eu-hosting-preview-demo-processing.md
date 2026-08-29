@@ -126,6 +126,24 @@ The processing function must implement, at minimum:
 
 A third-party anti-bot service requires a separate privacy/security review and must not be introduced silently.
 
+### Transactional Email failure and retry semantics
+
+Creating a Transactional Email message and delivering that accepted message are separate phases.
+
+The website function performs a single create-email POST. An explicit non-2xx provider response is a failed creation request. A timeout or network failure is treated as **ambiguous**, because the provider may have accepted the POST before the connection failed.
+
+The function must not automatically retry an ambiguous create-email POST while the provider API offers no idempotency key for that operation. An automatic retry could create duplicate demo-request emails. After a successful create response, Scaleway Transactional Email owns its downstream delivery-attempt/status lifecycle.
+
+A future automatic create retry requires a provider-supported or application-owned idempotency mechanism and an explicit review. Public configuration/provider failures remain generic and must not expose provider details, credentials or submitted content.
+
+### Demo-request operational acceptance
+
+The real public function endpoint is accepted through a manually triggered GitHub Actions workflow rather than normal PR/push CI.
+
+The default acceptance mode is non-destructive and verifies method rejection, content-type rejection, invalid-input handling, non-reflection and honeypot behavior. It does not submit a valid delivery request.
+
+A synthetic delivery test requires explicit operator opt-in and sends exactly one controlled request using reserved synthetic data. A successful HTTP response is not sufficient evidence that the operational flow is complete: the approved functional mailbox must be checked for exactly one expected acceptance-test message. Durable rate limiting, platform-log minimization and mailbox/privacy controls remain separate real-infrastructure evidence.
+
 ### Data retention
 
 The initial implementation does not create a separate application database for demo leads.
@@ -181,7 +199,8 @@ Not selected for phase 1 because it adds tracking/privacy/supply-chain/vendor co
 - Edge/WAF/header capabilities must be verified in the actually provisioned Scaleway plan before launch;
 - strict EU-only interpretation must be revalidated for every enabled Scaleway service/region and any future edge feature;
 - transactional email and public function abuse controls require operational monitoring;
-- provider credentials and cleanup automation become deployment responsibilities.
+- provider credentials and cleanup automation become deployment responsibilities;
+- ambiguous create-email failures cannot be retried automatically without duplicate risk until idempotency is available.
 
 ## Operational acceptance before launch
 
@@ -194,7 +213,7 @@ Do not mark hosting production-ready until evidence confirms:
 - preview URLs are noindex and cleaned up;
 - GitHub Actions use least-privilege credentials;
 - form endpoint rejects malformed/oversized/automated abuse cases as designed;
-- email delivery and failure behavior are tested;
+- email creation, ambiguous failure behavior and downstream delivery are tested;
 - no tracking scripts are present;
 - logs do not expose unnecessary personal data;
 - rollback/redeployment procedure is documented and tested.
@@ -205,3 +224,4 @@ Do not mark hosting production-ready until evidence confirms:
 - ADR 0002 — Astro + TypeScript, Static-First Website Architecture
 - `docs/SECURITY.md`
 - `docs/ARCHITECTURE.md`
+- `functions/demo-request/README.md`
