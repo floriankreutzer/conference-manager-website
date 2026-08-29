@@ -2,6 +2,7 @@
 import SiteHeader from '@components/navigation/SiteHeader.astro';
 import type { Locale } from '@config/locales';
 import { getSeoConfig } from '@config/seo';
+import { withoutBasePath, withBasePath } from '@domain/routing/basePath';
 import '../styles/global.css';
 
 interface Props {
@@ -18,8 +19,9 @@ const seo = getSeoConfig({
 });
 const canonicalBase = seo.siteOrigin ?? Astro.site ?? Astro.url.origin;
 const canonical = new URL(Astro.url.pathname, canonicalBase);
-const enPath = Astro.url.pathname.replace(/^\/de(?=\/|$)/, '/en');
-const dePath = Astro.url.pathname.replace(/^\/en(?=\/|$)/, '/de');
+const relativePath = withoutBasePath(Astro.url.pathname);
+const enPath = withBasePath(relativePath.replace(/^\/de(?=\/|$)/, '/en'));
+const dePath = withBasePath(relativePath.replace(/^\/en(?=\/|$)/, '/de'));
 const socialLocale = locale === 'de' ? 'de_DE' : 'en_US';
 const alternateSocialLocale = locale === 'de' ? 'en_US' : 'de_DE';
 ---

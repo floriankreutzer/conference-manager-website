@@ -29,10 +29,27 @@ The accepted implementation baseline is:
 - complete English/German route architecture;
 - repository-owned content and Astro Content Collections for Insights;
 - Scaleway-oriented preview/production delivery automation;
+- governed self-hosted Manrope/Inter webfonts;
 - a separate server-side demo-request function boundary;
 - required CI, dependency audit, secret scanning, CodeQL, browser/accessibility and performance gates.
 
-Production readiness is **not** yet claimed. Real Scaleway infrastructure, final Edge/TLS/DNS evidence, demo-processing operational acceptance, privacy/retention acceptance and governed production font assets remain external release gates.
+Production readiness is **not** yet claimed. Real Scaleway infrastructure, final Edge/TLS/DNS evidence, demo-processing operational acceptance, privacy/retention acceptance and final human release acceptance remain external release gates.
+
+## GitHub Pages review site
+
+GitHub Pages is supported as a separate, non-production review/demo environment. It does not replace the Scaleway production architecture from ADR 0003.
+
+The review build:
+- is generated from `main` by `.github/workflows/github-pages.yml`;
+- uses the project base path `/conference-manager-website/`;
+- keeps English and German routes functional under that base path;
+- is built with `PUBLIC_PREVIEW=true` and therefore remains `noindex, nofollow`;
+- uses a non-production application handoff origin;
+- does not enable the real demo-processing endpoint.
+
+Expected review URLs after GitHub Pages is enabled with **Source: GitHub Actions**:
+- English: `https://floriankreutzer.github.io/conference-manager-website/en/`
+- German: `https://floriankreutzer.github.io/conference-manager-website/de/`
 
 ## Repository structure
 

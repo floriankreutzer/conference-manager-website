@@ -1,5 +1,6 @@
 ---
 import type { Locale } from '@config/locales';
+import { withBasePath } from '@domain/routing/basePath';
 import { getHomepageCopy } from '@i18n/homepage';
 
 interface Props {
@@ -8,8 +9,8 @@ interface Props {
 
 const { locale } = Astro.props;
 const copy = getHomepageCopy(locale);
-const demoHref = `/${locale}/book-a-demo/`;
-const howHref = `/${locale}/how-it-works/`;
+const demoHref = withBasePath(`/${locale}/book-a-demo/`);
+const howHref = withBasePath(`/${locale}/how-it-works/`);
 ---
 
 <div class="home-page">
