@@ -1,0 +1,45 @@
+---
+import type { Locale } from '@config/locales';
+import { withBasePath } from '@domain/routing/basePath';
+
+interface Props {
+  locale: Locale;
+  priority?: boolean;
+}
+
+const { locale, priority = false } = Astro.props;
+const src = withBasePath('/assets/brand/hero-conference.webp');
+const alt =
+  locale === 'de'
+    ? 'Modern vorbereiteter Konferenzraum als Pavurel Workplace-Visual'
+    : 'Modern prepared conference room used as a Pavurel workplace visual';
+---
+
+<figure class="brand-visual">
+  <img
+    src={src}
+    alt={alt}
+    width="1200"
+    height="675"
+    loading={priority ? 'eager' : 'lazy'}
+    fetchpriority={priority ? 'high' : 'auto'}
+    decoding="async"
+  />
+</figure>
+
+<style>
+  .brand-visual {
+    margin: 0;
+    overflow: hidden;
+    border-radius: var(--radius-card);
+    background: var(--color-surface-muted);
+  }
+
+  .brand-visual img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+  }
+</style>
