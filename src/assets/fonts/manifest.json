@@ -1,6 +1,86 @@
 {
   "schemaVersion": 1,
-  "status": "pending",
-  "approvedFamilies": ["Manrope", "Inter"],
-  "assets": []
+  "status": "accepted",
+  "approvedFamilies": [
+    "Manrope",
+    "Inter"
+  ],
+  "assets": [
+    {
+      "acquisitionDate": "2026-08-29",
+      "license": "OFL-1.1",
+      "languageCoverage": [
+        "en",
+        "de"
+      ],
+      "modificationState": "unmodified upstream WOFF2",
+      "reviewer": "Conference Manager repository governance review",
+      "family": "Manrope",
+      "filename": "Manrope-Regular.woff2",
+      "style": "normal",
+      "weight": "400",
+      "upstreamSource": "https://github.com/aaronbell/manrope/blob/6f81ebecdf65e4463b798cc07b16a4f8d5216917/fonts/webfonts/Manrope-Regular.woff2",
+      "version": "4.504",
+      "sourceCommit": "6f81ebecdf65e4463b798cc07b16a4f8d5216917",
+      "sha256": "4d459ffc3fdb884cd88587cc3e4170b16f4ebbbf2ad9ccf29cbcc0058d02433f",
+      "licenseFile": "LICENSE-MANROPE.txt"
+    },
+    {
+      "acquisitionDate": "2026-08-29",
+      "license": "OFL-1.1",
+      "languageCoverage": [
+        "en",
+        "de"
+      ],
+      "modificationState": "unmodified upstream WOFF2",
+      "reviewer": "Conference Manager repository governance review",
+      "family": "Manrope",
+      "filename": "Manrope-Bold.woff2",
+      "style": "normal",
+      "weight": "700",
+      "upstreamSource": "https://github.com/aaronbell/manrope/blob/6f81ebecdf65e4463b798cc07b16a4f8d5216917/fonts/webfonts/Manrope-Bold.woff2",
+      "version": "4.504",
+      "sourceCommit": "6f81ebecdf65e4463b798cc07b16a4f8d5216917",
+      "sha256": "e2973bfb74a2aca9356d289ee91f6c8a22da3fbef8aaeeb64a9bce2bf09295d1",
+      "licenseFile": "LICENSE-MANROPE.txt"
+    },
+    {
+      "acquisitionDate": "2026-08-29",
+      "license": "OFL-1.1",
+      "languageCoverage": [
+        "en",
+        "de"
+      ],
+      "modificationState": "unmodified upstream WOFF2",
+      "reviewer": "Conference Manager repository governance review",
+      "family": "Manrope",
+      "filename": "Manrope-ExtraBold.woff2",
+      "style": "normal",
+      "weight": "800",
+      "upstreamSource": "https://github.com/aaronbell/manrope/blob/6f81ebecdf65e4463b798cc07b16a4f8d5216917/fonts/webfonts/Manrope-ExtraBold.woff2",
+      "version": "4.504",
+      "sourceCommit": "6f81ebecdf65e4463b798cc07b16a4f8d5216917",
+      "sha256": "0ef2d7a835705c7cd276031b78daf5df5aa273cd707ef86cb269bb15a44f0458",
+      "licenseFile": "LICENSE-MANROPE.txt"
+    },
+    {
+      "acquisitionDate": "2026-08-29",
+      "license": "OFL-1.1",
+      "languageCoverage": [
+        "en",
+        "de"
+      ],
+      "modificationState": "unmodified upstream WOFF2",
+      "reviewer": "Conference Manager repository governance review",
+      "family": "Inter",
+      "filename": "InterVariable.woff2",
+      "style": "normal",
+      "weight": "100 900",
+      "upstreamSource": "https://github.com/rsms/inter/blob/66647c0bbbe41a850d79d9c76fb13add3378940f/docs/font-files/InterVariable.woff2",
+      "version": "4.1",
+      "sourceCommit": "66647c0bbbe41a850d79d9c76fb13add3378940f",
+      "sha256": "8af7bd5b545567adffb3dfceb5bedb353a522d7bf1b3a2b8af7b6064156babc0",
+      "licenseFile": "LICENSE-INTER.txt"
+    }
+  ]
 }
