@@ -1,0 +1,20 @@
+---
+import InsightArticle from '@features/insights/InsightArticle.astro';
+import { getPublishedInsightsForLocale } from '@features/insights/content';
+import MarketingLayout from '@layouts/MarketingLayout.astro';
+
+export async function getStaticPaths() {
+  const entries = await getPublishedInsightsForLocale('en');
+
+  return entries.map((entry) => ({
+    params: { slug: entry.data.slug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+---
+
+<MarketingLayout locale="en" title={`${entry.data.title} — Conference Manager`} description={entry.data.description}>
+  <InsightArticle locale="en" entry={entry} />
+</MarketingLayout>

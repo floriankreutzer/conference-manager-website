@@ -1,6 +1,7 @@
 ---
 import PublicInfoPage from '@components/pages/PublicInfoPage.astro';
 import DemoRequestForm from '@features/demo-request/DemoRequestForm.astro';
+import InsightsIndex from '@features/insights/InsightsIndex.astro';
 import MarketingLayout from '@layouts/MarketingLayout.astro';
 import { getPublicPageCopy, publicPageSlugs, type PublicPageSlug } from '@i18n/publicPages';
 
@@ -13,5 +14,13 @@ const copy = getPublicPageCopy('en', slug);
 ---
 
 <MarketingLayout locale="en" title={`${copy.eyebrow} — Conference Manager`} description={copy.description}>
-  {slug === 'book-a-demo' ? <DemoRequestForm locale="en" /> : <PublicInfoPage locale="en" slug={slug} />}
+  {
+    slug === 'book-a-demo' ? (
+      <DemoRequestForm locale="en" />
+    ) : slug === 'insights' ? (
+      <InsightsIndex locale="en" />
+    ) : (
+      <PublicInfoPage locale="en" slug={slug} />
+    )
+  }
 </MarketingLayout>
