@@ -16,6 +16,7 @@ const howHref = withBasePath(`/${locale}/how-it-works/`);
 const productHref = withBasePath(`/${locale}/product/`);
 const integrationsHref = withBasePath(`/${locale}/integrations/`);
 const trustHref = withBasePath(`/${locale}/security-trust/`);
+const companyHref = withBasePath(`/${locale}/company/`);
 ---
 
 <div class="home-page">
@@ -206,6 +207,13 @@ const trustHref = withBasePath(`/${locale}/security-trust/`);
       <h2 id="brand-story-title">{copy.brand.title}</h2>
       <p>{copy.brand.body}</p>
       <p class="brand-story__principle">{copy.brand.principle}</p>
+      <p class="section-link">
+        <a href={companyHref}
+          >{locale === 'de' ? 'Pavurel kennenlernen' : 'About Pavurel'}<span aria-hidden="true">
+            →</span
+          ></a
+        >
+      </p>
     </div>
   </section>
 
