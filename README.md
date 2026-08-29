@@ -26,7 +26,9 @@ The accepted implementation baseline is:
 
 - Astro + TypeScript;
 - static-first rendering with minimal browser JavaScript;
-- complete English/German route architecture;
+- complete English/German route architecture with centralized shared public-page composition;
+- detailed bilingual Product / How it works, Workplace Teams, Security & Trust and qualified Integrations destinations;
+- a governed bilingual pre-pricing destination with no unapproved monetary amount, tier or commercial offer;
 - repository-owned content and Astro Content Collections for Insights;
 - Scaleway-oriented preview/production delivery automation;
 - governed self-hosted Manrope/Inter webfonts;
@@ -55,8 +57,8 @@ Expected review URLs after GitHub Pages is enabled with **Source: GitHub Actions
 
 The repository is organized by responsibility and trust boundary:
 
-- `src/pages/` — filesystem routes and route composition only;
-- `src/layouts/` — page-level composition/layout contracts;
+- `src/pages/` — filesystem routes, static-path selection and locale delegation;
+- `src/layouts/` — shared page-level composition and route contracts;
 - `src/components/` — reusable presentation components;
 - `src/features/` — bounded website use cases;
 - `src/domain/` — framework-independent rules;
