@@ -1,5 +1,5 @@
 import AxeBuilder from '@axe-core/playwright';
-import { expect, test } from '@playwright/test';
+import { expect, test, type Page } from '@playwright/test';
 
 const accessibilityPaths = [
   '/en/',
@@ -13,10 +13,12 @@ const accessibilityPaths = [
 ];
 const routeDiscoveryPaths = ['/en/', '/de/'];
 
-async function expectBrandVisualToLoad(page: Parameters<typeof test>[0] extends never ? never : any) {
+async function expectBrandVisualToLoad(page: Page) {
   const image = page.locator('[data-brand-visual="approved-pavurel-conference"] img').first();
   await expect(image).toBeVisible();
-  await expect.poll(() => image.evaluate((element: HTMLImageElement) => element.naturalWidth)).toBeGreaterThan(0);
+  await expect
+    .poll(() => image.evaluate((element: HTMLImageElement) => element.naturalWidth))
+    .toBeGreaterThan(0);
 }
 
 test.describe('public website contracts', () => {
@@ -114,7 +116,9 @@ test.describe('public website contracts', () => {
     await expect(
       page.getByText('A simple employee journey without giving up organisational control.'),
     ).toBeVisible();
-    await expect(page.getByText('Connect to your environment without handing control away.')).toBeVisible();
+    await expect(
+      page.getByText('Connect to your environment without handing control away.'),
+    ).toBeVisible();
     await expect(page.getByRole('link', { name: 'Book a demo' })).toHaveCount(1);
     await expect(page.getByRole('link', { name: 'Explore integrations' })).toHaveAttribute(
       'href',
