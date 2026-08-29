@@ -2,25 +2,72 @@
 import type { Locale } from '@config/locales';
 import { withBasePath } from '@domain/routing/basePath';
 
+type VisualVariant = 'hero' | 'workplace' | 'hospitality' | 'about';
+
 interface Props {
   locale: Locale;
+  variant?: VisualVariant;
   priority?: boolean;
 }
 
-const { locale, priority = false } = Astro.props;
-const src = withBasePath('/assets/brand/hero-conference.webp');
-const alt =
-  locale === 'de'
-    ? 'Modern vorbereiteter Konferenzraum als Pavurel Workplace-Visual'
-    : 'Modern prepared conference room used as a Pavurel workplace visual';
+const { locale, variant = 'hero', priority = false } = Astro.props;
+
+const visuals: Record<
+  VisualVariant,
+  { src: string; width: number; height: number; alt: Record<Locale, string> }
+> = {
+  hero: {
+    src: '/assets/brand/hero-conference-400.webp',
+    width: 400,
+    height: 225,
+    alt: {
+      de: 'Moderner Konferenzraum mit ruhigem Workplace-Charakter',
+      en: 'Modern conference room with a calm workplace character',
+    },
+  },
+  workplace: {
+    src: '/assets/brand/workplace-boardroom-400.webp',
+    width: 400,
+    height: 250,
+    alt: {
+      de: 'Vorbereiteter Boardroom für eine professionelle Workplace-Konferenz',
+      en: 'Prepared boardroom for a professional workplace conference',
+    },
+  },
+  hospitality: {
+    src: '/assets/brand/hospitality-service-480.webp',
+    width: 480,
+    height: 300,
+    alt: {
+      de: 'Hospitality-Service als Teil einer vorbereiteten Konferenzerfahrung',
+      en: 'Hospitality service as part of a prepared conference experience',
+    },
+  },
+  about: {
+    src: '/assets/brand/about-hospitality-400.webp',
+    width: 400,
+    height: 250,
+    alt: {
+      de: 'Professioneller Empfang in einer modernen Workplace-Umgebung',
+      en: 'Professional welcome in a modern workplace environment',
+    },
+  },
+};
+
+const visual = visuals[variant];
+const src = withBasePath(visual.src);
 ---
 
-<figure class="brand-visual" data-brand-visual="approved-pavurel-conference">
+<figure
+  class={`brand-visual brand-visual--${variant}`}
+  data-brand-visual="approved-pavurel-conference"
+  data-brand-visual-variant={variant}
+>
   <img
     src={src}
-    alt={alt}
-    width="1200"
-    height="675"
+    alt={visual.alt[locale]}
+    width={visual.width}
+    height={visual.height}
     loading={priority ? 'eager' : 'lazy'}
     fetchpriority={priority ? 'high' : 'auto'}
     decoding="async"
@@ -32,13 +79,23 @@ const alt =
     margin: 0;
     overflow: hidden;
     border-radius: 4px;
+    background: var(--color-surface-soft);
   }
 
   .brand-visual img {
     display: block;
     width: 100%;
     height: auto;
-    aspect-ratio: 16 / 9;
     object-fit: cover;
+  }
+
+  .brand-visual--hero img {
+    aspect-ratio: 16 / 9;
+  }
+
+  .brand-visual--workplace img,
+  .brand-visual--hospitality img,
+  .brand-visual--about img {
+    aspect-ratio: 8 / 5;
   }
 </style>

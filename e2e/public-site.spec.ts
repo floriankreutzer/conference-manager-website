@@ -13,8 +13,11 @@ const accessibilityPaths = [
 ];
 const routeDiscoveryPaths = ['/en/', '/de/'];
 
-async function expectBrandVisualToLoad(page: Page) {
-  const image = page.locator('[data-brand-visual="approved-pavurel-conference"] img').first();
+async function expectBrandVisualToLoad(page: Page, variant?: string) {
+  const selector = variant
+    ? `[data-brand-visual-variant="${variant}"] img`
+    : '[data-brand-visual="approved-pavurel-conference"] img';
+  const image = page.locator(selector).first();
   await expect(image).toBeVisible();
   await expect
     .poll(() => image.evaluate((element: HTMLImageElement) => element.naturalWidth))
@@ -42,13 +45,16 @@ test.describe('public website contracts', () => {
         name: 'Operational precision, with a more considered workplace experience.',
       }),
     ).toBeVisible();
-    await expect(page.getByRole('link', { name: 'About Conference Manager' })).toHaveAttribute(
-      'href',
-      '/en/company/',
-    );
+    await expect(
+      page.locator('.primary-nav').getByRole('link', { name: 'About', exact: true }),
+    ).toHaveAttribute('href', '/en/company/');
     await expect(page.getByRole('link', { name: 'Book a demo' })).toHaveCount(2);
     await expect(page.locator('footer').getByRole('link', { name: 'Book a demo' })).toHaveCount(0);
-    await expectBrandVisualToLoad(page);
+    await expectBrandVisualToLoad(page, 'hero');
+    await expect(page.locator('[data-brand-visual-variant="hero"] img')).toHaveAttribute(
+      'src',
+      '/assets/brand/hero-conference-400.webp',
+    );
   });
 
   test('uses governed Pavurel identity and restrained application-family control geometry', async ({
@@ -73,7 +79,7 @@ test.describe('public website contracts', () => {
     expect(radius).toBe('4px');
   });
 
-  test('provides a customer-facing About destination instead of internal brand governance copy', async ({
+  test('explains why Conference Manager exists and what a customer can expect', async ({
     page,
   }) => {
     await page.goto('/en/company/');
@@ -81,15 +87,24 @@ test.describe('public website contracts', () => {
     await expect(
       page.getByRole('heading', {
         level: 1,
-        name: 'Built around the conference, not around another system.',
+        name: 'Why Conference Manager exists — and what that means for your organisation.',
       }),
     ).toBeVisible();
     await expect(
-      page.getByText('Professional conferences need more than a room reservation.'),
+      page.getByText('A booked room does not mean a prepared conference.'),
+    ).toBeVisible();
+    await expect(
+      page.getByText('For organisations that want a clearer preparation process.'),
+    ).toBeVisible();
+    await expect(
+      page.getByText('Improve coordination around systems that already work.'),
+    ).toBeVisible();
+    await expect(
+      page.getByText('Start with a real conference journey and prove the fit.'),
     ).toBeVisible();
     await expect(page.getByText('One request. Everything your conference needs.')).toBeVisible();
     await expect(
-      page.getByText("We don't replace your room booking system. We connect it."),
+      page.getByText('Keep your room booking. Replace the coordination around it.'),
     ).toBeVisible();
     await expect(
       page.getByText(/formal company-name, domain and trademark clearance/i),
@@ -99,7 +114,11 @@ test.describe('public website contracts', () => {
       'href',
       '/en/product/',
     );
-    await expectBrandVisualToLoad(page);
+    await expectBrandVisualToLoad(page, 'about');
+    await expect(page.locator('[data-brand-visual-variant="about"] img')).toHaveAttribute(
+      'src',
+      '/assets/brand/about-hospitality-400.webp',
+    );
   });
 
   test('presents Security and Trust as customer value rather than website architecture', async ({
@@ -166,7 +185,7 @@ test.describe('public website contracts', () => {
   test('does not introduce page-level horizontal overflow on the responsive shell', async ({
     page,
   }) => {
-    await page.goto('/en/');
+    await page.goto('/en/company/');
     const dimensions = await page.evaluate(() => ({
       scrollWidth: document.documentElement.scrollWidth,
       clientWidth: document.documentElement.clientWidth,
@@ -201,6 +220,19 @@ test.describe('route integrity', () => {
     for (const path of internalPaths) {
       const response = await request.get(path);
       expect(response.ok(), `Expected internal route ${path} to resolve`).toBe(true);
+    }
+  });
+
+  test('repository-owned image assets resolve successfully', async ({ request }) => {
+    for (const path of [
+      '/assets/brand/hero-conference-400.webp',
+      '/assets/brand/workplace-boardroom-400.webp',
+      '/assets/brand/hospitality-service-480.webp',
+      '/assets/brand/about-hospitality-400.webp',
+    ]) {
+      const response = await request.get(path);
+      expect(response.ok(), `Expected image ${path} to resolve`).toBe(true);
+      expect(response.headers()['content-type']).toContain('image/webp');
     }
   });
 });
