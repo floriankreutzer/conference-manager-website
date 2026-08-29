@@ -76,7 +76,9 @@ test.describe('Security & Trust', () => {
         name: 'An Ihre Umgebung anbinden, ohne die Kontrolle abzugeben.',
       }),
     ).toBeVisible();
-    await expect(main.getByText(/keine Zertifizierungen oder pauschalen Compliance-Garantien/)).toBeVisible();
+    await expect(
+      main.getByText(/keine Zertifizierungen oder pauschalen Compliance-Garantien/),
+    ).toBeVisible();
     await expect(main).not.toContainText('Refresh-Tokens');
     await expect(main).not.toContainText('Trusted API');
     await expect(main.getByRole('link', { name: 'Integrationen ansehen' })).toHaveAttribute(
