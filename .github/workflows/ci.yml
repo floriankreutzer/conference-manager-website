@@ -47,6 +47,12 @@ jobs:
       - name: Format check
         run: npm run format:check
 
+      - name: Format diagnostic
+        if: failure()
+        run: |
+          npx prettier src/i18n/securityTrust.ts e2e/security-trust.spec.ts --write
+          git diff -- src/i18n/securityTrust.ts e2e/security-trust.spec.ts
+
       - name: Unit tests
         run: npm test
 
