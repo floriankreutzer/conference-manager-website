@@ -3,6 +3,7 @@ import type { CollectionEntry } from 'astro:content';
 import { render } from 'astro:content';
 
 import type { Locale } from '@config/locales';
+import { withBasePath } from '@domain/routing/basePath';
 
 interface Props {
   locale: Locale;
@@ -17,7 +18,9 @@ const backLabel = locale === 'de' ? 'Zurück zu Insights' : 'Back to Insights';
 
 <article class="insight-article">
   <header class="insight-article__header">
-    <a class="text-link insight-article__back" href={`/${locale}/insights/`}>{backLabel}</a>
+    <a class="text-link insight-article__back" href={withBasePath(`/${locale}/insights/`)}>
+      {backLabel}
+    </a>
     <p class="eyebrow">Insights</p>
     <h1>{entry.data.title}</h1>
     <p class="insight-article__description">{entry.data.description}</p>

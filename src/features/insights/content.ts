@@ -10,6 +10,7 @@ export async function getPublishedInsights() {
     entries.map((entry) => ({
       translationKey: entry.data.translationKey,
       locale: entry.data.locale,
+      routeSlug: entry.data.routeSlug,
       status: entry.data.status,
     })),
   );

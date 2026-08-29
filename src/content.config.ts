@@ -9,7 +9,7 @@ const insightSchema = z
       .string()
       .min(1)
       .regex(/^[a-z0-9-]+$/),
-    slug: z
+    routeSlug: z
       .string()
       .min(1)
       .regex(/^[a-z0-9-]+$/),
