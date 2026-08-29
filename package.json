@@ -12,11 +12,12 @@
     "preview": "astro preview",
     "check": "astro check",
     "lint": "eslint .",
-    "format": "prettier --write \"src/**/*.{astro,ts}\" \"e2e/**/*.ts\" \"scripts/**/*.mjs\" \"functions/**/*.{js,json}\" \"*.{js,mjs,json,ts}\"",
-    "format:check": "prettier --check \"src/**/*.{astro,ts}\" \"e2e/**/*.ts\" \"scripts/**/*.mjs\" \"functions/**/*.{js,json}\" \"*.{js,mjs,json,ts}\"",
+    "format": "prettier --write \"src/**/*.{astro,ts,json}\" \"e2e/**/*.ts\" \"scripts/**/*.mjs\" \"functions/**/*.{js,json}\" \"*.{js,mjs,json,ts}\"",
+    "format:check": "prettier --check \"src/**/*.{astro,ts,json}\" \"e2e/**/*.ts\" \"scripts/**/*.mjs\" \"functions/**/*.{js,json}\" \"*.{js,mjs,json,ts}\"",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:e2e": "playwright test",
+    "test:fonts": "node scripts/assets/verify-font-assets.mjs",
     "test:performance": "node scripts/performance/check-build-budgets.mjs"
   },
   "dependencies": {
