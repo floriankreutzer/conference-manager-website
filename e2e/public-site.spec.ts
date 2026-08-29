@@ -36,7 +36,9 @@ test.describe('public website contracts', () => {
   }) => {
     await page.goto('/en/');
 
-    await expect(page.locator('header img[src*="pavurel-signet"]')).toBeVisible();
+    const signet = page.locator('header .brand-lockup__signet');
+    await expect(signet).toBeVisible();
+    await expect(signet).toHaveAttribute('src', /\/_astro\/.*\.svg$/);
     await expect(page.locator('.primary-nav a')).toHaveCount(5);
     await expect(page.locator('.primary-nav')).not.toContainText('Pricing');
     await expect(page.locator('footer')).toContainText('Conference Manager');
@@ -67,7 +69,7 @@ test.describe('public website contracts', () => {
 
   test('keeps Login as a fixed HTTPS handoff to the application', async ({ page }) => {
     await page.goto('/en/');
-    await expect(page.getByRole('link', { name: 'Login' })).toHaveAttribute(
+    await expect(page.getByRole('link', { name: 'Login', exact: true })).toHaveAttribute(
       'href',
       'https://app.example.invalid/login',
     );
