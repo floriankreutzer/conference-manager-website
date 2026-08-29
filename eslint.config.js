@@ -10,11 +10,13 @@ export default [
   ...tseslint.configs.recommended,
   ...eslintPluginAstro.configs.recommended,
   {
-    files: ['scripts/**/*.mjs'],
+    files: ['scripts/**/*.mjs', 'functions/**/*.js'],
     languageOptions: {
       globals: {
+        Buffer: 'readonly',
         console: 'readonly',
         process: 'readonly',
+        URLSearchParams: 'readonly',
       },
     },
   },
