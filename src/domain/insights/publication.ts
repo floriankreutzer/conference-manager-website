@@ -21,7 +21,9 @@ export function assertPublishedTranslationPairs(entries: InsightPublicationEntry
 
   for (const [translationKey, locales] of localesByKey) {
     if (!locales.has('en') || !locales.has('de')) {
-      throw new Error(`Published insight ${translationKey} requires complete English and German entries.`);
+      throw new Error(
+        `Published insight ${translationKey} requires complete English and German entries.`,
+      );
     }
   }
 }

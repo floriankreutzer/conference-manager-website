@@ -48,6 +48,7 @@ Authentication begins only within the application-owned authentication flow. The
 ## Security constraints
 
 The website must not:
+
 - store application authentication tokens;
 - read/write application session state across origins;
 - proxy authenticated application/API traffic;

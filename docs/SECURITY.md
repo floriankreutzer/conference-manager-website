@@ -5,6 +5,7 @@
 The public website is an unauthenticated, internet-facing surface. Browser state in this repository is never trusted authority for Conference Manager application access.
 
 The authenticated trust boundary remains:
+
 - Conference Manager application for application UX/session initiation;
 - Conference Manager API / identity infrastructure for authoritative authentication and authorization.
 
@@ -15,6 +16,7 @@ The website must not weaken or duplicate those boundaries.
 `Login` / `Sign in` is a normal HTTPS navigation to a centrally configured, allowlisted Conference Manager application origin.
 
 Prohibited:
+
 - implementing OIDC/Entra authorization here by default;
 - storing access/refresh tokens;
 - sharing application session cookies;
@@ -28,6 +30,7 @@ Any future deep-link or locale/campaign handoff parameters require a documented 
 ## 3. Security headers
 
 Production deployment must define and test appropriate headers, including as applicable:
+
 - `Content-Security-Policy`;
 - `Strict-Transport-Security`;
 - `Referrer-Policy`;
@@ -42,6 +45,7 @@ Prefer a restrictive CSP. Do not weaken it broadly to accommodate a third-party 
 Start from deny-by-default and add only required sources.
 
 Prefer:
+
 - same-origin scripts/styles/assets;
 - nonces/hashes or framework-supported safe CSP patterns where inline execution cannot be removed;
 - `object-src 'none'`;
@@ -56,6 +60,7 @@ Do not use broad wildcard hosts or `unsafe-eval`. Avoid `unsafe-inline` unless a
 Third-party browser code is deny-by-default.
 
 Before adding analytics, tag managers, video embeds, chat, maps, A/B testing, session replay, social widgets, consent tools, or similar services, document:
+
 - business purpose;
 - exact domains/resources loaded;
 - data collected/transmitted;
@@ -73,6 +78,7 @@ Prefer privacy-enhanced/static placeholders and user-initiated loading for non-e
 Public forms are hostile-input boundaries.
 
 Requirements:
+
 - server-side validation at the trusted processing endpoint;
 - strict input length/type validation;
 - output encoding;
@@ -106,6 +112,7 @@ Client-side validation is UX only, never a security control.
 Public/browser-exposed configuration is not secret.
 
 Never ship:
+
 - API secrets;
 - private keys;
 - OAuth client secrets;
@@ -118,6 +125,7 @@ Use deployment/secret stores for server-side secret material. Enable secret scan
 ## 10. Dependency and supply-chain security
 
 Once a stack exists:
+
 - commit the ecosystem lockfile;
 - use reproducible installs where supported;
 - review new dependencies for necessity, maintenance, license, and vulnerabilities;
@@ -137,6 +145,7 @@ The initial public website should not require user file uploads.
 Collect and log the minimum necessary information.
 
 Do not log:
+
 - access tokens;
 - secrets;
 - session identifiers;
@@ -150,6 +159,7 @@ Define retention and access control for lead/contact data before launch.
 Development/preview/staging/production configuration must not silently reuse production secrets or endpoints.
 
 Preview/staging environments must:
+
 - avoid accidental search indexing;
 - not expose confidential content;
 - use safe non-production integration configuration where possible.
@@ -157,6 +167,7 @@ Preview/staging environments must:
 ## 14. Security testing
 
 Applicable checks should include:
+
 - CodeQL/SAST;
 - dependency vulnerability scanning;
 - secret scanning;
@@ -171,6 +182,7 @@ Before production launch perform a targeted manual security review of the public
 ## 15. Incident readiness
 
 Before public production launch document:
+
 - responsible contact for security issues;
 - dependency/security update path;
 - rollback/deployment process;

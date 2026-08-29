@@ -13,7 +13,11 @@ const slug = Astro.params.slug as PublicPageSlug;
 const copy = getPublicPageCopy('de', slug);
 ---
 
-<MarketingLayout locale="de" title={`${copy.eyebrow} — Conference Manager`} description={copy.description}>
+<MarketingLayout
+  locale="de"
+  title={`${copy.eyebrow} — Conference Manager`}
+  description={copy.description}
+>
   {
     slug === 'book-a-demo' ? (
       <DemoRequestForm locale="de" />

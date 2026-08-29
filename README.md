@@ -9,6 +9,7 @@ This repository owns the public, unauthenticated Conference Manager website: pro
 It does **not** own Conference Manager application authentication, tenant authorization, application sessions, or business workflows.
 
 Related authoritative repositories:
+
 - `floriankreutzer/conference-manager` — authenticated Conference Manager browser application
 - `floriankreutzer/conference-manager-api` — trusted backend/API
 
@@ -29,11 +30,13 @@ No production website implementation stack has been approved yet. Framework, hos
 ## Mandatory contributor/agent reading
 
 Start with:
+
 1. `AGENTS.md`
 2. `docs/CODING-STANDARDS.md`
 3. `docs/ARCHITECTURE.md`
 
 Then read the standards relevant to the change:
+
 - `docs/DESIGN-SYSTEM.md`
 - `docs/SEO-STANDARDS.md`
 - `docs/SECURITY.md`
@@ -45,6 +48,7 @@ Then read the standards relevant to the change:
 The official product name remains **Conference Manager**.
 
 Current strategic corporate-brand state:
+
 - **PAVUREL** — preferred candidate, legal clearance pending
 - **SAVELUN** — reserve candidate, legal clearance pending
 
@@ -53,6 +57,7 @@ The public website must verify concrete product/security/integration claims agai
 ## Quality baseline
 
 The website is expected to be:
+
 - secure and privacy-aware by default;
 - WCAG 2.2 AA-oriented;
 - responsive/mobile-first;

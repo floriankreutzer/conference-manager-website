@@ -5,6 +5,7 @@
 SEO is a product requirement for the public Conference Manager website. It must improve discoverability without weakening factual accuracy, accessibility, performance, or brand clarity.
 
 Primary semantic territory:
+
 - conference management software;
 - conference management for workplaces;
 - workplace conference management;
@@ -19,6 +20,7 @@ Do not optimize the homepage as if Conference Manager were primarily room-bookin
 Indexable content should be available as static or server-rendered HTML. Avoid making core page content depend on client-side JavaScript execution.
 
 Every public route must intentionally be either:
+
 - indexable; or
 - non-indexable for a documented reason.
 
@@ -27,6 +29,7 @@ Do not accidentally expose preview/staging/campaign/test routes to indexing.
 ## 3. URL architecture
 
 URLs must be:
+
 - stable;
 - human-readable;
 - lowercase where practical;
@@ -38,6 +41,7 @@ The localized URL strategy must be explicitly decided before launch. Whichever s
 ## 4. Titles and descriptions
 
 Every indexable page requires:
+
 - a unique, descriptive `<title>`;
 - a unique meta description appropriate to the page intent;
 - metadata in the page language;
@@ -50,6 +54,7 @@ Lead with category/customer language before underlying technology.
 Every indexable page must expose one correct canonical URL.
 
 Rules:
+
 - canonical URLs must use the intended production origin;
 - do not canonicalize distinct translated pages to one language;
 - prevent duplicate URL variants caused by trailing slash, index files, protocol/host variants, or marketing parameters;
@@ -58,6 +63,7 @@ Rules:
 ## 6. International SEO
 
 For translated equivalents:
+
 - provide valid reciprocal `hreflang` relationships;
 - use correct language/region codes;
 - ensure the canonical points to the same-language canonical page;
@@ -69,6 +75,7 @@ Use `x-default` only when the chosen locale architecture has a genuine default/g
 ## 7. Semantic content structure
 
 Every page should have:
+
 - one clear `h1`;
 - logical `h2`/`h3` hierarchy;
 - descriptive internal links;
@@ -80,6 +87,7 @@ Avoid hiding important indexable copy in carousels, accordions, or client-only s
 ## 8. Structured data
 
 Structured data may be used only when:
+
 - it accurately describes visible/current content;
 - the entity/type is appropriate;
 - required properties are truthful;
@@ -90,6 +98,7 @@ Validate structured data in CI or release checks where practical.
 ## 9. Sitemap and robots
 
 Production must provide:
+
 - a generated/maintained XML sitemap containing canonical indexable routes;
 - a deliberate `robots.txt` policy;
 - no staging/preview URLs in the production sitemap.
@@ -108,6 +117,7 @@ Use server/edge redirects where possible.
 ## 11. Social metadata
 
 Indexable marketing pages should define appropriate:
+
 - Open Graph title;
 - description;
 - canonical URL;
@@ -120,6 +130,7 @@ Social preview imagery must follow governed brand assets and must not imply unsu
 ## 12. Images
 
 For meaningful images:
+
 - use descriptive alt text aligned with the actual image purpose;
 - use descriptive filenames where practical;
 - define width/height or aspect ratio;
@@ -134,6 +145,7 @@ Decorative imagery uses empty alt text.
 The website should make core journeys crawlable through normal links.
 
 Strategic top-level destinations currently include:
+
 - Product;
 - How it works;
 - Integrations;
@@ -148,6 +160,7 @@ Strategic top-level destinations currently include:
 SEO implementation must protect user-perceived performance.
 
 Prioritize:
+
 - LCP image/font strategy;
 - minimal render-blocking resources;
 - low JavaScript execution cost;
@@ -163,6 +176,7 @@ Once implementation exists, establish measurable performance budgets and automat
 Search visibility does not justify unsupported claims.
 
 Do not publish:
+
 - fabricated statistics/testimonials;
 - unsupported “best/leading/#1” language;
 - target-state features as live;
@@ -174,6 +188,7 @@ Follow `docs/CONTENT-GOVERNANCE.md`.
 ## 16. Release checklist
 
 Before public launch verify at minimum:
+
 - production origin and canonical host;
 - index/noindex intent per route;
 - titles/descriptions;

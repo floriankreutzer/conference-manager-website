@@ -5,6 +5,7 @@
 The public website should express **operational precision + warm hospitality**.
 
 It should feel:
+
 - premium through precision rather than decoration;
 - modern and lightweight;
 - calm and dependable;
@@ -18,11 +19,12 @@ Official product name: **Conference Manager**.
 Preferred endorsed lockup where approved:
 
 **Conference Manager**  
-*by Pavurel*
+_by Pavurel_
 
 `by Pavurel` is subordinate and is not part of the official product name.
 
 Current governance status:
+
 - PAVUREL is the preferred corporate-brand candidate;
 - SAVELUN is the reserve candidate;
 - legal/domain/trademark clearance remains pending.
@@ -33,16 +35,16 @@ Do not visually or textually imply registered/legal ownership that has not been 
 
 Current approved product/brand baseline:
 
-| Role | Value | Use |
-| --- | --- | --- |
-| Bordeaux | `#7A1F3D` | primary brand/action accent |
-| Bordeaux dark | `#651D32` | hover/strong emphasis |
-| Camel | `#C29A6B` | warmth/hospitality accent |
-| Camel dark | `#A97D4E` | deeper secondary accent |
-| Ink | `#171717` | primary text/precision |
-| Muted grey | `#62666B` | secondary text |
-| Canvas | `#F3F2F0` | warm neutral background |
-| Surface | `#FFFFFF` | primary surface |
+| Role          | Value     | Use                         |
+| ------------- | --------- | --------------------------- |
+| Bordeaux      | `#7A1F3D` | primary brand/action accent |
+| Bordeaux dark | `#651D32` | hover/strong emphasis       |
+| Camel         | `#C29A6B` | warmth/hospitality accent   |
+| Camel dark    | `#A97D4E` | deeper secondary accent     |
+| Ink           | `#171717` | primary text/precision      |
+| Muted grey    | `#62666B` | secondary text              |
+| Canvas        | `#F3F2F0` | warm neutral background     |
+| Surface       | `#FFFFFF` | primary surface             |
 
 Implementation must expose semantic design tokens rather than duplicating raw values across components.
 
@@ -51,6 +53,7 @@ Bordeaux is selective emphasis, not a full-page default. Camel adds warmth but m
 ## 4. Typography
 
 Approved typography system:
+
 - **Manrope** — brand/display headlines and selected high-impact statements;
 - **Inter** — body, navigation, controls, forms, tables, dense functional text.
 
@@ -65,6 +68,7 @@ Production font files require verified licensing/provenance before repository in
 ## 5. Website vs product application
 
 The marketing website may use:
+
 - larger editorial headlines;
 - more generous whitespace;
 - richer brand surfaces;
@@ -91,6 +95,7 @@ The homepage should feel curated, not like a feature catalogue.
 ## 7. Homepage narrative baseline
 
 Current strategic sequence may be condensed visually, but must preserve the approved message hierarchy:
+
 1. conference-management outcome;
 2. employee and Workplace Team value;
 3. one request / complete conference context;
@@ -107,6 +112,7 @@ Persistent utility action: **Login / Sign in**.
 ## 8. Photography and imagery
 
 Prefer:
+
 - authentic contemporary workplaces and conference environments;
 - architectural/editorial quality;
 - soft directional light;
@@ -115,6 +121,7 @@ Prefer:
 - real Conference Manager UI where possible.
 
 Avoid:
+
 - generic blue-corporate stock imagery;
 - forced handshakes and staged smiles;
 - futuristic neon/digital-transformation clichés;
@@ -127,6 +134,7 @@ Avoid:
 Use governed official assets only.
 
 Rules:
+
 - preserve proportions;
 - preserve defined clear space;
 - choose contrast-appropriate variants;
@@ -155,6 +163,7 @@ Do not use colour as the only state indicator. Ensure text contrast, link distin
 ## 12. Canonical strategic sources
 
 Current Confluence sources include:
+
 - `01 – Product Positioning & Brand Playbook`
 - `01.1.1 – PAVUREL Product & Commercial Messaging`
 - `01.1.2 – PAVUREL Website & Homepage Positioning`

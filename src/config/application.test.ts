@@ -3,7 +3,9 @@ import { parseApplicationOrigin } from './application';
 
 describe('parseApplicationOrigin', () => {
   it('accepts a clean HTTPS origin', () => {
-    expect(parseApplicationOrigin('https://app.example.com').toString()).toBe('https://app.example.com/');
+    expect(parseApplicationOrigin('https://app.example.com').toString()).toBe(
+      'https://app.example.com/',
+    );
   });
 
   it.each([

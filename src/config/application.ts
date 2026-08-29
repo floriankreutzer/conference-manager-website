@@ -8,7 +8,9 @@ export function parseApplicationOrigin(value: string): URL {
   }
 
   if (url.username || url.password || url.search || url.hash) {
-    throw new Error('Conference Manager application origin must not contain credentials, query parameters, or fragments.');
+    throw new Error(
+      'Conference Manager application origin must not contain credentials, query parameters, or fragments.',
+    );
   }
 
   return new URL(url.origin);

@@ -10,9 +10,10 @@ interface Props {
 const { locale } = Astro.props;
 const copy = getPublicPageCopy(locale, 'insights');
 const entries = await getPublishedInsightsForLocale(locale);
-const emptyText = locale === 'de'
-  ? 'Noch keine veröffentlichten Insights. Inhalte erscheinen hier erst nach vollständiger fachlicher, Brand- und Übersetzungsfreigabe.'
-  : 'No insights are published yet. Content appears here only after complete claim, brand and translation review.';
+const emptyText =
+  locale === 'de'
+    ? 'Noch keine veröffentlichten Insights. Inhalte erscheinen hier erst nach vollständiger fachlicher, Brand- und Übersetzungsfreigabe.'
+    : 'No insights are published yet. Content appears here only after complete claim, brand and translation review.';
 const dateLocale = locale === 'de' ? 'de-DE' : 'en-GB';
 ---
 

@@ -182,7 +182,9 @@
     color: var(--color-on-accent);
     font-weight: 750;
     text-decoration: none;
-    transition: background-color 150ms ease, transform 150ms ease;
+    transition:
+      background-color 150ms ease,
+      transform 150ms ease;
   }
 
   .button:hover {

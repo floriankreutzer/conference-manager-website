@@ -17,21 +17,35 @@ const currentPath = Astro.url.pathname.replace(/^\/(en|de)(?=\/|$)/, `/${alterna
 <header class="site-header">
   <a class="skip-link" href="#main-content">Skip to content</a>
   <div class="site-header__inner">
-    <a class="brand" href={`/${locale}/`} aria-label={`Conference Manager ${locale === 'de' ? 'Startseite' : 'home'}`}>
+    <a
+      class="brand"
+      href={`/${locale}/`}
+      aria-label={`Conference Manager ${locale === 'de' ? 'Startseite' : 'home'}`}
+    >
       <span class="brand__product">Conference Manager</span>
       <span class="brand__endorsement">by Pavurel</span>
     </a>
 
     <nav aria-label={locale === 'de' ? 'Hauptnavigation' : 'Primary navigation'}>
       <ul class="site-nav">
-        {navigation.items.map((item) => (
-          <li><a href={item.href}>{item.label}</a></li>
-        ))}
+        {
+          navigation.items.map((item) => (
+            <li>
+              <a href={item.href}>{item.label}</a>
+            </li>
+          ))
+        }
       </ul>
     </nav>
 
     <div class="site-actions">
-      <a class="language-link" href={currentPath} hreflang={alternateLocale} lang={alternateLocale} aria-label={`${navigation.languageLabel}: ${alternateLabel}`}>
+      <a
+        class="language-link"
+        href={currentPath}
+        hreflang={alternateLocale}
+        lang={alternateLocale}
+        aria-label={`${navigation.languageLabel}: ${alternateLabel}`}
+      >
         {alternateLabel}
       </a>
       <a class="login-link" href={getLoginUrl()}>{navigation.login}</a>

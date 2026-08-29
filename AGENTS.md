@@ -18,6 +18,7 @@ If this file or the mandatory referenced standards cannot be read, do not modify
 This repository owns the public, unauthenticated Conference Manager marketing website.
 
 It may own:
+
 - public product and company pages;
 - homepage and campaign content;
 - SEO and structured metadata;
@@ -27,6 +28,7 @@ It may own:
 - a clear login/sign-in entry point that hands the user off to the Conference Manager web application.
 
 It must not own:
+
 - Conference Manager application business logic;
 - Employee, Conference Manager, Tenant Admin, or Platform Operator application capabilities;
 - authentication implementation;
@@ -71,6 +73,7 @@ When requirements conflict, use this priority order unless a higher-priority ins
 The public website is an untrusted public surface and must be secure by default.
 
 Mandatory principles:
+
 - no application secrets, credentials, tokens, session identifiers, or confidential configuration in client code;
 - no authentication/session implementation in this repository unless a future explicit architecture decision changes the boundary;
 - no cross-origin sharing of Conference Manager application session state;
@@ -88,6 +91,7 @@ Mandatory principles:
 WCAG 2.2 Level AA is the implementation target.
 
 Relevant changes must consider and test:
+
 - semantic HTML;
 - keyboard access and visible focus;
 - logical focus and heading order;
@@ -107,6 +111,7 @@ Accessibility is a functional requirement, not a visual audit item.
 The website is international by design. English is the canonical product-language baseline and German must be supported as a complete customer-facing language for the DACH launch scope.
 
 Do not hardcode a second parallel content system inside arbitrary components. Content architecture must support:
+
 - complete translated semantic units;
 - locale-aware metadata and canonical/hreflang strategy where applicable;
 - longer translated text;
@@ -120,6 +125,7 @@ Public claims must follow `docs/CONTENT-GOVERNANCE.md`. Target-state capabilitie
 The official product name remains `Conference Manager`.
 
 The current strategic brand baseline identifies PAVUREL as the preferred corporate-brand candidate and SAVELUN as the reserve candidate, with legal clearance pending. Until the documented clearance gate is completed:
+
 - do not represent PAVUREL as a legally adopted or registered company/trademark;
 - do not silently rename the product;
 - `by Pavurel` remains a subordinate corporate endorsement where approved for the current publication context;
@@ -132,6 +138,7 @@ Brand implementation must follow `docs/DESIGN-SYSTEM.md` and the current approve
 Public pages must follow `docs/SEO-STANDARDS.md`.
 
 At minimum consider:
+
 - crawlability and intentional indexability;
 - canonical URLs;
 - localized metadata/hreflang as applicable;
@@ -151,6 +158,7 @@ At minimum consider:
 Before a production implementation stack is selected, do not assume or introduce a framework by convention. Record material decisions as ADRs under `docs/adr/`.
 
 Prefer:
+
 - static or server-rendered public content;
 - progressive enhancement;
 - low JavaScript cost;
@@ -159,6 +167,7 @@ Prefer:
 - platform-native web capabilities before custom abstractions where practical.
 
 Avoid:
+
 - a second copy of Conference Manager application logic;
 - unnecessary SPA architecture for primarily public content;
 - shared runtime coupling to the authenticated app;
@@ -170,6 +179,7 @@ Avoid:
 Every implementation change requires regression/progression validation appropriate to its scope.
 
 Once the implementation stack is selected, CI must provide explicit commands for at least:
+
 - formatting/lint/static validation;
 - dependency vulnerability review;
 - secret scanning;
@@ -196,12 +206,14 @@ If required validation cannot be executed, report the limitation explicitly.
 ## 13. Required compliance checklist
 
 Every implementation creation, modification, refactoring, or code-review response must end with an evidence-based checklist using only:
+
 - ✅ fulfilled
 - ⚠️ partial / not fully verifiable
 - ➖ not applicable
 - ❌ not fulfilled
 
 Cover at least:
+
 - semantic HTML/web standards
 - WCAG 2.2 AA/accessibility
 - keyboard/focus behavior

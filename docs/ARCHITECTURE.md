@@ -5,6 +5,7 @@
 `conference-manager-website` is the public, unauthenticated marketing and product-information surface for Conference Manager.
 
 It is deliberately separate from:
+
 - `floriankreutzer/conference-manager` — authenticated browser application;
 - `floriankreutzer/conference-manager-api` — trusted backend/API boundary.
 
@@ -44,6 +45,7 @@ The website exposes a clear `Login` / `Sign in` control.
 The control performs a normal HTTPS navigation to the configured Conference Manager application origin. Authentication starts only after the user reaches the application-owned authentication flow.
 
 The website must not:
+
 - initiate or complete Entra/OIDC authorization;
 - store access or refresh tokens;
 - set or read Conference Manager application session cookies;
@@ -57,7 +59,9 @@ Environment-specific app origins are configured centrally. Do not hardcode a fut
 ## 4. Website responsibility model
 
 ### Content/presentation
+
 Owns:
+
 - homepage;
 - Product / How it works / Integrations / For Workplace Teams / Security & Trust pages or sections;
 - Insights;
@@ -68,11 +72,13 @@ Owns:
 - SEO/social metadata.
 
 ### Conversion
+
 Owns the public UI for `Book a demo` and the bounded public form contract.
 
 Phase-1 processing uses a dedicated Scaleway Serverless Function and Scaleway Transactional Email. No CRM or lead database is part of the initial architecture. A future CRM must remain behind the server-side form-processing contract and requires an explicit architecture/privacy decision.
 
 ### Application handoff
+
 Owns only the navigation contract to the Conference Manager application. It does not own application authentication.
 
 ## 5. Implementation stack and rendering
@@ -91,6 +97,7 @@ The accepted implementation stack is defined by ADR 0002:
 Public indexable pages should be generated as HTML at build time wherever practical. Do not create a general SPA.
 
 Interactive islands are appropriate for features such as:
+
 - pricing calculator;
 - enhanced demo-request behavior;
 - mobile navigation where native HTML/CSS is insufficient;
@@ -131,6 +138,7 @@ src/
 ```
 
 Rules:
+
 - `pages` compose routes; significant business rules do not belong there;
 - `components` are presentation-oriented;
 - `features` own bounded website behavior and orchestration;
@@ -143,10 +151,12 @@ Rules:
 ## 7. Language architecture
 
 Initial customer-facing languages:
+
 - English (`en`) — canonical content baseline;
 - German (`de`) — complete DACH launch language.
 
 Use explicit locale-prefixed routes for both languages:
+
 - `/en/...`
 - `/de/...`
 
@@ -169,6 +179,7 @@ A future CMS requires an ADR and must preserve localization, schema validation, 
 The website may implement a modular, testable pricing calculator.
 
 Separate:
+
 - pricing domain/model;
 - locale/currency formatting;
 - calculator UI;
@@ -181,6 +192,7 @@ Concrete public prices must not be published until the pricing model is explicit
 Official product name: `Conference Manager`.
 
 Current strategic corporate-brand state:
+
 - PAVUREL — preferred candidate, legal clearance pending;
 - SAVELUN — reserve candidate, legal clearance pending.
 
@@ -193,6 +205,7 @@ Brand assets and tokens must remain isolated enough that a corporate-brand decis
 The website is a public attack surface with no trusted browser authority.
 
 Required deployment/security design includes:
+
 - HTTPS;
 - restrictive Content Security Policy;
 - appropriate clickjacking protection / `frame-ancestors` policy;
@@ -212,6 +225,7 @@ See `docs/SECURITY.md`.
 The phase-1 `Book a demo` flow is defined by ADR 0003.
 
 Initial public fields:
+
 - first name;
 - last name;
 - business email;
@@ -223,6 +237,7 @@ Initial public fields:
 Do not collect a telephone number initially.
 
 Processing requirements:
+
 - HTTPS POST to the dedicated public function;
 - positive server-side validation and field-length limits;
 - bounded request size and content type;
@@ -239,6 +254,7 @@ Processing requirements:
 No analytics, marketing tags, session replay, chat widgets, or non-essential embeds are loaded at launch.
 
 Any future integration requires a documented decision covering:
+
 - purpose;
 - data categories;
 - recipients/processors;
@@ -254,6 +270,7 @@ Before the demo form becomes public, define the privacy notice, approved recipie
 SEO is part of the core architecture rather than a post-launch plugin.
 
 The stack must support:
+
 - static HTML for indexable content;
 - unique page metadata;
 - canonical URLs;
@@ -292,6 +309,7 @@ The broader Conference Manager application/cloud-provider decision remains separ
 ## 16. Deployment environments
 
 At minimum:
+
 - local development;
 - isolated PR preview;
 - non-production/staging;
@@ -300,6 +318,7 @@ At minimum:
 GitHub Actions is the delivery control plane for the website repository.
 
 PR previews must:
+
 - use isolated bucket paths/buckets;
 - be derived from PR/commit identity;
 - not overwrite production;
@@ -309,6 +328,7 @@ PR previews must:
 - be cleaned up after PR close/merge.
 
 Environment configuration separates:
+
 - public site origin;
 - Conference Manager application handoff origin;
 - demo-request endpoint;
@@ -319,11 +339,13 @@ Secrets remain server/deployment-side and are never serialized into public brows
 ## 17. Cross-repository contracts
 
 ### Website -> application
+
 Current contract: secure navigation to the configured application origin.
 
 Any future query parameters, deep links, locale propagation, campaign attribution, or return-path semantics require an explicit documented contract with `conference-manager` and security review.
 
 ### Website -> Conference Manager API
+
 There is no default direct authenticated application API contract.
 
 The demo-request function is a separate public unauthenticated processing boundary; it must not reuse authenticated application authority merely for convenience.
@@ -331,6 +353,7 @@ The demo-request function is a separate public unauthenticated processing bounda
 ## 18. Material architecture decisions requiring ADRs
 
 Create/update an ADR before materially changing:
+
 - framework/static-site generator;
 - hosting/runtime provider;
 - CMS/content platform;
@@ -346,6 +369,7 @@ Create/update an ADR before materially changing:
 ## 19. Validation and release gates
 
 The implementation bootstrap must establish:
+
 - strict TypeScript/static validation;
 - Astro build validation;
 - unit tests for domain rules;
@@ -363,6 +387,7 @@ Hosting/form production readiness additionally requires executed evidence for TL
 ## 20. Current status
 
 Accepted architecture baseline:
+
 - separate public website boundary — ADR 0001;
 - Astro + TypeScript, static-first, modular architecture — ADR 0002;
 - `/en/...` and `/de/...` localized route strategy — ADR 0002;

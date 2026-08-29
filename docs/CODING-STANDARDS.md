@@ -7,6 +7,7 @@ These standards are mandatory for implementation and review in `conference-manag
 This repository implements the public Conference Manager marketing website. It must not duplicate the authenticated Conference Manager application or backend.
 
 Before implementation:
+
 - confirm the current architecture decision in `docs/ARCHITECTURE.md` and relevant ADRs;
 - inspect existing components, tokens, content patterns, tests, and deployment configuration;
 - do not introduce a framework, CMS, analytics platform, form processor, authentication library, or hosting-specific runtime without an explicit ADR when the choice is material.
@@ -18,6 +19,7 @@ Prefer static/server-rendered content and progressive enhancement. Do not create
 Use valid modern HTML and CSS according to current WHATWG/W3C standards.
 
 Mandatory rules:
+
 - use semantic landmarks (`header`, `nav`, `main`, `section`, `article`, `footer`) according to purpose;
 - use native `a`, `button`, `form`, `input`, `select`, `textarea`, `details`, and `dialog` behavior before custom abstractions;
 - use one meaningful page-level `h1` and a logical heading hierarchy;
@@ -30,6 +32,7 @@ Mandatory rules:
 WCAG 2.2 Level AA is the target baseline.
 
 Relevant implementation must provide:
+
 - keyboard operability;
 - visible `:focus-visible` treatment;
 - logical focus order;
@@ -52,6 +55,7 @@ Use ARIA only when native semantics are insufficient. Keep ARIA state synchroniz
 English is the canonical content baseline and German is a complete launch language.
 
 Mandatory rules:
+
 - do not scatter user-visible strings through implementation files if the selected content architecture provides a central content/i18n layer;
 - translate complete semantic units, not sentence fragments;
 - keep metadata, navigation, CTAs, forms, validation, alt text, and accessibility text localizable;
@@ -65,6 +69,7 @@ Mandatory rules:
 Use mobile-first responsive design.
 
 Mandatory rules:
+
 - no page-level horizontal overflow;
 - no desktop-only interaction assumptions;
 - use flexible Grid/Flexbox and intrinsic sizing;
@@ -78,6 +83,7 @@ Mandatory rules:
 Follow `docs/DESIGN-SYSTEM.md`.
 
 Mandatory rules:
+
 - centralize brand colours, typography, spacing, radii, shadows, and layout values as semantic tokens;
 - do not repeatedly hardcode approved brand values across components;
 - avoid unnecessary inline styles, `!important`, and high-specificity selectors;
@@ -92,6 +98,7 @@ Keep client JavaScript minimal and purposeful.
 Use JavaScript for genuine interaction or progressive enhancement, not to reproduce capabilities available in HTML/CSS.
 
 Mandatory rules:
+
 - no dynamic code execution from untrusted data;
 - no unsafe HTML injection;
 - prefer safe DOM/text APIs;
@@ -106,6 +113,7 @@ Mandatory rules:
 The public site's `Login` / `Sign in` control must navigate to an explicitly configured, allowlisted HTTPS Conference Manager application origin.
 
 Rules:
+
 - do not implement Entra/OIDC flows here;
 - do not embed the authenticated app in an iframe;
 - do not proxy application credentials through the marketing site;
@@ -131,6 +139,7 @@ Rules:
 Follow `docs/SEO-STANDARDS.md`.
 
 Every indexable page must have, as applicable:
+
 - unique title and meta description;
 - one clear canonical URL;
 - correct language metadata;
@@ -148,6 +157,7 @@ SEO must not override factual accuracy or accessibility.
 Performance is a feature.
 
 Prefer:
+
 - minimal JavaScript;
 - static/server rendering;
 - optimized images and fonts;
@@ -163,6 +173,7 @@ Track Core Web Vitals and set enforceable performance budgets once the implement
 Follow `docs/SECURITY.md` and OWASP-aligned secure defaults.
 
 Mandatory rules:
+
 - never store secrets in source control;
 - treat all external/form data as untrusted;
 - validate at trust boundaries;
@@ -180,6 +191,7 @@ Mandatory rules:
 Tracking is opt-in architecture, not a default implementation detail.
 
 Before introducing analytics, marketing tags, session replay, chat widgets, A/B testing, or external embeds:
+
 1. document the purpose;
 2. document data collected and destinations;
 3. assess legal/consent requirements;
@@ -194,6 +206,7 @@ Do not load non-essential tracking before required consent.
 `Book a demo`, contact, and similar forms are public attack surfaces.
 
 If/when introduced:
+
 - collect only necessary fields;
 - validate client-side for UX and server-side at the trusted processing boundary;
 - protect against spam/automation using proportionate controls;
@@ -214,6 +227,7 @@ If/when introduced:
 Keep dependencies few and justified.
 
 For every new material dependency consider:
+
 - necessity versus platform-native capability;
 - maintenance health;
 - license;
@@ -230,6 +244,7 @@ Pin and update dependencies using the selected ecosystem's standard lockfile/pro
 New functionality requires progression tests; changed behavior requires regression protection.
 
 After stack selection, standardized repository scripts must cover at least:
+
 - static/lint validation;
 - unit/component tests where applicable;
 - build/render validation;
@@ -240,6 +255,7 @@ After stack selection, standardized repository scripts must cover at least:
 - dependency audit and secret scanning.
 
 Critical E2E journeys include:
+
 - homepage navigation;
 - language switching;
 - `Book a demo` path;
@@ -253,6 +269,7 @@ Automated accessibility checks do not replace manual keyboard and representative
 Follow `docs/CONTENT-GOVERNANCE.md`.
 
 Never publish:
+
 - invented customer names/logos/testimonials;
 - unsupported rankings, awards, ratings, usage metrics, ROI, or time-saved claims;
 - target-state features as current functionality;
@@ -263,6 +280,7 @@ Never publish:
 ## 19. Definition of Done
 
 A change is complete only when, for its scope:
+
 - behavior is correct;
 - repository boundaries are preserved;
 - content claims are verified;

@@ -21,6 +21,7 @@ If marketing copy conflicts with implementation, correct or qualify the marketin
 ## 3. Canonical product truths
 
 Current strategic baseline:
+
 - official product name: **Conference Manager**;
 - category: **Conference Management Software for Workplace Teams**;
 - core claim: **One request. Everything your conference needs.**;
@@ -32,10 +33,12 @@ Current strategic baseline:
 ## 4. Corporate-brand status
 
 Current state:
+
 - PAVUREL — preferred corporate-brand candidate, not legally cleared;
 - SAVELUN — reserve candidate, not legally cleared.
 
 Until professional clearance and explicit adoption:
+
 - do not claim PAVUREL is registered, trademarked, legally adopted, or already the company name;
 - do not state ownership of domains that have not been acquired/verified;
 - do not imply legal clearance through copyright/trademark symbols without basis;
@@ -47,23 +50,29 @@ Until professional clearance and explicit adoption:
 Every material capability/security/integration claim should be treated as one of:
 
 ### Verified current
+
 Supported by current authoritative implementation/documentation and suitable for public wording.
 
 ### Qualified current
+
 Available only under explicit conditions, pilot/tenant configuration, environment, or integration status. Public wording must include the material qualification.
 
 ### Target state
+
 Planned or designed but not currently delivered. Do not present as live capability. Use on public roadmap material only when an explicit roadmap publication decision exists.
 
 ### Candidate / unvalidated
+
 Brand, market, messaging, or customer-language hypothesis not yet externally validated. Do not present evidence of market preference or proven results.
 
 ### Prohibited / unsupported
+
 No evidence or intentionally out of scope. Do not publish.
 
 ## 6. Capability verification
 
 Before publishing concrete feature language:
+
 - verify current behavior in `conference-manager` / `conference-manager-api` and current product documentation;
 - confirm whether the feature is available in production, demo, pilot, or only target-state;
 - verify role/tenant/security limitations;
@@ -79,6 +88,7 @@ Where implementation is verified, preferred high-level wording:
 **Works with Microsoft 365.**
 
 Do not:
+
 - make Microsoft the hero/category of the product;
 - describe Conference Manager as a Microsoft 365 Conference Management Platform unless strategy explicitly changes;
 - imply all Microsoft services are integrated;
@@ -99,6 +109,7 @@ Do not imply Conference Manager is the native system of record for room inventor
 Security/trust content must be especially conservative.
 
 Do not publish:
+
 - certifications that have not been achieved;
 - claims of formal compliance without an evidence basis;
 - absolute terms such as `100% secure`;
@@ -110,6 +121,7 @@ Differentiate design goals, implemented controls, contractual commitments, and e
 ## 10. Customer proof
 
 Never invent or imply:
+
 - customer names/logos;
 - testimonials;
 - case studies;
@@ -124,6 +136,7 @@ Customer proof requires explicit permission and a verifiable evidence source.
 ## 11. Competitive/superiority claims
 
 Avoid unsupported absolute superiority terms such as:
+
 - `best`;
 - `leading`;
 - `#1`;
@@ -136,6 +149,7 @@ Comparisons must be factually supportable, current, and reviewed for legal/marke
 ## 12. Homepage message hierarchy
 
 Public homepage messaging should prioritize:
+
 1. conference-management outcome;
 2. employee and Workplace Team value;
 3. one-request model;
@@ -166,6 +180,7 @@ Do not publish mixed-language pages, placeholder translations, or untranslated m
 ## 15. Review triggers
 
 Re-verify affected public claims when any of these change:
+
 - relevant product milestone completed;
 - feature added/removed/feature-flagged;
 - integration availability changes;
@@ -179,6 +194,7 @@ Re-verify affected public claims when any of these change:
 ## 16. Publication gate
 
 Before production publication of a page:
+
 - factual claims verified;
 - target-state items removed/qualified;
 - brand/legal status checked;
@@ -193,6 +209,7 @@ Before production publication of a page:
 ## 17. Current strategic Confluence sources
 
 Verify the current versions of at least the relevant pages:
+
 - `01 – Product Positioning & Brand Playbook`;
 - `01.1.1 – PAVUREL Product & Commercial Messaging`;
 - `01.1.2 – PAVUREL Website & Homepage Positioning`;
