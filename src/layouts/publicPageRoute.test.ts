@@ -31,11 +31,11 @@ describe('public page route resolution', () => {
       'Conference management around the complete request. — Conference Manager',
     );
     expect(resolvePublicPageRoute('de', 'pricing').title).toBe(
-      'Preise werden transparent, bevor sie öffentlich werden. — Conference Manager',
+      'Ein klares kommerzielles Modell vor einer öffentlichen Preisliste. — Conference Manager',
     );
     expect(resolvePublicPageRoute('en', 'insights').title).toBe('Insights — Conference Manager');
     expect(resolvePublicPageRoute('de', 'book-a-demo').title).toBe(
-      'Demo buchen — Conference Manager',
+      'Demo anfragen — Conference Manager',
     );
   });
 
@@ -44,7 +44,7 @@ describe('public page route resolution', () => {
       'existing workplace, identity and collaboration capabilities',
     );
     expect(resolvePublicPageRoute('de', 'integrations').description).toContain(
-      'bestehende Workplace-, Identity- und Collaboration-Fähigkeiten',
+      'bestehenden Workplace-, Identity- und Collaboration-Fähigkeiten',
     );
   });
 });
