@@ -12,11 +12,12 @@
     "preview": "astro preview",
     "check": "astro check",
     "lint": "eslint .",
-    "format": "prettier --write \"src/**/*.{astro,ts}\" \"e2e/**/*.ts\" \"*.{js,mjs,json,ts}\"",
-    "format:check": "prettier --check \"src/**/*.{astro,ts}\" \"e2e/**/*.ts\" \"*.{js,mjs,json,ts}\"",
+    "format": "prettier --write \"src/**/*.{astro,ts}\" \"e2e/**/*.ts\" \"scripts/**/*.mjs\" \"*.{js,mjs,json,ts}\"",
+    "format:check": "prettier --check \"src/**/*.{astro,ts}\" \"e2e/**/*.ts\" \"scripts/**/*.mjs\" \"*.{js,mjs,json,ts}\"",
     "test": "vitest run",
     "test:watch": "vitest",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "test:performance": "node scripts/check-build-budgets.mjs"
   },
   "dependencies": {
     "astro": "7.2.9"
