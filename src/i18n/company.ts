@@ -100,7 +100,8 @@ const companyCopy: Record<Locale, CompanyCopy> = {
     ],
     closing: {
       eyebrow: 'Das Erlebnis kennenlernen',
-      title: 'Sehen Sie, wie Conference Manager diese Idee in einen konkreten Produktablauf übersetzt.',
+      title:
+        'Sehen Sie, wie Conference Manager diese Idee in einen konkreten Produktablauf übersetzt.',
       body: 'Starten Sie mit dem Produkt oder verfolgen Sie den Ablauf von der anfragenden Person bis zum Workplace Team.',
       primaryCta: 'Produkt ansehen',
       secondaryCta: 'So funktioniert es',

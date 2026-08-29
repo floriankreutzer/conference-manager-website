@@ -91,9 +91,9 @@ test.describe('public website contracts', () => {
     await expect(
       page.getByText("We don't replace your room booking system. We connect it."),
     ).toBeVisible();
-    await expect(page.getByText(/formal company-name, domain and trademark clearance/i)).toHaveCount(
-      0,
-    );
+    await expect(
+      page.getByText(/formal company-name, domain and trademark clearance/i),
+    ).toHaveCount(0);
     await expect(page.getByRole('link', { name: 'Book a demo' })).toHaveCount(1);
     await expect(page.getByRole('link', { name: 'Explore the product' })).toHaveAttribute(
       'href',

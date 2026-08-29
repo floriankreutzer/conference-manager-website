@@ -122,7 +122,8 @@ const securityTrustCopy: Record<Locale, SecurityTrustCopy> = {
     ],
     closing: {
       eyebrow: 'Den Fit bewerten',
-      title: 'Bewerten Sie Conference Manager im Kontext Ihrer Identity- und Integrationslandschaft.',
+      title:
+        'Bewerten Sie Conference Manager im Kontext Ihrer Identity- und Integrationslandschaft.',
       body: 'Starten Sie damit, wie sich Conference Manager an bestehende Systeme anbinden lässt, und bringen Sie anschließend die relevanten Fragen zu Zugriff, Datenschutz und Security in die Bewertung ein.',
       primaryCta: 'Integrationen ansehen',
       secondaryCta: 'Produkt ansehen',
