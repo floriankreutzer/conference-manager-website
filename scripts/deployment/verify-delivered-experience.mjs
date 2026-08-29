@@ -5,7 +5,6 @@ import { assertDeliveredExperience } from './experience-contract.mjs';
 
 const origin = validateDeploymentOrigin(process.argv[2] ?? '');
 const artifactDir = 'artifacts/delivered-experience';
-const routes = ['/en/', '/de/'];
 const lcpSampleCount = 3;
 
 await mkdir(artifactDir, { recursive: true });
@@ -27,16 +26,17 @@ async function measureRoute(route, screenshotName) {
   });
 
   await page.addInitScript(() => {
+    const browserGlobal = globalThis;
     const state = { cls: 0, lcp: 0 };
-    window.__conferenceManagerExperience = state;
+    browserGlobal.__conferenceManagerExperience = state;
 
-    new PerformanceObserver((list) => {
+    new browserGlobal.PerformanceObserver((list) => {
       for (const entry of list.getEntries()) {
         if (!entry.hadRecentInput) state.cls += entry.value;
       }
     }).observe({ type: 'layout-shift', buffered: true });
 
-    new PerformanceObserver((list) => {
+    new browserGlobal.PerformanceObserver((list) => {
       const entries = list.getEntries();
       const latest = entries.at(-1);
       if (latest) state.lcp = latest.startTime;
@@ -50,11 +50,12 @@ async function measureRoute(route, screenshotName) {
   if (!response?.ok()) throw new Error(`${route} returned HTTP ${response?.status() ?? 'unknown'}`);
 
   await page.evaluate(async () => {
-    await document.fonts.ready;
-    await new Promise((resolve) => setTimeout(resolve, 500));
+    const browserGlobal = globalThis;
+    await browserGlobal.document.fonts.ready;
+    await new Promise((resolve) => browserGlobal.setTimeout(resolve, 500));
   });
 
-  const metrics = await page.evaluate(() => window.__conferenceManagerExperience);
+  const metrics = await page.evaluate(() => globalThis.__conferenceManagerExperience);
   if (!metrics || !Number.isFinite(metrics.lcp) || metrics.lcp <= 0) {
     throw new Error(`No valid LCP was observed for ${route}`);
   }
@@ -72,25 +73,27 @@ async function verifyReflow() {
   const page = await context.newPage();
   await page.goto(new URL('/en/', origin).href, { waitUntil: 'networkidle', timeout: 30_000 });
   await page.evaluate(async () => {
-    await document.fonts.ready;
-    document.documentElement.style.zoom = '2';
+    const browserGlobal = globalThis;
+    await browserGlobal.document.fonts.ready;
+    browserGlobal.document.documentElement.style.zoom = '2';
   });
 
   const result = await page.evaluate(() => {
-    const heading = document.querySelector('h1');
-    const primaryAction = document.querySelector('a[href$="/book-a-demo/"]');
+    const browserGlobal = globalThis;
+    const heading = browserGlobal.document.querySelector('h1');
+    const primaryAction = browserGlobal.document.querySelector('a[href$="/book-a-demo/"]');
     const visible = (element) => {
-      if (!(element instanceof HTMLElement)) return false;
+      if (!(element instanceof browserGlobal.HTMLElement)) return false;
       const rect = element.getBoundingClientRect();
-      const style = getComputedStyle(element);
+      const style = browserGlobal.getComputedStyle(element);
       return rect.width > 0 && rect.height > 0 && style.visibility !== 'hidden' && style.display !== 'none';
     };
 
     return {
       primaryHeadingVisible: visible(heading),
       primaryActionVisible: visible(primaryAction),
-      scrollWidth: document.documentElement.scrollWidth,
-      clientWidth: document.documentElement.clientWidth,
+      scrollWidth: browserGlobal.document.documentElement.scrollWidth,
+      clientWidth: browserGlobal.document.documentElement.clientWidth,
     };
   });
 
