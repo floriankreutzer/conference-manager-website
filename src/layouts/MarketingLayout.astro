@@ -1,6 +1,7 @@
 ---
 import SiteHeader from '@components/navigation/SiteHeader.astro';
 import type { Locale } from '@config/locales';
+import { getSeoConfig } from '@config/seo';
 import '../styles/global.css';
 
 interface Props {
@@ -10,9 +11,17 @@ interface Props {
 }
 
 const { locale, title, description } = Astro.props;
-const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin);
+const seo = getSeoConfig({
+  preview: import.meta.env.PUBLIC_PREVIEW === 'true',
+  development: import.meta.env.DEV,
+  siteOrigin: import.meta.env.PUBLIC_SITE_ORIGIN,
+});
+const canonicalBase = seo.siteOrigin ?? Astro.site ?? Astro.url.origin;
+const canonical = new URL(Astro.url.pathname, canonicalBase);
 const enPath = Astro.url.pathname.replace(/^\/de(?=\/|$)/, '/en');
 const dePath = Astro.url.pathname.replace(/^\/en(?=\/|$)/, '/de');
+const socialLocale = locale === 'de' ? 'de_DE' : 'en_US';
+const alternateSocialLocale = locale === 'de' ? 'en_US' : 'de_DE';
 ---
 
 <!doctype html>
@@ -21,11 +30,23 @@ const dePath = Astro.url.pathname.replace(/^\/en(?=\/|$)/, '/de');
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <meta name="description" content={description} />
-    <meta name="robots" content={import.meta.env.PUBLIC_PREVIEW === 'true' ? 'noindex, nofollow' : 'index, follow'} />
+    <meta name="robots" content={seo.indexable ? 'index, follow' : 'noindex, nofollow'} />
     <link rel="canonical" href={canonical} />
-    <link rel="alternate" hreflang="en" href={new URL(enPath, canonical)} />
-    <link rel="alternate" hreflang="de" href={new URL(dePath, canonical)} />
-    <link rel="alternate" hreflang="x-default" href={new URL(enPath, canonical)} />
+    <link rel="alternate" hreflang="en" href={new URL(enPath, canonicalBase)} />
+    <link rel="alternate" hreflang="de" href={new URL(dePath, canonicalBase)} />
+    <link rel="alternate" hreflang="x-default" href={new URL(enPath, canonicalBase)} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Conference Manager" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content={socialLocale} />
+    <meta property="og:locale:alternate" content={alternateSocialLocale} />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+
     <title>{title}</title>
   </head>
   <body>

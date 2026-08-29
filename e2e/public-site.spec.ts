@@ -45,6 +45,35 @@ test.describe('public website contracts', () => {
   });
 });
 
+test.describe('SEO and preview publication contracts', () => {
+  test('publishes localized canonical, hreflang and social metadata from the configured origin', async ({ page }) => {
+    await page.goto('/en/product/');
+
+    await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'noindex, nofollow');
+    await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', 'https://preview.example.invalid/en/product/');
+    await expect(page.locator('link[rel="alternate"][hreflang="de"]')).toHaveAttribute('href', 'https://preview.example.invalid/de/product/');
+    await expect(page.locator('meta[property="og:url"]')).toHaveAttribute('content', 'https://preview.example.invalid/en/product/');
+    await expect(page.locator('meta[property="og:site_name"]')).toHaveAttribute('content', 'Conference Manager');
+    await expect(page.locator('meta[name="twitter:card"]')).toHaveAttribute('content', 'summary');
+  });
+
+  test('blocks preview crawling through robots.txt', async ({ request }) => {
+    const response = await request.get('/robots.txt');
+    expect(response.ok()).toBe(true);
+    expect(await response.text()).toBe('User-agent: *\nDisallow: /\n');
+  });
+
+  test('does not expose production routes in the preview sitemap', async ({ request }) => {
+    const response = await request.get('/sitemap.xml');
+    const xml = await response.text();
+
+    expect(response.ok()).toBe(true);
+    expect(xml).toContain('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">');
+    expect(xml).not.toContain('<url>');
+    expect(xml).not.toContain('preview.example.invalid/en/');
+  });
+});
+
 test.describe('automated accessibility baseline', () => {
   for (const path of accessibilityPaths) {
     test(`${path} has no automated WCAG A/AA violations`, async ({ page }) => {
