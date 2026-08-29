@@ -1,0 +1,46 @@
+name: Website CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    env:
+      PUBLIC_CM_APP_ORIGIN: https://app.example.invalid
+      PUBLIC_PREVIEW: 'true'
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '22.12.0'
+          cache: npm
+          cache-dependency-path: package-lock.json
+
+      - name: Install dependencies and generate bootstrap lockfile
+        run: npm install --ignore-scripts
+
+      - name: Upload generated lockfile
+        uses: actions/upload-artifact@v4
+        with:
+          name: bootstrap-package-lock
+          path: package-lock.json
+          if-no-files-found: error
+
+      - name: Astro and TypeScript checks
+        run: npm run check
+
+      - name: Unit tests
+        run: npm test
+
+      - name: Production build
+        run: npm run build
