@@ -1,5 +1,6 @@
 ---
 import BrandLockup from '@components/marketing/BrandLockup.astro';
+import BrandVisual from '@components/marketing/BrandVisual.astro';
 import SectionHeader from '@components/marketing/SectionHeader.astro';
 import type { Locale } from '@config/locales';
 import { withBasePath } from '@domain/routing/basePath';
@@ -28,10 +29,12 @@ const companyHref = withBasePath(`/${locale}/company/`);
       <p class="hero__copy">{copy.hero.body}</p>
       <div class="cta-row">
         <a class="button" href={demoHref}>{copy.hero.primaryCta}</a>
-        <a class="text-link" href={howHref}
-          >{copy.hero.secondaryCta}<span aria-hidden="true"> →</span></a
-        >
+        <a class="text-link" href={howHref}>{copy.hero.secondaryCta}<span aria-hidden="true"> →</span></a>
       </div>
+    </div>
+
+    <div class="hero__visual">
+      <BrandVisual locale={locale} priority />
     </div>
 
     <figure class="journey" aria-labelledby="journey-caption">
@@ -46,11 +49,7 @@ const companyHref = withBasePath(`/${locale}/company/`);
   </section>
 
   <section class="section section--statement" aria-labelledby="problem-title">
-    <SectionHeader
-      eyebrow={copy.problem.eyebrow}
-      title={copy.problem.title}
-      titleId="problem-title"
-    />
+    <SectionHeader eyebrow={copy.problem.eyebrow} title={copy.problem.title} titleId="problem-title" />
     <div class="statement-copy">
       <p>{copy.problem.body}</p>
       <ul class="fragment-list" aria-label={copy.problem.eyebrow}>
@@ -60,186 +59,93 @@ const companyHref = withBasePath(`/${locale}/company/`);
   </section>
 
   <section class="section" id="product" aria-labelledby="value-title">
-    <SectionHeader
-      eyebrow={copy.value.eyebrow}
-      title={copy.value.title}
-      body={copy.value.body}
-      titleId="value-title"
-      wide
-    />
+    <SectionHeader eyebrow={copy.value.eyebrow} title={copy.value.title} body={copy.value.body} titleId="value-title" wide />
     <div class="capability-grid">
-      {
-        copy.value.cards.map((card, index) => (
-          <article class:list={['capability-card', { 'capability-card--accent': index === 0 }]}>
-            <span class="card-index" aria-hidden="true">
-              {String(index + 1).padStart(2, '0')}
-            </span>
-            <h3>{card.title}</h3>
-            <p>{card.body}</p>
-          </article>
-        ))
-      }
+      {copy.value.cards.map((card, index) => (
+        <article class:list={['capability-card', { 'capability-card--accent': index === 0 }]}>
+          <span class="card-index" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+          <h3>{card.title}</h3>
+          <p>{card.body}</p>
+        </article>
+      ))}
     </div>
-    <p class="section-link">
-      <a href={productHref}
-        >{locale === 'de' ? 'Produkt im Detail' : 'Explore the product'}<span aria-hidden="true">
-          →</span
-        ></a
-      >
-    </p>
+    <p class="section-link"><a href={productHref}>{locale === 'de' ? 'Produkt im Detail' : 'Explore the product'}<span aria-hidden="true"> →</span></a></p>
   </section>
 
   <section class="section section--steps" id="how-it-works" aria-labelledby="steps-title">
-    <SectionHeader
-      eyebrow={copy.howItWorks.eyebrow}
-      title={copy.howItWorks.title}
-      body={copy.howItWorks.intro}
-      titleId="steps-title"
-    />
+    <SectionHeader eyebrow={copy.howItWorks.eyebrow} title={copy.howItWorks.title} body={copy.howItWorks.intro} titleId="steps-title" />
     <ol class="steps">
-      {
-        copy.howItWorks.steps.map((step) => (
-          <li>
-            <span class="step-number">{step.number}</span>
-            <div>
-              <h3>{step.title}</h3>
-              <p>{step.body}</p>
-            </div>
-          </li>
-        ))
-      }
+      {copy.howItWorks.steps.map((step) => (
+        <li><span class="step-number">{step.number}</span><div><h3>{step.title}</h3><p>{step.body}</p></div></li>
+      ))}
     </ol>
   </section>
 
   <section class="section integration-statement" aria-labelledby="booking-title">
     <p class="eyebrow">{copy.roomBooking.eyebrow}</p>
     <h2 id="booking-title">{copy.roomBooking.title}</h2>
-    <div class="integration-statement__copy">
-      <p>{copy.roomBooking.body}</p>
-      <p class="pull-quote">{copy.roomBooking.supporting}</p>
-    </div>
+    <div class="integration-statement__copy"><p>{copy.roomBooking.body}</p><p class="pull-quote">{copy.roomBooking.supporting}</p></div>
   </section>
 
   <section class="section" id="workplace-teams" aria-labelledby="audience-title">
-    <SectionHeader
-      eyebrow={copy.audiences.eyebrow}
-      title={copy.audiences.title}
-      titleId="audience-title"
-    />
+    <SectionHeader eyebrow={copy.audiences.eyebrow} title={copy.audiences.title} titleId="audience-title" />
     <div class="audience-grid">
-      <article>
-        <span class="audience-label">01</span>
-        <h3>{copy.audiences.employee.title}</h3>
-        <p>{copy.audiences.employee.body}</p>
-      </article>
-      <article>
-        <span class="audience-label">02</span>
-        <h3>{copy.audiences.workplace.title}</h3>
-        <p>{copy.audiences.workplace.body}</p>
-      </article>
+      <article><span class="audience-label">01</span><h3>{copy.audiences.employee.title}</h3><p>{copy.audiences.employee.body}</p></article>
+      <article><span class="audience-label">02</span><h3>{copy.audiences.workplace.title}</h3><p>{copy.audiences.workplace.body}</p></article>
     </div>
   </section>
 
   <section class="section hospitality" aria-labelledby="hospitality-title">
-    <div>
-      <p class="eyebrow">{copy.hospitality.eyebrow}</p>
-      <h2 id="hospitality-title">{copy.hospitality.title}</h2>
-    </div>
-    <div class="hospitality__copy">
-      <p>{copy.hospitality.body}</p>
-      <div class="hospitality__material" aria-hidden="true">
-        <span></span><span></span><span></span>
-      </div>
-    </div>
+    <div><p class="eyebrow">{copy.hospitality.eyebrow}</p><h2 id="hospitality-title">{copy.hospitality.title}</h2></div>
+    <div class="hospitality__copy"><p>{copy.hospitality.body}</p><div class="hospitality__material" aria-hidden="true"><span></span><span></span><span></span></div></div>
   </section>
 
   <section class="section ecosystem" id="integrations" aria-labelledby="ecosystem-title">
-    <SectionHeader
-      eyebrow={copy.ecosystem.eyebrow}
-      title={copy.ecosystem.title}
-      body={copy.ecosystem.body}
-      titleId="ecosystem-title"
-    />
+    <SectionHeader eyebrow={copy.ecosystem.eyebrow} title={copy.ecosystem.title} body={copy.ecosystem.body} titleId="ecosystem-title" />
     <div class="ecosystem__panel">
-      <ul>
-        {copy.ecosystem.items.map((item) => <li>{item}</li>)}
-      </ul>
+      <ul>{copy.ecosystem.items.map((item) => <li>{item}</li>)}</ul>
       <p>{copy.ecosystem.microsoft}</p>
-      <p class="panel-link">
-        <a href={integrationsHref}
-          >{locale === 'de' ? 'Integrationen bewerten' : 'Evaluate integrations'}<span
-            aria-hidden="true"
-          >
-            →</span
-          ></a
-        >
-      </p>
+      <p class="panel-link"><a href={integrationsHref}>{locale === 'de' ? 'Integrationen bewerten' : 'Evaluate integrations'}<span aria-hidden="true"> →</span></a></p>
     </div>
   </section>
 
   <section class="section readiness" id="security-trust" aria-labelledby="readiness-title">
-    <SectionHeader
-      eyebrow={copy.readiness.eyebrow}
-      title={copy.readiness.title}
-      body={copy.readiness.body}
-      titleId="readiness-title"
-    />
-    <div>
-      <ul class="theme-list">
-        {copy.readiness.themes.map((theme) => <li>{theme}</li>)}
-      </ul>
-      <p class="section-link">
-        <a href={trustHref}
-          >{locale === 'de' ? 'Security & Trust prüfen' : 'Review Security & Trust'}<span
-            aria-hidden="true"
-          >
-            →</span
-          ></a
-        >
-      </p>
-    </div>
+    <SectionHeader eyebrow={copy.readiness.eyebrow} title={copy.readiness.title} body={copy.readiness.body} titleId="readiness-title" />
+    <div><ul class="theme-list">{copy.readiness.themes.map((theme) => <li>{theme}</li>)}</ul><p class="section-link"><a href={trustHref}>{locale === 'de' ? 'Security & Trust prüfen' : 'Review Security & Trust'}<span aria-hidden="true"> →</span></a></p></div>
   </section>
 
   <section class="section brand-story" aria-labelledby="brand-story-title">
     <div class="brand-story__mark"><BrandLockup showTagline /></div>
     <div class="brand-story__copy">
-      <p class="eyebrow">{copy.brand.eyebrow}</p>
-      <h2 id="brand-story-title">{copy.brand.title}</h2>
-      <p>{copy.brand.body}</p>
-      <p class="brand-story__principle">{copy.brand.principle}</p>
-      <p class="section-link">
-        <a href={companyHref}
-          >{locale === 'de' ? 'Pavurel kennenlernen' : 'About Pavurel'}<span aria-hidden="true">
-            →</span
-          ></a
-        >
-      </p>
+      <p class="eyebrow">{copy.brand.eyebrow}</p><h2 id="brand-story-title">{copy.brand.title}</h2><p>{copy.brand.body}</p><p class="brand-story__principle">{copy.brand.principle}</p>
+      <p class="section-link"><a href={companyHref}>{locale === 'de' ? 'Pavurel kennenlernen' : 'About Pavurel'}<span aria-hidden="true"> →</span></a></p>
     </div>
   </section>
 
   <section class="section" aria-labelledby="why-title">
     <SectionHeader eyebrow={copy.why.eyebrow} title={copy.why.title} titleId="why-title" />
-    <div class="why-grid">
-      {
-        copy.why.cards.map((card) => (
-          <article>
-            <h3>{card.title}</h3>
-            <p>{card.body}</p>
-          </article>
-        ))
-      }
-    </div>
+    <div class="why-grid">{copy.why.cards.map((card) => <article><h3>{card.title}</h3><p>{card.body}</p></article>)}</div>
   </section>
 
   <section class="section closing" aria-labelledby="closing-title">
-    <p class="eyebrow eyebrow--light">{copy.closing.eyebrow}</p>
-    <h2 id="closing-title">{copy.closing.title}</h2>
-    <p>{copy.closing.body}</p>
-    <div class="cta-row">
-      <a class="button button--light" href={demoHref}>{copy.closing.primaryCta}</a>
-      <a class="text-link text-link--light" href={howHref}
-        >{copy.closing.secondaryCta}<span aria-hidden="true"> →</span></a
-      >
-    </div>
+    <p class="eyebrow eyebrow--light">{copy.closing.eyebrow}</p><h2 id="closing-title">{copy.closing.title}</h2><p>{copy.closing.body}</p>
+    <div class="cta-row"><a class="button button--light" href={demoHref}>{copy.closing.primaryCta}</a><a class="text-link text-link--light" href={howHref}>{copy.closing.secondaryCta}<span aria-hidden="true"> →</span></a></div>
   </section>
 </div>
+
+<style>
+  .hero__visual {
+    grid-column: 1 / -1;
+    margin-top: var(--space-4);
+  }
+
+  .hero__visual :global(.brand-visual) {
+    max-height: min(58vh, 42rem);
+  }
+
+  @media (max-width: 48rem) {
+    .hero__visual {
+      margin-top: 0;
+    }
+  }
+</style>
