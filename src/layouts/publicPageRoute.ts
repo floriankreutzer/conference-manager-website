@@ -1,6 +1,6 @@
-import type { Locale } from '@config/locales';
-import { isProductStorySlug, type ProductStorySlug } from '@i18n/productStory';
-import { getPublicPageCopy, type PublicPageSlug } from '@i18n/publicPages';
+import type { Locale } from '../config/locales';
+import { isProductStorySlug, type ProductStorySlug } from '../i18n/productStory';
+import { getPublicPageCopy, type PublicPageSlug } from '../i18n/publicPages';
 
 export type PublicPageVariant =
   | 'demo-request'
