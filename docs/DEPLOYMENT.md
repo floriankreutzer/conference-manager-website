@@ -4,7 +4,7 @@
 
 This document defines the repository-side deployment contract for the public Conference Manager website.
 
-It implements the delivery foundation accepted in ADR 0003. It does not declare the public website production-ready. DNS, Edge Services, TLS, security headers, legal/privacy acceptance, demo-processing acceptance, and operational rollback evidence remain launch gates.
+It implements the delivery foundation accepted in ADR 0003 / Confluence ADR-008. It does not declare the public website production-ready. DNS, actual Scaleway resource provisioning, Edge Services, TLS, legal/privacy acceptance, demo-processing operational acceptance, self-hosted font acceptance and operational rollback evidence remain launch gates.
 
 ## 2. Build artifact
 
@@ -14,10 +14,12 @@ It implements the delivery foundation accepted in ADR 0003. It does not declare 
 2. reproducible dependency install;
 3. dependency vulnerability audit;
 4. Astro/TypeScript checks;
-5. unit/regression tests;
-6. production build;
-7. Chromium desktop/mobile browser tests;
-8. automated accessibility checks.
+5. lint and formatting checks;
+6. unit/regression tests;
+7. production build;
+8. static build performance budgets;
+9. Chromium desktop/mobile browser and internal-route tests;
+10. automated accessibility checks.
 
 The validated output is uploaded as a short-lived GitHub Actions artifact named `website-static-<commit-sha>`.
 
@@ -83,7 +85,19 @@ Use a dedicated Scaleway IAM application for website previews. Grant only the Ob
 
 Do not reuse production credentials. Scope the IAM application to the intended project/resources as tightly as the selected Scaleway policy model permits.
 
-The preview URL is written to the GitHub Actions job summary after a configured deployment.
+### Delivered preview acceptance
+
+After Object Storage synchronization, the workflow verifies the actual public preview URL instead of treating upload success as deployment success.
+
+The delivered preview must prove:
+
+- HTTPS origin;
+- the rendered English page references the expected preview canonical origin;
+- `noindex` is present in page metadata;
+- `/robots.txt` blocks all crawling;
+- `/sitemap.xml` exposes no indexable URL records.
+
+The workflow retries briefly for infrastructure propagation and fails if the delivered response still violates the contract. Only after this check is successful is the preview URL treated as a usable preview.
 
 ## 5. Preview cleanup
 
@@ -92,6 +106,8 @@ The preview URL is written to the GitHub Actions job summary after a configured 
 Cleanup is intentionally separate from production deployment and never references the production bucket variable.
 
 Periodic orphan-bucket review remains an operational control in case a workflow is disabled or infrastructure is changed outside GitHub.
+
+Real cleanup against a provisioned Scaleway PR-preview bucket remains required acceptance evidence under issue #24.
 
 ## 6. Production deployment foundation
 
@@ -117,7 +133,38 @@ The production bucket must be pre-provisioned. The production workflow is intent
 
 Use GitHub environment protection/approval for `production` before enabling a public release process.
 
-## 7. Demo-request boundary
+`PUBLIC_SITE_ORIGIN` is the final public HTTPS/Edge origin used by visitors and search engines. It must not be an arbitrary path URL. The workflow logs the underlying Object Storage website origin separately but validates the delivered public origin.
+
+## 7. Delivered production acceptance
+
+A successful Object Storage sync is **not** a successful production deployment.
+
+After synchronization, the workflow fetches the delivered public origin and fails unless the actual responses satisfy the publication and security contract.
+
+Required publication checks:
+
+- `/en/` is reachable over the configured HTTPS origin;
+- the rendered page references the configured canonical origin;
+- production contains no `noindex` directive;
+- `/robots.txt` allows crawling and references the production sitemap;
+- `/sitemap.xml` contains both `/en/` and `/de/` public routes.
+
+Required delivered security headers on the public page:
+
+- `Content-Security-Policy` containing at least:
+  - `object-src 'none'`;
+  - an explicit `base-uri` directive;
+  - an explicit `frame-ancestors` directive;
+- `Strict-Transport-Security` with `max-age`;
+- `Referrer-Policy`;
+- `Permissions-Policy`;
+- `X-Content-Type-Options: nosniff`.
+
+The script intentionally validates required properties rather than prescribing one large hardcoded CSP. Exact allowed sources remain a deployment/security decision and must stay as restrictive as the real website allows.
+
+The check retries briefly for edge/cache propagation and then fails closed. A production job that uploaded files but cannot prove the delivered public contract is failed and must not be treated as accepted release evidence.
+
+## 8. Demo-request boundary
 
 The browser may only receive the public HTTPS demo-processing endpoint and public privacy URL.
 
@@ -130,16 +177,16 @@ The following remain server-side/deployment secrets and must never be committed 
 
 The form remains fail-closed until both public endpoint and privacy URL are configured.
 
-## 8. Production launch acceptance
+The repository-owned serverless processing baseline lives under `functions/demo-request/`. Its existence does not activate the form or constitute operational acceptance; issue #25 owns real function/email/privacy/rate-limit evidence.
 
-A successful Object Storage sync is not production acceptance.
+## 9. Production launch acceptance
 
 Before public launch, verify and retain evidence for:
 
 - approved EU resource locations;
 - final domain ownership and DNS;
 - Edge Services/custom-domain/TLS behavior;
-- CSP and required HTTP security headers at the delivered edge;
+- successful delivered-response acceptance from the production workflow;
 - cache behavior and invalidation/redeployment;
 - preview credentials cannot overwrite production;
 - preview cleanup works against an actual PR;
@@ -151,8 +198,10 @@ Before public launch, verify and retain evidence for:
 - self-hosted font provenance and licensing;
 - manual accessibility acceptance in addition to automated Axe checks.
 
-## 9. Operational rollback
+## 10. Operational rollback
 
 Until a versioned release strategy is introduced, rollback is a controlled redeployment of a known-good repository commit through the same production workflow. Do not manually edit production objects as a substitute for source-controlled rollback.
 
-A future deployment mechanism may replace Object Storage sync only through an architecture decision that preserves EU hosting, preview isolation, least privilege, noindex behavior, auditability, and the application/website security boundary.
+A rollback is not complete merely because Object Storage accepted the sync. The same delivered production contract must pass after rollback.
+
+A future deployment mechanism may replace Object Storage sync only through an architecture decision that preserves EU hosting, preview isolation, least privilege, noindex behavior, auditability, delivered-response verification, and the application/website security boundary.
