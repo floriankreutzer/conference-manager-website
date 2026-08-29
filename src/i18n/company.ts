@@ -47,7 +47,8 @@ const companyCopy: Record<Locale, CompanyCopy> = {
         eyebrow: 'Product-family design',
         title: 'One visual family, two different jobs.',
         body: 'The public website is more editorial and expressive than the authenticated Conference Manager application. Both use the same Pavurel colour and typography discipline and the same preference for precise, restrained controls rather than generic SaaS styling.',
-        statement: 'Marketing can feel warmer without making the product interface less operational.',
+        statement:
+          'Marketing can feel warmer without making the product interface less operational.',
       },
       {
         eyebrow: 'Brand status',
@@ -90,7 +91,8 @@ const companyCopy: Record<Locale, CompanyCopy> = {
         eyebrow: 'Gemeinsame Produktfamilie',
         title: 'Eine visuelle Familie für zwei unterschiedliche Aufgaben.',
         body: 'Die öffentliche Website ist redaktioneller und ausdrucksstärker als die authentifizierte Conference-Manager-Anwendung. Beide folgen derselben Pavurel-Farb- und Typografiedisziplin sowie einer präzisen, zurückhaltenden Formensprache statt generischer SaaS-Optik.',
-        statement: 'Marketing darf wärmer wirken, ohne die operative Klarheit des Produkts aufzugeben.',
+        statement:
+          'Marketing darf wärmer wirken, ohne die operative Klarheit des Produkts aufzugeben.',
       },
       {
         eyebrow: 'Markenstatus',
