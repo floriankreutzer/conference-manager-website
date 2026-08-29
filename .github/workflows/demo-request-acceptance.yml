@@ -1,0 +1,69 @@
+name: Demo Request Acceptance
+
+on:
+  workflow_dispatch:
+    inputs:
+      send_delivery_test:
+        description: 'Send one synthetic delivery request after negative checks'
+        required: true
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+
+concurrency:
+  group: demo-request-acceptance
+  cancel-in-progress: false
+
+jobs:
+  accept:
+    runs-on: ubuntu-latest
+    environment: demo-acceptance
+    env:
+      DEMO_REQUEST_ACCEPTANCE_ENDPOINT: ${{ vars.DEMO_REQUEST_ACCEPTANCE_ENDPOINT }}
+    steps:
+      - name: Validate acceptance configuration
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ -z "$DEMO_REQUEST_ACCEPTANCE_ENDPOINT" ]]; then
+            echo "DEMO_REQUEST_ACCEPTANCE_ENDPOINT is not configured in the demo-acceptance environment." >&2
+            exit 1
+          fi
+
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '22.22.3'
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci --ignore-scripts
+
+      - name: Run non-destructive endpoint acceptance
+        if: inputs.send_delivery_test == false
+        run: node scripts/deployment/verify-demo-endpoint.mjs "$DEMO_REQUEST_ACCEPTANCE_ENDPOINT"
+
+      - name: Run endpoint acceptance with one synthetic delivery
+        if: inputs.send_delivery_test == true
+        run: node scripts/deployment/verify-demo-endpoint.mjs "$DEMO_REQUEST_ACCEPTANCE_ENDPOINT" --send-delivery
+
+      - name: Record acceptance summary
+        shell: bash
+        run: |
+          {
+            echo "### Demo-request endpoint acceptance"
+            echo
+            echo "Endpoint: $DEMO_REQUEST_ACCEPTANCE_ENDPOINT"
+            echo "Synthetic delivery requested: ${{ inputs.send_delivery_test }}"
+            echo
+            if [[ "${{ inputs.send_delivery_test }}" == "true" ]]; then
+              echo "The endpoint accepted one synthetic delivery request. Confirm exactly one acceptance-test message arrived in the approved functional mailbox before closing operational acceptance."
+            else
+              echo "Only non-destructive method/content-type/invalid-input/honeypot checks were executed; no delivery request was sent."
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
