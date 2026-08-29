@@ -27,7 +27,9 @@ test.describe('Integrations', () => {
         name: 'Use Conference Manager with your existing Microsoft environment.',
       }),
     ).toBeVisible();
-    await expect(main.getByText(/Other providers are described as available only after/)).toBeVisible();
+    await expect(
+      main.getByText(/Other providers are described as available only after/),
+    ).toBeVisible();
     await expect(main).not.toContainText('Trusted server-side integration');
     await expect(main.getByRole('link', { name: 'Book a demo' }).first()).toHaveAttribute(
       'href',

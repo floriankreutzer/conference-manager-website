@@ -22,12 +22,10 @@ describe('Integrations copy', () => {
     const english = getIntegrationsCopy('en');
     const german = getIntegrationsCopy('de');
 
-    expect(
-      english.sections.some((section) => section.body.includes('customer environment')),
-    ).toBe(true);
-    expect(
-      german.sections.some((section) => section.body.includes('Kundenumgebung')),
-    ).toBe(true);
+    expect(english.sections.some((section) => section.body.includes('customer environment'))).toBe(
+      true,
+    );
+    expect(german.sections.some((section) => section.body.includes('Kundenumgebung'))).toBe(true);
     expect(
       english.sections.some((section) =>
         section.body.includes('Other providers are described as available only after'),

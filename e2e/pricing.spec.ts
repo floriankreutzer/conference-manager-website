@@ -30,7 +30,9 @@ test.describe('Pricing', () => {
       }),
     ).toBeVisible();
     await expect(main).not.toContainText(forbiddenCurrency);
-    await expect(main.getByText(/Use a demo to decide whether the product is relevant/)).toBeVisible();
+    await expect(
+      main.getByText(/Use a demo to decide whether the product is relevant/),
+    ).toBeVisible();
     await expect(main.getByRole('link', { name: 'Book a demo' }).first()).toHaveAttribute(
       'href',
       '/en/book-a-demo/',

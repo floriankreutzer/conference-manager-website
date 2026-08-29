@@ -28,7 +28,9 @@ test.describe('For Workplace Teams', () => {
     await expect(
       main.getByText('Keep your room booking. Replace the coordination around it.'),
     ).toBeVisible();
-    await expect(main.getByText(/Know what changed after a conference was confirmed/)).toBeVisible();
+    await expect(
+      main.getByText(/Know what changed after a conference was confirmed/),
+    ).toBeVisible();
     await expect(main.getByRole('link', { name: 'Book a demo' }).first()).toHaveAttribute(
       'href',
       '/en/book-a-demo/',
@@ -68,7 +70,9 @@ test.describe('For Workplace Teams', () => {
         'Behalten Sie Ihre Raumbuchung. Strukturieren Sie die Koordination darum herum.',
       ),
     ).toBeVisible();
-    await expect(main.getByText(/Erkennen Sie, was sich nach einer Bestätigung geändert hat/)).toBeVisible();
+    await expect(
+      main.getByText(/Erkennen Sie, was sich nach einer Bestätigung geändert hat/),
+    ).toBeVisible();
     await expect(main.getByRole('link', { name: 'Demo anfragen' }).first()).toHaveAttribute(
       'href',
       '/de/book-a-demo/',

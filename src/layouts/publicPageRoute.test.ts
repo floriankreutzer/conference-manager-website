@@ -50,6 +50,8 @@ describe('public page route resolution', () => {
     expect(resolvePublicPageRoute('de', 'integrations').description).toContain(
       'vorhandener Raumbuchung und Microsoft 365',
     );
-    expect(resolvePublicPageRoute('en', 'company').description).toContain('Pavurel brand direction');
+    expect(resolvePublicPageRoute('en', 'company').description).toContain(
+      'Pavurel brand direction',
+    );
   });
 });

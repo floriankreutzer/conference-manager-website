@@ -25,7 +25,9 @@ test.describe('Security & Trust', () => {
         name: 'The public website does not become a second place to sign in.',
       }),
     ).toBeVisible();
-    await expect(main.getByText(/does not turn planned controls into certifications/)).toBeVisible();
+    await expect(
+      main.getByText(/does not turn planned controls into certifications/),
+    ).toBeVisible();
     await expect(main).not.toContainText('refresh tokens');
     await expect(main).not.toContainText('browser bundle');
     await expect(main.getByRole('link', { name: 'Book a demo' }).first()).toHaveAttribute(
