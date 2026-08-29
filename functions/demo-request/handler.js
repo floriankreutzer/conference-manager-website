@@ -21,25 +21,22 @@ function getHeader(headers, name) {
   return typeof entry?.[1] === 'string' ? entry[1] : '';
 }
 
-function readRequiredEnv() {
+export function readRequiredEnv(env = process.env) {
   const config = {
-    secretKey: process.env.SCW_SECRET_KEY,
-    projectId: process.env.SCW_PROJECT_ID,
-    region: process.env.SCW_TEM_REGION || 'fr-par',
-    senderEmail: process.env.DEMO_REQUEST_SENDER_EMAIL,
-    senderName: process.env.DEMO_REQUEST_SENDER_NAME || 'Conference Manager',
-    recipientEmail: process.env.DEMO_REQUEST_RECIPIENT_EMAIL,
-    recipientName: process.env.DEMO_REQUEST_RECIPIENT_NAME || 'Conference Manager Demo',
+    secretKey: env.SCW_SECRET_KEY,
+    projectId: env.SCW_PROJECT_ID,
+    region: env.SCW_TEM_REGION || 'fr-par',
+    senderEmail: env.DEMO_REQUEST_SENDER_EMAIL,
+    senderName: env.DEMO_REQUEST_SENDER_NAME || 'Conference Manager',
+    recipientEmail: env.DEMO_REQUEST_RECIPIENT_EMAIL,
+    recipientName: env.DEMO_REQUEST_RECIPIENT_NAME || 'Conference Manager Demo',
   };
 
-  const missing = Object.entries(config)
-    .filter(([key, value]) => key !== 'region' && key !== 'senderName' && key !== 'recipientName' && !value)
-    .map(([key]) => key);
-
-  return missing.length ? null : config;
+  const requiredKeys = ['secretKey', 'projectId', 'senderEmail', 'recipientEmail'];
+  return requiredKeys.some((key) => !config[key]) ? null : config;
 }
 
-function sendTransactionalEmail(config, request) {
+export function sendTransactionalEmail(config, request) {
   const payload = JSON.stringify({
     from: { name: config.senderName, email: config.senderEmail },
     to: [{ name: config.recipientName, email: config.recipientEmail }],
@@ -63,11 +60,7 @@ function sendTransactionalEmail(config, request) {
 
   return new Promise((resolve, reject) => {
     const req = https.request(options, (res) => {
-      let responseBody = '';
-      res.setEncoding('utf8');
-      res.on('data', (chunk) => {
-        if (responseBody.length < 8_192) responseBody += chunk;
-      });
+      res.resume();
       res.on('end', () => {
         const statusCode = res.statusCode ?? 500;
         if (statusCode >= 200 && statusCode < 300) {
@@ -84,31 +77,35 @@ function sendTransactionalEmail(config, request) {
   });
 }
 
-export async function handle(event) {
-  if (event?.httpMethod !== 'POST') {
-    return response(405, { status: 'error', code: 'method_not_allowed' });
-  }
+export function createHandler({ env = process.env, sendEmail = sendTransactionalEmail } = {}) {
+  return async function demoRequestHandler(event) {
+    if (event?.httpMethod !== 'POST') {
+      return response(405, { status: 'error', code: 'method_not_allowed' });
+    }
 
-  const contentType = getHeader(event.headers, 'content-type').split(';', 1)[0].trim().toLowerCase();
-  if (contentType !== 'application/x-www-form-urlencoded') {
-    return response(415, { status: 'error', code: 'unsupported_media_type' });
-  }
+    const contentType = getHeader(event.headers, 'content-type').split(';', 1)[0].trim().toLowerCase();
+    if (contentType !== 'application/x-www-form-urlencoded') {
+      return response(415, { status: 'error', code: 'unsupported_media_type' });
+    }
 
-  const raw = parseFormBody(event.body, event.isBase64Encoded === true);
-  const validation = validateDemoRequest(raw);
-  if (!validation.ok) {
-    // Honeypot rejection intentionally looks like a normal accepted request to bots.
-    if (validation.code === 'rejected') return response(202, { status: 'accepted' });
-    return response(400, { status: 'error', code: 'invalid_request' });
-  }
+    const raw = parseFormBody(event.body, event.isBase64Encoded === true);
+    const validation = validateDemoRequest(raw);
+    if (!validation.ok) {
+      // Honeypot rejection intentionally looks like a normal accepted request to bots.
+      if (validation.code === 'rejected') return response(202, { status: 'accepted' });
+      return response(400, { status: 'error', code: 'invalid_request' });
+    }
 
-  const config = readRequiredEnv();
-  if (!config) return response(503, { status: 'error', code: 'temporarily_unavailable' });
+    const config = readRequiredEnv(env);
+    if (!config) return response(503, { status: 'error', code: 'temporarily_unavailable' });
 
-  try {
-    await sendTransactionalEmail(config, validation.value);
-    return response(202, { status: 'accepted' });
-  } catch {
-    return response(503, { status: 'error', code: 'temporarily_unavailable' });
-  }
+    try {
+      await sendEmail(config, validation.value);
+      return response(202, { status: 'accepted' });
+    } catch {
+      return response(503, { status: 'error', code: 'temporarily_unavailable' });
+    }
+  };
 }
+
+export const handle = createHandler();
