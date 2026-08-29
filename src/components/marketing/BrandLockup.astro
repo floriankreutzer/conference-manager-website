@@ -10,11 +10,21 @@ const { compact = false, showTagline = false } = Astro.props;
 ---
 
 <div class:list={['brand-lockup', { 'brand-lockup--compact': compact }]}>
-  <img class="brand-lockup__signet" src={pavurelSignet} alt="" width="512" height="512" />
+  <img
+    class="brand-lockup__signet"
+    src={pavurelSignet}
+    alt=""
+    width="512"
+    height="512"
+  />
   <div class="brand-lockup__copy">
     <span class="brand-lockup__product">Conference Manager</span>
     <span class="brand-lockup__endorsement">by Pavurel</span>
-    {showTagline && <span class="brand-lockup__tagline">Workplace hospitality, thoughtfully managed.</span>}
+    {
+      showTagline && (
+        <span class="brand-lockup__tagline">Workplace hospitality, thoughtfully managed.</span>
+      )
+    }
   </div>
 </div>
 
