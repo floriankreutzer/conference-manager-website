@@ -42,12 +42,12 @@ const copy: Record<Locale, NavigationCopy> = {
       resourcesHeading: 'Evaluate',
       brandHeading: 'Conference Manager by Pavurel',
       brandBody:
-        'Conference Manager combines a clear employee experience with the operational context Workplace Teams need to prepare professional conferences. Pavurel provides the warm, precise brand direction behind that experience.',
+        'Conference Manager combines a clear employee experience with the operational context Workplace Teams need to prepare professional conferences. Pavurel provides the subordinate brand direction behind that experience.',
       productLinks: [
         { label: 'Product', href: '/en/product/' },
         { label: 'How it works', href: '/en/how-it-works/' },
         { label: 'For Workplace Teams', href: '/en/workplace-teams/' },
-        { label: 'About', href: '/en/company/' },
+        { label: 'About Conference Manager', href: '/en/company/' },
       ],
       resourceLinks: [
         { label: 'Integrations', href: '/en/integrations/' },
@@ -66,7 +66,7 @@ const copy: Record<Locale, NavigationCopy> = {
       { label: 'Für Workplace Teams', href: '/de/workplace-teams/' },
       { label: 'Integrationen', href: '/de/integrations/' },
       { label: 'Security & Trust', href: '/de/security-trust/' },
-      { label: 'Über uns', href: '/de/company/' },
+      { label: 'Über Conference Manager', href: '/de/company/' },
     ],
     login: 'Login',
     bookDemo: 'Demo anfragen',
@@ -77,12 +77,12 @@ const copy: Record<Locale, NavigationCopy> = {
       resourcesHeading: 'Evaluieren',
       brandHeading: 'Conference Manager by Pavurel',
       brandBody:
-        'Conference Manager verbindet einen klaren Anfrageprozess für Mitarbeitende mit dem operativen Kontext, den Workplace Teams für professionell vorbereitete Konferenzen benötigen. Pavurel prägt die warme, präzise Markenrichtung dahinter.',
+        'Conference Manager verbindet einen klaren Anfrageprozess für Mitarbeitende mit dem operativen Kontext, den Workplace Teams für professionell vorbereitete Konferenzen benötigen. Pavurel prägt die untergeordnete Markenrichtung dahinter.',
       productLinks: [
         { label: 'Produkt', href: '/de/product/' },
         { label: 'So funktioniert es', href: '/de/how-it-works/' },
         { label: 'Für Workplace Teams', href: '/de/workplace-teams/' },
-        { label: 'Über uns', href: '/de/company/' },
+        { label: 'Über Conference Manager', href: '/de/company/' },
       ],
       resourceLinks: [
         { label: 'Integrationen', href: '/de/integrations/' },
