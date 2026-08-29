@@ -24,37 +24,37 @@ const workplaceTeamsCopy: Record<Locale, WorkplaceTeamsCopy> = {
     sections: [
       {
         eyebrow: 'One conference context',
-        title: 'Receive the information behind the room request.',
-        body: 'Conference Manager keeps date and time, room context, services, catering, cost allocation and review decisions attached to the same conference. Workplace Teams can prepare from one context instead of reconstructing the request from separate hand-offs.',
+        title: 'Receive the information your team needs to prepare the conference.',
+        body: 'Conference Manager keeps date and time, room context, services, catering, cost allocation and review decisions with the same conference. Workplace Teams can prepare from one coherent request instead of reconstructing the picture from separate hand-offs.',
         points: [
           {
             title: 'Services and catering',
             body: 'Keep service requirements, catering choices, participant counts and dietary needs connected to the conference.',
           },
           {
-            title: 'Review before processing',
-            body: 'Make cost allocation and the final request review explicit before operational work moves forward.',
+            title: 'Review before work starts',
+            body: 'Make cost allocation and the final request review visible before operational preparation moves forward.',
           },
         ],
       },
       {
         eyebrow: 'Operational visibility',
-        title: 'Keep employee simplicity separate from the work behind the experience.',
-        body: 'The requester sees a guided conference journey. Workplace Teams get separate views for bookings, room planning, reporting and administration, so operational detail can stay available without becoming part of the employee interface.',
+        title: 'Keep the employee journey simple without losing the detail behind it.',
+        body: 'The requester follows a guided conference journey. Workplace Teams get the booking, room-planning, reporting and administration views needed for their work, so operational detail stays available without becoming part of the employee interface.',
         statement: 'Simple for the requester. Structured for the team preparing the conference.',
       },
       {
         eyebrow: 'Controlled change',
-        title: 'Make changes visible after confirmation.',
-        body: 'The request lifecycle supports confirmation, change requests, resubmission, rejection and cancellation. Supported room, schedule and participant changes after confirmation follow a managed decision flow rather than disappearing into informal edits.',
+        title: 'Know what changed after a conference was confirmed.',
+        body: 'When supported room, schedule or participant details change after confirmation, Conference Manager keeps the proposed change and the decision visible. Workplace Teams do not have to rely on an informal message thread to understand what is still agreed and what is waiting for approval.',
         points: [
           {
-            title: 'Keep the original context understandable',
-            body: 'Treat a change as a deliberate lifecycle event instead of an invisible edit to a confirmed request.',
+            title: 'Keep the confirmed context understandable',
+            body: 'See the change as a deliberate update to the conference rather than an invisible edit to the original request.',
           },
           {
-            title: 'Keep decisions explicit',
-            body: 'Pending changes remain visible for the responsible Conference Manager decision before they become part of the confirmed context.',
+            title: 'See what still needs a decision',
+            body: 'Pending changes remain visible until the responsible Conference Manager accepts or rejects them.',
           },
         ],
       },
@@ -78,38 +78,38 @@ const workplaceTeamsCopy: Record<Locale, WorkplaceTeamsCopy> = {
     sections: [
       {
         eyebrow: 'Ein Konferenzkontext',
-        title: 'Erhalten Sie die Informationen hinter der Raumanfrage.',
-        body: 'Conference Manager hält Datum und Zeit, Raumkontext, Services, Catering, Kostenverteilung und Prüfentscheidungen an derselben Konferenz. Workplace Teams können aus einem zusammenhängenden Kontext vorbereiten, statt die Anfrage aus einzelnen Übergaben rekonstruieren zu müssen.',
+        title: 'Erhalten Sie die Informationen, die Ihr Team für die Vorbereitung benötigt.',
+        body: 'Conference Manager hält Datum und Zeit, Raumkontext, Services, Catering, Kostenverteilung und Prüfentscheidungen bei derselben Konferenz. Workplace Teams können aus einer zusammenhängenden Anfrage vorbereiten, statt das Gesamtbild aus einzelnen Übergaben rekonstruieren zu müssen.',
         points: [
           {
             title: 'Services und Catering',
             body: 'Halten Sie Service-Anforderungen, Catering-Auswahl, Teilnehmerzahlen und Ernährungsanforderungen direkt an der Konferenz.',
           },
           {
-            title: 'Prüfung vor der Bearbeitung',
-            body: 'Machen Sie Kostenverteilung und abschließende Prüfung sichtbar, bevor die operative Bearbeitung weitergeht.',
+            title: 'Prüfung vor der Vorbereitung',
+            body: 'Machen Sie Kostenverteilung und abschließende Prüfung sichtbar, bevor die operative Vorbereitung weitergeht.',
           },
         ],
       },
       {
         eyebrow: 'Operative Transparenz',
-        title: 'Trennen Sie eine einfache Anfrage von der Arbeit hinter dem Erlebnis.',
-        body: 'Die anfragende Person sieht einen geführten Konferenzablauf. Workplace Teams erhalten getrennte Sichten für Buchungen, Raumplanung, Reporting und Administration. Operative Details bleiben verfügbar, ohne die Employee Experience zu überladen.',
+        title: 'Halten Sie die Anfrage einfach, ohne die Details dahinter zu verlieren.',
+        body: 'Die anfragende Person folgt einem geführten Konferenzablauf. Workplace Teams erhalten die für ihre Arbeit benötigten Sichten auf Buchungen, Raumplanung, Reporting und Administration. Operative Details bleiben verfügbar, ohne die Employee Experience zu überladen.',
         statement:
           'Einfach für die anfragende Person. Strukturiert für das Team, das die Konferenz vorbereitet.',
       },
       {
         eyebrow: 'Kontrollierte Änderungen',
-        title: 'Machen Sie Änderungen auch nach der Bestätigung sichtbar.',
-        body: 'Der Anfrage-Lebenszyklus unterstützt Bestätigung, Änderungsanträge, erneutes Einreichen, Ablehnung und Stornierung. Unterstützte Raum-, Termin- und Teilnehmeränderungen nach einer Bestätigung folgen einem gesteuerten Entscheidungsablauf statt informellen Bearbeitungen.',
+        title: 'Erkennen Sie, was sich nach einer Bestätigung geändert hat.',
+        body: 'Wenn sich unterstützte Raum-, Termin- oder Teilnehmerdetails nach der Bestätigung ändern, hält Conference Manager die vorgeschlagene Änderung und die Entscheidung sichtbar. Workplace Teams müssen nicht aus informellen Nachrichten rekonstruieren, was weiterhin gilt und worüber noch entschieden werden muss.',
         points: [
           {
-            title: 'Ursprünglichen Kontext erhalten',
-            body: 'Behandeln Sie eine Änderung als bewussten Lebenszyklus-Schritt und nicht als unsichtbare Bearbeitung einer bestätigten Anfrage.',
+            title: 'Bestätigten Kontext verständlich halten',
+            body: 'Behandeln Sie eine Änderung als bewusste Aktualisierung der Konferenz statt als unsichtbare Bearbeitung der ursprünglichen Anfrage.',
           },
           {
-            title: 'Entscheidungen explizit halten',
-            body: 'Offene Änderungen bleiben für die verantwortliche Entscheidung sichtbar, bevor sie Teil des bestätigten Kontexts werden.',
+            title: 'Offene Entscheidungen erkennen',
+            body: 'Ausstehende Änderungen bleiben sichtbar, bis die verantwortliche Conference-Manager-Rolle sie freigibt oder ablehnt.',
           },
         ],
       },
