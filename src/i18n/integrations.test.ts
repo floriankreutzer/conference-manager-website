@@ -18,21 +18,23 @@ describe('Integrations copy', () => {
     });
   });
 
-  it('keeps pilot and future-provider qualifications explicit', () => {
+  it('keeps real-tenant and future-provider qualifications explicit', () => {
     const english = getIntegrationsCopy('en');
     const german = getIntegrationsCopy('de');
 
     expect(
-      english.sections.some((section) => section.body.includes('external Pilot acceptance gate')),
+      english.sections.some((section) => section.body.includes('operational acceptance')),
     ).toBe(true);
-    expect(german.sections.some((section) => section.body.includes('externen Pilot-Abnahme'))).toBe(
-      true,
-    );
+    expect(german.sections.some((section) => section.body.includes('operative Abnahme'))).toBe(true);
     expect(
-      english.sections.some((section) => section.body.includes('does not mean that Google')),
+      english.sections.some((section) =>
+        section.body.includes('other providers are not presented as available'),
+      ),
     ).toBe(true);
     expect(
-      german.sections.some((section) => section.body.includes('Das bedeutet nicht, dass Google')),
+      german.sections.some((section) =>
+        section.body.includes('andere Provider werden erst dann als verfügbar dargestellt'),
+      ),
     ).toBe(true);
   });
 });
