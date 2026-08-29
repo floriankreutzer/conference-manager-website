@@ -35,7 +35,8 @@ const integrationsCopy: Record<Locale, IntegrationsCopy> = {
       },
       {
         eyebrow: 'Microsoft 365 · Pilot implementation',
-        title: 'Microsoft integration is implemented, with real-environment acceptance still required.',
+        title:
+          'Microsoft integration is implemented, with real-environment acceptance still required.',
         body: 'The trusted Conference Manager API contains the SaaS 1 implementation for Microsoft Entra identity and the Microsoft 365 connection lifecycle. That implementation includes tenant consent handling, room discovery and mapping, Free/Busy, calendar synchronization and integration-health behavior. Real Microsoft tenant, deployment and operational evidence remains an external Pilot acceptance gate.',
         points: [
           {
@@ -52,7 +53,8 @@ const integrationsCopy: Record<Locale, IntegrationsCopy> = {
         eyebrow: 'Calendar write',
         title: 'Implemented does not mean unrestricted write access.',
         body: 'Calendar Write is deliberately gated. The current backend documentation requires the Exchange Application RBAC release conditions to be satisfied before write behavior is enabled. The public website therefore does not describe calendar write as universally active or available for every tenant.',
-        statement: 'Provider access stays conditional on the controls required for that integration.',
+        statement:
+          'Provider access stays conditional on the controls required for that integration.',
       },
       {
         eyebrow: 'Extensible architecture',
@@ -110,7 +112,8 @@ const integrationsCopy: Record<Locale, IntegrationsCopy> = {
       },
       {
         eyebrow: 'Erweiterbare Architektur',
-        title: 'Künftige Provider können in das Modell passen, ohne heutige Produktclaims zu werden.',
+        title:
+          'Künftige Provider können in das Modell passen, ohne heutige Produktclaims zu werden.',
         body: 'Das Trusted Backend definiert providerneutrale Verträge für Verfügbarkeit, Reservierungsvalidierung und Kalenderoperationen. Damit existiert ein architektonischer Erweiterungspunkt für spätere Adapter. Das bedeutet nicht, dass Google, Okta oder andere künftige Provider heute verfügbar, unterstützt oder produktionsreif sind.',
         points: [
           {
