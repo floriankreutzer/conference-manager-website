@@ -1,10 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import {
-  getProductStoryCopy,
-  isProductStorySlug,
-  productStorySlugs,
-} from './productStory';
+import { getProductStoryCopy, isProductStorySlug, productStorySlugs } from './productStory';
 
 describe('product story localization', () => {
   it('keeps English and German product narratives structurally complete', () => {
