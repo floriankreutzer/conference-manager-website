@@ -38,7 +38,7 @@ test.describe('public website contracts', () => {
 
     const signet = page.locator('header .brand-lockup__signet');
     await expect(signet).toBeVisible();
-    await expect(signet).toHaveAttribute('src', /\/_astro\/.*\.svg$/);
+    await expect(signet).toHaveAttribute('src', /^data:image\/svg\+xml,/);
     await expect(page.locator('.primary-nav a')).toHaveCount(5);
     await expect(page.locator('.primary-nav')).not.toContainText('Pricing');
     await expect(page.locator('footer')).toContainText('Conference Manager');
