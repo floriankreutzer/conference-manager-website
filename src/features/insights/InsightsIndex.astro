@@ -1,5 +1,6 @@
 ---
 import type { Locale } from '@config/locales';
+import { withBasePath } from '@domain/routing/basePath';
 import { getPublicPageCopy } from '@i18n/publicPages';
 import { getPublishedInsightsForLocale } from './content';
 
@@ -42,7 +43,9 @@ const dateLocale = locale === 'de' ? 'de-DE' : 'en-GB';
                 </time>
               </p>
               <h2>
-                <a href={`/${locale}/insights/${entry.data.slug}/`}>{entry.data.title}</a>
+                <a href={withBasePath(`/${locale}/insights/${entry.data.slug}/`)}>
+                  {entry.data.title}
+                </a>
               </h2>
               <p>{entry.data.description}</p>
             </article>
