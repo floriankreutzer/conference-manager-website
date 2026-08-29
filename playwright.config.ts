@@ -29,6 +29,7 @@ export default defineConfig({
     env: {
       PUBLIC_CM_APP_ORIGIN: 'https://app.example.invalid',
       PUBLIC_PREVIEW: 'true',
+      PUBLIC_SITE_ORIGIN: 'https://preview.example.invalid',
     },
   },
 });
