@@ -40,9 +40,9 @@ describe('delivered experience contract', () => {
     expect(() =>
       assertDeliveredExperience({ ...baseline, lcpSamples: [2600, 2700, 2800] }),
     ).toThrow(/LCP/);
-    expect(() =>
-      assertDeliveredExperience({ ...baseline, clsByRoute: { '/en/': 0.11 } }),
-    ).toThrow(/CLS/);
+    expect(() => assertDeliveredExperience({ ...baseline, clsByRoute: { '/en/': 0.11 } })).toThrow(
+      /CLS/,
+    );
     expect(() =>
       assertDeliveredExperience({
         ...baseline,

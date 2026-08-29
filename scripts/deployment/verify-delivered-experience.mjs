@@ -86,7 +86,12 @@ async function verifyReflow() {
       if (!(element instanceof browserGlobal.HTMLElement)) return false;
       const rect = element.getBoundingClientRect();
       const style = browserGlobal.getComputedStyle(element);
-      return rect.width > 0 && rect.height > 0 && style.visibility !== 'hidden' && style.display !== 'none';
+      return (
+        rect.width > 0 &&
+        rect.height > 0 &&
+        style.visibility !== 'hidden' &&
+        style.display !== 'none'
+      );
     };
 
     return {

@@ -9,9 +9,7 @@ export function median(values) {
   requireCondition(Array.isArray(values) && values.length > 0, 'Metric samples are required');
   const sorted = [...values].sort((a, b) => a - b);
   const middle = Math.floor(sorted.length / 2);
-  return sorted.length % 2 === 0
-    ? (sorted[middle - 1] + sorted[middle]) / 2
-    : sorted[middle];
+  return sorted.length % 2 === 0 ? (sorted[middle - 1] + sorted[middle]) / 2 : sorted[middle];
 }
 
 export function assertDeliveredExperience({
