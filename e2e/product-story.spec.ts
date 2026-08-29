@@ -20,7 +20,7 @@ test.describe('Product and How it works narratives', () => {
     await expect(
       main.getByRole('heading', {
         level: 2,
-        name: 'One conference context, from date and time to review.',
+        name: 'Keep the decisions that belong together in one place.',
       }),
     ).toBeVisible();
     await expect(
@@ -56,13 +56,13 @@ test.describe('Product and How it works narratives', () => {
     await expect(
       main.getByRole('heading', {
         level: 2,
-        name: 'Ein Konferenzkontext – von Datum und Zeit bis zur Prüfung.',
+        name: 'Halten Sie zusammen, was für dieselbe Konferenz entschieden wird.',
       }),
     ).toBeVisible();
     await expect(
-      main.getByText('Behalte deine Raumbuchung. Ersetze die Koordination darum herum.'),
+      main.getByText('Behalten Sie Ihre Raumbuchung. Strukturieren Sie die Koordination darum herum.'),
     ).toBeVisible();
-    await expect(main.getByRole('link', { name: 'Demo buchen' }).first()).toHaveAttribute(
+    await expect(main.getByRole('link', { name: 'Demo anfragen' }).first()).toHaveAttribute(
       'href',
       '/de/book-a-demo/',
     );
@@ -117,7 +117,7 @@ test.describe('Product and How it works narratives', () => {
     await expect(
       page.getByRole('heading', {
         level: 2,
-        name: 'Binde die Raumbuchung ein, statt sie zu duplizieren.',
+        name: 'Binden Sie die Raumbuchung ein, statt sie zu duplizieren.',
       }),
     ).toBeVisible();
   });
