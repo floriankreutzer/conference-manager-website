@@ -55,10 +55,10 @@ const pages: Record<Locale, Record<PublicPageSlug, PublicPageCopy>> = {
     },
     'security-trust': {
       eyebrow: 'Security & Trust',
-      title: 'A simple experience with deliberate enterprise boundaries.',
+      title: 'Enterprise trust without making the employee experience complicated.',
       description:
-        'Understand how Conference Manager keeps public marketing, secure product access, controlled integrations and production safeguards clearly separated.',
-      body: 'The public website explains the product and hands existing users over to the secure Conference Manager application. Product access, integration permissions and operational controls stay in the systems designed to own them. Public trust statements remain evidence-led where real production acceptance is still required.',
+        'See how Conference Manager combines a simple employee experience with controlled access, customer-specific integrations and evidence-led security claims.',
+      body: 'Employees should be able to request a conference without learning the security model behind the product. Your organisation still needs control over sign-in, roles, integrations and operational access. Conference Manager is designed to support both needs without turning Security & Trust into a page of infrastructure language.',
     },
     pricing: {
       eyebrow: 'Pricing',
@@ -76,12 +76,11 @@ const pages: Record<Locale, Record<PublicPageSlug, PublicPageCopy>> = {
       body: 'Insights focus on the operational realities behind professional workplace conferences and the decisions that help Workplace Teams create clearer, more dependable experiences.',
     },
     company: {
-      eyebrow: 'Company',
-      title: 'Conference Manager is the product. Pavurel is the endorsement behind it.',
+      eyebrow: 'About',
+      title: 'Built around the conference, not around another system.',
       description:
-        'Understand how Conference Manager fits into the Pavurel brand direction and why operational precision and warm workplace hospitality shape the product experience.',
-      body: 'Conference Manager remains the customer-facing product. Pavurel provides the corporate brand context: a more considered workplace experience built on operational clarity, restrained design and professional hospitality.',
-      note: 'Pavurel remains the preferred corporate-brand candidate; formal legal, company-name, domain and trademark clearance are separate governance steps.',
+        'Learn why Conference Manager focuses on the complete workplace conference journey, how it supports employees and Workplace Teams, and what Pavurel contributes to the product experience.',
+      body: 'Conference Manager is built for the work that begins after a room is chosen: guests, catering, services, requirements and the coordination that makes a professional conference feel prepared. The product combines a simple requester experience with the operational context Workplace Teams need.',
     },
     'book-a-demo': {
       eyebrow: 'Book a demo',
@@ -124,10 +123,10 @@ const pages: Record<Locale, Record<PublicPageSlug, PublicPageCopy>> = {
     },
     'security-trust': {
       eyebrow: 'Security & Trust',
-      title: 'Eine einfache Erfahrung mit klaren Enterprise-Grenzen.',
+      title: 'Enterprise-Sicherheit, ohne den Anfrageprozess kompliziert zu machen.',
       description:
-        'Verstehen Sie, wie Conference Manager öffentliche Information, sicheren Produktzugang, kontrollierte Integrationen und produktive Schutzmaßnahmen klar voneinander trennt.',
-      body: 'Die öffentliche Website erklärt das Produkt und führt bestehende Nutzer zur geschützten Conference-Manager-Anwendung. Produktzugang, Integrationsberechtigungen und operative Kontrollen bleiben in den dafür vorgesehenen Systemen. Öffentliche Trust-Aussagen bleiben evidenzbasiert, solange reale Produktionsabnahmen noch ausstehen.',
+        'Sehen Sie, wie Conference Manager einen einfachen Anfrageprozess mit kontrolliertem Zugriff, kundenspezifischen Integrationen und evidenzbasierten Security-Aussagen verbindet.',
+      body: 'Mitarbeitende sollen eine Konferenz anfragen können, ohne das Sicherheitsmodell des Produkts verstehen zu müssen. Ihr Unternehmen benötigt trotzdem Kontrolle über Anmeldung, Rollen, Integrationen und operativen Zugriff. Conference Manager ist darauf ausgelegt, beides zu verbinden, ohne Security & Trust zu einer Seite voller Infrastrukturbegriffe zu machen.',
     },
     pricing: {
       eyebrow: 'Preise',
@@ -145,12 +144,11 @@ const pages: Record<Locale, Record<PublicPageSlug, PublicPageCopy>> = {
       body: 'Insights konzentrieren sich auf die operative Realität professioneller Workplace-Konferenzen und auf Entscheidungen, mit denen Workplace Teams klarere und verlässlichere Erfahrungen schaffen können.',
     },
     company: {
-      eyebrow: 'Unternehmen',
-      title: 'Conference Manager ist das Produkt. Pavurel ist das Endorsement dahinter.',
+      eyebrow: 'Über uns',
+      title: 'Rund um die Konferenz gebaut – nicht rund um ein weiteres System.',
       description:
-        'Verstehen Sie, wie Conference Manager in die Pavurel-Markenrichtung eingeordnet ist und warum operative Präzision und warme Workplace Hospitality das Produkterlebnis prägen.',
-      body: 'Conference Manager bleibt das Produkt für Kunden. Pavurel liefert den Corporate-Brand-Kontext: eine bewusst gestaltete Workplace Experience auf Basis operativer Klarheit, zurückhaltendem Design und professioneller Hospitality.',
-      note: 'Pavurel bleibt der bevorzugte Corporate-Brand-Kandidat; formale rechtliche, Firmenname-, Domain- und Markenfreigaben sind eigenständige Governance-Schritte.',
+        'Erfahren Sie, warum Conference Manager den vollständigen Workplace-Konferenzablauf in den Mittelpunkt stellt, wie Mitarbeitende und Workplace Teams davon profitieren und welche Rolle Pavurel im Produkterlebnis spielt.',
+      body: 'Conference Manager ist für die Arbeit gebaut, die nach der Raumentscheidung beginnt: Gäste, Catering, Services, Anforderungen und die Koordination, durch die eine professionelle Konferenz vorbereitet wirkt. Das Produkt verbindet einen einfachen Anfrageprozess mit dem operativen Kontext, den Workplace Teams benötigen.',
     },
     'book-a-demo': {
       eyebrow: 'Demo anfragen',
