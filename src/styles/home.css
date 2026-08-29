@@ -43,7 +43,7 @@
   }
 
   .eyebrow--light {
-    color: #ead7df;
+    color: var(--color-bordeaux-soft);
   }
 
   .hero {
@@ -124,7 +124,7 @@
     inset: 0 0 auto auto;
     width: 45%;
     aspect-ratio: 1;
-    background: radial-gradient(circle, rgb(194 154 107 / 0.2), transparent 68%);
+    background: radial-gradient(circle, color-mix(in srgb, var(--color-camel) 20%, transparent), transparent 68%);
     transform: translate(22%, -28%);
     pointer-events: none;
   }
@@ -247,7 +247,7 @@
 
   .capability-card--accent .card-index,
   .capability-card--accent p {
-    color: #ead7df;
+    color: var(--color-bordeaux-soft);
   }
 
   .capability-card h3 {
@@ -316,17 +316,17 @@
   }
 
   .integration-statement__copy > p {
-    color: #cbc7c3;
+    color: var(--color-on-dark-muted);
   }
 
-  .pull-quote {
+  .integration-statement__copy > .pull-quote {
     margin: 0;
     padding-inline-start: 1.5rem;
     border-inline-start: 2px solid var(--color-camel);
     font-family: var(--font-display);
-    font-size: clamp(1.5rem, 3vw, 2.35rem) !important;
-    line-height: 1.25 !important;
-    color: var(--color-surface) !important;
+    font-size: clamp(1.5rem, 3vw, 2.35rem);
+    line-height: 1.25;
+    color: var(--color-surface);
   }
 
   .audience-grid {
@@ -359,7 +359,7 @@
     place-items: center;
     border-radius: 50%;
     background: var(--color-bordeaux);
-    color: white;
+    color: var(--color-on-accent);
     font-family: var(--font-display);
     font-weight: 800;
   }
@@ -462,7 +462,7 @@
   }
 
   .closing > p:not(.eyebrow) {
-    color: #ead7df;
+    color: var(--color-bordeaux-soft);
     font-size: clamp(1.05rem, 1.5vw, 1.25rem);
   }
 
