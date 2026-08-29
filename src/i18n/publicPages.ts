@@ -27,44 +27,44 @@ const pages: Record<Locale, Record<PublicPageSlug, PublicPageCopy>> = {
       eyebrow: 'Product',
       title: 'Conference management around the complete request.',
       description:
-        'Discover how Conference Manager brings guests, catering, services, requirements and room context into one guided workplace conference journey.',
-      body: 'Conference Manager is designed around the professional conference request. It gives employees a guided experience while keeping the operational context Workplace Teams need in one coherent place.',
+        'See how Conference Manager brings guests, catering, services, requirements and room context into one guided conference journey for modern workplaces.',
+      body: 'Conference Manager is designed around the professional conference request. Employees get a clear journey while Workplace Teams retain the operational context needed to prepare and manage the experience.',
     },
     'how-it-works': {
       eyebrow: 'How it works',
       title: 'From conference request to prepared experience.',
       description:
-        'See the Conference Manager journey from initial request through connected room booking, requirements and Workplace Team coordination.',
-      body: 'The journey starts with the conference itself, connects the organisation’s existing room-booking capability and captures the information required to prepare the experience.',
+        'Follow the Conference Manager journey from the first request through connected room context, conference requirements and Workplace Team coordination.',
+      body: 'Start with the conference itself, connect the organisation’s existing room-booking capability and keep the information needed for preparation together.',
     },
     integrations: {
       eyebrow: 'Integrations',
       title: 'Keep the systems that already solve a problem well.',
       description:
-        'Conference Manager is designed to connect with existing workplace, identity and collaboration capabilities instead of creating an isolated ecosystem.',
-      body: 'The integration direction starts with existing room-booking capabilities and the Microsoft 365 / Entra ecosystem, while internal contracts remain designed for future provider expansion.',
+        'Connect Conference Manager with existing workplace, identity and collaboration capabilities instead of creating an isolated conference process.',
+      body: 'The current enterprise integration focus starts with existing room-booking capabilities and Microsoft 365 / Entra. Provider access remains qualified by the tenant configuration and controls required for real use.',
       note: 'Only integration capabilities verified against the current product implementation are presented as available.',
     },
     'workplace-teams': {
       eyebrow: 'For Workplace Teams',
       title: 'Operational context without exposing operational complexity.',
       description:
-        'Conference Manager helps Workplace Teams understand and coordinate the complete conference request while keeping the employee journey simple.',
-      body: 'Workplace Teams need structured information, clear responsibilities and enough context to prepare a professional conference. The product is designed to make that work visible without turning the requester experience into an internal checklist.',
+        'Give Workplace Teams the context to prepare and coordinate conferences while keeping the employee request journey simple.',
+      body: 'Workplace Teams need structured information, clear responsibilities and enough context to prepare a professional conference. Conference Manager makes that work visible without turning the requester experience into an internal checklist.',
     },
     'security-trust': {
       eyebrow: 'Security & Trust',
       title: 'Simple for users. Deliberate about control.',
       description:
-        'Security, privacy, tenant isolation, access control and auditable operation are treated as product requirements for Conference Manager.',
-      body: 'The public website does not own application authentication or session state. The Conference Manager application and trusted API retain those security boundaries. Public claims on this page remain limited to capabilities that can be evidenced from the current implementation.',
+        'Evaluate how Conference Manager separates public marketing, authenticated product access, integration authority and production trust controls.',
+      body: 'Conference Manager keeps the public website, authenticated application and trusted API as distinct responsibilities. Public trust statements remain evidence-led and qualified where real production acceptance is still required.',
     },
     pricing: {
       eyebrow: 'Pricing',
-      title: 'Pricing that will be clear before it is public.',
+      title: 'A clear commercial model before a public price list.',
       description:
-        'Conference Manager pricing is being prepared for a transparent public model. No unapproved prices are published.',
-      body: 'The commercial model is not yet formally approved. This page is already part of the public information architecture so the future pricing model can be introduced without restructuring the website.',
+        'Conference Manager is preparing a transparent commercial model. No price, tier or offer is published before formal approval.',
+      body: 'Public pricing is not yet approved. Until it is, a demo conversation can focus on product fit and the operating model without presenting an unapproved monetary offer.',
       note: 'No monetary amount shown here should be inferred as an offer or approved price.',
     },
     insights: {
@@ -72,15 +72,15 @@ const pages: Record<Locale, Record<PublicPageSlug, PublicPageCopy>> = {
       title: 'Practical thinking for better workplace conferences.',
       description:
         'Insights on conference operations, workplace experience, governance and connected workplace services.',
-      body: 'Insights will focus on the operational realities behind professional workplace conferences. During the initial phase, every published article is maintained as a complete English and German pair.',
+      body: 'Insights focus on the operational realities behind professional workplace conferences. During the initial phase, every published article is maintained as a complete English and German pair.',
     },
     'book-a-demo': {
       eyebrow: 'Book a demo',
       title: 'See how Conference Manager fits your workplace.',
       description:
-        'Request a Conference Manager demo and discuss how the product can fit existing room-booking and workplace processes.',
-      body: 'The governed demo-request form is the next conversion capability. It will send requests through a first-party EU-hosted processing boundary to a functional mailbox, without adding marketing tracking.',
-      note: 'The production form is not active until its processing endpoint, recipient, privacy text and anti-abuse controls are configured and validated.',
+        'Request a Conference Manager demo and discuss how the product could fit your existing room-booking and workplace processes.',
+      body: 'Bring one real conference journey: what happens after the room is chosen, what your team needs to prepare and where coordination moves between people and tools today.',
+      note: 'Demo requests remain unavailable in environments where the accepted processing endpoint and privacy controls are not configured.',
     },
   },
   de: {
@@ -88,44 +88,44 @@ const pages: Record<Locale, Record<PublicPageSlug, PublicPageCopy>> = {
       eyebrow: 'Produkt',
       title: 'Konferenzmanagement rund um die vollständige Anfrage.',
       description:
-        'Entdecke, wie Conference Manager Gäste, Catering, Services, Anforderungen und Raumkontext in einem geführten Workplace-Konferenzablauf zusammenführt.',
-      body: 'Conference Manager ist rund um die professionelle Konferenzanfrage gestaltet. Mitarbeitende erhalten ein geführtes Erlebnis, während Workplace Teams den operativen Kontext an einem zusammenhängenden Ort sehen.',
+        'Sehen Sie, wie Conference Manager Gäste, Catering, Services, Anforderungen und Raumkontext in einem geführten Konferenzablauf für moderne Arbeitswelten zusammenführt.',
+      body: 'Conference Manager ist rund um die professionelle Konferenzanfrage gestaltet. Mitarbeitende erhalten einen klaren Ablauf, während Workplace Teams den operativen Kontext für Vorbereitung und Steuerung behalten.',
     },
     'how-it-works': {
       eyebrow: 'So funktioniert es',
       title: 'Von der Konferenzanfrage zur vorbereiteten Erfahrung.',
       description:
-        'Sieh den Conference-Manager-Ablauf von der ersten Anfrage über die verbundene Raumbuchung bis zu Anforderungen und Workplace-Team-Koordination.',
-      body: 'Der Ablauf beginnt bei der Konferenz selbst, bindet die bestehende Raumbuchungsfähigkeit des Unternehmens ein und erfasst die Informationen, die für die Vorbereitung benötigt werden.',
+        'Folgen Sie dem Conference-Manager-Ablauf von der ersten Anfrage über den verbundenen Raumkontext bis zu Anforderungen und Workplace-Team-Koordination.',
+      body: 'Beginnen Sie bei der Konferenz selbst, binden Sie die bestehende Raumbuchung Ihres Unternehmens ein und halten Sie die für die Vorbereitung benötigten Informationen zusammen.',
     },
     integrations: {
       eyebrow: 'Integrationen',
-      title: 'Behalte Systeme, die ein Problem bereits gut lösen.',
+      title: 'Behalten Sie Systeme, die ein Problem bereits gut lösen.',
       description:
-        'Conference Manager ist darauf ausgelegt, bestehende Workplace-, Identity- und Collaboration-Fähigkeiten einzubinden, statt ein isoliertes Ökosystem zu schaffen.',
-      body: 'Die Integrationsrichtung beginnt mit bestehenden Raumbuchungsfähigkeiten und dem Microsoft-365-/Entra-Ökosystem. Interne Verträge bleiben gleichzeitig für spätere Provider-Erweiterungen ausgelegt.',
+        'Verbinden Sie Conference Manager mit bestehenden Workplace-, Identity- und Collaboration-Fähigkeiten, statt einen isolierten Konferenzprozess zu schaffen.',
+      body: 'Der aktuelle Enterprise-Integrationsfokus beginnt mit vorhandener Raumbuchung und Microsoft 365 / Entra. Realer Provider-Zugriff bleibt an die jeweils erforderliche Tenant-Konfiguration und Kontrollen gebunden.',
       note: 'Als verfügbar werden nur Integrationsfähigkeiten dargestellt, die gegen den aktuellen Produktstand verifiziert sind.',
     },
     'workplace-teams': {
       eyebrow: 'Für Workplace Teams',
       title: 'Operativer Kontext, ohne operative Komplexität offenzulegen.',
       description:
-        'Conference Manager unterstützt Workplace Teams dabei, die vollständige Konferenzanfrage zu verstehen und zu koordinieren, während der Employee Journey einfach bleibt.',
-      body: 'Workplace Teams benötigen strukturierte Informationen, klare Zuständigkeiten und ausreichend Kontext für eine professionell vorbereitete Konferenz. Das Produkt macht diese Arbeit sichtbar, ohne die anfragende Person mit internen Checklisten zu belasten.',
+        'Geben Sie Workplace Teams den Kontext für Vorbereitung und Koordination, während der Anfrageprozess für Mitarbeitende einfach bleibt.',
+      body: 'Workplace Teams benötigen strukturierte Informationen, klare Zuständigkeiten und ausreichend Kontext für eine professionell vorbereitete Konferenz. Conference Manager macht diese Arbeit sichtbar, ohne die anfragende Person mit internen Checklisten zu belasten.',
     },
     'security-trust': {
       eyebrow: 'Security & Trust',
       title: 'Einfach für Nutzer. Kontrolliert im Fundament.',
       description:
-        'Security, Datenschutz, Tenant-Isolation, Zugriffskontrolle und auditierbarer Betrieb werden als Produktanforderungen des Conference Manager behandelt.',
-      body: 'Die öffentliche Website besitzt weder Anwendungsauthentifizierung noch Session-State. Diese Security-Grenzen verbleiben bei der Conference-Manager-Anwendung und der vertrauenswürdigen API. Öffentliche Aussagen bleiben auf Fähigkeiten begrenzt, die aus dem aktuellen Produktstand belegt werden können.',
+        'Bewerten Sie, wie Conference Manager öffentliche Website, authentifizierten Produktzugriff, Integrationsautorität und produktive Trust-Kontrollen voneinander trennt.',
+      body: 'Conference Manager hält öffentliche Website, authentifizierte Anwendung und Trusted API als getrennte Verantwortlichkeiten. Öffentliche Trust-Aussagen bleiben evidenzbasiert und werden qualifiziert, solange reale Produktionsabnahmen noch ausstehen.',
     },
     pricing: {
       eyebrow: 'Preise',
-      title: 'Preise werden transparent, bevor sie öffentlich werden.',
+      title: 'Ein klares kommerzielles Modell vor einer öffentlichen Preisliste.',
       description:
-        'Das Conference-Manager-Pricing wird für ein transparentes öffentliches Modell vorbereitet. Nicht freigegebene Preise werden nicht veröffentlicht.',
-      body: 'Das kommerzielle Modell ist noch nicht formal freigegeben. Die Seite ist dennoch bereits Teil der Informationsarchitektur, damit das spätere Pricing ohne Umbau der Website eingeführt werden kann.',
+        'Conference Manager bereitet ein transparentes kommerzielles Modell vor. Preise, Tiers oder Angebote werden nicht vor formaler Freigabe veröffentlicht.',
+      body: 'Öffentliche Preise sind noch nicht freigegeben. Bis dahin kann eine Demo den Produktfit und das Betriebsmodell klären, ohne einen nicht freigegebenen Preis als Angebot darzustellen.',
       note: 'Aus dieser Seite darf kein Betrag als Angebot oder freigegebener Preis abgeleitet werden.',
     },
     insights: {
@@ -136,12 +136,12 @@ const pages: Record<Locale, Record<PublicPageSlug, PublicPageCopy>> = {
       body: 'Insights konzentrieren sich auf die operative Realität professioneller Workplace-Konferenzen. In der ersten Phase wird jeder veröffentlichte Beitrag vollständig auf Deutsch und Englisch gepflegt.',
     },
     'book-a-demo': {
-      eyebrow: 'Demo buchen',
-      title: 'Sieh, wie Conference Manager in deine Arbeitswelt passt.',
+      eyebrow: 'Demo anfragen',
+      title: 'Sehen Sie, wie Conference Manager in Ihre Arbeitswelt passt.',
       description:
-        'Fordere eine Conference-Manager-Demo an und besprich, wie sich das Produkt in bestehende Raumbuchungs- und Workplace-Prozesse einfügen kann.',
-      body: 'Das kontrollierte Demo-Formular ist die nächste Conversion-Funktion. Anfragen werden künftig über eine eigene EU-gehostete Verarbeitung an ein Funktionspostfach gesendet – ohne Marketing-Tracking.',
-      note: 'Das produktive Formular wird erst aktiv, wenn Endpoint, Empfänger, Datenschutzhinweise und Anti-Abuse-Kontrollen konfiguriert und validiert sind.',
+        'Fordern Sie eine Conference-Manager-Demo an und besprechen Sie, wie sich das Produkt in bestehende Raumbuchungs- und Workplace-Prozesse einfügen kann.',
+      body: 'Bringen Sie einen realen Konferenzablauf mit: Was passiert nach der Raumentscheidung, was benötigt Ihr Team für die Vorbereitung und wo wechselt die Koordination heute zwischen Menschen und Tools?',
+      note: 'Demo-Anfragen bleiben in Umgebungen deaktiviert, in denen der abgenommene Verarbeitungs-Endpunkt und die Datenschutzkontrollen nicht konfiguriert sind.',
     },
   },
 };
