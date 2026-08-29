@@ -19,7 +19,11 @@ function normalize(value) {
 }
 
 function hasControlCharacters(value) {
-  return /[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/u.test(value);
+  return [...value].some((character) => {
+    const codePoint = character.codePointAt(0);
+    if (codePoint === undefined) return false;
+    return (codePoint >= 0 && codePoint <= 8) || codePoint === 11 || codePoint === 12 || (codePoint >= 14 && codePoint <= 31) || codePoint === 127;
+  });
 }
 
 export function parseFormBody(body, isBase64Encoded = false) {
