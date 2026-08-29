@@ -53,6 +53,27 @@ jobs:
           npx prettier --write "src/**/*.{astro,ts,json}" "e2e/**/*.ts" "scripts/**/*.mjs" "functions/**/*.{js,json}" "*.{js,mjs,json,ts}"
           git diff -- . ':!.github/workflows/ci.yml'
 
+      - name: Upload Prettier diagnostic files
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: prettier-diagnostic-${{ github.sha }}
+          path: |
+            src/i18n/company.ts
+            src/i18n/homepage.ts
+            src/i18n/integrations.test.ts
+            src/i18n/integrations.ts
+            src/i18n/pricing.ts
+            src/i18n/securityTrust.ts
+            src/layouts/publicPageRoute.test.ts
+            e2e/integrations.spec.ts
+            e2e/pricing.spec.ts
+            e2e/public-site.spec.ts
+            e2e/security-trust.spec.ts
+            e2e/workplace-teams.spec.ts
+          if-no-files-found: error
+          retention-days: 1
+
       - name: Unit tests
         run: npm test
 
