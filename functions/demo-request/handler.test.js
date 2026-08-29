@@ -73,7 +73,9 @@ describe('Scaleway demo request handler', () => {
 
   it('allows only form-urlencoded content', async () => {
     const handler = createHandler({ env: configuredEnv, sendEmail: vi.fn() });
-    const result = await handler(event(validFields, { headers: { 'content-type': 'application/json' } }));
+    const result = await handler(
+      event(validFields, { headers: { 'content-type': 'application/json' } }),
+    );
     expect(result.statusCode).toBe(415);
   });
 

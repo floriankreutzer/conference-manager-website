@@ -83,7 +83,10 @@ export function createHandler({ env = process.env, sendEmail = sendTransactional
       return response(405, { status: 'error', code: 'method_not_allowed' });
     }
 
-    const contentType = getHeader(event.headers, 'content-type').split(';', 1)[0].trim().toLowerCase();
+    const contentType = getHeader(event.headers, 'content-type')
+      .split(';', 1)[0]
+      .trim()
+      .toLowerCase();
     if (contentType !== 'application/x-www-form-urlencoded') {
       return response(415, { status: 'error', code: 'unsupported_media_type' });
     }

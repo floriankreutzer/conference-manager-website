@@ -93,7 +93,8 @@ export function validateDemoRequest(raw) {
     return { ok: false, code: 'invalid_request' };
   }
 
-  if (Object.values(request).some(hasControlCharacters)) return { ok: false, code: 'invalid_request' };
+  if (Object.values(request).some(hasControlCharacters))
+    return { ok: false, code: 'invalid_request' };
   if (!businessEmailPattern.test(request.email)) return { ok: false, code: 'invalid_request' };
   if (!allowedCompanySizes.has(request.companySize)) return { ok: false, code: 'invalid_request' };
   if (!allowedLocales.has(request.locale)) return { ok: false, code: 'invalid_request' };
