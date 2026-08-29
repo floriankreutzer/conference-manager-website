@@ -13,17 +13,17 @@ describe('base-path routing', () => {
     );
   });
 
-  it('keeps Insight navigation inside the GitHub Pages project base', () => {
+  it('keeps reciprocal Insight navigation inside the GitHub Pages project base', () => {
     expect(withBasePath('/en/insights/', '/conference-manager-website/')).toBe(
       '/conference-manager-website/en/insights/',
     );
     expect(
       withBasePath(
-        '/de/insights/raumbuchung-ist-nur-ein-teil-des-konferenzmanagements/',
+        '/de/insights/room-booking-is-only-part-of-conference-management/',
         '/conference-manager-website/',
       ),
     ).toBe(
-      '/conference-manager-website/de/insights/raumbuchung-ist-nur-ein-teil-des-konferenzmanagements/',
+      '/conference-manager-website/de/insights/room-booking-is-only-part-of-conference-management/',
     );
   });
 
