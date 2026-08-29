@@ -99,7 +99,8 @@ const workplaceTeamsCopy: Record<Locale, WorkplaceTeamsCopy> = {
         eyebrow: 'Operative Sicht',
         title: 'Trenne eine einfache Employee Journey von der Managementarbeit.',
         body: 'Die anfragende Person sieht einen geführten Konferenzablauf. Conference Manager stellt getrennte Management-Ansichten für Buchungen, Raumplanung, Reporting und Stammdatenadministration bereit, damit operative Details nicht Teil der Employee-Oberfläche werden müssen.',
-        statement: 'Einfach für die anfragende Person. Strukturiert für das Team, das die Konferenz vorbereitet.',
+        statement:
+          'Einfach für die anfragende Person. Strukturiert für das Team, das die Konferenz vorbereitet.',
       },
       {
         eyebrow: 'Kontrollierte Änderung',
