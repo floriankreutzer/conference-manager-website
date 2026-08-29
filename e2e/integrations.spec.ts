@@ -41,12 +41,12 @@ test.describe('Integrations', () => {
     const main = page.locator('main');
 
     await expect(page).toHaveTitle(
-      'Behalte Systeme, die ein Problem bereits gut lösen. — Conference Manager',
+      'Behalten Sie Systeme, die ein Problem bereits gut lösen. — Conference Manager',
     );
     await expect(
       main.getByRole('heading', {
         level: 1,
-        name: 'Behalte Systeme, die ein Problem bereits gut lösen.',
+        name: 'Behalten Sie Systeme, die ein Problem bereits gut lösen.',
       }),
     ).toBeVisible();
     await expect(main.locator('article > ol > li')).toHaveCount(4);
