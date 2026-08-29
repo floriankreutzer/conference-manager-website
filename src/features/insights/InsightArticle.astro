@@ -1,0 +1,104 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { render } from 'astro:content';
+
+import type { Locale } from '@config/locales';
+
+interface Props {
+  locale: Locale;
+  entry: CollectionEntry<'insights'>;
+}
+
+const { locale, entry } = Astro.props;
+const { Content } = await render(entry);
+const dateLocale = locale === 'de' ? 'de-DE' : 'en-GB';
+const backLabel = locale === 'de' ? 'Zurück zu Insights' : 'Back to Insights';
+---
+
+<article class="insight-article">
+  <header class="insight-article__header">
+    <a class="text-link insight-article__back" href={`/${locale}/insights/`}>{backLabel}</a>
+    <p class="eyebrow">Insights</p>
+    <h1>{entry.data.title}</h1>
+    <p class="insight-article__description">{entry.data.description}</p>
+    {
+      entry.data.publishedAt && (
+        <time class="insight-article__date" datetime={entry.data.publishedAt.toISOString()}>
+          {entry.data.publishedAt.toLocaleDateString(dateLocale, {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+          })}
+        </time>
+      )
+    }
+  </header>
+
+  <div class="insight-article__body">
+    <Content />
+  </div>
+</article>
+
+<style>
+  .insight-article {
+    padding-block: clamp(4rem, 9vw, 8rem);
+  }
+
+  .insight-article__header {
+    display: grid;
+    gap: var(--space-4);
+    max-width: 58rem;
+    margin-bottom: clamp(3rem, 7vw, 6rem);
+  }
+
+  .insight-article__back {
+    width: fit-content;
+    margin-bottom: var(--space-5);
+  }
+
+  .insight-article__header h1 {
+    max-width: 16ch;
+    margin: 0;
+    font-size: clamp(2.7rem, 5.8vw, 5.8rem);
+    letter-spacing: -0.05em;
+  }
+
+  .insight-article__description {
+    max-width: 46rem;
+    margin: 0;
+    color: var(--color-text-muted);
+    font-size: clamp(1.08rem, 1.5vw, 1.28rem);
+    line-height: 1.7;
+  }
+
+  .insight-article__date {
+    color: var(--color-bordeaux);
+    font-size: 0.82rem;
+    font-weight: 700;
+  }
+
+  .insight-article__body {
+    max-width: 46rem;
+    font-size: 1.05rem;
+    line-height: 1.8;
+  }
+
+  .insight-article__body :global(h2) {
+    margin-top: 2.8em;
+    font-size: clamp(1.7rem, 3vw, 2.5rem);
+  }
+
+  .insight-article__body :global(h3) {
+    margin-top: 2.2em;
+    font-size: clamp(1.3rem, 2vw, 1.7rem);
+  }
+
+  .insight-article__body :global(p),
+  .insight-article__body :global(li) {
+    color: var(--color-text-muted);
+  }
+
+  .insight-article__body :global(a) {
+    color: var(--color-bordeaux);
+  }
+</style>
