@@ -1,0 +1,40 @@
+@layer tokens {
+  :root {
+    --color-ink: #171717;
+    --color-text-muted: #62666b;
+    --color-surface: #ffffff;
+    --color-canvas: #f3f2f0;
+    --color-canvas-soft: #f8f7f5;
+    --color-border: #d9d5d0;
+    --color-bordeaux: #7a1f3d;
+    --color-bordeaux-dark: #651d32;
+    --color-bordeaux-soft: #ead7df;
+    --color-camel: #c29a6b;
+    --color-camel-dark: #a97d4e;
+    --color-on-accent: #ffffff;
+    --color-on-dark-muted: #cbc7c3;
+
+    --font-display: Manrope, Inter, ui-sans-serif, system-ui, sans-serif;
+    --font-body: Inter, ui-sans-serif, system-ui, sans-serif;
+
+    --space-1: 0.5rem;
+    --space-2: 0.75rem;
+    --space-3: 1rem;
+    --space-4: 1.5rem;
+    --space-5: 2rem;
+    --space-6: 3rem;
+    --space-7: 4.5rem;
+    --space-8: 6.5rem;
+
+    --radius-sm: 0.5rem;
+    --radius-md: 0.875rem;
+    --radius-lg: 1.5rem;
+    --radius-pill: 999px;
+
+    --content-max: 78rem;
+    --copy-max: 68ch;
+    --headline-max: 16ch;
+
+    --shadow-soft: 0 1.5rem 4rem rgb(23 23 23 / 0.08);
+  }
+}

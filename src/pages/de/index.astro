@@ -1,21 +1,11 @@
 ---
+import HomePage from '@components/home/HomePage.astro';
 import MarketingLayout from '@layouts/MarketingLayout.astro';
+import { getHomepageCopy } from '@i18n/homepage';
+
+const copy = getHomepageCopy('de');
 ---
 
-<MarketingLayout
-  locale="de"
-  title="Conference Manager — Konferenzmanagement für moderne Arbeitswelten"
-  description="Koordiniere Gäste, Catering, Services und Konferenzanforderungen in einem durchgängigen Erlebnis und behalte bestehende Raumbuchungssysteme bei."
->
-  <section class="hero" aria-labelledby="hero-title">
-    <p class="eyebrow">Konferenzmanagement für moderne Arbeitswelten.</p>
-    <h1 id="hero-title">Damit sich jede Workplace-Konferenz mühelos anfühlt.</h1>
-    <p class="hero__copy">
-      Koordiniere Gäste, Catering, Services und Konferenzanforderungen in einem einfachen Erlebnis — und nutze weiterhin die Raumbuchungssysteme, die dein Unternehmen bereits einsetzt.
-    </p>
-    <p>
-      <a class="button" href="/de/book-a-demo/">Demo buchen</a>
-      <a href="/de/how-it-works/">So funktioniert es</a>
-    </p>
-  </section>
+<MarketingLayout locale="de" title={copy.meta.title} description={copy.meta.description}>
+  <HomePage locale="de" />
 </MarketingLayout>
