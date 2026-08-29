@@ -2,6 +2,7 @@
 import DemoRequestForm from '@features/demo-request/DemoRequestForm.astro';
 import InsightsIndex from '@features/insights/InsightsIndex.astro';
 import ProductStoryPage from '@features/product-story/ProductStoryPage.astro';
+import WorkplaceTeamsPage from '@features/workplace-teams/WorkplaceTeamsPage.astro';
 import { isProductStorySlug } from '@i18n/productStory';
 import { getPublicPageCopy, publicPageSlugs, type PublicPageSlug } from '@i18n/publicPages';
 import MarketingLayout from '@layouts/MarketingLayout.astro';
@@ -13,7 +14,8 @@ export function getStaticPaths() {
 
 const slug = Astro.params.slug as PublicPageSlug;
 const copy = getPublicPageCopy('de', slug);
-const title = isProductStorySlug(slug)
+const hasDetailedContent = isProductStorySlug(slug) || slug === 'workplace-teams';
+const title = hasDetailedContent
   ? `${copy.title} — Conference Manager`
   : `${copy.eyebrow} — Conference Manager`;
 ---
@@ -26,6 +28,8 @@ const title = isProductStorySlug(slug)
       <InsightsIndex locale="de" />
     ) : isProductStorySlug(slug) ? (
       <ProductStoryPage locale="de" slug={slug} />
+    ) : slug === 'workplace-teams' ? (
+      <WorkplaceTeamsPage locale="de" />
     ) : (
       <PublicInfoPage locale="de" slug={slug} />
     )
