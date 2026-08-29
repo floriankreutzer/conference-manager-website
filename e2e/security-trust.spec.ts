@@ -5,26 +5,29 @@ const englishPath = '/en/security-trust/';
 const germanPath = '/de/security-trust/';
 
 test.describe('Security & Trust', () => {
-  test('renders the evidence-led English trust narrative', async ({ page }) => {
+  test('renders the buyer-readable English trust narrative', async ({ page }) => {
     await page.goto(englishPath);
     const main = page.locator('main');
 
     await expect(page).toHaveTitle(
-      'Simple for users. Deliberate about control. — Conference Manager',
+      'A simple experience with deliberate enterprise boundaries. — Conference Manager',
     );
     await expect(
-      main.getByRole('heading', { level: 1, name: 'Simple for users. Deliberate about control.' }),
+      main.getByRole('heading', {
+        level: 1,
+        name: 'A simple experience with deliberate enterprise boundaries.',
+      }),
     ).toBeVisible();
     await expect(main.locator('article > ol > li')).toHaveCount(4);
     await expect(
       main.getByRole('heading', {
         level: 2,
-        name: 'Marketing and application access remain separate by design.',
+        name: 'The public website does not become a second place to sign in.',
       }),
     ).toBeVisible();
-    await expect(
-      main.getByText(/does not turn planned controls into certifications/),
-    ).toBeVisible();
+    await expect(main.getByText(/does not turn planned controls into certifications/)).toBeVisible();
+    await expect(main).not.toContainText('refresh tokens');
+    await expect(main).not.toContainText('browser bundle');
     await expect(main.getByRole('link', { name: 'Book a demo' }).first()).toHaveAttribute(
       'href',
       '/en/book-a-demo/',
@@ -39,29 +42,31 @@ test.describe('Security & Trust', () => {
     );
   });
 
-  test('renders the complete German trust narrative', async ({ page }) => {
+  test('renders the buyer-readable German trust narrative', async ({ page }) => {
     await page.goto(germanPath);
     const main = page.locator('main');
 
     await expect(page).toHaveTitle(
-      'Einfach für Nutzer. Kontrolliert im Fundament. — Conference Manager',
+      'Eine einfache Erfahrung mit klaren Enterprise-Grenzen. — Conference Manager',
     );
     await expect(
       main.getByRole('heading', {
         level: 1,
-        name: 'Einfach für Nutzer. Kontrolliert im Fundament.',
+        name: 'Eine einfache Erfahrung mit klaren Enterprise-Grenzen.',
       }),
     ).toBeVisible();
     await expect(main.locator('article > ol > li')).toHaveCount(4);
     await expect(
       main.getByRole('heading', {
         level: 2,
-        name: 'Marketing und Anwendungszugriff bleiben bewusst getrennt.',
+        name: 'Die öffentliche Website wird nicht zu einem zweiten Anmeldeort.',
       }),
     ).toBeVisible();
     await expect(
       main.getByText(/keine Zertifizierungen, pauschalen Compliance-Aussagen/),
     ).toBeVisible();
+    await expect(main).not.toContainText('Refresh-Tokens');
+    await expect(main).not.toContainText('Trusted API');
     await expect(main.getByRole('link', { name: 'Demo anfragen' }).first()).toHaveAttribute(
       'href',
       '/de/book-a-demo/',
@@ -85,7 +90,7 @@ test.describe('Security & Trust', () => {
     await expect(
       page.getByRole('heading', {
         level: 2,
-        name: 'Trust-Aussagen folgen verifizierten Kontrollen – nicht Marketingformulierungen.',
+        name: 'Kommunizieren Sie nur, was die umgesetzten Kontrollen tatsächlich tragen.',
       }),
     ).toBeVisible();
   });
