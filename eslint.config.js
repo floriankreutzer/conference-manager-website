@@ -13,9 +13,12 @@ export default [
     files: ['scripts/**/*.mjs', 'functions/**/*.js'],
     languageOptions: {
       globals: {
+        AbortSignal: 'readonly',
         Buffer: 'readonly',
         console: 'readonly',
+        fetch: 'readonly',
         process: 'readonly',
+        URL: 'readonly',
         URLSearchParams: 'readonly',
       },
     },
