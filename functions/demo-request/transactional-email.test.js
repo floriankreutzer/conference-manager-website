@@ -1,9 +1,6 @@
 import { EventEmitter } from 'node:events';
 import { describe, expect, it, vi } from 'vitest';
-import {
-  createTransactionalEmailSender,
-  TransactionalEmailError,
-} from './transactional-email.js';
+import { createTransactionalEmailSender, TransactionalEmailError } from './transactional-email.js';
 
 const config = {
   secretKey: 'test-secret',
