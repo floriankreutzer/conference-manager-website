@@ -3,7 +3,9 @@ import { expect, test } from '@playwright/test';
 const germanGlyphProbe = 'ÄÖÜäöüß';
 
 test.describe('governed self-hosted webfonts', () => {
-  test('loads Inter and Manrope from same-origin assets with German glyph coverage', async ({ page }) => {
+  test('loads Inter and Manrope from same-origin assets with German glyph coverage', async ({
+    page,
+  }) => {
     const externalFontRequests: string[] = [];
 
     page.on('request', (request) => {

@@ -1,18 +1,12 @@
 {
   "schemaVersion": 1,
   "status": "accepted",
-  "approvedFamilies": [
-    "Manrope",
-    "Inter"
-  ],
+  "approvedFamilies": ["Manrope", "Inter"],
   "assets": [
     {
       "acquisitionDate": "2026-08-29",
       "license": "OFL-1.1",
-      "languageCoverage": [
-        "en",
-        "de"
-      ],
+      "languageCoverage": ["en", "de"],
       "modificationState": "unmodified upstream WOFF2",
       "reviewer": "Conference Manager repository governance review",
       "family": "Manrope",
@@ -28,10 +22,7 @@
     {
       "acquisitionDate": "2026-08-29",
       "license": "OFL-1.1",
-      "languageCoverage": [
-        "en",
-        "de"
-      ],
+      "languageCoverage": ["en", "de"],
       "modificationState": "unmodified upstream WOFF2",
       "reviewer": "Conference Manager repository governance review",
       "family": "Manrope",
@@ -47,10 +38,7 @@
     {
       "acquisitionDate": "2026-08-29",
       "license": "OFL-1.1",
-      "languageCoverage": [
-        "en",
-        "de"
-      ],
+      "languageCoverage": ["en", "de"],
       "modificationState": "unmodified upstream WOFF2",
       "reviewer": "Conference Manager repository governance review",
       "family": "Manrope",
@@ -66,10 +54,7 @@
     {
       "acquisitionDate": "2026-08-29",
       "license": "OFL-1.1",
-      "languageCoverage": [
-        "en",
-        "de"
-      ],
+      "languageCoverage": ["en", "de"],
       "modificationState": "unmodified upstream WOFF2",
       "reviewer": "Conference Manager repository governance review",
       "family": "Inter",
