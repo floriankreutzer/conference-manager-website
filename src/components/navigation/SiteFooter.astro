@@ -25,20 +25,30 @@ const footer = navigation.footer;
     <nav class="site-footer__nav" aria-label={footer.productHeading}>
       <h2>{footer.productHeading}</h2>
       <ul>
-        {footer.productLinks.map((item) => <li><a href={withBasePath(item.href)}>{item.label}</a></li>)}
+        {
+          footer.productLinks.map((item) => (
+            <li><a href={withBasePath(item.href)}>{item.label}</a></li>
+          ))
+        }
       </ul>
     </nav>
 
     <nav class="site-footer__nav" aria-label={footer.resourcesHeading}>
       <h2>{footer.resourcesHeading}</h2>
       <ul>
-        {footer.resourceLinks.map((item) => <li><a href={withBasePath(item.href)}>{item.label}</a></li>)}
+        {
+          footer.resourceLinks.map((item) => (
+            <li><a href={withBasePath(item.href)}>{item.label}</a></li>
+          ))
+        }
       </ul>
     </nav>
 
     <div class="site-footer__actions">
       <a class="button" href={withBasePath(`/${locale}/book-a-demo/`)}>{footer.demoLabel}</a>
-      <a class="site-footer__login" href={getLoginUrl()}>{footer.loginLabel}<span aria-hidden="true"> →</span></a>
+      <a class="site-footer__login" href={getLoginUrl()}
+        >{footer.loginLabel}<span aria-hidden="true"> →</span></a
+      >
     </div>
   </div>
 </footer>
@@ -55,7 +65,10 @@ const footer = navigation.footer;
     margin-inline: auto;
     padding-block: clamp(3rem, 6vw, 5.5rem);
     display: grid;
-    grid-template-columns: minmax(18rem, 1.5fr) repeat(2, minmax(10rem, 0.7fr)) minmax(10rem, 0.8fr);
+    grid-template-columns: minmax(18rem, 1.5fr) repeat(2, minmax(10rem, 0.7fr)) minmax(
+        10rem,
+        0.8fr
+      );
     gap: clamp(2rem, 5vw, 5rem);
     align-items: start;
   }
