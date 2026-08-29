@@ -80,47 +80,50 @@ test.describe('public website contracts', () => {
     expect(radius).toBe('4px');
   });
 
-  test('explains why Conference Manager exists and what a customer can expect', async ({ page }) => {
-    await page.goto('/en/company/');
+  test(
+    'explains why Conference Manager exists and what a customer can expect',
+    async ({ page }) => {
+      await page.goto('/en/company/');
 
-    await expect(
-      page.getByRole('heading', {
-        level: 1,
-        name: 'Why Conference Manager exists — and what that means for your organisation.',
-      }),
-    ).toBeVisible();
-    await expect(
-      page.getByText('A booked room does not mean a prepared conference.'),
-    ).toBeVisible();
-    await expect(
-      page.getByText(
-        'For organisations that want an easier request and a clearer preparation process.',
-      ),
-    ).toBeVisible();
-    await expect(
-      page.getByText('Improve the coordination around systems that already work.'),
-    ).toBeVisible();
-    await expect(
-      page.getByText('Start with a real conference journey and prove the fit before expanding.'),
-    ).toBeVisible();
-    await expect(page.getByText('One request. Everything your conference needs.')).toBeVisible();
-    await expect(
-      page.getByText('Keep your room booking. Replace the coordination around it.'),
-    ).toBeVisible();
-    await expect(
-      page.getByText(/formal company-name, domain and trademark clearance/i),
-    ).toHaveCount(0);
-    await expect(page.getByRole('link', { name: 'Book a demo' })).toHaveCount(1);
-    await expect(page.getByRole('link', { name: 'Explore the product' })).toHaveAttribute(
-      'href',
-      '/en/product/',
-    );
-    await expectBrandVisualToLoad(page, 'about');
-    await expect(page.locator('[data-brand-visual-variant="about"] img')).toHaveAttribute(
-      'src',
-      '/assets/brand/about-hospitality-400.webp',
-    );
-  });
+      await expect(
+        page.getByRole('heading', {
+          level: 1,
+          name: 'Why Conference Manager exists — and what that means for your organisation.',
+        }),
+      ).toBeVisible();
+      await expect(
+        page.getByText('A booked room does not mean a prepared conference.'),
+      ).toBeVisible();
+      await expect(
+        page.getByText(
+          'For organisations that want an easier request and a clearer preparation process.',
+        ),
+      ).toBeVisible();
+      await expect(
+        page.getByText('Improve the coordination around systems that already work.'),
+      ).toBeVisible();
+      await expect(
+        page.getByText('Start with a real conference journey and prove the fit before expanding.'),
+      ).toBeVisible();
+      await expect(page.getByText('One request. Everything your conference needs.')).toBeVisible();
+      await expect(
+        page.getByText('Keep your room booking. Replace the coordination around it.'),
+      ).toBeVisible();
+      await expect(
+        page.getByText(/formal company-name, domain and trademark clearance/i),
+      ).toHaveCount(0);
+      await expect(page.getByRole('link', { name: 'Book a demo' })).toHaveCount(1);
+      await expect(page.getByRole('link', { name: 'Explore the product' })).toHaveAttribute(
+        'href',
+        '/en/product/',
+      );
+      await expectBrandVisualToLoad(page, 'about');
+      await expect(page.locator('[data-brand-visual-variant="about"] img')).toHaveAttribute(
+        'src',
+        '/assets/brand/about-hospitality-400.webp',
+      );
+    },
+  );
 
   test('presents Security and Trust as customer value rather than website architecture', async ({
     page,
