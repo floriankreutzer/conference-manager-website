@@ -82,15 +82,13 @@ describe('demo endpoint operational acceptance', () => {
     );
     fetchImpl.mockImplementationOnce(async () => ({
       status: 400,
-      text: vi
-        .fn()
-        .mockResolvedValue(
-          JSON.stringify({
-            status: 'error',
-            code: 'invalid_request',
-            value: '<acceptance-invalid-marker>',
-          }),
-        ),
+      text: vi.fn().mockResolvedValue(
+        JSON.stringify({
+          status: 'error',
+          code: 'invalid_request',
+          value: '<acceptance-invalid-marker>',
+        }),
+      ),
     }));
 
     await expect(
