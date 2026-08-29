@@ -2,7 +2,8 @@ import { describe, expect, it } from 'vitest';
 import { assertDeploymentContract, validateDeploymentOrigin } from './deployment-contract.mjs';
 
 const productionHeaders = {
-  'content-security-policy': "default-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'",
+  'content-security-policy':
+    "default-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'",
   'strict-transport-security': 'max-age=31536000; includeSubDomains',
   'referrer-policy': 'strict-origin-when-cross-origin',
   'permissions-policy': 'camera=(), microphone=(), geolocation=()',
@@ -27,7 +28,8 @@ describe('deployed website acceptance', () => {
       assertDeploymentContract({
         mode: 'preview',
         origin: 'https://preview.example.org',
-        pageHtml: '<link rel="canonical" href="https://preview.example.org/en/"><meta name="robots" content="noindex, nofollow">',
+        pageHtml:
+          '<link rel="canonical" href="https://preview.example.org/en/"><meta name="robots" content="noindex, nofollow">',
         pageHeaders: {},
         robotsText: 'User-agent: *\nDisallow: /\n',
         sitemapText: '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"></urlset>',
@@ -43,7 +45,8 @@ describe('deployed website acceptance', () => {
         pageHtml: '<link rel="canonical" href="https://www.example.org/en/">',
         pageHeaders: productionHeaders,
         robotsText: 'User-agent: *\nAllow: /\nSitemap: https://www.example.org/sitemap.xml\n',
-        sitemapText: '<url><loc>https://www.example.org/en/</loc></url><url><loc>https://www.example.org/de/</loc></url>',
+        sitemapText:
+          '<url><loc>https://www.example.org/en/</loc></url><url><loc>https://www.example.org/de/</loc></url>',
       }),
     ).not.toThrow();
   });
@@ -56,7 +59,8 @@ describe('deployed website acceptance', () => {
         pageHtml: '<link rel="canonical" href="https://www.example.org/en/">',
         pageHeaders: { 'x-content-type-options': 'nosniff' },
         robotsText: 'User-agent: *\nAllow: /\nSitemap: https://www.example.org/sitemap.xml\n',
-        sitemapText: '<url><loc>https://www.example.org/en/</loc></url><url><loc>https://www.example.org/de/</loc></url>',
+        sitemapText:
+          '<url><loc>https://www.example.org/en/</loc></url><url><loc>https://www.example.org/de/</loc></url>',
       }),
     ).toThrow(/CSP/);
   });
