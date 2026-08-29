@@ -104,14 +104,21 @@ Current structure:
 
 ```text
 src/
-├── pages/                     # Astro routing/composition roots only
+├── pages/                     # filesystem routes, static paths and locale delegation
 │   ├── en/
 │   └── de/
-├── layouts/                   # page-level composition contracts
-├── components/                # reusable presentation, currently navigation
+├── layouts/                   # shared page-level composition and route contracts
+├── components/                # reusable presentation
+│   ├── editorial/
+│   └── navigation/
 ├── features/                  # bounded website use cases
 │   ├── demo-request/
-│   └── insights/
+│   ├── insights/
+│   ├── integrations/
+│   ├── pricing/
+│   ├── product-story/
+│   ├── security-trust/
+│   └── workplace-teams/
 ├── domain/                    # independently testable website rules
 │   ├── forms/
 │   ├── insights/
@@ -133,10 +140,10 @@ scripts/
 ```
 
 Rules:
-- `pages` compose routes; significant rules do not belong there;
-- `layouts` own page-level composition and may compose features/components;
-- `components` are reusable presentation-oriented building blocks;
-- `features` own bounded website behavior and orchestration;
+- `pages` own filesystem routing and static-path selection; locale route files delegate shared public-page composition rather than duplicating feature dispatch or metadata rules;
+- `layouts` own shared page-level composition and may compose features/components; the localized public `[slug]` routes use one `PublicPageRoute` dispatcher plus a framework-independent resolver for page variant/title semantics;
+- `components` are reusable presentation-oriented building blocks and do not own buyer/product/security/integration/pricing content;
+- `features` own bounded website behavior and orchestration, including Product / How it works, Workplace Teams, Security & Trust, Integrations and governed pre-pricing narratives;
 - `domain` owns testable rules independent of Astro/browser rendering where practical;
 - `config` centralizes application-login origin, publication and public integration configuration;
 - `functions` is a separate public server-side trust boundary and follows `functions/AGENTS.md` in addition to root governance;
@@ -390,8 +397,11 @@ Accepted and implemented repository baseline:
 - separate public website boundary — ADR 0001;
 - Astro + TypeScript, static-first, responsibility-oriented modular architecture — ADR 0002;
 - `/en/...` and `/de/...` localized route strategy — ADR 0002;
+- centralized bilingual public-route composition with thin locale filesystem routes and one tested page-variant/title resolver;
 - bilingual PAVUREL website shell/homepage and publication-governed public pages;
-- Insights Content Collection foundation with bilingual publication gates;
+- detailed bilingual Product / How it works, Workplace Teams, Security & Trust and qualified Integrations destinations;
+- governed bilingual pre-pricing destination that publishes no unapproved monetary amount, tier or commercial offer;
+- Insights Content Collection foundation with bilingual publication gates and governed bilingual article delivery;
 - no CMS and no tracking at launch — ADRs 0002/0003;
 - secure configurable Login handoff to the authenticated application;
 - fail-closed public demo form plus bounded serverless processing implementation;
