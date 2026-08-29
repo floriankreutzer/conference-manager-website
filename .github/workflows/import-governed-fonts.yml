@@ -1,0 +1,186 @@
+name: Import governed webfonts
+
+on:
+  push:
+    branches: [feature/governed-webfonts]
+
+permissions:
+  contents: write
+
+jobs:
+  import:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+        with:
+          ref: feature/governed-webfonts
+
+      - name: Import immutable upstream font assets
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          font_dir="src/assets/fonts"
+          mkdir -p "$font_dir"
+
+          manrope_commit="6f81ebecdf65e4463b798cc07b16a4f8d5216917"
+          inter_commit="66647c0bbbe41a850d79d9c76fb13add3378940f"
+
+          curl -fL --retry 3 --retry-all-errors \
+            "https://raw.githubusercontent.com/aaronbell/manrope/${manrope_commit}/fonts/webfonts/Manrope-Regular.woff2" \
+            -o "$font_dir/Manrope-Regular.woff2"
+          curl -fL --retry 3 --retry-all-errors \
+            "https://raw.githubusercontent.com/aaronbell/manrope/${manrope_commit}/fonts/webfonts/Manrope-Bold.woff2" \
+            -o "$font_dir/Manrope-Bold.woff2"
+          curl -fL --retry 3 --retry-all-errors \
+            "https://raw.githubusercontent.com/aaronbell/manrope/${manrope_commit}/fonts/webfonts/Manrope-ExtraBold.woff2" \
+            -o "$font_dir/Manrope-ExtraBold.woff2"
+          curl -fL --retry 3 --retry-all-errors \
+            "https://raw.githubusercontent.com/rsms/inter/${inter_commit}/docs/font-files/InterVariable.woff2" \
+            -o "$font_dir/InterVariable.woff2"
+
+          curl -fL --retry 3 --retry-all-errors \
+            "https://raw.githubusercontent.com/aaronbell/manrope/${manrope_commit}/OFL.txt" \
+            -o "$font_dir/LICENSE-MANROPE.txt"
+          curl -fL --retry 3 --retry-all-errors \
+            "https://raw.githubusercontent.com/rsms/inter/${inter_commit}/LICENSE.txt" \
+            -o "$font_dir/LICENSE-INTER.txt"
+
+          verify_blob() {
+            local file="$1"
+            local expected="$2"
+            local actual
+            actual="$(git hash-object "$file")"
+            if [[ "$actual" != "$expected" ]]; then
+              echo "Git blob SHA mismatch for $file: expected $expected, got $actual" >&2
+              exit 1
+            fi
+          }
+
+          verify_size() {
+            local file="$1"
+            local expected="$2"
+            local actual
+            actual="$(wc -c < "$file" | tr -d ' ')"
+            if [[ "$actual" != "$expected" ]]; then
+              echo "Size mismatch for $file: expected $expected, got $actual" >&2
+              exit 1
+            fi
+          }
+
+          verify_blob "$font_dir/Manrope-Regular.woff2" "8b869ed838c1faefd74fcf5f1fbe260a2007e82d"
+          verify_blob "$font_dir/Manrope-Bold.woff2" "88d5e36626f0217235f55f77b3eb00013d542589"
+          verify_blob "$font_dir/Manrope-ExtraBold.woff2" "6a9937a6d01667f58424e3393d22905bb80ff437"
+          verify_blob "$font_dir/InterVariable.woff2" "22a12b04e1abd959c00f9d8429ca78ddae3f7dde"
+          verify_blob "$font_dir/LICENSE-MANROPE.txt" "472064afc4b8dec9079fab03b8ffafb617a1b2d8"
+          verify_blob "$font_dir/LICENSE-INTER.txt" "9b2ca37b3ffc77391d8b2ebef4a974ef32bf46ea"
+
+          verify_size "$font_dir/Manrope-Regular.woff2" 47344
+          verify_size "$font_dir/Manrope-Bold.woff2" 48376
+          verify_size "$font_dir/Manrope-ExtraBold.woff2" 46764
+          verify_size "$font_dir/InterVariable.woff2" 345588
+
+          export MANROPE_REGULAR_SHA256="$(sha256sum "$font_dir/Manrope-Regular.woff2" | cut -d' ' -f1)"
+          export MANROPE_BOLD_SHA256="$(sha256sum "$font_dir/Manrope-Bold.woff2" | cut -d' ' -f1)"
+          export MANROPE_EXTRABOLD_SHA256="$(sha256sum "$font_dir/Manrope-ExtraBold.woff2" | cut -d' ' -f1)"
+          export INTER_VARIABLE_SHA256="$(sha256sum "$font_dir/InterVariable.woff2" | cut -d' ' -f1)"
+
+          node <<'NODE'
+          import { writeFileSync } from 'node:fs';
+
+          const acquisitionDate = '2026-08-29';
+          const reviewer = 'Conference Manager repository governance review';
+          const common = {
+            acquisitionDate,
+            license: 'OFL-1.1',
+            languageCoverage: ['en', 'de'],
+            modificationState: 'unmodified upstream WOFF2',
+            reviewer,
+          };
+
+          const manifest = {
+            schemaVersion: 1,
+            status: 'accepted',
+            approvedFamilies: ['Manrope', 'Inter'],
+            assets: [
+              {
+                ...common,
+                family: 'Manrope',
+                filename: 'Manrope-Regular.woff2',
+                style: 'normal',
+                weight: '400',
+                upstreamSource:
+                  'https://github.com/aaronbell/manrope/blob/6f81ebecdf65e4463b798cc07b16a4f8d5216917/fonts/webfonts/Manrope-Regular.woff2',
+                version: '4.504',
+                sourceCommit: '6f81ebecdf65e4463b798cc07b16a4f8d5216917',
+                sha256: process.env.MANROPE_REGULAR_SHA256,
+                licenseFile: 'LICENSE-MANROPE.txt',
+              },
+              {
+                ...common,
+                family: 'Manrope',
+                filename: 'Manrope-Bold.woff2',
+                style: 'normal',
+                weight: '700',
+                upstreamSource:
+                  'https://github.com/aaronbell/manrope/blob/6f81ebecdf65e4463b798cc07b16a4f8d5216917/fonts/webfonts/Manrope-Bold.woff2',
+                version: '4.504',
+                sourceCommit: '6f81ebecdf65e4463b798cc07b16a4f8d5216917',
+                sha256: process.env.MANROPE_BOLD_SHA256,
+                licenseFile: 'LICENSE-MANROPE.txt',
+              },
+              {
+                ...common,
+                family: 'Manrope',
+                filename: 'Manrope-ExtraBold.woff2',
+                style: 'normal',
+                weight: '800',
+                upstreamSource:
+                  'https://github.com/aaronbell/manrope/blob/6f81ebecdf65e4463b798cc07b16a4f8d5216917/fonts/webfonts/Manrope-ExtraBold.woff2',
+                version: '4.504',
+                sourceCommit: '6f81ebecdf65e4463b798cc07b16a4f8d5216917',
+                sha256: process.env.MANROPE_EXTRABOLD_SHA256,
+                licenseFile: 'LICENSE-MANROPE.txt',
+              },
+              {
+                ...common,
+                family: 'Inter',
+                filename: 'InterVariable.woff2',
+                style: 'normal',
+                weight: '100 900',
+                upstreamSource:
+                  'https://github.com/rsms/inter/blob/66647c0bbbe41a850d79d9c76fb13add3378940f/docs/font-files/InterVariable.woff2',
+                version: '4.1',
+                sourceCommit: '66647c0bbbe41a850d79d9c76fb13add3378940f',
+                sha256: process.env.INTER_VARIABLE_SHA256,
+                licenseFile: 'LICENSE-INTER.txt',
+              },
+            ],
+          };
+
+          writeFileSync('src/assets/fonts/manifest.json', `${JSON.stringify(manifest, null, 2)}\n`);
+          NODE
+
+          node scripts/assets/verify-font-assets.mjs
+
+          echo "Imported governed font SHA-256 values:"
+          sha256sum \
+            "$font_dir/Manrope-Regular.woff2" \
+            "$font_dir/Manrope-Bold.woff2" \
+            "$font_dir/Manrope-ExtraBold.woff2" \
+            "$font_dir/InterVariable.woff2"
+
+      - name: Commit governed assets
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/assets/fonts/
+          if git diff --cached --quiet; then
+            exit 0
+          fi
+          git commit -m "Import governed Manrope and Inter webfonts"
+          git push
