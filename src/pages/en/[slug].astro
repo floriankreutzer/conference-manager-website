@@ -1,0 +1,16 @@
+---
+import PublicInfoPage from '@components/pages/PublicInfoPage.astro';
+import MarketingLayout from '@layouts/MarketingLayout.astro';
+import { getPublicPageCopy, publicPageSlugs, type PublicPageSlug } from '@i18n/publicPages';
+
+export function getStaticPaths() {
+  return publicPageSlugs.map((slug) => ({ params: { slug } }));
+}
+
+const slug = Astro.params.slug as PublicPageSlug;
+const copy = getPublicPageCopy('en', slug);
+---
+
+<MarketingLayout locale="en" title={`${copy.eyebrow} — Conference Manager`} description={copy.description}>
+  <PublicInfoPage locale="en" slug={slug} />
+</MarketingLayout>
