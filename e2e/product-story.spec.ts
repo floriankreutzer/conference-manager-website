@@ -8,6 +8,9 @@ test.describe('Product and How it works narratives', () => {
     await page.goto('/en/product/');
     const main = page.locator('main');
 
+    await expect(page).toHaveTitle(
+      'Conference management around the complete request. — Conference Manager',
+    );
     await expect(
       main.getByRole('heading', {
         level: 1,
@@ -20,7 +23,9 @@ test.describe('Product and How it works narratives', () => {
         name: 'One conference context, from date and time to review.',
       }),
     ).toBeVisible();
-    await expect(main.getByText('Keep your room booking. Replace the coordination around it.')).toBeVisible();
+    await expect(
+      main.getByText('Keep your room booking. Replace the coordination around it.'),
+    ).toBeVisible();
     await expect(main.getByRole('link', { name: 'Book a demo' }).first()).toHaveAttribute(
       'href',
       '/en/book-a-demo/',
@@ -39,6 +44,9 @@ test.describe('Product and How it works narratives', () => {
     await page.goto('/de/product/');
     const main = page.locator('main');
 
+    await expect(page).toHaveTitle(
+      'Konferenzmanagement rund um die vollständige Anfrage. — Conference Manager',
+    );
     await expect(
       main.getByRole('heading', {
         level: 1,
@@ -68,6 +76,9 @@ test.describe('Product and How it works narratives', () => {
     await page.goto('/en/how-it-works/');
     const main = page.locator('main');
 
+    await expect(page).toHaveTitle(
+      'From conference request to prepared experience. — Conference Manager',
+    );
     await expect(
       main.getByRole('heading', {
         level: 1,
@@ -75,14 +86,18 @@ test.describe('Product and How it works narratives', () => {
       }),
     ).toBeVisible();
     await expect(main.locator('article > ol > li')).toHaveCount(5);
-    await expect(main.getByRole('heading', { level: 2, name: 'Start with the conference itself.' })).toBeVisible();
+    await expect(
+      main.getByRole('heading', { level: 2, name: 'Start with the conference itself.' }),
+    ).toBeVisible();
     await expect(
       main.getByRole('heading', {
         level: 2,
         name: 'Keep room booking connected, not duplicated.',
       }),
     ).toBeVisible();
-    await expect(main.getByText("We don't replace your room booking system. We connect it.")).toBeVisible();
+    await expect(
+      main.getByText("We don't replace your room booking system. We connect it."),
+    ).toBeVisible();
     await expect(main.getByRole('link', { name: /Explore the product/ }).first()).toHaveAttribute(
       'href',
       '/en/product/',
