@@ -47,6 +47,12 @@ jobs:
       - name: Format check
         run: npm run format:check
 
+      - name: Format diagnostic
+        if: failure()
+        run: |
+          npx prettier src/i18n/pricing.ts src/i18n/pricing.test.ts e2e/pricing.spec.ts --write
+          git diff -- src/i18n/pricing.ts src/i18n/pricing.test.ts e2e/pricing.spec.ts
+
       - name: Unit tests
         run: npm test
 
