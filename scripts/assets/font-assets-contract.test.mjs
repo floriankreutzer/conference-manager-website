@@ -104,7 +104,9 @@ describe('font asset governance', () => {
       assets: [acceptedAsset('inter.woff2', '0'.repeat(64))],
     });
 
-    await expect(verifyFontAssets({ fontDirectory: directory })).rejects.toThrow(/SHA-256 mismatch/);
+    await expect(verifyFontAssets({ fontDirectory: directory })).rejects.toThrow(
+      /SHA-256 mismatch/,
+    );
   });
 
   it('rejects accepted metadata without English and German coverage', async () => {

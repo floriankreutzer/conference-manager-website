@@ -43,7 +43,10 @@ function validateAssetMetadata(asset, approvedFamilies) {
   requireCondition(isNonEmptyString(asset.weight), `Missing weight for ${asset.filename}`);
 
   const source = new URL(asset.upstreamSource);
-  requireCondition(source.protocol === 'https:', `Upstream source must use HTTPS for ${asset.filename}`);
+  requireCondition(
+    source.protocol === 'https:',
+    `Upstream source must use HTTPS for ${asset.filename}`,
+  );
   requireCondition(isNonEmptyString(asset.version), `Missing version for ${asset.filename}`);
   requireCondition(
     /^[0-9a-f]{40}$/i.test(asset.sourceCommit),
@@ -101,7 +104,10 @@ export async function verifyFontAssets({ fontDirectory = 'src/assets/fonts' } = 
 
   if (manifest.status === 'pending') {
     requireCondition(manifest.assets.length === 0, 'Pending font manifest must not declare assets');
-    requireCondition(woff2Files.length === 0, 'WOFF2 files are prohibited while font status is pending');
+    requireCondition(
+      woff2Files.length === 0,
+      'WOFF2 files are prohibited while font status is pending',
+    );
     return { status: 'pending', files: [] };
   }
 
@@ -111,7 +117,10 @@ export async function verifyFontAssets({ fontDirectory = 'src/assets/fonts' } = 
 
   for (const asset of manifest.assets) {
     validateAssetMetadata(asset, approvedFamilies);
-    requireCondition(!declaredFiles.includes(asset.filename), `Duplicate font asset: ${asset.filename}`);
+    requireCondition(
+      !declaredFiles.includes(asset.filename),
+      `Duplicate font asset: ${asset.filename}`,
+    );
     declaredFiles.push(asset.filename);
 
     const filePath = join(fontDirectory, asset.filename);
