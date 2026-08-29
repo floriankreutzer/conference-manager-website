@@ -18,6 +18,11 @@ describe('product story localization', () => {
       english.sections.forEach((section, index) => {
         const translated = german.sections[index];
 
+        expect(translated).toBeDefined();
+        if (!translated) {
+          throw new Error(`Missing German product-story section ${index + 1} for ${slug}.`);
+        }
+
         expect(section.eyebrow.trim()).not.toBe('');
         expect(section.title.trim()).not.toBe('');
         expect(section.body.trim()).not.toBe('');
