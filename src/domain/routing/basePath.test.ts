@@ -13,6 +13,20 @@ describe('base-path routing', () => {
     );
   });
 
+  it('keeps Insight navigation inside the GitHub Pages project base', () => {
+    expect(withBasePath('/en/insights/', '/conference-manager-website/')).toBe(
+      '/conference-manager-website/en/insights/',
+    );
+    expect(
+      withBasePath(
+        '/de/insights/raumbuchung-ist-nur-ein-teil-des-konferenzmanagements/',
+        '/conference-manager-website/',
+      ),
+    ).toBe(
+      '/conference-manager-website/de/insights/raumbuchung-ist-nur-ein-teil-des-konferenzmanagements/',
+    );
+  });
+
   it('removes the configured project base before locale switching', () => {
     expect(
       withoutBasePath(
