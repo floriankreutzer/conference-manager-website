@@ -24,12 +24,14 @@ describe('Pricing copy', () => {
     });
   });
 
-  it('keeps the unapproved commercial state explicit', () => {
+  it('keeps the unapproved commercial state explicit without making it the only buyer story', () => {
     const english = JSON.stringify(getPricingCopy('en'));
     const german = JSON.stringify(getPricingCopy('de'));
 
-    expect(english).toContain('does not yet have a final approved public pricing model');
-    expect(german).toContain('noch kein final freigegebenes öffentliches Preismodell');
+    expect(english).toContain('does not yet publish an approved public price list');
+    expect(german).toContain('noch keine freigegebene öffentliche Preisliste');
+    expect(english).toContain('Use a demo to decide whether the product is relevant');
+    expect(german).toContain('Nutzen Sie eine Demo, um die Relevanz');
   });
 
   it('fails closed on fabricated monetary pricing and package tiers', () => {
