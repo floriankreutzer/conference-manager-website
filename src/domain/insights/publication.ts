@@ -1,13 +1,13 @@
 export type InsightPublicationEntry = {
   translationKey: string;
   locale: 'en' | 'de';
-  slug: string;
+  routeSlug: string;
   status: 'draft' | 'reviewed' | 'published';
 };
 
 type PublishedTranslationPair = {
   locales: Set<'en' | 'de'>;
-  slug: string;
+  routeSlug: string;
 };
 
 export function assertPublishedTranslationPairs(entries: InsightPublicationEntry[]): void {
@@ -17,16 +17,16 @@ export function assertPublishedTranslationPairs(entries: InsightPublicationEntry
   for (const entry of published) {
     const translation = translationsByKey.get(entry.translationKey) ?? {
       locales: new Set<'en' | 'de'>(),
-      slug: entry.slug,
+      routeSlug: entry.routeSlug,
     };
 
     if (translation.locales.has(entry.locale)) {
       throw new Error(`Duplicate published ${entry.locale} insight for ${entry.translationKey}.`);
     }
 
-    if (translation.slug !== entry.slug) {
+    if (translation.routeSlug !== entry.routeSlug) {
       throw new Error(
-        `Published insight ${entry.translationKey} requires one shared slug across English and German entries for reciprocal hreflang routes.`,
+        `Published insight ${entry.translationKey} requires one shared route slug across English and German entries for reciprocal hreflang routes.`,
       );
     }
 
