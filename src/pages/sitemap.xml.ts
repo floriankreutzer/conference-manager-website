@@ -19,7 +19,9 @@ export const GET: APIRoute = async () => {
     const insightEntries = await getPublishedInsights();
     const paths = [
       ...getIndexablePublicPaths(),
-      ...insightEntries.map((entry) => `/${entry.data.locale}/insights/${entry.data.slug}/`),
+      ...insightEntries.map(
+        (entry) => `/${entry.data.locale}/insights/${entry.data.routeSlug}/`,
+      ),
     ];
 
     urls.push(
