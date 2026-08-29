@@ -7,19 +7,17 @@ const germanPath = '/de/pricing/';
 const forbiddenCurrency = /[$€£¥]|\b(?:EUR|USD|GBP|CHF)\b/i;
 
 test.describe('Pricing', () => {
-  test('renders the governed English pre-pricing narrative and conversion paths', async ({
-    page,
-  }) => {
+  test('renders the governed English pre-pricing narrative and conversion paths', async ({ page }) => {
     await page.goto(englishPath);
     const main = page.locator('main');
 
     await expect(page).toHaveTitle(
-      'Pricing that will be clear before it is public. — Conference Manager',
+      'A clear commercial model before a public price list. — Conference Manager',
     );
     await expect(
       main.getByRole('heading', {
         level: 1,
-        name: 'Pricing that will be clear before it is public.',
+        name: 'A clear commercial model before a public price list.',
       }),
     ).toBeVisible();
     await expect(main.locator('article > ol > li')).toHaveCount(4);
@@ -44,19 +42,17 @@ test.describe('Pricing', () => {
     );
   });
 
-  test('renders the governed German pre-pricing narrative with reciprocal metadata', async ({
-    page,
-  }) => {
+  test('renders the governed German pre-pricing narrative with reciprocal metadata', async ({ page }) => {
     await page.goto(germanPath);
     const main = page.locator('main');
 
     await expect(page).toHaveTitle(
-      'Preise werden transparent, bevor sie öffentlich werden. — Conference Manager',
+      'Ein klares kommerzielles Modell vor einer öffentlichen Preisliste. — Conference Manager',
     );
     await expect(
       main.getByRole('heading', {
         level: 1,
-        name: 'Preise werden transparent, bevor sie öffentlich werden.',
+        name: 'Ein klares kommerzielles Modell vor einer öffentlichen Preisliste.',
       }),
     ).toBeVisible();
     await expect(main.locator('article > ol > li')).toHaveCount(4);
@@ -67,7 +63,7 @@ test.describe('Pricing', () => {
       }),
     ).toBeVisible();
     await expect(main).not.toContainText(forbiddenCurrency);
-    await expect(main.getByRole('link', { name: 'Demo buchen' }).first()).toHaveAttribute(
+    await expect(main.getByRole('link', { name: 'Demo anfragen' }).first()).toHaveAttribute(
       'href',
       '/de/book-a-demo/',
     );
@@ -90,7 +86,7 @@ test.describe('Pricing', () => {
     await expect(
       page.getByRole('heading', {
         level: 2,
-        name: 'Validiere das kommerzielle Modell, bevor du es veröffentlichst.',
+        name: 'Veröffentlichen Sie ein Modell erst, wenn die Evidenz es trägt.',
       }),
     ).toBeVisible();
   });
