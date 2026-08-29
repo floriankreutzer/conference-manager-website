@@ -47,6 +47,12 @@ jobs:
       - name: Format check
         run: npm run format:check
 
+      - name: Diagnose Prettier diff
+        if: failure()
+        run: |
+          npx prettier --write "src/**/*.{astro,ts,json}" "e2e/**/*.ts" "scripts/**/*.mjs" "functions/**/*.{js,json}" "*.{js,mjs,json,ts}"
+          git diff -- . ':!.github/workflows/ci.yml'
+
       - name: Unit tests
         run: npm test
 
