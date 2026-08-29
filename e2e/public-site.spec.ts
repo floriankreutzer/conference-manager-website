@@ -38,12 +38,13 @@ test.describe('public website contracts', () => {
     await expect(
       page.getByText('Keep your room booking. Replace the coordination around it.'),
     ).toBeVisible();
-    await expect(page.getByRole('link', { name: 'About Conference Manager' })).toHaveAttribute(
-      'href',
-      '/en/company/',
-    );
+    await expect(
+      page.getByRole('link', { name: 'About Conference Manager' }),
+    ).toHaveAttribute('href', '/en/company/');
     await expect(page.getByRole('link', { name: 'Book a demo' })).toHaveCount(2);
-    await expect(page.locator('footer').getByRole('link', { name: 'Book a demo' })).toHaveCount(0);
+    await expect(
+      page.locator('footer').getByRole('link', { name: 'Book a demo' }),
+    ).toHaveCount(0);
     await expectBrandVisualToLoad(page, 'hero');
     await expect(page.locator('[data-brand-visual-variant="hero"] img')).toHaveAttribute(
       'src',
@@ -51,7 +52,9 @@ test.describe('public website contracts', () => {
     );
   });
 
-  test('uses governed identity and restrained application-family geometry', async ({ page }) => {
+  test('uses governed identity and restrained application-family geometry', async ({
+    page,
+  }) => {
     await page.goto('/en/');
 
     const signet = page.locator('header .brand-lockup__signet');
@@ -69,7 +72,9 @@ test.describe('public website contracts', () => {
     expect(radius).toBe('4px');
   });
 
-  test('explains why Conference Manager exists and what a customer can expect', async ({ page }) => {
+  test('explains why Conference Manager exists and what a customer can expect', async ({
+    page,
+  }) => {
     await page.goto('/en/company/');
 
     await expect(
@@ -78,7 +83,9 @@ test.describe('public website contracts', () => {
         name: 'Why Conference Manager exists — and what that means for your organisation.',
       }),
     ).toBeVisible();
-    await expect(page.getByText('A booked room does not mean a prepared conference.')).toBeVisible();
+    await expect(
+      page.getByText('A booked room does not mean a prepared conference.'),
+    ).toBeVisible();
     await expect(
       page.getByText(
         'For organisations that want an easier request and a clearer preparation process.',
@@ -90,11 +97,15 @@ test.describe('public website contracts', () => {
     await expect(
       page.getByText('Start with a real conference journey and prove the fit before expanding.'),
     ).toBeVisible();
-    await expect(page.getByText('One request. Everything your conference needs.')).toBeVisible();
+    await expect(
+      page.getByText('One request. Everything your conference needs.'),
+    ).toBeVisible();
     await expect(
       page.getByText('Keep your room booking. Replace the coordination around it.'),
     ).toBeVisible();
-    await expect(page.getByText(/formal company-name, domain and trademark clearance/i)).toHaveCount(0);
+    await expect(
+      page.getByText(/formal company-name, domain and trademark clearance/i),
+    ).toHaveCount(0);
     await expect(page.getByRole('link', { name: 'Explore the product' })).toHaveAttribute(
       'href',
       '/en/product/',
@@ -119,7 +130,9 @@ test.describe('public website contracts', () => {
     await expect(
       page.getByText('A simple employee journey without giving up organisational control.'),
     ).toBeVisible();
-    await expect(page.getByText('Connect to your environment without handing control away.')).toBeVisible();
+    await expect(
+      page.getByText('Connect to your environment without handing control away.'),
+    ).toBeVisible();
     await expect(page.getByRole('link', { name: 'Explore integrations' })).toHaveAttribute(
       'href',
       '/en/integrations/',
@@ -171,7 +184,10 @@ test.describe('public website contracts', () => {
 });
 
 test.describe('route integrity', () => {
-  test('all discoverable homepage internal links resolve successfully', async ({ page, request }) => {
+  test('all discoverable homepage internal links resolve successfully', async ({
+    page,
+    request,
+  }) => {
     const internalPaths = new Set<string>();
     for (const discoveryPath of ['/en/', '/de/']) {
       await page.goto(discoveryPath);
@@ -209,7 +225,10 @@ test.describe('route integrity', () => {
 test.describe('SEO and preview publication contracts', () => {
   test('publishes localized canonical, hreflang and social metadata', async ({ page }) => {
     await page.goto('/en/product/');
-    await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'noindex, nofollow');
+    await expect(page.locator('meta[name="robots"]')).toHaveAttribute(
+      'content',
+      'noindex, nofollow',
+    );
     await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
       'href',
       'https://preview.example.invalid/en/product/',
