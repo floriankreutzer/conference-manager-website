@@ -1,6 +1,6 @@
 import { defineConfig } from 'astro/config';
 
-const base = process.env.PUBLIC_BASE_PATH || '/';
+const base = globalThis.process?.env.PUBLIC_BASE_PATH || '/';
 
 export default defineConfig({
   output: 'static',
