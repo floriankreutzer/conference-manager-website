@@ -10,7 +10,14 @@ export const demoRequestServerLimits = Object.freeze({
   honeypot: 200,
 });
 
-const allowedCompanySizes = new Set(['1-49', '50-249', '250-999', '1000-4999', '5000+']);
+const allowedCompanySizes = new Set([
+  '1-49',
+  '50-249',
+  '250-999',
+  '1000-4999',
+  '5000-9999',
+  '10000+',
+]);
 const allowedLocales = new Set(['en', 'de']);
 const businessEmailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/u;
 
@@ -22,7 +29,13 @@ function hasControlCharacters(value) {
   return [...value].some((character) => {
     const codePoint = character.codePointAt(0);
     if (codePoint === undefined) return false;
-    return (codePoint >= 0 && codePoint <= 8) || codePoint === 11 || codePoint === 12 || (codePoint >= 14 && codePoint <= 31) || codePoint === 127;
+    return (
+      (codePoint >= 0 && codePoint <= 8) ||
+      codePoint === 11 ||
+      codePoint === 12 ||
+      (codePoint >= 14 && codePoint <= 31) ||
+      codePoint === 127
+    );
   });
 }
 
