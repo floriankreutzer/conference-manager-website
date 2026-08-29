@@ -59,7 +59,7 @@ const config = getDemoRequestConfig();
 
       <label class="privacy-check">
         <input type="checkbox" name="privacyAcknowledged" value="true" required disabled={!config.enabled} />
-        <span>{copy.privacy} {config.privacyUrl && <a href={config.privacyUrl}>Privacy</a>}</span>
+        <span>{copy.privacy} {config.privacyUrl && <a href={config.privacyUrl}>{copy.privacyLink}</a>}</span>
       </label>
 
       <button class="button demo-request__submit" type="submit" disabled={!config.enabled}>{copy.submit}</button>
