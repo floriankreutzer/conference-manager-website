@@ -4,10 +4,15 @@ type SeoEnvironment = {
   siteOrigin?: string;
 };
 
-export type SeoConfig = {
-  indexable: boolean;
-  siteOrigin?: URL;
-};
+export type SeoConfig =
+  | {
+      indexable: false;
+      siteOrigin?: URL;
+    }
+  | {
+      indexable: true;
+      siteOrigin: URL;
+    };
 
 function parseSiteOrigin(value: string): URL {
   const url = new URL(value);
@@ -30,9 +35,13 @@ export function getSeoConfig(environment: SeoEnvironment): SeoConfig {
   const indexable = !environment.preview && !environment.development;
   const siteOrigin = environment.siteOrigin ? parseSiteOrigin(environment.siteOrigin) : undefined;
 
-  if (indexable && !siteOrigin) {
-    throw new Error('PUBLIC_SITE_ORIGIN is required for an indexable build.');
+  if (indexable) {
+    if (!siteOrigin) {
+      throw new Error('PUBLIC_SITE_ORIGIN is required for an indexable build.');
+    }
+
+    return { indexable: true, siteOrigin };
   }
 
-  return { indexable, siteOrigin };
+  return siteOrigin ? { indexable: false, siteOrigin } : { indexable: false };
 }
