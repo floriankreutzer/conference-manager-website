@@ -92,6 +92,9 @@ jobs:
       - name: Production build
         run: npm run build
 
+      - name: Static build performance budgets
+        run: npm run test:performance
+
       - name: Verify pre-provisioned production bucket
         env:
           SCW_ENDPOINT: ${{ steps.config.outputs.endpoint }}

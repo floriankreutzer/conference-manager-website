@@ -2,6 +2,7 @@ import AxeBuilder from '@axe-core/playwright';
 import { expect, test } from '@playwright/test';
 
 const accessibilityPaths = ['/en/', '/de/', '/en/book-a-demo/', '/de/book-a-demo/'];
+const routeDiscoveryPaths = ['/en/', '/de/'];
 
 test.describe('public website contracts', () => {
   test('renders the approved Pavurel homepage narrative and primary actions', async ({ page }) => {
@@ -66,6 +67,36 @@ test.describe('public website contracts', () => {
       clientWidth: document.documentElement.clientWidth,
     }));
     expect(dimensions.scrollWidth).toBeLessThanOrEqual(dimensions.clientWidth + 1);
+  });
+});
+
+test.describe('route integrity', () => {
+  test('all discoverable internal links resolve successfully', async ({ page, request }) => {
+    const internalPaths = new Set<string>();
+
+    for (const discoveryPath of routeDiscoveryPaths) {
+      await page.goto(discoveryPath);
+      const hrefs = await page
+        .locator('a[href]')
+        .evaluateAll((links) =>
+          links
+            .map((link) => link.getAttribute('href'))
+            .filter((href): href is string => Boolean(href)),
+        );
+
+      for (const href of hrefs) {
+        if (!href.startsWith('/') || href.startsWith('//')) continue;
+        const url = new URL(href, 'http://127.0.0.1:4321');
+        internalPaths.add(`${url.pathname}${url.search}`);
+      }
+    }
+
+    expect(internalPaths.size).toBeGreaterThan(0);
+
+    for (const path of internalPaths) {
+      const response = await request.get(path);
+      expect(response.ok(), `Expected internal route ${path} to resolve`).toBe(true);
+    }
   });
 });
 

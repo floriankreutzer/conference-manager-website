@@ -75,6 +75,10 @@ jobs:
           PUBLIC_SITE_ORIGIN: ${{ steps.config.outputs.origin }}
         run: npm run build
 
+      - name: Enforce static build performance budgets
+        if: steps.config.outputs.enabled == 'true'
+        run: npm run test:performance
+
       - name: Provision isolated preview bucket
         if: steps.config.outputs.enabled == 'true'
         env:
