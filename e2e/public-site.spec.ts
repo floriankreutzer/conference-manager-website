@@ -46,9 +46,7 @@ test.describe('public website contracts', () => {
       }),
     ).toBeVisible();
     await expect(
-      page
-        .locator('.primary-nav')
-        .getByRole('link', { name: 'About Conference Manager', exact: true }),
+      page.locator('.primary-nav').getByRole('link', { name: 'About', exact: true }),
     ).toHaveAttribute('href', '/en/company/');
     await expect(page.getByRole('link', { name: 'Book a demo' })).toHaveCount(2);
     await expect(page.locator('footer').getByRole('link', { name: 'Book a demo' })).toHaveCount(0);
