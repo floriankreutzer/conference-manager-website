@@ -1,6 +1,7 @@
 ---
 import type { Locale } from '@config/locales';
 import { withBasePath } from '@domain/routing/basePath';
+import { getInsightsJourneyCopy } from '@i18n/insightsJourney';
 import { getPublicPageCopy } from '@i18n/publicPages';
 import { getPublishedInsightsForLocale } from './content';
 
@@ -10,12 +11,15 @@ interface Props {
 
 const { locale } = Astro.props;
 const copy = getPublicPageCopy(locale, 'insights');
+const journey = getInsightsJourneyCopy(locale).indexClosing;
 const entries = await getPublishedInsightsForLocale(locale);
 const emptyText =
   locale === 'de'
     ? 'Noch keine veröffentlichten Insights. Inhalte erscheinen hier erst nach vollständiger fachlicher, Brand- und Übersetzungsfreigabe.'
     : 'No insights are published yet. Content appears here only after complete claim, brand and translation review.';
 const dateLocale = locale === 'de' ? 'de-DE' : 'en-GB';
+const demoHref = withBasePath(`/${locale}/book-a-demo/`);
+const productHref = withBasePath(`/${locale}/product/`);
 ---
 
 <section class="insights-index" aria-labelledby="insights-title">
@@ -54,6 +58,18 @@ const dateLocale = locale === 'de' ? 'de-DE' : 'en-GB';
       </ol>
     )
   }
+
+  <section class="insights-index__closing" aria-labelledby="insights-closing-title">
+    <p class="eyebrow">{journey.eyebrow}</p>
+    <h2 id="insights-closing-title">{journey.title}</h2>
+    <p>{journey.body}</p>
+    <div class="insights-index__actions">
+      <a class="button" href={demoHref}>{journey.primaryCta}</a>
+      <a class="text-link" href={productHref}
+        >{journey.secondaryCta}<span aria-hidden="true"> →</span></a
+      >
+    </div>
+  </section>
 </section>
 
 <style>
@@ -77,7 +93,8 @@ const dateLocale = locale === 'de' ? 'de-DE' : 'en-GB';
 
   .insights-index__header > p:last-child,
   .insights-index__empty,
-  .insights-list article > p:last-child {
+  .insights-list article > p:last-child,
+  .insights-index__closing > p {
     color: var(--color-text-muted);
     line-height: 1.7;
   }
@@ -131,6 +148,33 @@ const dateLocale = locale === 'de' ? 'de-DE' : 'en-GB';
     margin: 0;
   }
 
+  .insights-index__closing {
+    display: grid;
+    gap: var(--space-4);
+    max-width: 54rem;
+    margin-top: clamp(4rem, 9vw, 8rem);
+    padding-block-start: clamp(3rem, 6vw, 5rem);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .insights-index__closing h2,
+  .insights-index__closing > p {
+    margin: 0;
+  }
+
+  .insights-index__closing h2 {
+    max-width: 18ch;
+    font-size: clamp(2rem, 4vw, 3.6rem);
+  }
+
+  .insights-index__actions {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+    margin-top: var(--space-2);
+  }
+
   @media (max-width: 42rem) {
     .insights-list article {
       grid-template-columns: 1fr;
@@ -139,6 +183,11 @@ const dateLocale = locale === 'de' ? 'de-DE' : 'en-GB';
     .insights-list h2,
     .insights-list article > p:last-child {
       grid-column: auto;
+    }
+
+    .insights-index__actions {
+      align-items: flex-start;
+      flex-direction: column;
     }
   }
 </style>
