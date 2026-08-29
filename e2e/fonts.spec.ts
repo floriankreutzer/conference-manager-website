@@ -73,8 +73,9 @@ test.describe('governed self-hosted webfonts', () => {
     test(`${path} keeps cumulative layout shift within the good threshold`, async ({ page }) => {
       await page.addInitScript(() => {
         const state = { value: 0 };
-        (window as unknown as { __conferenceManagerCls: { value: number } }).__conferenceManagerCls =
-          state;
+        (
+          window as unknown as { __conferenceManagerCls: { value: number } }
+        ).__conferenceManagerCls = state;
 
         new PerformanceObserver((list) => {
           for (const entry of list.getEntries()) {
