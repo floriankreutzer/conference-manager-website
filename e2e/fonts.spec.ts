@@ -100,12 +100,16 @@ test.describe('governed self-hosted webfonts', () => {
     });
   }
 
-  test('keeps primary content usable and reflowed at 200% zoom', async ({ page }) => {
-    await page.setViewportSize({ width: 1280, height: 900 });
+  test('keeps primary content usable and reflowed at 200% browser zoom equivalent', async ({
+    page,
+  }) => {
+    // A 1280 CSS-pixel browser window at 200% browser zoom exposes approximately
+    // 640 CSS pixels to page layout. Reducing the viewport therefore exercises the
+    // responsive/reflow breakpoints that real browser zoom triggers, unlike CSS zoom.
+    await page.setViewportSize({ width: 640, height: 900 });
     await page.goto('/en/');
     await page.evaluate(async () => {
       await document.fonts.ready;
-      document.documentElement.style.zoom = '2';
     });
 
     await expect(
