@@ -7,29 +7,30 @@ const germanPath = '/de/pricing/';
 const forbiddenCurrency = /[$€£¥]|\b(?:EUR|USD|GBP|CHF)\b/i;
 
 test.describe('Pricing', () => {
-  test('renders the governed English pre-pricing narrative and conversion paths', async ({
+  test('renders the buyer-led English pre-pricing journey and conversion paths', async ({
     page,
   }) => {
     await page.goto(englishPath);
     const main = page.locator('main');
 
     await expect(page).toHaveTitle(
-      'A clear commercial model before a public price list. — Conference Manager',
+      'Evaluate product fit now. Public pricing follows approval. — Conference Manager',
     );
     await expect(
       main.getByRole('heading', {
         level: 1,
-        name: 'A clear commercial model before a public price list.',
+        name: 'Evaluate product fit now. Public pricing follows approval.',
       }),
     ).toBeVisible();
     await expect(main.locator('article > ol > li')).toHaveCount(4);
     await expect(
       main.getByRole('heading', {
         level: 2,
-        name: 'No public price before the model is approved.',
+        name: 'Understand the product before choosing a commercial model.',
       }),
     ).toBeVisible();
     await expect(main).not.toContainText(forbiddenCurrency);
+    await expect(main.getByText(/Use a demo to decide whether the product is relevant/)).toBeVisible();
     await expect(main.getByRole('link', { name: 'Book a demo' }).first()).toHaveAttribute(
       'href',
       '/en/book-a-demo/',
@@ -44,29 +45,30 @@ test.describe('Pricing', () => {
     );
   });
 
-  test('renders the governed German pre-pricing narrative with reciprocal metadata', async ({
+  test('renders the buyer-led German pre-pricing journey with reciprocal metadata', async ({
     page,
   }) => {
     await page.goto(germanPath);
     const main = page.locator('main');
 
     await expect(page).toHaveTitle(
-      'Ein klares kommerzielles Modell vor einer öffentlichen Preisliste. — Conference Manager',
+      'Produktfit jetzt bewerten. Öffentliche Preise folgen nach Freigabe. — Conference Manager',
     );
     await expect(
       main.getByRole('heading', {
         level: 1,
-        name: 'Ein klares kommerzielles Modell vor einer öffentlichen Preisliste.',
+        name: 'Produktfit jetzt bewerten. Öffentliche Preise folgen nach Freigabe.',
       }),
     ).toBeVisible();
     await expect(main.locator('article > ol > li')).toHaveCount(4);
     await expect(
       main.getByRole('heading', {
         level: 2,
-        name: 'Kein öffentlicher Preis vor der Freigabe des Modells.',
+        name: 'Verstehen Sie zuerst das Produkt – danach das kommerzielle Modell.',
       }),
     ).toBeVisible();
     await expect(main).not.toContainText(forbiddenCurrency);
+    await expect(main.getByText(/Nutzen Sie eine Demo, um die Relevanz/)).toBeVisible();
     await expect(main.getByRole('link', { name: 'Demo anfragen' }).first()).toHaveAttribute(
       'href',
       '/de/book-a-demo/',
@@ -90,7 +92,7 @@ test.describe('Pricing', () => {
     await expect(
       page.getByRole('heading', {
         level: 2,
-        name: 'Veröffentlichen Sie ein Modell erst, wenn die Evidenz es trägt.',
+        name: 'Nutzen Sie eine Demo, um die Relevanz für Ihr Unternehmen zu bewerten.',
       }),
     ).toBeVisible();
   });
