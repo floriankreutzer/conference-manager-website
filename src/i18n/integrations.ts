@@ -89,7 +89,7 @@ const integrationsCopy: Record<Locale, IntegrationsCopy> = {
       {
         eyebrow: 'Microsoft 365 · Pilot-Implementierung',
         title: 'Die Microsoft-Integration ist implementiert, benötigt aber reale Umgebungsabnahme.',
-        body: 'Die Trusted Conference Manager API enthält die SaaS-1-Implementierung für Microsoft Entra Identity und den Microsoft-365-Connection-Lifecycle. Dazu gehören Tenant-Consent, Raumermittlung und -mapping, Free/Busy, Kalendersynchronisierung und Integration-Health-Verhalten. Reale Microsoft-Tenant-, Deployment- und Betriebsevidenz bleibt ein externer Pilot-Acceptance-Gate.',
+        body: 'Die Trusted Conference Manager API enthält die SaaS-1-Implementierung für Microsoft Entra Identity und den Microsoft-365-Connection-Lifecycle. Dazu gehören Tenant-Consent, Raumermittlung und -mapping, Free/Busy, Kalendersynchronisierung und Integration-Health-Verhalten. Reale Microsoft-Tenant-, Deployment- und Betriebsevidenz bleibt Bestandteil der externen Pilot-Abnahme.',
         points: [
           {
             title: 'Raumermittlung und Mapping',
