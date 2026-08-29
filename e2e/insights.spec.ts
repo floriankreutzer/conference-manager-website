@@ -1,12 +1,12 @@
 import AxeBuilder from '@axe-core/playwright';
 import { expect, test } from '@playwright/test';
 
-const englishArticlePath = '/en/insights/room-booking-is-only-part-of-conference-management/';
-const germanArticlePath =
-  '/de/insights/raumbuchung-ist-nur-ein-teil-des-konferenzmanagements/';
+const articleSlug = 'room-booking-is-only-part-of-conference-management';
+const englishArticlePath = `/en/insights/${articleSlug}/`;
+const germanArticlePath = `/de/insights/${articleSlug}/`;
 
 test.describe('published Insights', () => {
-  test('publishes the governed bilingual pair and keeps article navigation intact', async ({
+  test('publishes the governed bilingual pair with reciprocal article navigation', async ({
     page,
   }) => {
     await page.goto('/en/insights/');
@@ -25,6 +25,10 @@ test.describe('published Insights', () => {
       'href',
       '/en/insights/',
     );
+    await expect(page.locator('link[rel="alternate"][hreflang="de"]')).toHaveAttribute(
+      'href',
+      `https://preview.example.invalid${germanArticlePath}`,
+    );
 
     await page.goto('/de/insights/');
     const germanArticle = page.getByRole('link', {
@@ -41,6 +45,10 @@ test.describe('published Insights', () => {
     await expect(page.getByRole('link', { name: 'Zurück zu Insights' })).toHaveAttribute(
       'href',
       '/de/insights/',
+    );
+    await expect(page.locator('link[rel="alternate"][hreflang="en"]')).toHaveAttribute(
+      'href',
+      `https://preview.example.invalid${englishArticlePath}`,
     );
   });
 
