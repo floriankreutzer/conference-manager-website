@@ -10,6 +10,40 @@ permissions:
   contents: read
 
 jobs:
+  bootstrap-lockfile:
+    if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout owned PR branch
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '22.12.0'
+
+      - name: Generate lockfile if missing
+        run: |
+          if [ ! -f package-lock.json ]; then
+            npm install --package-lock-only --ignore-scripts
+          fi
+
+      - name: Commit generated lockfile
+        run: |
+          if git diff --quiet -- package-lock.json && git ls-files --error-unmatch package-lock.json >/dev/null 2>&1; then
+            echo "package-lock.json already committed"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add package-lock.json
+          git commit -m "chore: add generated npm lockfile"
+          git push origin HEAD:${{ github.event.pull_request.head.ref }}
+
   validate:
     runs-on: ubuntu-latest
     env:
@@ -24,15 +58,8 @@ jobs:
         with:
           node-version: '22.12.0'
 
-      - name: Install dependencies and generate bootstrap lockfile
+      - name: Install dependencies
         run: npm install --ignore-scripts
-
-      - name: Upload generated lockfile
-        uses: actions/upload-artifact@v4
-        with:
-          name: bootstrap-package-lock
-          path: package-lock.json
-          if-no-files-found: error
 
       - name: Astro and TypeScript checks
         run: npm run check
