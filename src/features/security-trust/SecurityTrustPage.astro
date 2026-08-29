@@ -1,6 +1,7 @@
 ---
-import type { Locale } from '@config/locales';
 import EditorialStory from '@components/editorial/EditorialStory.astro';
+import BrandVisual from '@components/marketing/BrandVisual.astro';
+import type { Locale } from '@config/locales';
 import { withBasePath } from '@domain/routing/basePath';
 import { getPublicPageCopy } from '@i18n/publicPages';
 import { getSecurityTrustCopy } from '@i18n/securityTrust';
@@ -12,17 +13,30 @@ interface Props {
 const { locale } = Astro.props;
 const pageCopy = getPublicPageCopy(locale, 'security-trust');
 const story = getSecurityTrustCopy(locale);
-const demoHref = withBasePath(`/${locale}/book-a-demo/`);
+const integrationsHref = withBasePath(`/${locale}/integrations/`);
 const productHref = withBasePath(`/${locale}/product/`);
 ---
 
-<EditorialStory
-  eyebrow={pageCopy.eyebrow}
-  title={pageCopy.title}
-  lead={pageCopy.body}
-  sections={story.sections}
-  closing={story.closing}
-  primaryHref={demoHref}
-  secondaryHref={productHref}
-  idPrefix="security-trust"
-/>
+<div class="security-trust-page">
+  <div class="security-trust-page__visual">
+    <BrandVisual locale={locale} />
+  </div>
+
+  <EditorialStory
+    eyebrow={pageCopy.eyebrow}
+    title={pageCopy.title}
+    lead={pageCopy.body}
+    sections={story.sections}
+    closing={story.closing}
+    primaryHref={integrationsHref}
+    secondaryHref={productHref}
+    idPrefix="security-trust"
+  />
+</div>
+
+<style>
+  .security-trust-page__visual {
+    max-width: 62rem;
+    padding-block: clamp(4rem, 8vw, 7rem) 0;
+  }
+</style>
