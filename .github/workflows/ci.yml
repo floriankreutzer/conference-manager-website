@@ -29,7 +29,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
-          node-version: '22.19.0'
+          node-version: '22.22.3'
           cache: npm
 
       - name: Install dependencies
@@ -40,6 +40,12 @@ jobs:
 
       - name: Astro and TypeScript checks
         run: npm run check
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Format check
+        run: npm run format:check
 
       - name: Unit tests
         run: npm test
