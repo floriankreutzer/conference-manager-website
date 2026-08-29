@@ -1,0 +1,93 @@
+---
+import { getDemoRequestConfig } from '@config/demoRequest';
+import type { Locale } from '@config/locales';
+import { companySizeValues, demoRequestLimits } from '@domain/forms/demoRequest';
+import { getDemoRequestCopy } from '@i18n/demoRequest';
+
+interface Props { locale: Locale }
+
+const { locale } = Astro.props;
+const copy = getDemoRequestCopy(locale);
+const config = getDemoRequestConfig();
+---
+
+<section class="demo-request" aria-labelledby="demo-form-title">
+  <div class="demo-request__intro">
+    <p class="eyebrow">{locale === 'de' ? 'Demo buchen' : 'Book a demo'}</p>
+    <h1 id="demo-form-title">{locale === 'de' ? 'Sieh, wie Conference Manager in deine Arbeitswelt passt.' : 'See how Conference Manager fits your workplace.'}</h1>
+    <p>{locale === 'de' ? 'Erzähl uns kurz, für welches Unternehmen du Conference Manager kennenlernen möchtest. Wir erfassen nur die Angaben, die für die Demo-Anfrage benötigt werden.' : 'Tell us briefly which organisation you would like to explore Conference Manager for. We collect only the information needed to handle the demo request.'}</p>
+  </div>
+
+  <div class="demo-request__panel">
+    {!config.enabled && <p class="demo-request__status" role="status">{copy.unavailable}</p>}
+
+    <form action={config.endpoint ?? undefined} method="post" accept-charset="UTF-8" aria-disabled={!config.enabled}>
+      <input type="hidden" name="locale" value={locale} />
+      <div class="form-grid">
+        <label>
+          <span>{copy.firstName} <small>{copy.required}</small></span>
+          <input name="firstName" autocomplete="given-name" required maxlength={demoRequestLimits.firstName} disabled={!config.enabled} />
+        </label>
+        <label>
+          <span>{copy.lastName} <small>{copy.required}</small></span>
+          <input name="lastName" autocomplete="family-name" required maxlength={demoRequestLimits.lastName} disabled={!config.enabled} />
+        </label>
+        <label class="form-grid__wide">
+          <span>{copy.email} <small>{copy.required}</small></span>
+          <input type="email" name="email" autocomplete="email" inputmode="email" required maxlength={demoRequestLimits.email} disabled={!config.enabled} />
+        </label>
+        <label>
+          <span>{copy.company} <small>{copy.required}</small></span>
+          <input name="company" autocomplete="organization" required maxlength={demoRequestLimits.company} disabled={!config.enabled} />
+        </label>
+        <label>
+          <span>{copy.companySize} <small>{copy.required}</small></span>
+          <select name="companySize" required disabled={!config.enabled}>
+            <option value="">{copy.selectPlaceholder}</option>
+            {companySizeValues.map((value) => <option value={value}>{value}</option>)}
+          </select>
+        </label>
+        <label class="form-grid__wide">
+          <span>{copy.message} <small>{copy.messageOptional}</small></span>
+          <textarea name="message" rows="5" maxlength={demoRequestLimits.message} disabled={!config.enabled}></textarea>
+        </label>
+      </div>
+
+      <div class="honeypot" aria-hidden="true">
+        <label>{copy.honeypot}<input name="website" tabindex="-1" autocomplete="off" disabled={!config.enabled} /></label>
+      </div>
+
+      <label class="privacy-check">
+        <input type="checkbox" name="privacyAcknowledged" value="true" required disabled={!config.enabled} />
+        <span>{copy.privacy} {config.privacyUrl && <a href={config.privacyUrl}>Privacy</a>}</span>
+      </label>
+
+      <button class="button demo-request__submit" type="submit" disabled={!config.enabled}>{copy.submit}</button>
+    </form>
+  </div>
+</section>
+
+<style>
+  .demo-request { min-height: min(50rem, calc(100vh - 5rem)); display: grid; grid-template-columns: minmax(0, .85fr) minmax(22rem, 1fr); gap: clamp(3rem, 8vw, 8rem); align-items: center; padding-block: clamp(4rem, 9vw, 8rem); }
+  .demo-request__intro { display: grid; gap: var(--space-4); }
+  .demo-request h1 { max-width: 13ch; margin: 0; font-size: clamp(2.7rem, 5.8vw, 5.8rem); letter-spacing: -.05em; }
+  .demo-request__intro > p:last-child { color: var(--color-text-muted); font-size: clamp(1.05rem, 1.5vw, 1.25rem); line-height: 1.7; }
+  .demo-request__panel { padding: clamp(1.5rem, 4vw, 3rem); border: 1px solid var(--color-border); border-radius: var(--radius-lg); background: var(--color-surface); box-shadow: var(--shadow-soft); }
+  .demo-request__status { margin: 0 0 var(--space-4); padding: 1rem 1.1rem; border-inline-start: 3px solid var(--color-camel); background: var(--color-canvas); color: var(--color-text-muted); }
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .form-grid__wide { grid-column: 1 / -1; }
+  label { display: grid; gap: .45rem; font-weight: 650; }
+  label small { color: var(--color-text-muted); font-size: .72rem; font-weight: 500; }
+  input, select, textarea { width: 100%; min-height: 3rem; padding: .7rem .8rem; border: 1px solid var(--color-border); border-radius: var(--radius-sm); background: var(--color-surface); color: var(--color-ink); font: inherit; }
+  textarea { resize: vertical; }
+  input:focus-visible, select:focus-visible, textarea:focus-visible { border-color: var(--color-bordeaux); outline: 3px solid color-mix(in srgb, var(--color-bordeaux) 25%, transparent); outline-offset: 1px; }
+  input:disabled, select:disabled, textarea:disabled { background: var(--color-canvas-soft); cursor: not-allowed; opacity: .7; }
+  .privacy-check { grid-template-columns: auto 1fr; align-items: start; gap: .75rem; margin-block: var(--space-5); font-weight: 500; line-height: 1.5; }
+  .privacy-check input { width: 1.15rem; min-height: 1.15rem; margin-top: .15rem; accent-color: var(--color-bordeaux); }
+  .privacy-check a { color: var(--color-bordeaux); }
+  .demo-request__submit { border: 0; font: inherit; cursor: pointer; }
+  .demo-request__submit:disabled { cursor: not-allowed; opacity: .55; }
+  .honeypot { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  @media (max-width: 54rem) { .demo-request { grid-template-columns: 1fr; } }
+  @media (max-width: 36rem) { .form-grid { grid-template-columns: 1fr; } .form-grid__wide { grid-column: auto; } }
+</style>
