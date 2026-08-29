@@ -5,53 +5,67 @@ import BrandVisual from '@components/marketing/BrandVisual.astro';
 import type { Locale } from '@config/locales';
 import { withBasePath } from '@domain/routing/basePath';
 import { getCompanyCopy } from '@i18n/company';
-import { getPublicPageCopy } from '@i18n/publicPages';
 
 interface Props {
   locale: Locale;
 }
 
 const { locale } = Astro.props;
-const pageCopy = getPublicPageCopy(locale, 'company');
 const story = getCompanyCopy(locale);
 const productHref = withBasePath(`/${locale}/product/`);
 const howHref = withBasePath(`/${locale}/how-it-works/`);
-const brandLabel =
-  locale === 'de' ? 'Conference Manager by Pavurel' : 'Conference Manager by Pavurel';
+const intro =
+  locale === 'de'
+    ? {
+        eyebrow: 'Über Conference Manager',
+        title: 'Warum Conference Manager existiert – und was das für Ihre Organisation bedeutet.',
+        body: 'Diese Seite ist keine Unternehmenschronik. Sie erklärt, welches Problem Conference Manager lösen soll, für welche Organisationen das Produkt gedacht ist, wie es sich in bestehende Systeme einfügt und welchen Ansatz Sie bei einer Einführung erwarten können.',
+      }
+    : {
+        eyebrow: 'About Conference Manager',
+        title: 'Why Conference Manager exists — and what that means for your organisation.',
+        body: 'This is not a company-history page. It explains the problem Conference Manager is designed to solve, who the product is for, how it fits existing systems and what approach you can expect when evaluating or introducing it.',
+      };
 ---
 
 <div class="company-page">
-  <div class="company-page__brand" aria-label={brandLabel}>
-    <p class="eyebrow">{brandLabel}</p>
-    <BrandLockup showTagline />
-    <BrandVisual locale={locale} />
+  <div class="company-page__intro">
+    <p class="eyebrow">{intro.eyebrow}</p>
+    <BrandVisual locale={locale} variant="about" />
   </div>
 
   <EditorialStory
-    eyebrow={pageCopy.eyebrow}
-    title={pageCopy.title}
-    lead={pageCopy.body}
+    eyebrow={intro.eyebrow}
+    title={intro.title}
+    lead={intro.body}
     sections={story.sections}
     closing={story.closing}
     primaryHref={productHref}
     secondaryHref={howHref}
     idPrefix="company"
   />
+
+  <aside class="company-page__brand" aria-label="Conference Manager by Pavurel">
+    <BrandLockup showTagline />
+  </aside>
 </div>
 
 <style>
-  .company-page__brand {
+  .company-page__intro {
     display: grid;
     gap: var(--space-4);
     max-width: 62rem;
     padding-block: clamp(4rem, 8vw, 7rem) 0;
   }
 
-  .company-page__brand :global(.brand-lockup) {
-    max-width: 38rem;
+  .company-page__intro :global(.brand-visual) {
+    margin-top: clamp(1rem, 3vw, 2rem);
   }
 
-  .company-page__brand :global(.brand-visual) {
-    margin-top: clamp(1rem, 3vw, 2rem);
+  .company-page__brand {
+    max-width: 38rem;
+    margin-block: 0 clamp(4rem, 8vw, 7rem);
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--color-border);
   }
 </style>
