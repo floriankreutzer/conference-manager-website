@@ -10,41 +10,6 @@ permissions:
   contents: read
 
 jobs:
-  format-demo-function:
-    if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository && github.event.pull_request.head.ref == 'feat/demo-request-processing'
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    steps:
-      - name: Checkout owned PR branch
-        uses: actions/checkout@v7
-        with:
-          ref: ${{ github.event.pull_request.head.ref }}
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v6
-        with:
-          node-version: '22.22.3'
-          cache: npm
-
-      - name: Install dependencies
-        run: npm ci --ignore-scripts
-
-      - name: Format demo function files
-        run: npx prettier --write functions/demo-request/handler.js functions/demo-request/handler.test.js functions/demo-request/validation.js
-
-      - name: Commit formatting only
-        run: |
-          if git diff --quiet -- functions/demo-request/handler.js functions/demo-request/handler.test.js functions/demo-request/validation.js; then
-            echo "Demo function formatting already current"
-            exit 0
-          fi
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -- functions/demo-request/handler.js functions/demo-request/handler.test.js functions/demo-request/validation.js
-          git commit -m "chore: normalize demo function formatting"
-          git push origin HEAD:${{ github.event.pull_request.head.ref }}
-
   validate:
     runs-on: ubuntu-latest
     env:
