@@ -47,6 +47,12 @@ jobs:
       - name: Format check
         run: npm run format:check
 
+      - name: Diagnose Prettier diff
+        if: ${{ failure() }}
+        run: |
+          npm run format
+          git diff -- src e2e
+
       - name: Unit tests
         run: npm test
 
