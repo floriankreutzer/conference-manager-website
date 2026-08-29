@@ -12,7 +12,10 @@ interface Props {
 
 const { locale, variant = 'hero', priority = false } = Astro.props;
 
-const visuals: Record<VisualVariant, { src: string; width: number; height: number; alt: Record<Locale, string> }> = {
+const visuals: Record<
+  VisualVariant,
+  { src: string; width: number; height: number; alt: Record<Locale, string> }
+> = {
   hero: {
     src: '/assets/brand/hero-conference-400.webp',
     width: 400,
