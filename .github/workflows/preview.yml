@@ -35,6 +35,16 @@ jobs:
             exit 0
           fi
 
+          case "$SCW_REGION" in
+            fr-par|nl-ams|pl-waw|it-mil) ;;
+            *) echo "Unsupported/non-approved Scaleway region: $SCW_REGION" >&2; exit 1 ;;
+          esac
+
+          if [[ ! "$SCW_PREVIEW_BUCKET_PREFIX" =~ ^[a-z0-9][a-z0-9-]{2,49}[a-z0-9]$ ]]; then
+            echo "SCW_PREVIEW_BUCKET_PREFIX must be 4-51 lowercase letters, digits or hyphens and cannot begin/end with a hyphen." >&2
+            exit 1
+          fi
+
           bucket="${SCW_PREVIEW_BUCKET_PREFIX}-${{ github.event.pull_request.number }}"
           endpoint="https://s3.${SCW_REGION}.scw.cloud"
           origin="https://${bucket}.s3-website.${SCW_REGION}.scw.cloud"
@@ -119,7 +129,9 @@ jobs:
         env:
           PREVIEW_BUCKET: ${{ steps.config.outputs.bucket }}
           SCW_ENDPOINT: ${{ steps.config.outputs.endpoint }}
+        shell: bash
         run: |
+          set -euo pipefail
           aws s3 sync dist/ "s3://${PREVIEW_BUCKET}/" \
             --delete \
             --region "$SCW_REGION" \
