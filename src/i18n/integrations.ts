@@ -1,10 +1,6 @@
 import type { Locale } from '@config/locales';
 
-type IntegrationPoint = {
-  title: string;
-  body: string;
-};
-
+type IntegrationPoint = { title: string; body: string };
 type IntegrationSection = {
   eyebrow: string;
   title: string;
@@ -12,16 +8,9 @@ type IntegrationSection = {
   points?: readonly IntegrationPoint[];
   statement?: string;
 };
-
 type IntegrationsCopy = {
   sections: readonly IntegrationSection[];
-  closing: {
-    eyebrow: string;
-    title: string;
-    body: string;
-    primaryCta: string;
-    secondaryCta: string;
-  };
+  closing: { eyebrow: string; title: string; body: string; primaryCta: string; secondaryCta: string };
 };
 
 const integrationsCopy: Record<Locale, IntegrationsCopy> = {
@@ -29,53 +18,39 @@ const integrationsCopy: Record<Locale, IntegrationsCopy> = {
     sections: [
       {
         eyebrow: 'Integration principle',
-        title: 'Keep authoritative systems responsible for what they already do well.',
-        body: 'Conference Manager is designed around the wider conference context, not around replacing specialist infrastructure. Room booking, identity and connected workplace services should remain authoritative for their own responsibilities while Conference Manager coordinates the conference journey around them.',
-        statement: 'Connect responsibilities. Do not duplicate them by default.',
+        title: 'Keep the systems that already own a responsibility.',
+        body: 'Conference Manager is designed to connect the wider conference journey to specialist systems rather than copy their job. Room booking remains responsible for reservations, identity remains part of the enterprise environment and connected workplace services keep their own operating role.',
+        statement: 'Connect the conference journey. Do not replace specialist systems by default.',
       },
       {
-        eyebrow: 'Microsoft 365 · Pilot implementation',
-        title:
-          'Microsoft integration is implemented, with real-environment acceptance still required.',
-        body: 'The trusted Conference Manager API contains the SaaS 1 implementation for Microsoft Entra identity and the Microsoft 365 connection lifecycle. That implementation includes tenant consent handling, room discovery and mapping, Free/Busy, calendar synchronization and integration-health behavior. Real Microsoft tenant, deployment and operational evidence remains an external Pilot acceptance gate.',
+        eyebrow: 'Microsoft 365 · Initial enterprise focus',
+        title: 'Fit Conference Manager into an existing Microsoft environment.',
+        body: 'The current Microsoft integration scope covers Entra-based tenant connection and Microsoft 365 room/calendar capabilities needed for the pilot model. That allows Conference Manager to work with existing enterprise identity and room context instead of asking customers to create an isolated calendar process. Real tenant use still requires the relevant Microsoft setup and operational acceptance.',
         points: [
-          {
-            title: 'Room discovery and mapping',
-            body: 'The backend implementation can discover and map Microsoft 365 room resources within the controlled tenant integration flow.',
-          },
-          {
-            title: 'Free/Busy and synchronization',
-            body: 'Availability and calendar synchronization are implemented behind the trusted backend boundary and remain subject to provider and tenant configuration.',
-          },
+          { title: 'Room resources', body: 'Microsoft 365 room resources can be discovered and mapped through the controlled tenant integration.' },
+          { title: 'Availability and calendar context', body: 'Free/Busy and calendar synchronization are supported within the accepted integration configuration.' },
         ],
       },
       {
-        eyebrow: 'Calendar write',
-        title: 'Implemented does not mean unrestricted write access.',
-        body: 'Calendar Write is deliberately gated. The current backend documentation requires the Exchange Application RBAC release conditions to be satisfied before write behavior is enabled. The public website therefore does not describe calendar write as universally active or available for every tenant.',
-        statement:
-          'Provider access stays conditional on the controls required for that integration.',
+        eyebrow: 'Controlled permissions',
+        title: 'Integration access is enabled deliberately, not assumed.',
+        body: 'Calendar write capabilities remain conditional on the required Microsoft and Exchange controls. Conference Manager does not present broad provider access as a default entitlement for every tenant.',
+        statement: 'Enterprise integration should fit the customer control model, not bypass it.',
       },
       {
-        eyebrow: 'Extensible architecture',
-        title: 'Future providers can fit the model without becoming current product claims.',
-        body: 'The trusted backend defines provider-neutral contracts for availability, reservation validation and calendar operations. That creates an architectural extension point for later adapters. It does not mean that Google, Okta or any other future provider is currently available, supported or production-ready.',
+        eyebrow: 'Designed to extend',
+        title: 'The integration model can grow without turning future plans into current claims.',
+        body: 'Conference Manager separates conference workflow responsibilities from provider-specific calendar behavior. That supports future adapters without coupling the product story to one provider. Microsoft 365 and Entra are the current focus; other providers are not presented as available until they are actually delivered and accepted.',
         points: [
-          {
-            title: 'Provider-neutral contracts',
-            body: 'Conference workflow semantics are separated from provider-specific calendar references and adapter behavior.',
-          },
-          {
-            title: 'Server-side authority',
-            body: 'Provider credentials, Microsoft Graph access and integration authority remain in the trusted API. The marketing website does not call Graph or hold integration secrets.',
-          },
+          { title: 'Provider-independent conference logic', body: 'The conference journey remains distinct from provider-specific room and calendar references.' },
+          { title: 'Trusted server-side integration', body: 'Provider credentials and integration authority remain outside the public website and employee browser experience.' },
         ],
       },
     ],
     closing: {
       eyebrow: 'Map your environment',
-      title: 'Start with the systems that must remain authoritative.',
-      body: 'A useful integration discussion starts with the customer environment: room-booking authority, identity requirements, Microsoft 365 tenant constraints and the evidence required before a Pilot can use real provider access.',
+      title: 'Start with the systems your organisation already depends on.',
+      body: 'A useful integration discussion identifies room-booking authority, identity requirements, Microsoft 365 constraints and the controls needed before real provider access is enabled.',
       primaryCta: 'Book a demo',
       secondaryCta: 'Explore the product',
     },
@@ -84,54 +59,40 @@ const integrationsCopy: Record<Locale, IntegrationsCopy> = {
     sections: [
       {
         eyebrow: 'Integrationsprinzip',
-        title: 'Lass führende Systeme für das verantwortlich, was sie bereits gut lösen.',
-        body: 'Conference Manager ist rund um den weitergehenden Konferenzkontext gestaltet und nicht als Ersatz spezialisierter Infrastruktur. Raumbuchung, Identity und verbundene Workplace Services sollen für ihre eigenen Aufgaben führend bleiben, während Conference Manager den Konferenzablauf darum herum koordiniert.',
-        statement: 'Verantwortlichkeiten verbinden. Nicht standardmäßig duplizieren.',
+        title: 'Behalten Sie die Systeme, die bereits eine klare Verantwortung tragen.',
+        body: 'Conference Manager verbindet den weitergehenden Konferenzablauf mit spezialisierten Systemen, statt deren Aufgabe zu kopieren. Die Raumbuchung bleibt für Reservierungen verantwortlich, Identity bleibt Teil der Enterprise-Umgebung und angebundene Workplace Services behalten ihre operative Rolle.',
+        statement: 'Den Konferenzablauf verbinden. Spezialisierte Systeme nicht standardmäßig ersetzen.',
       },
       {
-        eyebrow: 'Microsoft 365 · Pilot-Implementierung',
-        title: 'Die Microsoft-Integration ist implementiert, benötigt aber reale Umgebungsabnahme.',
-        body: 'Die Trusted Conference Manager API enthält die SaaS-1-Implementierung für Microsoft Entra Identity und den Microsoft-365-Connection-Lifecycle. Dazu gehören Tenant-Consent, Raumermittlung und -mapping, Free/Busy, Kalendersynchronisierung und Integration-Health-Verhalten. Reale Microsoft-Tenant-, Deployment- und Betriebsevidenz bleibt Bestandteil der externen Pilot-Abnahme.',
+        eyebrow: 'Microsoft 365 · Erster Enterprise-Fokus',
+        title: 'Binden Sie Conference Manager in Ihre bestehende Microsoft-Umgebung ein.',
+        body: 'Der aktuelle Microsoft-Integrationsumfang umfasst die Entra-basierte Tenant-Anbindung sowie Microsoft-365-Raum- und Kalenderfunktionen für das Pilotmodell. So kann Conference Manager vorhandene Enterprise-Identity und Raumkontext nutzen, statt einen isolierten Kalenderprozess einzuführen. Der reale Tenant-Betrieb setzt weiterhin die passende Microsoft-Konfiguration und operative Abnahme voraus.',
         points: [
-          {
-            title: 'Raumermittlung und Mapping',
-            body: 'Die Backend-Implementierung kann Microsoft-365-Raumressourcen im kontrollierten Tenant-Integrationsablauf ermitteln und zuordnen.',
-          },
-          {
-            title: 'Free/Busy und Synchronisierung',
-            body: 'Verfügbarkeit und Kalendersynchronisierung sind hinter der Trusted-Backend-Grenze implementiert und bleiben von Provider- und Tenant-Konfiguration abhängig.',
-          },
+          { title: 'Raumressourcen', body: 'Microsoft-365-Raumressourcen können über die kontrollierte Tenant-Integration ermittelt und zugeordnet werden.' },
+          { title: 'Verfügbarkeit und Kalenderkontext', body: 'Free/Busy und Kalendersynchronisierung werden innerhalb der abgenommenen Integrationskonfiguration unterstützt.' },
         ],
       },
       {
-        eyebrow: 'Calendar Write',
-        title: 'Implementiert bedeutet nicht uneingeschränkten Schreibzugriff.',
-        body: 'Calendar Write ist bewusst gegated. Die aktuelle Backend-Dokumentation verlangt, dass die Exchange-Application-RBAC-Releasebedingungen erfüllt sind, bevor Schreibzugriffe aktiviert werden. Die öffentliche Website stellt Calendar Write deshalb nicht als allgemein aktiv oder für jeden Tenant verfügbar dar.',
-        statement:
-          'Provider-Zugriff bleibt an die für die jeweilige Integration erforderlichen Kontrollen gebunden.',
+        eyebrow: 'Kontrollierte Berechtigungen',
+        title: 'Integrationszugriff wird bewusst freigegeben – nicht vorausgesetzt.',
+        body: 'Kalender-Schreibzugriffe bleiben an die erforderlichen Microsoft- und Exchange-Kontrollen gebunden. Conference Manager stellt weitreichenden Provider-Zugriff nicht als pauschalen Standard für jeden Tenant dar.',
+        statement: 'Enterprise-Integration soll in das Kontrollmodell des Kunden passen – nicht daran vorbeigehen.',
       },
       {
-        eyebrow: 'Erweiterbare Architektur',
-        title:
-          'Künftige Provider können in das Modell passen, ohne heutige Produktclaims zu werden.',
-        body: 'Das Trusted Backend definiert providerneutrale Verträge für Verfügbarkeit, Reservierungsvalidierung und Kalenderoperationen. Damit existiert ein architektonischer Erweiterungspunkt für spätere Adapter. Das bedeutet nicht, dass Google, Okta oder andere künftige Provider heute verfügbar, unterstützt oder produktionsreif sind.',
+        eyebrow: 'Erweiterbar gedacht',
+        title: 'Das Integrationsmodell kann wachsen, ohne Zukunftspläne als heutige Funktionen darzustellen.',
+        body: 'Conference Manager trennt die Verantwortung des Konferenzablaufs von providerspezifischem Kalenderverhalten. Das schafft Raum für spätere Adapter, ohne die Produktstory an einen einzelnen Provider zu koppeln. Microsoft 365 und Entra sind der aktuelle Fokus; andere Provider werden erst dann als verfügbar dargestellt, wenn sie tatsächlich geliefert und abgenommen sind.',
         points: [
-          {
-            title: 'Providerneutrale Verträge',
-            body: 'Konferenz-Workflow-Semantik ist von providerspezifischen Kalenderreferenzen und Adapterverhalten getrennt.',
-          },
-          {
-            title: 'Serverseitige Autorität',
-            body: 'Provider-Zugangsdaten, Microsoft-Graph-Zugriff und Integrationsautorität verbleiben in der Trusted API. Die Marketing-Website ruft Graph nicht auf und besitzt keine Integrations-Secrets.',
-          },
+          { title: 'Providerunabhängige Konferenzlogik', body: 'Der Konferenzablauf bleibt von providerspezifischen Raum- und Kalenderreferenzen getrennt.' },
+          { title: 'Vertrauenswürdige serverseitige Integration', body: 'Provider-Zugangsdaten und Integrationsautorität bleiben außerhalb der öffentlichen Website und der Employee Experience im Browser.' },
         ],
       },
     ],
     closing: {
-      eyebrow: 'Deine Umgebung abbilden',
-      title: 'Beginne mit den Systemen, die führend bleiben müssen.',
-      body: 'Eine sinnvolle Integrationsdiskussion beginnt mit der Kundenumgebung: führende Raumbuchung, Identity-Anforderungen, Microsoft-365-Tenant-Rahmenbedingungen und der Evidenz, die vor realem Provider-Zugriff in einem Pilot benötigt wird.',
-      primaryCta: 'Demo buchen',
+      eyebrow: 'Ihre Umgebung als Ausgangspunkt',
+      title: 'Beginnen Sie mit den Systemen, auf die Ihre Organisation bereits angewiesen ist.',
+      body: 'Eine sinnvolle Integrationsdiskussion klärt führende Raumbuchung, Identity-Anforderungen, Microsoft-365-Rahmenbedingungen und die Kontrollen, die vor realem Provider-Zugriff erfüllt sein müssen.',
+      primaryCta: 'Demo anfragen',
       secondaryCta: 'Produkt ansehen',
     },
   },
