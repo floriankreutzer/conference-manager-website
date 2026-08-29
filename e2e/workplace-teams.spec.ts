@@ -20,7 +20,10 @@ test.describe('For Workplace Teams', () => {
     ).toBeVisible();
     await expect(main.locator('article > ol > li')).toHaveCount(4);
     await expect(
-      main.getByRole('heading', { level: 2, name: 'Receive more than a room request.' }),
+      main.getByRole('heading', {
+        level: 2,
+        name: 'Receive the information behind the room request.',
+      }),
     ).toBeVisible();
     await expect(
       main.getByText('Keep your room booking. Replace the coordination around it.'),
@@ -54,12 +57,17 @@ test.describe('For Workplace Teams', () => {
     ).toBeVisible();
     await expect(main.locator('article > ol > li')).toHaveCount(4);
     await expect(
-      main.getByRole('heading', { level: 2, name: 'Erhalte mehr als nur eine Raumanfrage.' }),
+      main.getByRole('heading', {
+        level: 2,
+        name: 'Erhalten Sie die Informationen hinter der Raumanfrage.',
+      }),
     ).toBeVisible();
     await expect(
-      main.getByText('Behalte deine Raumbuchung. Ersetze die Koordination darum herum.'),
+      main.getByText(
+        'Behalten Sie Ihre Raumbuchung. Strukturieren Sie die Koordination darum herum.',
+      ),
     ).toBeVisible();
-    await expect(main.getByRole('link', { name: 'Demo buchen' }).first()).toHaveAttribute(
+    await expect(main.getByRole('link', { name: 'Demo anfragen' }).first()).toHaveAttribute(
       'href',
       '/de/book-a-demo/',
     );
@@ -82,7 +90,7 @@ test.describe('For Workplace Teams', () => {
     await expect(
       page.getByRole('heading', {
         level: 2,
-        name: 'Mache aus Konferenzmanagement kein Raumbuchungs-Austauschprojekt.',
+        name: 'Verbessern Sie den Konferenzbetrieb, ohne ein Austauschprojekt für die Raumbuchung zu starten.',
       }),
     ).toBeVisible();
   });

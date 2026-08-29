@@ -1,4 +1,5 @@
 ---
+import BrandLockup from '@components/marketing/BrandLockup.astro';
 import { getLoginUrl } from '@config/application';
 import type { Locale } from '@config/locales';
 import { withoutBasePath, withBasePath } from '@domain/routing/basePath';
@@ -18,18 +19,20 @@ const currentPath = withBasePath(alternatePath);
 ---
 
 <header class="site-header">
-  <a class="skip-link" href="#main-content">Skip to content</a>
+  <a class="skip-link" href="#main-content">{navigation.skipToContent}</a>
   <div class="site-header__inner">
     <a
       class="brand"
       href={withBasePath(`/${locale}/`)}
       aria-label={`Conference Manager ${locale === 'de' ? 'Startseite' : 'home'}`}
     >
-      <span class="brand__product">Conference Manager</span>
-      <span class="brand__endorsement">by Pavurel</span>
+      <BrandLockup compact />
     </a>
 
-    <nav aria-label={locale === 'de' ? 'Hauptnavigation' : 'Primary navigation'}>
+    <nav
+      class="primary-nav"
+      aria-label={locale === 'de' ? 'Hauptnavigation' : 'Primary navigation'}
+    >
       <ul class="site-nav">
         {
           navigation.items.map((item) => (

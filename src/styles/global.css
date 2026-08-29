@@ -38,6 +38,7 @@
 
   img,
   svg {
+    display: block;
     max-width: 100%;
   }
 }
@@ -79,6 +80,18 @@
   p {
     max-width: var(--copy-max);
   }
+
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
 }
 
 @layer components {
@@ -88,7 +101,8 @@
     inset-block-start: -6rem;
     z-index: 20;
     padding: 0.75rem 1rem;
-    border-radius: var(--radius-sm);
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-md);
     background: var(--color-surface);
     color: var(--color-ink);
   }
@@ -101,50 +115,42 @@
     position: relative;
     z-index: 10;
     border-bottom: 1px solid var(--color-border);
-    background: color-mix(in srgb, var(--color-canvas) 94%, transparent);
+    background: color-mix(in srgb, var(--color-canvas) 96%, transparent);
   }
 
   .site-header__inner {
     width: min(100% - 2rem, var(--content-max));
     margin-inline: auto;
-    padding-block: 1rem;
+    padding-block: 0.9rem;
     display: flex;
     align-items: center;
     gap: 1.25rem;
-    flex-wrap: wrap;
   }
 
   .brand {
     display: inline-flex;
-    flex-direction: column;
     margin-inline-end: auto;
+    color: inherit;
     text-decoration: none;
   }
 
-  .brand__product {
-    font-family: var(--font-display);
-    font-weight: 750;
-    letter-spacing: -0.02em;
-  }
-
-  .brand__endorsement {
-    color: var(--color-text-muted);
-    font-size: 0.72rem;
+  .primary-nav,
+  .site-actions,
+  .site-nav {
+    display: flex;
+    align-items: center;
   }
 
   .site-nav,
   .site-actions {
-    display: flex;
-    align-items: center;
-    gap: 0.8rem;
-    flex-wrap: wrap;
+    gap: 0.85rem;
   }
 
   .site-nav {
     margin: 0;
     padding: 0;
     list-style: none;
-    font-size: 0.88rem;
+    font-size: 0.86rem;
   }
 
   .site-nav a,
@@ -163,30 +169,33 @@
 
   .language-link {
     color: var(--color-text-muted);
-    font-size: 0.8rem;
+    font-size: 0.78rem;
     font-weight: 750;
     letter-spacing: 0.08em;
   }
 
   .login-link {
+    font-size: 0.88rem;
     font-weight: 650;
   }
 
   .button {
     display: inline-flex;
-    min-height: 2.875rem;
+    min-height: var(--control-height);
     align-items: center;
     justify-content: center;
     padding-inline: 1.15rem;
-    border-radius: var(--radius-pill);
+    border: 1px solid var(--color-bordeaux);
+    border-radius: var(--radius-md);
     background: var(--color-bordeaux);
     color: var(--color-on-accent);
     font-weight: 750;
     text-decoration: none;
-    transition: background-color 150ms ease, transform 150ms ease;
+    transition: background-color 150ms ease, border-color 150ms ease, transform 150ms ease;
   }
 
   .button:hover {
+    border-color: var(--color-bordeaux-dark);
     background: var(--color-bordeaux-dark);
   }
 
@@ -200,33 +209,53 @@
     }
   }
 
-  @media (max-width: 70rem) {
+  @media (max-width: 72rem) {
     .site-header__inner {
       align-items: flex-start;
+      flex-wrap: wrap;
     }
 
-    nav {
+    .primary-nav {
       width: 100%;
       order: 3;
-      overflow-x: auto;
-      padding-bottom: 0.25rem;
-      scrollbar-width: thin;
+      padding-top: 0.25rem;
+      border-top: 1px solid var(--color-border);
     }
 
     .site-nav {
-      width: max-content;
-      flex-wrap: nowrap;
+      width: 100%;
+      padding-top: 0.75rem;
+      flex-wrap: wrap;
+      row-gap: 0.6rem;
     }
   }
 
-  @media (max-width: 34rem) {
+  @media (max-width: 38rem) {
+    .site-header__inner {
+      gap: 0.8rem;
+    }
+
     .site-actions {
+      margin-inline-start: auto;
       gap: 0.65rem;
+      flex-wrap: wrap;
+      justify-content: flex-end;
     }
 
     .site-actions .button {
       min-height: 2.65rem;
-      padding-inline: 0.9rem;
+      padding-inline: 0.85rem;
+    }
+  }
+
+  @media (max-width: 30rem) {
+    .site-actions {
+      width: 100%;
+      justify-content: flex-start;
+    }
+
+    .primary-nav {
+      order: 4;
     }
   }
 }

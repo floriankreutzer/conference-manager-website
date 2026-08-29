@@ -1,4 +1,5 @@
 ---
+import SiteFooter from '@components/navigation/SiteFooter.astro';
 import SiteHeader from '@components/navigation/SiteHeader.astro';
 import type { Locale } from '@config/locales';
 import { getSeoConfig } from '@config/seo';
@@ -56,5 +57,6 @@ const alternateSocialLocale = locale === 'de' ? 'en_US' : 'de_DE';
     <main id="main-content">
       <slot />
     </main>
+    <SiteFooter locale={locale} />
   </body>
 </html>

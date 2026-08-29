@@ -25,6 +25,7 @@ type HomepageCopy = {
   hospitality: { eyebrow: string; title: string; body: string };
   ecosystem: { eyebrow: string; title: string; body: string; items: string[]; microsoft: string };
   readiness: { eyebrow: string; title: string; body: string; themes: string[] };
+  brand: { eyebrow: string; title: string; body: string; principle: string };
   why: { eyebrow: string; title: string; cards: Card[] };
   closing: {
     eyebrow: string;
@@ -33,27 +34,34 @@ type HomepageCopy = {
     primaryCta: string;
     secondaryCta: string;
   };
-  journey: { request: string; booking: string; details: string; team: string; label: string };
+  journey: {
+    request: string;
+    booking: string;
+    details: string;
+    team: string;
+    label: string;
+    caption: string;
+  };
 };
 
 const copy: Record<Locale, HomepageCopy> = {
   en: {
     meta: {
-      title: 'Conference Manager — Conference management for modern workplaces',
+      title: 'Conference Manager — Conference management for Workplace Teams',
       description:
-        'Coordinate guests, catering, services and conference requirements in one workplace conference experience while keeping the room-booking systems you already use.',
+        'Coordinate the work around workplace conferences in one guided request — guests, catering, services, requirements and room context — without replacing the room-booking systems you already use.',
     },
     hero: {
-      eyebrow: 'Conference management for modern workplaces.',
+      eyebrow: 'Conference management for modern workplaces',
       title: 'Make every workplace conference feel effortless.',
-      body: 'Manage guests, catering, services and conference requirements in one simple experience — while keeping the room-booking systems your workplace already uses.',
+      body: 'Bring the coordination around guests, catering, services and conference requirements into one clear experience — while keeping the room-booking systems your workplace already uses.',
       primaryCta: 'Book a demo',
       secondaryCta: 'See how it works',
     },
     problem: {
       eyebrow: 'The coordination gap',
-      title: 'Your room is booked. The coordination has only just started.',
-      body: 'A professional conference usually involves more than a reservation. When guest details, catering, services and requirements live across email, chat and separate forms, employees carry unnecessary coordination effort and Workplace Teams have to reconstruct the full picture.',
+      title: 'The room may be booked. The conference is not prepared.',
+      body: 'A professional workplace conference usually continues across email, chat, catering requests, guest information and service coordination after the reservation is made. The result is not necessarily chaos — it is simply too much context spread across too many places.',
       fragments: [
         'Room booking',
         'Email',
@@ -65,27 +73,27 @@ const copy: Record<Locale, HomepageCopy> = {
     value: {
       eyebrow: 'One guided request',
       title: 'One request. Everything your conference needs.',
-      body: 'Conference Manager brings the information around a professional conference into one structured journey. Employees get one clear place to request what they need. Workplace Teams get the context required to operate it professionally.',
+      body: 'Conference Manager keeps the information needed to prepare a conference together. Employees get a clear request journey. Workplace Teams get a structured operational context instead of reconstructing it from separate channels.',
       cards: [
         {
           title: 'Guests',
-          body: 'Keep guest and participant context with the conference request.',
+          body: 'Keep participant and guest context with the conference request.',
         },
         {
           title: 'Catering',
-          body: 'Capture catering needs without sending employees into a separate coordination process.',
+          body: 'Capture catering needs where the rest of the conference is being prepared.',
         },
         {
           title: 'Services',
-          body: 'Bring relevant conference-service requirements into the same journey.',
+          body: 'Make relevant service requirements visible in the same journey.',
         },
         {
           title: 'Requirements',
-          body: 'Keep special needs and operational details visible with the request.',
+          body: 'Keep operational details and special needs attached to the request.',
         },
         {
           title: 'Room context',
-          body: 'Connect the room requirement without turning Conference Manager into another room-booking product.',
+          body: 'Connect the room decision without creating a second room-booking system.',
         },
       ],
     },
@@ -93,83 +101,89 @@ const copy: Record<Locale, HomepageCopy> = {
       eyebrow: 'How it works',
       title: 'A simpler way from request to ready.',
       intro:
-        'The experience starts with the conference itself and guides the requester through the information Workplace Teams need to prepare it.',
+        'The experience starts with what the employee is trying to organise and turns the required information into one understandable path for requester and Workplace Team.',
       steps: [
         {
           number: '01',
           title: 'Request the conference',
-          body: 'Start with the conference itself, not the internal operational process behind it.',
+          body: 'Start with date, time and the conference itself — not the internal process behind it.',
         },
         {
           number: '02',
-          title: 'Connect the room',
+          title: 'Connect the room context',
           body: 'Use the organisation’s existing room-booking capability as part of the journey.',
         },
         {
           number: '03',
           title: 'Add what the conference needs',
-          body: 'Capture guests, catering, services and relevant requirements in one structured experience.',
+          body: 'Keep guests, catering, services and relevant requirements with the same request.',
         },
         {
           number: '04',
-          title: 'Give Workplace Teams the full context',
-          body: 'Make requirements and operational work visible from a coherent request.',
+          title: 'Give Workplace Teams the context',
+          body: 'Make the information needed for preparation visible in a structured operational view.',
         },
         {
           number: '05',
-          title: 'Deliver a prepared experience',
-          body: 'Create the conditions for a conference that feels considered to employees and controlled to Workplace Teams.',
+          title: 'Manage the lifecycle',
+          body: 'Keep submission, review and supported changes understandable instead of scattering decisions across channels.',
         },
       ],
     },
     roomBooking: {
       eyebrow: 'Designed to connect',
       title: 'Keep your room booking. Replace the coordination around it.',
-      body: 'Conference Manager is not another room-booking system. Your existing booking provider remains responsible for the reservation. Conference Manager connects that capability into the wider conference journey.',
-      supporting: 'We don’t replace your room booking system. We connect it.',
+      body: 'Conference Manager is not another room-booking product. Existing booking capability remains responsible for the reservation. Conference Manager connects that room context to the wider conference request so adoption does not have to become a replacement programme.',
+      supporting: "We don't replace your room booking system. We connect it.",
     },
     audiences: {
       eyebrow: 'Two sides of one experience',
-      title: 'Simple for employees. Full visibility for Workplace Teams.',
+      title: 'Simple for employees. Structured for Workplace Teams.',
       employee: {
         title: 'For employees',
-        body: 'Ask for the conference, not the process. A guided experience keeps internal ownership and operational complexity out of the requester’s way.',
+        body: 'Ask for the conference, not the internal process. A guided request keeps ownership and operational hand-offs out of the employee’s way.',
       },
       workplace: {
         title: 'For Workplace Teams',
-        body: 'See the complete request behind the experience. Structured context makes requirements easier to understand and coordinate.',
+        body: 'See the conference behind the request. Connected context makes requirements easier to understand, prepare and manage through change.',
       },
     },
     hospitality: {
       eyebrow: 'Considered hospitality',
-      title: 'Every detail considered before your guests arrive.',
-      body: 'Professional hospitality is the confidence that the right people have the right information, required services are understood and the experience has been prepared with care — without turning the employee journey into an operational checklist.',
+      title: 'Professional service starts before guests arrive.',
+      body: 'Workplace hospitality is not decoration. It is the confidence that requirements are understood, responsibilities are visible and the conference has been prepared with care. Conference Manager supports that consistency without turning the employee journey into an operational checklist.',
     },
     ecosystem: {
       eyebrow: 'Connected workplace ecosystem',
       title: 'Keep the tools that already work.',
-      body: 'Conference Manager is designed to fit into the workplace, identity and collaboration environment an organisation already uses rather than creating another isolated ecosystem.',
+      body: 'Conference Manager is designed to fit alongside the workplace, identity and collaboration environment an organisation already uses instead of creating another isolated process.',
       items: [
-        'Existing room-booking systems',
-        'Workplace services',
-        'Identity and collaboration environment',
+        'Existing room-booking systems stay authoritative',
+        'Workplace services remain part of the operating model',
+        'Identity and collaboration fit into the enterprise environment',
       ],
       microsoft:
-        'Microsoft 365 and Entra are the initial enterprise ecosystem focus where the implemented integration scope is verified.',
+        'Microsoft 365 and Entra are the initial enterprise ecosystem focus. Availability still depends on the accepted tenant and integration configuration.',
     },
     readiness: {
       eyebrow: 'Built for professional workplaces',
-      title: 'Lightweight for users. Ready for business.',
-      body: 'A simple experience should not require a lightweight approach to governance. Conference Manager is being built around controlled access, administration, security and integration boundaries alongside a clear user experience.',
+      title: 'Easy to use should not mean casual about control.',
+      body: 'Conference Manager separates a clear employee experience from the controls professional organisations need around access, roles, administration and integrations. Detailed technical boundaries remain available for IT evaluation without becoming the product story itself.',
       themes: [
         'Identity & sign-in',
         'Roles & permissions',
         'Tenant administration',
-        'Auditability',
-        'Security & privacy',
-        'Controlled integrations',
-        'Language support',
+        'Controlled changes',
+        'Security & privacy boundaries',
+        'Managed integrations',
+        'English & German experience',
       ],
+    },
+    brand: {
+      eyebrow: 'By Pavurel',
+      title: 'Operational precision, with a more considered workplace experience.',
+      body: 'Pavurel is the corporate endorsement behind the Conference Manager visual experience. Its documented brand idea combines operational precision with warm workplace hospitality: professional and dependable without becoming bureaucratic, premium through care rather than decoration.',
+      principle: 'Workplace hospitality, thoughtfully managed.',
     },
     why: {
       eyebrow: 'Why Conference Manager',
@@ -177,50 +191,51 @@ const copy: Record<Locale, HomepageCopy> = {
       cards: [
         {
           title: 'Conference-first',
-          body: 'Start with the complete professional conference request, not with room inventory.',
+          body: 'Start with the complete conference request instead of forcing the problem into room inventory.',
         },
         {
           title: 'Connected by design',
-          body: 'Keep existing workplace infrastructure where it already solves a problem well.',
+          body: 'Keep specialist systems responsible where they already solve a problem well.',
         },
         {
-          title: 'Hospitality-minded',
-          body: 'Make preparation feel considered for employees while preserving operational control for Workplace Teams.',
+          title: 'Workplace-minded',
+          body: 'Balance a simple employee journey with the operational context Workplace Teams need.',
         },
       ],
     },
     closing: {
       eyebrow: 'Conference Manager by Pavurel',
-      title: 'Make conference management effortless.',
-      body: 'Bring guests, catering, services and conference requirements into one simple experience — without replacing the room-booking systems your workplace already uses.',
+      title: 'See what one real conference journey could look like.',
+      body: 'Bring the way your organisation handles guests, catering, services, room context and changes today. A useful demo starts with that reality — not with a generic feature tour.',
       primaryCta: 'Book a demo',
       secondaryCta: 'See how it works',
     },
     journey: {
       request: 'Conference request',
-      booking: 'Connected room booking',
+      booking: 'Room context',
       details: 'Guests · Catering · Services · Requirements',
       team: 'Workplace Team',
-      label: 'Conference Manager journey',
+      label: 'Illustrative Conference Manager request journey',
+      caption: 'One conference context from request to Workplace Team',
     },
   },
   de: {
     meta: {
-      title: 'Conference Manager — Konferenzmanagement für moderne Arbeitswelten',
+      title: 'Conference Manager — Konferenzmanagement für Workplace Teams',
       description:
-        'Koordiniere Gäste, Catering, Services und Konferenzanforderungen in einem durchgängigen Erlebnis und behalte bestehende Raumbuchungssysteme bei.',
+        'Koordinieren Sie Gäste, Catering, Services, Anforderungen und Raumkontext in einer geführten Konferenzanfrage – ohne bestehende Raumbuchungssysteme zu ersetzen.',
     },
     hero: {
-      eyebrow: 'Konferenzmanagement für moderne Arbeitswelten.',
-      title: 'Damit sich jede Workplace-Konferenz mühelos anfühlt.',
-      body: 'Koordiniere Gäste, Catering, Services und Konferenzanforderungen in einem einfachen Erlebnis — und nutze weiterhin die Raumbuchungssysteme, die dein Unternehmen bereits einsetzt.',
-      primaryCta: 'Demo buchen',
+      eyebrow: 'Konferenzmanagement für moderne Arbeitswelten',
+      title: 'Damit sich professionelle Konferenzen einfach anfühlen.',
+      body: 'Bündeln Sie die Koordination von Gästen, Catering, Services und Konferenzanforderungen in einem klaren Ablauf – und nutzen Sie die Raumbuchungssysteme weiter, die Ihr Unternehmen bereits einsetzt.',
+      primaryCta: 'Demo anfragen',
       secondaryCta: 'So funktioniert es',
     },
     problem: {
       eyebrow: 'Die Koordinationslücke',
-      title: 'Der Raum ist gebucht. Die Koordination beginnt erst jetzt.',
-      body: 'Zu einer professionellen Konferenz gehört meist mehr als eine Reservierung. Wenn Gästedaten, Catering, Services und Anforderungen über E-Mail, Chat und einzelne Formulare verteilt sind, entsteht unnötiger Abstimmungsaufwand und Workplace Teams müssen das Gesamtbild rekonstruieren.',
+      title: 'Der Raum kann gebucht sein. Vorbereitet ist die Konferenz damit noch nicht.',
+      body: 'Nach der Reservierung geht die Vorbereitung häufig über E-Mail, Chat, Catering-Anfragen, Gästeinformationen und Service-Abstimmungen weiter. Das ist nicht zwangsläufig chaotisch – aber zu viel wichtiger Kontext verteilt sich auf zu viele Stellen.',
       fragments: [
         'Raumbuchung',
         'E-Mail',
@@ -231,141 +246,151 @@ const copy: Record<Locale, HomepageCopy> = {
     },
     value: {
       eyebrow: 'Eine geführte Anfrage',
-      title: 'Eine Anfrage. Alles, was die Konferenz braucht.',
-      body: 'Conference Manager bringt die Informationen rund um eine professionelle Konferenz in einen strukturierten Ablauf. Mitarbeitende erhalten einen klaren Ort für ihre Anforderungen. Workplace Teams bekommen den Kontext, den sie für die professionelle Umsetzung benötigen.',
+      title: 'Eine Anfrage. Alles, was Ihre Konferenz braucht.',
+      body: 'Conference Manager hält die Informationen für die Vorbereitung einer Konferenz zusammen. Mitarbeitende erhalten einen klaren Anfrageprozess. Workplace Teams arbeiten mit einem strukturierten operativen Kontext, statt ihn aus einzelnen Kanälen zusammensetzen zu müssen.',
       cards: [
         {
           title: 'Gäste',
-          body: 'Halte Gäste- und Teilnehmerkontext direkt bei der Konferenzanfrage.',
+          body: 'Halten Sie Teilnehmer- und Gästekontext direkt bei der Konferenzanfrage.',
         },
         {
           title: 'Catering',
-          body: 'Erfasse Catering-Bedarf, ohne Mitarbeitende in einen separaten Abstimmungsprozess zu schicken.',
+          body: 'Erfassen Sie Catering-Bedarf dort, wo auch der restliche Konferenzkontext entsteht.',
         },
-        { title: 'Services', body: 'Bringe relevante Conference-Services in denselben Ablauf.' },
+        {
+          title: 'Services',
+          body: 'Machen Sie relevante Service-Anforderungen im selben Ablauf sichtbar.',
+        },
         {
           title: 'Anforderungen',
-          body: 'Halte besondere Bedürfnisse und operative Details sichtbar bei der Anfrage.',
+          body: 'Halten Sie operative Details und besondere Anforderungen direkt an der Anfrage.',
         },
         {
           title: 'Raumkontext',
-          body: 'Verbinde den Raumbedarf, ohne Conference Manager zu einem weiteren Raumbuchungsprodukt zu machen.',
+          body: 'Binden Sie die Raumentscheidung ein, ohne ein zweites Raumbuchungssystem zu schaffen.',
         },
       ],
     },
     howItWorks: {
       eyebrow: 'So funktioniert es',
-      title: 'Einfacher von der Anfrage zur vorbereiteten Konferenz.',
+      title: 'Ein klarer Weg von der Anfrage zur Vorbereitung.',
       intro:
-        'Der Ablauf beginnt bei der Konferenz selbst und führt die anfragende Person durch die Informationen, die Workplace Teams für die Vorbereitung benötigen.',
+        'Der Ablauf beginnt mit dem, was Mitarbeitende organisieren möchten, und führt die benötigten Informationen in einen verständlichen Prozess für anfragende Person und Workplace Team.',
       steps: [
         {
           number: '01',
           title: 'Konferenz anfragen',
-          body: 'Starte mit der Konferenz selbst – nicht mit dem internen Prozess dahinter.',
+          body: 'Beginnen Sie mit Datum, Zeit und der Konferenz selbst – nicht mit dem internen Prozess dahinter.',
         },
         {
           number: '02',
-          title: 'Raum verbinden',
-          body: 'Nutze die bestehende Raumbuchung des Unternehmens als Teil des Ablaufs.',
+          title: 'Raumkontext einbinden',
+          body: 'Nutzen Sie die bestehende Raumbuchung Ihres Unternehmens als Teil des Ablaufs.',
         },
         {
           number: '03',
           title: 'Bedarf ergänzen',
-          body: 'Erfasse Gäste, Catering, Services und relevante Anforderungen in einem strukturierten Erlebnis.',
+          body: 'Halten Sie Gäste, Catering, Services und relevante Anforderungen in derselben Anfrage zusammen.',
         },
         {
           number: '04',
-          title: 'Workplace Teams den vollständigen Kontext geben',
-          body: 'Mache Anforderungen und operative Arbeit aus einer zusammenhängenden Anfrage sichtbar.',
+          title: 'Workplace Teams den Kontext geben',
+          body: 'Machen Sie die Informationen für Vorbereitung und Koordination in einer strukturierten operativen Sicht verfügbar.',
         },
         {
           number: '05',
-          title: 'Vorbereitet umsetzen',
-          body: 'Schaffe die Grundlage für eine Konferenz, die für Mitarbeitende durchdacht und für Workplace Teams kontrollierbar ist.',
+          title: 'Den Lebenszyklus steuern',
+          body: 'Halten Sie Einreichung, Prüfung und unterstützte Änderungen nachvollziehbar, statt Entscheidungen auf mehrere Kanäle zu verteilen.',
         },
       ],
     },
     roomBooking: {
       eyebrow: 'Auf Verbindung ausgelegt',
-      title: 'Behalte deine Raumbuchung. Ersetze die Koordination darum herum.',
-      body: 'Conference Manager ist kein weiteres Raumbuchungssystem. Der vorhandene Buchungsanbieter bleibt für die Reservierung verantwortlich. Conference Manager bindet diese Fähigkeit in den umfassenderen Konferenzablauf ein.',
-      supporting: 'Wir ersetzen dein Raumbuchungssystem nicht. Wir verbinden es.',
+      title: 'Behalten Sie Ihre Raumbuchung. Strukturieren Sie die Koordination darum herum.',
+      body: 'Conference Manager ist kein weiteres Raumbuchungsprodukt. Die bestehende Buchungslösung bleibt für die Reservierung verantwortlich. Conference Manager verbindet den Raumkontext mit der gesamten Konferenzanfrage – damit die Einführung nicht zum Austauschprojekt für Ihre Raumbuchung wird.',
+      supporting: 'Wir ersetzen Ihre Raumbuchung nicht. Wir verbinden sie.',
     },
     audiences: {
       eyebrow: 'Zwei Seiten eines Erlebnisses',
-      title: 'Einfach für Mitarbeitende. Volle Transparenz für Workplace Teams.',
+      title: 'Einfach für Mitarbeitende. Strukturiert für Workplace Teams.',
       employee: {
         title: 'Für Mitarbeitende',
-        body: 'Frage die Konferenz an, nicht den Prozess. Ein geführtes Erlebnis hält interne Zuständigkeiten und operative Komplexität aus dem Weg der anfragenden Person.',
+        body: 'Die Konferenz anfragen, nicht den internen Prozess. Ein geführter Ablauf hält Zuständigkeiten und operative Übergaben aus dem Weg der anfragenden Person.',
       },
       workplace: {
         title: 'Für Workplace Teams',
-        body: 'Sieh die vollständige Anfrage hinter dem Erlebnis. Strukturierter Kontext macht Anforderungen leichter verständlich und koordinierbar.',
+        body: 'Sehen Sie die Konferenz hinter der Anfrage. Zusammenhängender Kontext macht Anforderungen leichter verständlich, vorbereitbar und über Änderungen hinweg steuerbar.',
       },
     },
     hospitality: {
-      eyebrow: 'Durchdachte Hospitality',
-      title: 'Jedes Detail bedacht, bevor die Gäste ankommen.',
-      body: 'Professionelle Hospitality bedeutet die Sicherheit, dass die richtigen Personen die richtigen Informationen haben, Services verstanden sind und die Erfahrung sorgfältig vorbereitet wurde – ohne den Employee Journey in eine operative Checkliste zu verwandeln.',
+      eyebrow: 'Durchdachte Workplace Hospitality',
+      title: 'Professioneller Service beginnt vor der Ankunft der Gäste.',
+      body: 'Workplace Hospitality ist keine Dekoration. Sie bedeutet, dass Anforderungen verstanden, Zuständigkeiten sichtbar und Konferenzen mit Sorgfalt vorbereitet werden. Conference Manager unterstützt diese Verlässlichkeit, ohne aus der Anfrage eine operative Checkliste zu machen.',
     },
     ecosystem: {
       eyebrow: 'Vernetztes Workplace-Ökosystem',
-      title: 'Behalte die Tools, die bereits funktionieren.',
-      body: 'Conference Manager ist dafür ausgelegt, sich in die bestehende Workplace-, Identity- und Collaboration-Umgebung eines Unternehmens einzufügen, statt ein weiteres isoliertes Ökosystem zu schaffen.',
+      title: 'Behalten Sie die Systeme, die bereits funktionieren.',
+      body: 'Conference Manager ist darauf ausgelegt, sich neben die bestehende Workplace-, Identity- und Collaboration-Umgebung zu stellen, statt einen weiteren isolierten Prozess zu schaffen.',
       items: [
-        'Bestehende Raumbuchungssysteme',
-        'Workplace Services',
-        'Identity- und Collaboration-Umgebung',
+        'Bestehende Raumbuchungssysteme bleiben führend',
+        'Workplace Services bleiben Teil des Betriebsmodells',
+        'Identity und Collaboration passen in die Enterprise-Umgebung',
       ],
       microsoft:
-        'Microsoft 365 und Entra sind der erste Enterprise-Ökosystem-Fokus, soweit der jeweils implementierte Integrationsumfang verifiziert ist.',
+        'Microsoft 365 und Entra bilden den ersten Enterprise-Integrationsfokus. Die Verfügbarkeit hängt weiterhin von der jeweils abgenommenen Tenant- und Integrationskonfiguration ab.',
     },
     readiness: {
-      eyebrow: 'Für professionelle Arbeitswelten gebaut',
-      title: 'Leicht für Nutzer. Bereit fürs Unternehmen.',
-      body: 'Ein einfaches Erlebnis darf Governance nicht vereinfachen. Conference Manager wird mit kontrollierten Zugriffs-, Administrations-, Security- und Integrationsgrenzen entwickelt – zusammen mit einer klaren User Experience.',
+      eyebrow: 'Für professionelle Arbeitswelten',
+      title: 'Einfach zu nutzen darf nicht bedeuten, auf Kontrolle zu verzichten.',
+      body: 'Conference Manager trennt eine klare Employee Experience von den Kontrollen, die professionelle Organisationen für Zugriff, Rollen, Administration und Integrationen benötigen. Technische Details bleiben für die IT-Evaluierung verfügbar, ohne die Produktstory zu dominieren.',
       themes: [
         'Identity & Login',
         'Rollen & Berechtigungen',
-        'Tenant Administration',
-        'Auditierbarkeit',
-        'Security & Datenschutz',
-        'Kontrollierte Integrationen',
-        'Sprachunterstützung',
+        'Tenant-Administration',
+        'Kontrollierte Änderungen',
+        'Security- & Datenschutzgrenzen',
+        'Gesteuerte Integrationen',
+        'Deutsch & Englisch',
       ],
+    },
+    brand: {
+      eyebrow: 'By Pavurel',
+      title: 'Operative Präzision mit einem bewussteren Workplace-Erlebnis.',
+      body: 'Pavurel ist das Corporate Endorsement hinter dem visuellen Auftritt von Conference Manager. Die dokumentierte Markenidee verbindet operative Präzision mit warmer Workplace Hospitality: professionell und verlässlich, ohne bürokratisch zu wirken; hochwertig durch Sorgfalt statt durch Dekoration.',
+      principle: 'Workplace hospitality, thoughtfully managed.',
     },
     why: {
       eyebrow: 'Warum Conference Manager',
-      title: 'Rund um die Konferenz gebaut – nicht um ein weiteres System.',
+      title: 'Rund um die Konferenz gebaut – nicht rund um ein weiteres System.',
       cards: [
         {
-          title: 'Conference-first',
-          body: 'Beginne mit der vollständigen professionellen Konferenzanfrage statt mit Raum-Inventar.',
+          title: 'Konferenz zuerst',
+          body: 'Beginnen Sie mit der vollständigen Konferenzanfrage statt das Problem auf Rauminventar zu reduzieren.',
         },
         {
-          title: 'Connected by design',
-          body: 'Behalte bestehende Workplace-Infrastruktur dort, wo sie ein Problem bereits gut löst.',
+          title: 'Vernetzt gedacht',
+          body: 'Lassen Sie spezialisierte Systeme dort verantwortlich, wo sie eine Aufgabe bereits gut lösen.',
         },
         {
-          title: 'Hospitality-minded',
-          body: 'Gestalte Vorbereitung durchdacht für Mitarbeitende und bewahre gleichzeitig operative Kontrolle für Workplace Teams.',
+          title: 'Für Workplace Teams',
+          body: 'Verbinden Sie einen einfachen Anfrageprozess mit dem operativen Kontext, den Workplace Teams benötigen.',
         },
       ],
     },
     closing: {
       eyebrow: 'Conference Manager by Pavurel',
-      title: 'Mach Konferenzmanagement mühelos.',
-      body: 'Bringe Gäste, Catering, Services und Konferenzanforderungen in ein einfaches Erlebnis – ohne die Raumbuchungssysteme zu ersetzen, die dein Unternehmen bereits nutzt.',
-      primaryCta: 'Demo buchen',
+      title: 'Betrachten wir gemeinsam einen realen Konferenzablauf.',
+      body: 'Bringen Sie mit, wie Ihr Unternehmen heute Gäste, Catering, Services, Raumkontext und Änderungen koordiniert. Eine gute Demo beginnt mit dieser Realität – nicht mit einer generischen Feature-Tour.',
+      primaryCta: 'Demo anfragen',
       secondaryCta: 'So funktioniert es',
     },
     journey: {
       request: 'Konferenzanfrage',
-      booking: 'Verbundene Raumbuchung',
+      booking: 'Raumkontext',
       details: 'Gäste · Catering · Services · Anforderungen',
       team: 'Workplace Team',
-      label: 'Conference Manager Ablauf',
+      label: 'Illustrativer Conference-Manager-Anfrageablauf',
+      caption: 'Ein Konferenzkontext von der Anfrage bis zum Workplace Team',
     },
   },
 };

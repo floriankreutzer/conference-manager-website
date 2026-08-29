@@ -40,7 +40,7 @@ describe('public bilingual content contract', () => {
   });
 
   it('preserves the room-booking-not-replacement position in both locales', () => {
-    expect(getHomepageCopy('en').roomBooking.supporting).toContain('don’t replace');
+    expect(getHomepageCopy('en').roomBooking.supporting).toContain("don't replace");
     expect(getHomepageCopy('de').roomBooking.supporting).toContain('ersetzen');
   });
 });

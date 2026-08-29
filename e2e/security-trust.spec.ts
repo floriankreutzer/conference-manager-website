@@ -19,11 +19,11 @@ test.describe('Security & Trust', () => {
     await expect(
       main.getByRole('heading', {
         level: 2,
-        name: 'The marketing website is not an authentication system.',
+        name: 'Marketing and application access remain separate by design.',
       }),
     ).toBeVisible();
     await expect(
-      main.getByText(/does not turn planned controls into achieved certifications/),
+      main.getByText(/does not turn planned controls into certifications/),
     ).toBeVisible();
     await expect(main.getByRole('link', { name: 'Book a demo' }).first()).toHaveAttribute(
       'href',
@@ -56,13 +56,13 @@ test.describe('Security & Trust', () => {
     await expect(
       main.getByRole('heading', {
         level: 2,
-        name: 'Die Marketing-Website ist kein Authentifizierungssystem.',
+        name: 'Marketing und Anwendungszugriff bleiben bewusst getrennt.',
       }),
     ).toBeVisible();
     await expect(
-      main.getByText(/weder erreichte Zertifizierungen noch pauschale Compliance-Aussagen/),
+      main.getByText(/keine Zertifizierungen, pauschalen Compliance-Aussagen/),
     ).toBeVisible();
-    await expect(main.getByRole('link', { name: 'Demo buchen' }).first()).toHaveAttribute(
+    await expect(main.getByRole('link', { name: 'Demo anfragen' }).first()).toHaveAttribute(
       'href',
       '/de/book-a-demo/',
     );
@@ -85,7 +85,7 @@ test.describe('Security & Trust', () => {
     await expect(
       page.getByRole('heading', {
         level: 2,
-        name: 'Produktive Security-Aussagen beginnen am realen Production-Origin.',
+        name: 'Trust-Aussagen folgen verifizierten Kontrollen – nicht Marketingformulierungen.',
       }),
     ).toBeVisible();
   });

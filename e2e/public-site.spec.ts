@@ -5,7 +5,9 @@ const accessibilityPaths = ['/en/', '/de/', '/en/book-a-demo/', '/de/book-a-demo
 const routeDiscoveryPaths = ['/en/', '/de/'];
 
 test.describe('public website contracts', () => {
-  test('renders the approved Pavurel homepage narrative and primary actions', async ({ page }) => {
+  test('renders the approved customer-led Pavurel homepage narrative and primary actions', async ({
+    page,
+  }) => {
     await page.goto('/en/');
 
     await expect(
@@ -17,10 +19,36 @@ test.describe('public website contracts', () => {
     await expect(
       page.getByText('Keep your room booking. Replace the coordination around it.'),
     ).toBeVisible();
+    await expect(
+      page.getByRole('heading', {
+        level: 2,
+        name: 'Operational precision, with a more considered workplace experience.',
+      }),
+    ).toBeVisible();
     await expect(page.getByRole('link', { name: 'Book a demo' }).first()).toHaveAttribute(
       'href',
       '/en/book-a-demo/',
     );
+  });
+
+  test('uses governed Pavurel identity and restrained application-family control geometry', async ({
+    page,
+  }) => {
+    await page.goto('/en/');
+
+    const signet = page.locator('header .brand-lockup__signet');
+    await expect(signet).toBeVisible();
+    await expect(signet).toHaveAttribute('src', /^data:image\/svg\+xml,/);
+    await expect(page.locator('.primary-nav a')).toHaveCount(5);
+    await expect(page.locator('.primary-nav')).not.toContainText('Pricing');
+    await expect(page.locator('footer')).toContainText('Conference Manager');
+    await expect(page.locator('footer')).toContainText('by Pavurel');
+
+    const radius = await page
+      .getByRole('link', { name: 'Book a demo' })
+      .first()
+      .evaluate((element) => getComputedStyle(element).borderRadius);
+    expect(radius).toBe('4px');
   });
 
   test('switches locales without creating a parallel page architecture', async ({ page }) => {
@@ -33,14 +61,15 @@ test.describe('public website contracts', () => {
     await expect(
       page.getByRole('heading', {
         level: 1,
-        name: 'Damit sich jede Workplace-Konferenz mühelos anfühlt.',
+        name: 'Damit sich professionelle Konferenzen einfach anfühlen.',
       }),
     ).toBeVisible();
+    await expect(page.getByRole('link', { name: 'Demo anfragen' }).first()).toBeVisible();
   });
 
   test('keeps Login as a fixed HTTPS handoff to the application', async ({ page }) => {
     await page.goto('/en/');
-    await expect(page.getByRole('link', { name: 'Login' })).toHaveAttribute(
+    await expect(page.getByRole('link', { name: 'Login', exact: true })).toHaveAttribute(
       'href',
       'https://app.example.invalid/login',
     );
