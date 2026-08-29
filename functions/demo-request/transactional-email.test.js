@@ -29,14 +29,14 @@ const demoRequest = {
 function requestDouble({ statusCode = 200, networkError = false, timeout = false } = {}) {
   return vi.fn((options, callback) => {
     const request = new EventEmitter();
-    request.destroy = vi.fn((error) => queueMicrotask(() => request.emit('error', error)));
+    request.destroy = vi.fn((error) => request.emit('error', error));
     request.end = vi.fn(() => {
       if (timeout) {
-        queueMicrotask(() => request.emit('timeout'));
+        request.emit('timeout');
         return;
       }
       if (networkError) {
-        queueMicrotask(() => request.emit('error', new Error('socket failed')));
+        request.emit('error', new Error('socket failed'));
         return;
       }
 
@@ -44,7 +44,7 @@ function requestDouble({ statusCode = 200, networkError = false, timeout = false
       response.statusCode = statusCode;
       response.resume = vi.fn();
       callback(response);
-      queueMicrotask(() => response.emit('end'));
+      response.emit('end');
     });
     return request;
   });
