@@ -1,0 +1,119 @@
+name: Website Production Deployment
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: website-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: production
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.SCW_PRODUCTION_OBJECT_STORAGE_ACCESS_KEY }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.SCW_PRODUCTION_OBJECT_STORAGE_SECRET_KEY }}
+      SCW_REGION: ${{ vars.SCW_REGION }}
+      SCW_PRODUCTION_BUCKET: ${{ vars.SCW_PRODUCTION_BUCKET }}
+      PUBLIC_SITE_ORIGIN: ${{ vars.PUBLIC_SITE_ORIGIN }}
+      PUBLIC_CM_APP_ORIGIN: ${{ vars.PUBLIC_CM_APP_ORIGIN }}
+      PUBLIC_DEMO_REQUEST_ENDPOINT: ${{ vars.PUBLIC_DEMO_REQUEST_ENDPOINT }}
+      PUBLIC_DEMO_PRIVACY_URL: ${{ vars.PUBLIC_DEMO_PRIVACY_URL }}
+      PUBLIC_PREVIEW: 'false'
+    steps:
+      - name: Validate production configuration
+        id: config
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          required=(
+            AWS_ACCESS_KEY_ID
+            AWS_SECRET_ACCESS_KEY
+            SCW_REGION
+            SCW_PRODUCTION_BUCKET
+            PUBLIC_SITE_ORIGIN
+            PUBLIC_CM_APP_ORIGIN
+          )
+
+          for name in "${required[@]}"; do
+            if [[ -z "${!name}" ]]; then
+              echo "Missing required production configuration: $name" >&2
+              exit 1
+            fi
+          done
+
+          case "$SCW_REGION" in
+            fr-par|nl-ams|pl-waw|it-mil) ;;
+            *) echo "Unsupported/non-approved Scaleway region: $SCW_REGION" >&2; exit 1 ;;
+          esac
+
+          if [[ ! "$SCW_PRODUCTION_BUCKET" =~ ^[a-z0-9][a-z0-9.-]{1,61}[a-z0-9]$ ]]; then
+            echo "Invalid production bucket name." >&2
+            exit 1
+          fi
+
+          expected_origin="https://${SCW_PRODUCTION_BUCKET}.s3-website.${SCW_REGION}.scw.cloud"
+          echo "endpoint=https://s3.${SCW_REGION}.scw.cloud" >> "$GITHUB_OUTPUT"
+          echo "Object Storage website origin: $expected_origin"
+          echo "Configured public origin: $PUBLIC_SITE_ORIGIN"
+
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '22.19.0'
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci --ignore-scripts
+
+      - name: Dependency vulnerability audit
+        run: npm audit --audit-level=high
+
+      - name: Astro and TypeScript checks
+        run: npm run check
+
+      - name: Unit tests
+        run: npm test
+
+      - name: Production build
+        run: npm run build
+
+      - name: Verify pre-provisioned production bucket
+        env:
+          SCW_ENDPOINT: ${{ steps.config.outputs.endpoint }}
+        run: |
+          aws s3api head-bucket \
+            --bucket "$SCW_PRODUCTION_BUCKET" \
+            --region "$SCW_REGION" \
+            --endpoint-url "$SCW_ENDPOINT"
+
+      - name: Deploy immutable build output
+        env:
+          SCW_ENDPOINT: ${{ steps.config.outputs.endpoint }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          aws s3 sync dist/ "s3://${SCW_PRODUCTION_BUCKET}/" \
+            --delete \
+            --region "$SCW_REGION" \
+            --endpoint-url "$SCW_ENDPOINT"
+
+      - name: Record deployment summary
+        run: |
+          {
+            echo "### Production website deployment"
+            echo
+            echo "Commit: $GITHUB_SHA"
+            echo "Origin: $PUBLIC_SITE_ORIGIN"
+            echo "Region: $SCW_REGION"
+            echo
+            echo "Edge/TLS/security-header acceptance remains a separate launch gate."
+          } >> "$GITHUB_STEP_SUMMARY"
