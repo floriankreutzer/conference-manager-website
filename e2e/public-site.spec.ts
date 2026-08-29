@@ -76,11 +76,13 @@ test.describe('route integrity', () => {
 
     for (const discoveryPath of routeDiscoveryPaths) {
       await page.goto(discoveryPath);
-      const hrefs = await page.locator('a[href]').evaluateAll((links) =>
-        links
-          .map((link) => link.getAttribute('href'))
-          .filter((href): href is string => Boolean(href)),
-      );
+      const hrefs = await page
+        .locator('a[href]')
+        .evaluateAll((links) =>
+          links
+            .map((link) => link.getAttribute('href'))
+            .filter((href): href is string => Boolean(href)),
+        );
 
       for (const href of hrefs) {
         if (!href.startsWith('/') || href.startsWith('//')) continue;
