@@ -95,7 +95,8 @@ const pricingCopy: Record<Locale, PricingCopy> = {
         eyebrow: 'Wertbasis',
         title: 'Bepreise den operativen Wert, nicht die Anzahl der Integrationen.',
         body: 'Die freigegebenen Pricing-Prinzipien richten sich am operativen Wert aus, den Conference Manager für Workplace Teams schaffen soll. Technische Integrationen gehören zum Product Fit, ihre Anzahl soll aber nicht zum alleinigen Maßstab des Werts werden.',
-        statement: 'Die kommerzielle Logik soll dem Workplace-Problem folgen, das das Produkt löst.',
+        statement:
+          'Die kommerzielle Logik soll dem Workplace-Problem folgen, das das Produkt löst.',
       },
       {
         eyebrow: 'Validierungs-Gate',
