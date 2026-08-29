@@ -94,6 +94,9 @@ jobs:
       - name: Unit tests
         run: npm test
 
+      - name: Governed font asset verification
+        run: npm run test:fonts
+
       - name: Production build
         run: npm run build
 
