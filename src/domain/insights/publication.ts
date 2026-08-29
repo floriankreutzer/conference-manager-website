@@ -1,26 +1,41 @@
 export type InsightPublicationEntry = {
   translationKey: string;
   locale: 'en' | 'de';
+  slug: string;
   status: 'draft' | 'reviewed' | 'published';
+};
+
+type PublishedTranslationPair = {
+  locales: Set<'en' | 'de'>;
+  slug: string;
 };
 
 export function assertPublishedTranslationPairs(entries: InsightPublicationEntry[]): void {
   const published = entries.filter((entry) => entry.status === 'published');
-  const localesByKey = new Map<string, Set<'en' | 'de'>>();
+  const translationsByKey = new Map<string, PublishedTranslationPair>();
 
   for (const entry of published) {
-    const locales = localesByKey.get(entry.translationKey) ?? new Set<'en' | 'de'>();
+    const translation = translationsByKey.get(entry.translationKey) ?? {
+      locales: new Set<'en' | 'de'>(),
+      slug: entry.slug,
+    };
 
-    if (locales.has(entry.locale)) {
+    if (translation.locales.has(entry.locale)) {
       throw new Error(`Duplicate published ${entry.locale} insight for ${entry.translationKey}.`);
     }
 
-    locales.add(entry.locale);
-    localesByKey.set(entry.translationKey, locales);
+    if (translation.slug !== entry.slug) {
+      throw new Error(
+        `Published insight ${entry.translationKey} requires one shared slug across English and German entries for reciprocal hreflang routes.`,
+      );
+    }
+
+    translation.locales.add(entry.locale);
+    translationsByKey.set(entry.translationKey, translation);
   }
 
-  for (const [translationKey, locales] of localesByKey) {
-    if (!locales.has('en') || !locales.has('de')) {
+  for (const [translationKey, translation] of translationsByKey) {
+    if (!translation.locales.has('en') || !translation.locales.has('de')) {
       throw new Error(
         `Published insight ${translationKey} requires complete English and German entries.`,
       );
