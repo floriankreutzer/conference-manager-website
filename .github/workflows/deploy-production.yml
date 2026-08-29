@@ -57,10 +57,15 @@ jobs:
             exit 1
           fi
 
+          if [[ ! "$PUBLIC_SITE_ORIGIN" =~ ^https://[^/?#]+/?$ ]]; then
+            echo "PUBLIC_SITE_ORIGIN must be a clean HTTPS origin." >&2
+            exit 1
+          fi
+
           expected_origin="https://${SCW_PRODUCTION_BUCKET}.s3-website.${SCW_REGION}.scw.cloud"
           echo "endpoint=https://s3.${SCW_REGION}.scw.cloud" >> "$GITHUB_OUTPUT"
           echo "Object Storage website origin: $expected_origin"
-          echo "Configured public origin: $PUBLIC_SITE_ORIGIN"
+          echo "Configured public/edge origin: $PUBLIC_SITE_ORIGIN"
 
       - name: Checkout repository
         uses: actions/checkout@v7
@@ -115,6 +120,21 @@ jobs:
             --region "$SCW_REGION" \
             --endpoint-url "$SCW_ENDPOINT"
 
+      - name: Verify delivered production contract
+        shell: bash
+        run: |
+          set -euo pipefail
+          for attempt in 1 2 3 4 5; do
+            if node scripts/verify-deployment.mjs production "$PUBLIC_SITE_ORIGIN"; then
+              exit 0
+            fi
+            if [[ "$attempt" -lt 5 ]]; then
+              sleep $((attempt * 3))
+            fi
+          done
+          echo "Delivered production origin does not satisfy the publication/security contract." >&2
+          exit 1
+
       - name: Record deployment summary
         run: |
           {
@@ -124,5 +144,5 @@ jobs:
             echo "Origin: $PUBLIC_SITE_ORIGIN"
             echo "Region: $SCW_REGION"
             echo
-            echo "Edge/TLS/security-header acceptance remains a separate launch gate."
+            echo "Delivered production contract verified: indexability, canonical/sitemap and required edge security headers."
           } >> "$GITHUB_STEP_SUMMARY"

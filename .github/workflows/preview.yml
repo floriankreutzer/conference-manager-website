@@ -141,6 +141,24 @@ jobs:
             --region "$SCW_REGION" \
             --endpoint-url "$SCW_ENDPOINT"
 
+      - name: Verify delivered preview contract
+        if: steps.config.outputs.enabled == 'true'
+        env:
+          PREVIEW_ORIGIN: ${{ steps.config.outputs.origin }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          for attempt in 1 2 3 4 5; do
+            if node scripts/verify-deployment.mjs preview "$PREVIEW_ORIGIN"; then
+              exit 0
+            fi
+            if [[ "$attempt" -lt 5 ]]; then
+              sleep $((attempt * 2))
+            fi
+          done
+          echo "Delivered preview did not satisfy the publication contract." >&2
+          exit 1
+
       - name: Publish preview URL to job summary
         if: steps.config.outputs.enabled == 'true'
         env:
@@ -151,5 +169,5 @@ jobs:
             echo
             echo "$PREVIEW_ORIGIN/en/"
             echo
-            echo "This preview is intentionally noindex/nofollow."
+            echo "Delivered preview contract verified: noindex, blocking robots and non-indexable sitemap."
           } >> "$GITHUB_STEP_SUMMARY"
