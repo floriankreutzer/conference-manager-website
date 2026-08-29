@@ -16,5 +16,11 @@ const copy = getPublicPageCopy(locale, slug);
   <p class="eyebrow">{copy.eyebrow}</p>
   <h1 id="info-title">{copy.title}</h1>
   <p class="info-page__lead">{copy.body}</p>
-  {copy.note && <aside class="info-page__note" aria-label={locale === 'de' ? 'Hinweis' : 'Note'}>{copy.note}</aside>}
+  {
+    copy.note && (
+      <aside class="info-page__note" aria-label={locale === 'de' ? 'Hinweis' : 'Note'}>
+        {copy.note}
+      </aside>
+    )
+  }
 </section>

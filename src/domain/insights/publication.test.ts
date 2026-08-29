@@ -26,7 +26,9 @@ describe('assertPublishedTranslationPairs', () => {
       assertPublishedTranslationPairs([
         { translationKey: 'missing-translation', locale: 'en', status: 'published' },
       ]),
-    ).toThrow('Published insight missing-translation requires complete English and German entries.');
+    ).toThrow(
+      'Published insight missing-translation requires complete English and German entries.',
+    );
   });
 
   it('rejects duplicate published locale entries for one translation key', () => {

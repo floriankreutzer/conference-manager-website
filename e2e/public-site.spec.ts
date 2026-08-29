@@ -7,9 +7,19 @@ test.describe('public website contracts', () => {
   test('renders the approved Pavurel homepage narrative and primary actions', async ({ page }) => {
     await page.goto('/en/');
 
-    await expect(page.getByRole('heading', { level: 1, name: 'Make every workplace conference feel effortless.' })).toBeVisible();
-    await expect(page.getByText('Keep your room booking. Replace the coordination around it.')).toBeVisible();
-    await expect(page.getByRole('link', { name: 'Book a demo' }).first()).toHaveAttribute('href', '/en/book-a-demo/');
+    await expect(
+      page.getByRole('heading', {
+        level: 1,
+        name: 'Make every workplace conference feel effortless.',
+      }),
+    ).toBeVisible();
+    await expect(
+      page.getByText('Keep your room booking. Replace the coordination around it.'),
+    ).toBeVisible();
+    await expect(page.getByRole('link', { name: 'Book a demo' }).first()).toHaveAttribute(
+      'href',
+      '/en/book-a-demo/',
+    );
   });
 
   test('switches locales without creating a parallel page architecture', async ({ page }) => {
@@ -19,23 +29,37 @@ test.describe('public website contracts', () => {
 
     await germanLink.click();
     await expect(page).toHaveURL(/\/de\/$/);
-    await expect(page.getByRole('heading', { level: 1, name: 'Damit sich jede Workplace-Konferenz mühelos anfühlt.' })).toBeVisible();
+    await expect(
+      page.getByRole('heading', {
+        level: 1,
+        name: 'Damit sich jede Workplace-Konferenz mühelos anfühlt.',
+      }),
+    ).toBeVisible();
   });
 
   test('keeps Login as a fixed HTTPS handoff to the application', async ({ page }) => {
     await page.goto('/en/');
-    await expect(page.getByRole('link', { name: 'Login' })).toHaveAttribute('href', 'https://app.example.invalid/login');
+    await expect(page.getByRole('link', { name: 'Login' })).toHaveAttribute(
+      'href',
+      'https://app.example.invalid/login',
+    );
   });
 
-  test('keeps demo submission fail-closed without accepted deployment configuration', async ({ page }) => {
+  test('keeps demo submission fail-closed without accepted deployment configuration', async ({
+    page,
+  }) => {
     await page.goto('/en/book-a-demo/');
 
-    await expect(page.getByRole('status')).toContainText('Demo requests are not active in this environment yet.');
+    await expect(page.getByRole('status')).toContainText(
+      'Demo requests are not active in this environment yet.',
+    );
     await expect(page.getByRole('button', { name: 'Request a demo' })).toBeDisabled();
     await expect(page.getByLabel(/Business email/)).toBeDisabled();
   });
 
-  test('does not introduce page-level horizontal overflow on the responsive shell', async ({ page }) => {
+  test('does not introduce page-level horizontal overflow on the responsive shell', async ({
+    page,
+  }) => {
     await page.goto('/en/');
     const dimensions = await page.evaluate(() => ({
       scrollWidth: document.documentElement.scrollWidth,
@@ -46,14 +70,31 @@ test.describe('public website contracts', () => {
 });
 
 test.describe('SEO and preview publication contracts', () => {
-  test('publishes localized canonical, hreflang and social metadata from the configured origin', async ({ page }) => {
+  test('publishes localized canonical, hreflang and social metadata from the configured origin', async ({
+    page,
+  }) => {
     await page.goto('/en/product/');
 
-    await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'noindex, nofollow');
-    await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', 'https://preview.example.invalid/en/product/');
-    await expect(page.locator('link[rel="alternate"][hreflang="de"]')).toHaveAttribute('href', 'https://preview.example.invalid/de/product/');
-    await expect(page.locator('meta[property="og:url"]')).toHaveAttribute('content', 'https://preview.example.invalid/en/product/');
-    await expect(page.locator('meta[property="og:site_name"]')).toHaveAttribute('content', 'Conference Manager');
+    await expect(page.locator('meta[name="robots"]')).toHaveAttribute(
+      'content',
+      'noindex, nofollow',
+    );
+    await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
+      'href',
+      'https://preview.example.invalid/en/product/',
+    );
+    await expect(page.locator('link[rel="alternate"][hreflang="de"]')).toHaveAttribute(
+      'href',
+      'https://preview.example.invalid/de/product/',
+    );
+    await expect(page.locator('meta[property="og:url"]')).toHaveAttribute(
+      'content',
+      'https://preview.example.invalid/en/product/',
+    );
+    await expect(page.locator('meta[property="og:site_name"]')).toHaveAttribute(
+      'content',
+      'Conference Manager',
+    );
     await expect(page.locator('meta[name="twitter:card"]')).toHaveAttribute('content', 'summary');
   });
 

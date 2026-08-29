@@ -42,8 +42,8 @@ describe('getSeoConfig', () => {
     'https://example.com/?campaign=test',
     'https://example.com/#section',
   ])('rejects unsafe or non-origin site configuration: %s', (siteOrigin) => {
-    expect(() =>
-      getSeoConfig({ preview: false, development: false, siteOrigin }),
-    ).toThrow('PUBLIC_SITE_ORIGIN must be a clean HTTPS origin.');
+    expect(() => getSeoConfig({ preview: false, development: false, siteOrigin })).toThrow(
+      'PUBLIC_SITE_ORIGIN must be a clean HTTPS origin.',
+    );
   });
 });

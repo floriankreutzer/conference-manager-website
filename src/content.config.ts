@@ -5,8 +5,14 @@ import { z } from 'astro/zod';
 const insightSchema = z
   .object({
     locale: z.enum(['en', 'de']),
-    translationKey: z.string().min(1).regex(/^[a-z0-9-]+$/),
-    slug: z.string().min(1).regex(/^[a-z0-9-]+$/),
+    translationKey: z
+      .string()
+      .min(1)
+      .regex(/^[a-z0-9-]+$/),
+    slug: z
+      .string()
+      .min(1)
+      .regex(/^[a-z0-9-]+$/),
     title: z.string().min(1).max(120),
     description: z.string().min(1).max(180),
     status: z.enum(['draft', 'reviewed', 'published']).default('draft'),

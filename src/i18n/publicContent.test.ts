@@ -29,7 +29,12 @@ describe('public bilingual content contract', () => {
 
     for (const locale of locales) {
       const pricing = getPublicPageCopy(locale, 'pricing');
-      const publishedText = [pricing.title, pricing.description, pricing.body, pricing.note ?? ''].join(' ');
+      const publishedText = [
+        pricing.title,
+        pricing.description,
+        pricing.body,
+        pricing.note ?? '',
+      ].join(' ');
       expect(publishedText).not.toMatch(monetaryAmount);
     }
   });
