@@ -41,7 +41,8 @@ const securityTrustCopy: Record<Locale, SecurityTrustCopy> = {
         eyebrow: 'Data minimisation',
         title: 'Keep the public experience deliberately lightweight.',
         body: 'The current website is static-first and does not load analytics or marketing tracking. Product access and sensitive integration permissions remain outside the public site, reducing the amount of authority and customer context exposed in the first interaction.',
-        statement: 'A marketing website should explain the product without becoming part of the product trust boundary.',
+        statement:
+          'A marketing website should explain the product without becoming part of the product trust boundary.',
       },
       {
         eyebrow: 'Demo enquiries',
@@ -94,7 +95,8 @@ const securityTrustCopy: Record<Locale, SecurityTrustCopy> = {
         eyebrow: 'Datenminimierung',
         title: 'Halten Sie die öffentliche Erfahrung bewusst schlank.',
         body: 'Die aktuelle Website ist Static-first und lädt weder Analytics noch Marketing-Tracking. Produktzugang und sensible Integrationsberechtigungen bleiben außerhalb der öffentlichen Website. Dadurch wird in der ersten Interaktion nur so viel Kundenkontext verarbeitet, wie für die Marketingseite tatsächlich nötig ist.',
-        statement: 'Eine Marketingwebsite soll das Produkt erklären, ohne selbst Teil der Produktberechtigungen zu werden.',
+        statement:
+          'Eine Marketingwebsite soll das Produkt erklären, ohne selbst Teil der Produktberechtigungen zu werden.',
       },
       {
         eyebrow: 'Demo-Anfragen',

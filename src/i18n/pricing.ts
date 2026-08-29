@@ -90,7 +90,8 @@ const pricingCopy: Record<Locale, PricingCopy> = {
         eyebrow: 'Wertbasis',
         title: 'Bewerten Sie das Konferenzmanagement-Problem – nicht eine Integrations-Checkliste.',
         body: 'Conference Manager soll operativen Nutzen schaffen: eine klarere Anfrage für Mitarbeitende und einen zusammenhängenden Kontext für Workplace Teams bei Vorbereitung und Änderungen. Integrationen beeinflussen den Product Fit und die Einführung, ihre Anzahl soll aber nicht die Produktstory bestimmen.',
-        statement: 'Die kommerzielle Logik soll dem Workplace-Problem folgen, das das Produkt adressiert.',
+        statement:
+          'Die kommerzielle Logik soll dem Workplace-Problem folgen, das das Produkt adressiert.',
       },
       {
         eyebrow: 'Was Sie heute bereits tun können',

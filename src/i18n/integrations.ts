@@ -79,7 +79,8 @@ const integrationsCopy: Record<Locale, IntegrationsCopy> = {
         eyebrow: 'Integrationsprinzip',
         title: 'Behalten Sie die Systeme, auf die Ihre Arbeitswelt bereits angewiesen ist.',
         body: 'Conference Manager ergänzt die Konferenzkoordination rund um spezialisierte Systeme, statt sie standardmäßig zu ersetzen. Ihre Raumbuchung kann weiterhin die Reservierung verantworten; Identität und Zusammenarbeit bleiben Teil der Enterprise-Umgebung, die Ihr Unternehmen bereits betreibt.',
-        statement: 'Verbessern Sie den Konferenzablauf, ohne daraus ein Austauschprojekt zu machen.',
+        statement:
+          'Verbessern Sie den Konferenzablauf, ohne daraus ein Austauschprojekt zu machen.',
       },
       {
         eyebrow: 'Microsoft 365 · Erster Enterprise-Fokus',
