@@ -3,19 +3,19 @@ import { describe, expect, it } from 'vitest';
 import { assertPublishedTranslationPairs } from './publication';
 
 describe('assertPublishedTranslationPairs', () => {
-  it('accepts complete English and German publication pairs with one reciprocal slug', () => {
+  it('accepts complete English and German publication pairs with one reciprocal route slug', () => {
     expect(() =>
       assertPublishedTranslationPairs([
         {
           translationKey: 'governed-conferences',
           locale: 'en',
-          slug: 'governed-conferences',
+          routeSlug: 'governed-conferences',
           status: 'published',
         },
         {
           translationKey: 'governed-conferences',
           locale: 'de',
-          slug: 'governed-conferences',
+          routeSlug: 'governed-conferences',
           status: 'published',
         },
       ]),
@@ -28,13 +28,13 @@ describe('assertPublishedTranslationPairs', () => {
         {
           translationKey: 'draft-topic',
           locale: 'en',
-          slug: 'draft-topic-en',
+          routeSlug: 'draft-topic-en',
           status: 'draft',
         },
         {
           translationKey: 'review-topic',
           locale: 'de',
-          slug: 'review-topic-de',
+          routeSlug: 'review-topic-de',
           status: 'reviewed',
         },
       ]),
@@ -47,7 +47,7 @@ describe('assertPublishedTranslationPairs', () => {
         {
           translationKey: 'missing-translation',
           locale: 'en',
-          slug: 'missing-translation',
+          routeSlug: 'missing-translation',
           status: 'published',
         },
       ]),
@@ -62,43 +62,43 @@ describe('assertPublishedTranslationPairs', () => {
         {
           translationKey: 'duplicate',
           locale: 'en',
-          slug: 'duplicate',
+          routeSlug: 'duplicate',
           status: 'published',
         },
         {
           translationKey: 'duplicate',
           locale: 'en',
-          slug: 'duplicate',
+          routeSlug: 'duplicate',
           status: 'published',
         },
         {
           translationKey: 'duplicate',
           locale: 'de',
-          slug: 'duplicate',
+          routeSlug: 'duplicate',
           status: 'published',
         },
       ]),
     ).toThrow('Duplicate published en insight for duplicate.');
   });
 
-  it('rejects published translations with different slugs because hreflang is reciprocal by path', () => {
+  it('rejects published translations with different route slugs because hreflang is reciprocal by path', () => {
     expect(() =>
       assertPublishedTranslationPairs([
         {
           translationKey: 'route-mismatch',
           locale: 'en',
-          slug: 'english-route',
+          routeSlug: 'english-route',
           status: 'published',
         },
         {
           translationKey: 'route-mismatch',
           locale: 'de',
-          slug: 'deutsche-route',
+          routeSlug: 'deutsche-route',
           status: 'published',
         },
       ]),
     ).toThrow(
-      'Published insight route-mismatch requires one shared slug across English and German entries for reciprocal hreflang routes.',
+      'Published insight route-mismatch requires one shared route slug across English and German entries for reciprocal hreflang routes.',
     );
   });
 });
