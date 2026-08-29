@@ -1,7 +1,7 @@
 ---
 locale: en
 translationKey: room-booking-and-conference-management
-slug: room-booking-is-only-part-of-conference-management
+routeSlug: room-booking-is-only-part-of-conference-management
 title: Why room booking is only part of conference management
 description: A room reservation defines where and when. Professional workplace conferences can also depend on guests, catering, services and requirements.
 status: published
