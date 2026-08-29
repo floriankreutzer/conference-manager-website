@@ -10,7 +10,13 @@ type PricingSection = {
 };
 type PricingCopy = {
   sections: readonly PricingSection[];
-  closing: { eyebrow: string; title: string; body: string; primaryCta: string; secondaryCta: string };
+  closing: {
+    eyebrow: string;
+    title: string;
+    body: string;
+    primaryCta: string;
+    secondaryCta: string;
+  };
 };
 
 const pricingCopy: Record<Locale, PricingCopy> = {
@@ -27,8 +33,14 @@ const pricingCopy: Record<Locale, PricingCopy> = {
         title: 'Keep the commercial model understandable.',
         body: 'The current direction is to keep early packaging simple enough to understand and procure without adding billing complexity before customer evidence justifies it. That is a pricing principle, not a final package design.',
         points: [
-          { title: 'Clarity first', body: 'A future public model should make the commercial basis understandable without requiring customers to decode unnecessary billing mechanics.' },
-          { title: 'No premature complexity', body: 'Packaging should not become more complicated than the product and customer evidence require.' },
+          {
+            title: 'Clarity first',
+            body: 'A future public model should make the commercial basis understandable without requiring customers to decode unnecessary billing mechanics.',
+          },
+          {
+            title: 'No premature complexity',
+            body: 'Packaging should not become more complicated than the product and customer evidence require.',
+          },
         ],
       },
       {
@@ -64,15 +76,22 @@ const pricingCopy: Record<Locale, PricingCopy> = {
         title: 'Halten Sie das kommerzielle Modell verständlich.',
         body: 'Die aktuelle Richtung ist, frühes Packaging so einfach zu halten, dass es verständlich und beschaffbar bleibt, ohne Abrechnungskomplexität aufzubauen, bevor Kundenevidenz sie rechtfertigt. Das ist ein Pricing-Prinzip und noch kein finales Paketdesign.',
         points: [
-          { title: 'Klarheit zuerst', body: 'Ein künftiges öffentliches Modell soll die kommerzielle Grundlage verständlich machen, ohne Kunden durch unnötige Abrechnungsmechaniken zu führen.' },
-          { title: 'Keine vorschnelle Komplexität', body: 'Packaging soll nicht komplizierter werden, als Produkt- und Kundenevidenz es erfordern.' },
+          {
+            title: 'Klarheit zuerst',
+            body: 'Ein künftiges öffentliches Modell soll die kommerzielle Grundlage verständlich machen, ohne Kunden durch unnötige Abrechnungsmechaniken zu führen.',
+          },
+          {
+            title: 'Keine vorschnelle Komplexität',
+            body: 'Packaging soll nicht komplizierter werden, als Produkt- und Kundenevidenz es erfordern.',
+          },
         ],
       },
       {
         eyebrow: 'Wertbasis',
         title: 'Verankern Sie Pricing im Workplace-Problem – nicht in der Zahl der Integrationen.',
         body: 'Die freigegebenen Pricing-Prinzipien richten sich am operativen Wert aus, den Conference Manager für Workplace Teams schaffen soll. Integrationen gehören zum Product Fit, ihre Anzahl soll aber nicht zum alleinigen Maßstab des Werts werden.',
-        statement: 'Die kommerzielle Logik soll dem Workplace-Problem folgen, das das Produkt löst.',
+        statement:
+          'Die kommerzielle Logik soll dem Workplace-Problem folgen, das das Produkt löst.',
       },
       {
         eyebrow: 'Validierung vor Veröffentlichung',
