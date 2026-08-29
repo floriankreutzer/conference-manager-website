@@ -1,0 +1,44 @@
+---
+import type { Locale } from '@config/locales';
+import DemoRequestForm from '@features/demo-request/DemoRequestForm.astro';
+import InsightsIndex from '@features/insights/InsightsIndex.astro';
+import IntegrationsPage from '@features/integrations/IntegrationsPage.astro';
+import PricingPage from '@features/pricing/PricingPage.astro';
+import ProductStoryPage from '@features/product-story/ProductStoryPage.astro';
+import SecurityTrustPage from '@features/security-trust/SecurityTrustPage.astro';
+import WorkplaceTeamsPage from '@features/workplace-teams/WorkplaceTeamsPage.astro';
+import type { PublicPageSlug } from '@i18n/publicPages';
+import MarketingLayout from './MarketingLayout.astro';
+import PublicInfoPage from './PublicInfoPage.astro';
+import { resolvePublicPageRoute } from './publicPageRoute';
+
+interface Props {
+  locale: Locale;
+  slug: PublicPageSlug;
+}
+
+const { locale, slug } = Astro.props;
+const route = resolvePublicPageRoute(locale, slug);
+---
+
+<MarketingLayout locale={locale} title={route.title} description={route.description}>
+  {
+    route.variant === 'demo-request' ? (
+      <DemoRequestForm locale={locale} />
+    ) : route.variant === 'insights' ? (
+      <InsightsIndex locale={locale} />
+    ) : route.variant === 'product-story' ? (
+      <ProductStoryPage locale={locale} slug={route.slug} />
+    ) : route.variant === 'integrations' ? (
+      <IntegrationsPage locale={locale} />
+    ) : route.variant === 'workplace-teams' ? (
+      <WorkplaceTeamsPage locale={locale} />
+    ) : route.variant === 'security-trust' ? (
+      <SecurityTrustPage locale={locale} />
+    ) : route.variant === 'pricing' ? (
+      <PricingPage locale={locale} />
+    ) : (
+      <PublicInfoPage locale={locale} slug={route.slug} />
+    )
+  }
+</MarketingLayout>

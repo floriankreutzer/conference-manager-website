@@ -1,51 +1,12 @@
 ---
-import DemoRequestForm from '@features/demo-request/DemoRequestForm.astro';
-import InsightsIndex from '@features/insights/InsightsIndex.astro';
-import IntegrationsPage from '@features/integrations/IntegrationsPage.astro';
-import PricingPage from '@features/pricing/PricingPage.astro';
-import ProductStoryPage from '@features/product-story/ProductStoryPage.astro';
-import SecurityTrustPage from '@features/security-trust/SecurityTrustPage.astro';
-import WorkplaceTeamsPage from '@features/workplace-teams/WorkplaceTeamsPage.astro';
-import { isProductStorySlug } from '@i18n/productStory';
-import { getPublicPageCopy, publicPageSlugs, type PublicPageSlug } from '@i18n/publicPages';
-import MarketingLayout from '@layouts/MarketingLayout.astro';
-import PublicInfoPage from '@layouts/PublicInfoPage.astro';
+import { publicPageSlugs, type PublicPageSlug } from '@i18n/publicPages';
+import PublicPageRoute from '@layouts/PublicPageRoute.astro';
 
 export function getStaticPaths() {
   return publicPageSlugs.map((slug) => ({ params: { slug } }));
 }
 
 const slug = Astro.params.slug as PublicPageSlug;
-const copy = getPublicPageCopy('en', slug);
-const hasDetailedContent =
-  isProductStorySlug(slug) ||
-  slug === 'integrations' ||
-  slug === 'workplace-teams' ||
-  slug === 'security-trust' ||
-  slug === 'pricing';
-const title = hasDetailedContent
-  ? `${copy.title} — Conference Manager`
-  : `${copy.eyebrow} — Conference Manager`;
 ---
 
-<MarketingLayout locale="en" title={title} description={copy.description}>
-  {
-    slug === 'book-a-demo' ? (
-      <DemoRequestForm locale="en" />
-    ) : slug === 'insights' ? (
-      <InsightsIndex locale="en" />
-    ) : isProductStorySlug(slug) ? (
-      <ProductStoryPage locale="en" slug={slug} />
-    ) : slug === 'integrations' ? (
-      <IntegrationsPage locale="en" />
-    ) : slug === 'workplace-teams' ? (
-      <WorkplaceTeamsPage locale="en" />
-    ) : slug === 'security-trust' ? (
-      <SecurityTrustPage locale="en" />
-    ) : slug === 'pricing' ? (
-      <PricingPage locale="en" />
-    ) : (
-      <PublicInfoPage locale="en" slug={slug} />
-    )
-  }
-</MarketingLayout>
+<PublicPageRoute locale="en" slug={slug} />

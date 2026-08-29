@@ -43,8 +43,8 @@ src/
 │   ├── security-trust/       # evidence-led public trust narrative
 │   └── workplace-teams/      # Workplace Team buyer narrative
 ├── i18n/                     # localized customer-facing content/contracts
-├── layouts/                  # page-level composition and layout contracts
-├── pages/                    # Astro filesystem routes; route composition only
+├── layouts/                  # shared page-level composition and route presentation contracts
+├── pages/                    # Astro filesystem routes; static paths + locale delegation only
 └── styles/                   # global design tokens/foundations
 ```
 
@@ -52,8 +52,8 @@ src/
 
 Use these rules when adding code:
 
-- `pages/` owns routing, static-path selection and high-level route composition. Do not put substantial presentation or domain logic there.
-- `layouts/` owns page-level composition/templates that are reused by locale routes or route variants.
+- `pages/` owns filesystem routing and static-path selection. Locale route files should delegate shared page composition rather than duplicate feature-dispatch or metadata rules.
+- `layouts/` owns page-level composition/templates that are reused by locale routes or route variants. `PublicPageRoute.astro` is the single shared dispatcher for localized public `[slug]` routes; its framework-independent resolver keeps variant/title behavior directly testable.
 - `components/` owns reusable presentation pieces. `components/editorial/` may own presentation shared by multiple editorial features, but it must not own buyer/product/security/integration/pricing content or feature orchestration. Do not create `components/pages`, `components/misc`, `components/common` or generic dumping grounds.
 - `features/` owns bounded user-facing use cases that combine presentation and orchestration. `product-story/` owns Product / How it works content composition; `workplace-teams/` owns the Workplace Team buyer destination; `security-trust/` owns the evidence-led public trust destination; `integrations/` owns qualified public integration content; `pricing/` owns governed pre-pricing content while commercial approval remains external to the website. Their localized content remains separate even when they reuse the same editorial presentation component.
 - `domain/` owns framework-independent rules where practical.
