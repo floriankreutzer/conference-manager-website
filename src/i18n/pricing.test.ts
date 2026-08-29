@@ -2,8 +2,10 @@ import { describe, expect, it } from 'vitest';
 import { getPricingCopy } from './pricing';
 
 const forbiddenCurrency = /[$€£¥]|\b(?:EUR|USD|GBP|CHF)\b/i;
-const forbiddenMoneyAmount = /\b\d+(?:[.,]\d{1,2})?\s*(?:€|EUR|USD|GBP|CHF|dollars?|euros?|pounds?|francs?)\b/i;
-const forbiddenTierName = /\b(?:free|starter|basic|professional|pro|business|enterprise|premium)\s+(?:plan|tier|package)\b/i;
+const forbiddenMoneyAmount =
+  /\b\d+(?:[.,]\d{1,2})?\s*(?:€|EUR|USD|GBP|CHF|dollars?|euros?|pounds?|francs?)\b/i;
+const forbiddenTierName =
+  /\b(?:free|starter|basic|professional|pro|business|enterprise|premium)\s+(?:plan|tier|package)\b/i;
 
 describe('Pricing copy', () => {
   it('keeps English and German section structure aligned', () => {
