@@ -45,10 +45,9 @@ test.describe('public website contracts', () => {
         name: 'Operational precision, with a more considered workplace experience.',
       }),
     ).toBeVisible();
-    await expect(page.getByRole('link', { name: 'About Conference Manager' })).toHaveAttribute(
-      'href',
-      '/en/company/',
-    );
+    await expect(
+      page.getByRole('link', { name: 'About Conference Manager', exact: true }),
+    ).toHaveAttribute('href', '/en/company/');
     await expect(page.getByRole('link', { name: 'Book a demo' })).toHaveCount(2);
     await expect(page.locator('footer').getByRole('link', { name: 'Book a demo' })).toHaveCount(0);
     await expectBrandVisualToLoad(page, 'hero');
@@ -95,15 +94,13 @@ test.describe('public website contracts', () => {
       page.getByText('A booked room does not mean a prepared conference.'),
     ).toBeVisible();
     await expect(
-      page.getByText(
-        'For organisations that want an easier request and a clearer preparation process.',
-      ),
+      page.getByText('For organisations that want a clearer preparation process.'),
     ).toBeVisible();
     await expect(
-      page.getByText('Improve the coordination around systems that already work.'),
+      page.getByText('Improve coordination around systems that already work.'),
     ).toBeVisible();
     await expect(
-      page.getByText('Start with a real conference journey and prove the fit before expanding.'),
+      page.getByText('Start with a real conference journey and prove the fit.'),
     ).toBeVisible();
     await expect(page.getByText('One request. Everything your conference needs.')).toBeVisible();
     await expect(
