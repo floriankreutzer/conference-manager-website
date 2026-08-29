@@ -1,0 +1,34 @@
+name: Format Font Gate
+
+on:
+  push:
+    branches: [feature/font-asset-manifest-gate]
+
+permissions:
+  contents: write
+
+jobs:
+  format:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22.22.3'
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - name: Format only font-governance scripts
+        run: npx prettier --write scripts/assets/font-assets-contract.mjs scripts/assets/font-assets-contract.test.mjs scripts/assets/verify-font-assets.mjs
+      - name: Commit formatting
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git diff --quiet -- scripts/assets/font-assets-contract.mjs scripts/assets/font-assets-contract.test.mjs scripts/assets/verify-font-assets.mjs; then
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add scripts/assets/font-assets-contract.mjs scripts/assets/font-assets-contract.test.mjs scripts/assets/verify-font-assets.mjs
+          git commit -m "Format font asset governance scripts"
+          git push
