@@ -1,4 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
+import { readRequiredEnv } from './config.js';
 import { createHandler } from './handler.js';
 import { parseFormBody, toPlainTextEmail, validateDemoRequest } from './validation.js';
 
@@ -64,6 +65,17 @@ describe('demo request validation', () => {
   });
 });
 
+describe('demo request server configuration', () => {
+  it('defaults Transactional Email to the currently supported fr-par region', () => {
+    const config = readRequiredEnv({ ...configuredEnv, SCW_TEM_REGION: undefined });
+    expect(config?.region).toBe('fr-par');
+  });
+
+  it('fails closed for an unsupported Transactional Email region', () => {
+    expect(readRequiredEnv({ ...configuredEnv, SCW_TEM_REGION: 'nl-ams' })).toBeNull();
+  });
+});
+
 describe('Scaleway demo request handler', () => {
   it('allows only POST', async () => {
     const handler = createHandler({ env: configuredEnv, sendEmail: vi.fn() });
@@ -83,6 +95,7 @@ describe('Scaleway demo request handler', () => {
     const handler = createHandler({ env: {}, sendEmail: vi.fn() });
     const result = await handler(event());
     expect(result.statusCode).toBe(503);
+    expect(result.headers['Retry-After']).toBe('60');
     expect(result.body).not.toContain('SCW_SECRET_KEY');
   });
 
@@ -103,13 +116,15 @@ describe('Scaleway demo request handler', () => {
     expect(sendEmail.mock.calls[0][1].email).toBe('ada@example.org');
   });
 
-  it('returns a generic temporary error when the email provider fails', async () => {
-    const handler = createHandler({
-      env: configuredEnv,
-      sendEmail: vi.fn().mockRejectedValue(new Error('provider detail must not leak')),
-    });
+  it('returns a generic temporary error without automatically retrying provider creation', async () => {
+    const sendEmail = vi.fn().mockRejectedValue(new Error('provider detail must not leak'));
+    const handler = createHandler({ env: configuredEnv, sendEmail });
     const result = await handler(event());
+
+    expect(sendEmail).toHaveBeenCalledOnce();
     expect(result.statusCode).toBe(503);
+    expect(result.headers['Retry-After']).toBe('60');
     expect(result.body).toBe('{"status":"error","code":"temporarily_unavailable"}');
+    expect(result.body).not.toContain('provider detail');
   });
 });
