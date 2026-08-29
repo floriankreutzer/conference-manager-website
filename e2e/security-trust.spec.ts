@@ -9,15 +9,22 @@ test.describe('Security & Trust', () => {
     await page.goto(englishPath);
     const main = page.locator('main');
 
-    await expect(page).toHaveTitle('Simple for users. Deliberate about control. — Conference Manager');
+    await expect(page).toHaveTitle(
+      'Simple for users. Deliberate about control. — Conference Manager',
+    );
     await expect(
       main.getByRole('heading', { level: 1, name: 'Simple for users. Deliberate about control.' }),
     ).toBeVisible();
     await expect(main.locator('article > ol > li')).toHaveCount(4);
     await expect(
-      main.getByRole('heading', { level: 2, name: 'The marketing website is not an authentication system.' }),
+      main.getByRole('heading', {
+        level: 2,
+        name: 'The marketing website is not an authentication system.',
+      }),
     ).toBeVisible();
-    await expect(main.getByText(/does not turn planned controls into achieved certifications/)).toBeVisible();
+    await expect(
+      main.getByText(/does not turn planned controls into achieved certifications/),
+    ).toBeVisible();
     await expect(main.getByRole('link', { name: 'Book a demo' }).first()).toHaveAttribute(
       'href',
       '/en/book-a-demo/',
@@ -36,15 +43,25 @@ test.describe('Security & Trust', () => {
     await page.goto(germanPath);
     const main = page.locator('main');
 
-    await expect(page).toHaveTitle('Einfach für Nutzer. Kontrolliert im Fundament. — Conference Manager');
+    await expect(page).toHaveTitle(
+      'Einfach für Nutzer. Kontrolliert im Fundament. — Conference Manager',
+    );
     await expect(
-      main.getByRole('heading', { level: 1, name: 'Einfach für Nutzer. Kontrolliert im Fundament.' }),
+      main.getByRole('heading', {
+        level: 1,
+        name: 'Einfach für Nutzer. Kontrolliert im Fundament.',
+      }),
     ).toBeVisible();
     await expect(main.locator('article > ol > li')).toHaveCount(4);
     await expect(
-      main.getByRole('heading', { level: 2, name: 'Die Marketing-Website ist kein Authentifizierungssystem.' }),
+      main.getByRole('heading', {
+        level: 2,
+        name: 'Die Marketing-Website ist kein Authentifizierungssystem.',
+      }),
     ).toBeVisible();
-    await expect(main.getByText(/weder erreichte Zertifizierungen noch pauschale Compliance-Aussagen/)).toBeVisible();
+    await expect(
+      main.getByText(/weder erreichte Zertifizierungen noch pauschale Compliance-Aussagen/),
+    ).toBeVisible();
     await expect(main.getByRole('link', { name: 'Demo buchen' }).first()).toHaveAttribute(
       'href',
       '/de/book-a-demo/',
