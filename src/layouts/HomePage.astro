@@ -1,5 +1,6 @@
 ---
 import BrandLockup from '@components/marketing/BrandLockup.astro';
+import BrandVisual from '@components/marketing/BrandVisual.astro';
 import SectionHeader from '@components/marketing/SectionHeader.astro';
 import type { Locale } from '@config/locales';
 import { withBasePath } from '@domain/routing/basePath';
@@ -16,6 +17,7 @@ const howHref = withBasePath(`/${locale}/how-it-works/`);
 const productHref = withBasePath(`/${locale}/product/`);
 const integrationsHref = withBasePath(`/${locale}/integrations/`);
 const trustHref = withBasePath(`/${locale}/security-trust/`);
+const companyHref = withBasePath(`/${locale}/company/`);
 ---
 
 <div class="home-page">
@@ -31,6 +33,10 @@ const trustHref = withBasePath(`/${locale}/security-trust/`);
           >{copy.hero.secondaryCta}<span aria-hidden="true"> →</span></a
         >
       </div>
+    </div>
+
+    <div class="hero__visual">
+      <BrandVisual locale={locale} priority />
     </div>
 
     <figure class="journey" aria-labelledby="journey-caption">
@@ -99,11 +105,15 @@ const trustHref = withBasePath(`/${locale}/security-trust/`);
       {
         copy.howItWorks.steps.map((step) => (
           <li>
-            <span class="step-number">{step.number}</span>
-            <div>
-              <h3>{step.title}</h3>
-              <p>{step.body}</p>
-            </div>
+            <>
+              <span class="step-number">{step.number}</span>
+              <div>
+                <>
+                  <h3>{step.title}</h3>
+                  <p>{step.body}</p>
+                </>
+              </div>
+            </>
           </li>
         ))
       }
@@ -114,8 +124,7 @@ const trustHref = withBasePath(`/${locale}/security-trust/`);
     <p class="eyebrow">{copy.roomBooking.eyebrow}</p>
     <h2 id="booking-title">{copy.roomBooking.title}</h2>
     <div class="integration-statement__copy">
-      <p>{copy.roomBooking.body}</p>
-      <p class="pull-quote">{copy.roomBooking.supporting}</p>
+      <p>{copy.roomBooking.body}</p><p class="pull-quote">{copy.roomBooking.supporting}</p>
     </div>
   </section>
 
@@ -127,26 +136,26 @@ const trustHref = withBasePath(`/${locale}/security-trust/`);
     />
     <div class="audience-grid">
       <article>
-        <span class="audience-label">01</span>
-        <h3>{copy.audiences.employee.title}</h3>
-        <p>{copy.audiences.employee.body}</p>
+        <span class="audience-label">01</span><h3>{copy.audiences.employee.title}</h3><p>
+          {copy.audiences.employee.body}
+        </p>
       </article>
       <article>
-        <span class="audience-label">02</span>
-        <h3>{copy.audiences.workplace.title}</h3>
-        <p>{copy.audiences.workplace.body}</p>
+        <span class="audience-label">02</span><h3>{copy.audiences.workplace.title}</h3><p>
+          {copy.audiences.workplace.body}
+        </p>
       </article>
     </div>
   </section>
 
   <section class="section hospitality" aria-labelledby="hospitality-title">
     <div>
-      <p class="eyebrow">{copy.hospitality.eyebrow}</p>
-      <h2 id="hospitality-title">{copy.hospitality.title}</h2>
+      <p class="eyebrow">{copy.hospitality.eyebrow}</p><h2 id="hospitality-title">
+        {copy.hospitality.title}
+      </h2>
     </div>
     <div class="hospitality__copy">
-      <p>{copy.hospitality.body}</p>
-      <div class="hospitality__material" aria-hidden="true">
+      <p>{copy.hospitality.body}</p><div class="hospitality__material" aria-hidden="true">
         <span></span><span></span><span></span>
       </div>
     </div>
@@ -160,9 +169,7 @@ const trustHref = withBasePath(`/${locale}/security-trust/`);
       titleId="ecosystem-title"
     />
     <div class="ecosystem__panel">
-      <ul>
-        {copy.ecosystem.items.map((item) => <li>{item}</li>)}
-      </ul>
+      <ul>{copy.ecosystem.items.map((item) => <li>{item}</li>)}</ul>
       <p>{copy.ecosystem.microsoft}</p>
       <p class="panel-link">
         <a href={integrationsHref}
@@ -184,10 +191,9 @@ const trustHref = withBasePath(`/${locale}/security-trust/`);
       titleId="readiness-title"
     />
     <div>
-      <ul class="theme-list">
-        {copy.readiness.themes.map((theme) => <li>{theme}</li>)}
-      </ul>
-      <p class="section-link">
+      <ul class="theme-list">{copy.readiness.themes.map((theme) => <li>{theme}</li>)}</ul><p
+        class="section-link"
+      >
         <a href={trustHref}
           >{locale === 'de' ? 'Security & Trust prüfen' : 'Review Security & Trust'}<span
             aria-hidden="true"
@@ -202,10 +208,16 @@ const trustHref = withBasePath(`/${locale}/security-trust/`);
   <section class="section brand-story" aria-labelledby="brand-story-title">
     <div class="brand-story__mark"><BrandLockup showTagline /></div>
     <div class="brand-story__copy">
-      <p class="eyebrow">{copy.brand.eyebrow}</p>
-      <h2 id="brand-story-title">{copy.brand.title}</h2>
-      <p>{copy.brand.body}</p>
-      <p class="brand-story__principle">{copy.brand.principle}</p>
+      <p class="eyebrow">{copy.brand.eyebrow}</p><h2 id="brand-story-title">
+        {copy.brand.title}
+      </h2><p>{copy.brand.body}</p><p class="brand-story__principle">{copy.brand.principle}</p>
+      <p class="section-link">
+        <a href={companyHref}
+          >{locale === 'de' ? 'Pavurel kennenlernen' : 'About Pavurel'}<span aria-hidden="true">
+            →</span
+          ></a
+        >
+      </p>
     </div>
   </section>
 
@@ -215,8 +227,10 @@ const trustHref = withBasePath(`/${locale}/security-trust/`);
       {
         copy.why.cards.map((card) => (
           <article>
-            <h3>{card.title}</h3>
-            <p>{card.body}</p>
+            <>
+              <h3>{card.title}</h3>
+              <p>{card.body}</p>
+            </>
           </article>
         ))
       }
@@ -224,14 +238,31 @@ const trustHref = withBasePath(`/${locale}/security-trust/`);
   </section>
 
   <section class="section closing" aria-labelledby="closing-title">
-    <p class="eyebrow eyebrow--light">{copy.closing.eyebrow}</p>
-    <h2 id="closing-title">{copy.closing.title}</h2>
-    <p>{copy.closing.body}</p>
+    <p class="eyebrow eyebrow--light">{copy.closing.eyebrow}</p><h2 id="closing-title">
+      {copy.closing.title}
+    </h2><p>{copy.closing.body}</p>
     <div class="cta-row">
-      <a class="button button--light" href={demoHref}>{copy.closing.primaryCta}</a>
-      <a class="text-link text-link--light" href={howHref}
-        >{copy.closing.secondaryCta}<span aria-hidden="true"> →</span></a
+      <a class="button button--light" href={demoHref}>{copy.closing.primaryCta}</a><a
+        class="text-link text-link--light"
+        href={howHref}>{copy.closing.secondaryCta}<span aria-hidden="true"> →</span></a
       >
     </div>
   </section>
 </div>
+
+<style>
+  .hero__visual {
+    grid-column: 1 / -1;
+    margin-top: var(--space-4);
+  }
+
+  .hero__visual :global(.brand-visual) {
+    max-height: min(58vh, 42rem);
+  }
+
+  @media (max-width: 48rem) {
+    .hero__visual {
+      margin-top: 0;
+    }
+  }
+</style>

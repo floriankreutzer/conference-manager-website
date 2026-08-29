@@ -10,6 +10,7 @@ export type PublicPageVariant =
   | 'workplace-teams'
   | 'security-trust'
   | 'pricing'
+  | 'company'
   | 'info';
 
 type PublicPageRouteBase = {
@@ -63,6 +64,8 @@ export function resolvePublicPageRoute(locale: Locale, slug: PublicPageSlug): Pu
       return { ...getRouteBase(locale, slug, true), variant: 'security-trust', slug };
     case 'pricing':
       return { ...getRouteBase(locale, slug, true), variant: 'pricing', slug };
+    case 'company':
+      return { ...getRouteBase(locale, slug, true), variant: 'company', slug };
     default:
       return { ...getRouteBase(locale, slug, false), variant: 'info', slug };
   }

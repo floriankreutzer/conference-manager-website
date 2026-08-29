@@ -14,8 +14,10 @@ The official product name remains **Conference Manager**. `by Pavurel` is the su
 
 Do not redraw, stretch, rotate or arbitrarily recolour the signet. The signet is corporate framing, not a general-purpose UI icon.
 
-## Photography
+## Approved AI key visuals
 
-The PAVUREL Corporate Master and Confluence Visual Identity System define the approved photography/materiality direction, but the master layouts intentionally contain replaceable image areas rather than repository-cleared production photography. Do not fabricate an "official" PAVUREL photograph or copy a composite brand-board mockup into production as photographic evidence.
+The source package `PAVUREL_Bildpaket_komplett.zip` contains nine AI-generated key visuals and presentation crops from the PAVUREL Corporate Master context. On 2026-08-29 the owner explicitly approved these visuals for use on the public Conference Manager website and also approved creation of additional visuals in the same established style when required.
 
-When an approved production image is supplied, record its source/licence/provenance here before use and follow the repository image-performance rules.
+`public/assets/brand/hero-conference.webp` is an optimized web derivative of `02_PowerPoint_Zuschnitte/11_Conference_Room_Full_16x9.jpg`. It is used as an editorial workplace/conference visual, not as documentary evidence of a real customer site or a representation of the Conference Manager UI.
+
+Web derivatives must preserve the established Pavurel photography direction, use responsive dimensions, avoid layout shift, and be accompanied by meaningful alt text when they carry content. New AI visuals must not introduce unsupported product screens, customer logos, certifications, security claims or corporate claims.

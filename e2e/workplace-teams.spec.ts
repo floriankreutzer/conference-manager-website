@@ -10,23 +10,26 @@ test.describe('For Workplace Teams', () => {
     const main = page.locator('main');
 
     await expect(page).toHaveTitle(
-      'Operational context without exposing operational complexity. — Conference Manager',
+      'More context for the team. Less process for the requester. — Conference Manager',
     );
     await expect(
       main.getByRole('heading', {
         level: 1,
-        name: 'Operational context without exposing operational complexity.',
+        name: 'More context for the team. Less process for the requester.',
       }),
     ).toBeVisible();
     await expect(main.locator('article > ol > li')).toHaveCount(4);
     await expect(
       main.getByRole('heading', {
         level: 2,
-        name: 'Receive the information behind the room request.',
+        name: 'Receive the information your team needs to prepare the conference.',
       }),
     ).toBeVisible();
     await expect(
       main.getByText('Keep your room booking. Replace the coordination around it.'),
+    ).toBeVisible();
+    await expect(
+      main.getByText(/Know what changed after a conference was confirmed/),
     ).toBeVisible();
     await expect(main.getByRole('link', { name: 'Book a demo' }).first()).toHaveAttribute(
       'href',
@@ -47,25 +50,28 @@ test.describe('For Workplace Teams', () => {
     const main = page.locator('main');
 
     await expect(page).toHaveTitle(
-      'Operativer Kontext, ohne operative Komplexität offenzulegen. — Conference Manager',
+      'Mehr Kontext für das Team. Weniger Prozess für die anfragende Person. — Conference Manager',
     );
     await expect(
       main.getByRole('heading', {
         level: 1,
-        name: 'Operativer Kontext, ohne operative Komplexität offenzulegen.',
+        name: 'Mehr Kontext für das Team. Weniger Prozess für die anfragende Person.',
       }),
     ).toBeVisible();
     await expect(main.locator('article > ol > li')).toHaveCount(4);
     await expect(
       main.getByRole('heading', {
         level: 2,
-        name: 'Erhalten Sie die Informationen hinter der Raumanfrage.',
+        name: 'Erhalten Sie die Informationen, die Ihr Team für die Vorbereitung benötigt.',
       }),
     ).toBeVisible();
     await expect(
       main.getByText(
         'Behalten Sie Ihre Raumbuchung. Strukturieren Sie die Koordination darum herum.',
       ),
+    ).toBeVisible();
+    await expect(
+      main.getByText(/Erkennen Sie, was sich nach einer Bestätigung geändert hat/),
     ).toBeVisible();
     await expect(main.getByRole('link', { name: 'Demo anfragen' }).first()).toHaveAttribute(
       'href',

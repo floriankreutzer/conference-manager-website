@@ -10,6 +10,7 @@ const expectedVariants = {
   'security-trust': 'security-trust',
   pricing: 'pricing',
   insights: 'insights',
+  company: 'company',
   'book-a-demo': 'demo-request',
 } as const;
 
@@ -31,7 +32,10 @@ describe('public page route resolution', () => {
       'Conference management around the complete request. — Conference Manager',
     );
     expect(resolvePublicPageRoute('de', 'pricing').title).toBe(
-      'Ein klares kommerzielles Modell vor einer öffentlichen Preisliste. — Conference Manager',
+      'Produktfit jetzt bewerten. Öffentliche Preise folgen nach Freigabe. — Conference Manager',
+    );
+    expect(resolvePublicPageRoute('en', 'company').title).toBe(
+      'Conference Manager is the product. Pavurel is the endorsement behind it. — Conference Manager',
     );
     expect(resolvePublicPageRoute('en', 'insights').title).toBe('Insights — Conference Manager');
     expect(resolvePublicPageRoute('de', 'book-a-demo').title).toBe(
@@ -39,12 +43,15 @@ describe('public page route resolution', () => {
     );
   });
 
-  it('preserves localized descriptions', () => {
+  it('preserves localized customer-led descriptions', () => {
     expect(resolvePublicPageRoute('en', 'integrations').description).toContain(
-      'existing workplace, identity and collaboration capabilities',
+      'existing room-booking and Microsoft 365 capabilities',
     );
     expect(resolvePublicPageRoute('de', 'integrations').description).toContain(
-      'bestehenden Workplace-, Identity- und Collaboration-Fähigkeiten',
+      'vorhandener Raumbuchung und Microsoft 365',
+    );
+    expect(resolvePublicPageRoute('en', 'company').description).toContain(
+      'Pavurel brand direction',
     );
   });
 });

@@ -1,5 +1,6 @@
 ---
 import type { Locale } from '@config/locales';
+import CompanyPage from '@features/company/CompanyPage.astro';
 import DemoRequestForm from '@features/demo-request/DemoRequestForm.astro';
 import InsightsIndex from '@features/insights/InsightsIndex.astro';
 import IntegrationsPage from '@features/integrations/IntegrationsPage.astro';
@@ -37,6 +38,8 @@ const route = resolvePublicPageRoute(locale, slug);
       <SecurityTrustPage locale={locale} />
     ) : route.variant === 'pricing' ? (
       <PricingPage locale={locale} />
+    ) : route.variant === 'company' ? (
+      <CompanyPage locale={locale} />
     ) : (
       <PublicInfoPage locale={locale} slug={route.slug} />
     )

@@ -1,7 +1,14 @@
 import AxeBuilder from '@axe-core/playwright';
 import { expect, test } from '@playwright/test';
 
-const accessibilityPaths = ['/en/', '/de/', '/en/book-a-demo/', '/de/book-a-demo/'];
+const accessibilityPaths = [
+  '/en/',
+  '/de/',
+  '/en/book-a-demo/',
+  '/de/book-a-demo/',
+  '/en/company/',
+  '/de/company/',
+];
 const routeDiscoveryPaths = ['/en/', '/de/'];
 
 test.describe('public website contracts', () => {
@@ -25,6 +32,10 @@ test.describe('public website contracts', () => {
         name: 'Operational precision, with a more considered workplace experience.',
       }),
     ).toBeVisible();
+    await expect(page.getByRole('link', { name: 'About Pavurel' })).toHaveAttribute(
+      'href',
+      '/en/company/',
+    );
     await expect(page.getByRole('link', { name: 'Book a demo' }).first()).toHaveAttribute(
       'href',
       '/en/book-a-demo/',
@@ -39,7 +50,8 @@ test.describe('public website contracts', () => {
     const signet = page.locator('header .brand-lockup__signet');
     await expect(signet).toBeVisible();
     await expect(signet).toHaveAttribute('src', /^data:image\/svg\+xml,/);
-    await expect(page.locator('.primary-nav a')).toHaveCount(5);
+    await expect(page.locator('.primary-nav a')).toHaveCount(6);
+    await expect(page.locator('.primary-nav')).toContainText('Company');
     await expect(page.locator('.primary-nav')).not.toContainText('Pricing');
     await expect(page.locator('footer')).toContainText('Conference Manager');
     await expect(page.locator('footer')).toContainText('by Pavurel');
@@ -49,6 +61,30 @@ test.describe('public website contracts', () => {
       .first()
       .evaluate((element) => getComputedStyle(element).borderRadius);
     expect(radius).toBe('4px');
+  });
+
+  test('provides a dedicated customer-facing Pavurel company destination', async ({ page }) => {
+    await page.goto('/en/company/');
+
+    await expect(
+      page.getByRole('heading', {
+        level: 1,
+        name: 'Conference Manager is the product. Pavurel is the endorsement behind it.',
+      }),
+    ).toBeVisible();
+    await expect(
+      page.getByText('Conference Manager is the product. by Pavurel is the endorsement.'),
+    ).toBeVisible();
+    await expect(
+      page.getByText(/operational precision with warm workplace hospitality/i),
+    ).toBeVisible();
+    await expect(
+      page.getByText(/formal company-name, domain and trademark clearance/i),
+    ).toBeVisible();
+    await expect(page.getByRole('link', { name: 'Book a demo' }).first()).toHaveAttribute(
+      'href',
+      '/en/book-a-demo/',
+    );
   });
 
   test('switches locales without creating a parallel page architecture', async ({ page }) => {
@@ -156,6 +192,21 @@ test.describe('SEO and preview publication contracts', () => {
       'Conference Manager',
     );
     await expect(page.locator('meta[name="twitter:card"]')).toHaveAttribute('content', 'summary');
+  });
+
+  test('publishes customer-led Company metadata in both locales', async ({ page }) => {
+    await page.goto('/en/company/');
+    await expect(page).toHaveTitle(
+      'Conference Manager is the product. Pavurel is the endorsement behind it. — Conference Manager',
+    );
+    await expect(page.locator('meta[name="description"]')).toHaveAttribute(
+      'content',
+      /Pavurel brand direction/,
+    );
+    await expect(page.locator('link[rel="alternate"][hreflang="de"]')).toHaveAttribute(
+      'href',
+      'https://preview.example.invalid/de/company/',
+    );
   });
 
   test('blocks preview crawling through robots.txt', async ({ request }) => {

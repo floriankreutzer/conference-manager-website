@@ -4,6 +4,7 @@ import { render } from 'astro:content';
 
 import type { Locale } from '@config/locales';
 import { withBasePath } from '@domain/routing/basePath';
+import { getInsightsJourneyCopy } from '@i18n/insightsJourney';
 
 interface Props {
   locale: Locale;
@@ -12,8 +13,11 @@ interface Props {
 
 const { locale, entry } = Astro.props;
 const { Content } = await render(entry);
+const journey = getInsightsJourneyCopy(locale).articleClosing;
 const dateLocale = locale === 'de' ? 'de-DE' : 'en-GB';
 const backLabel = locale === 'de' ? 'Zurück zu Insights' : 'Back to Insights';
+const demoHref = withBasePath(`/${locale}/book-a-demo/`);
+const productHref = withBasePath(`/${locale}/product/`);
 ---
 
 <article class="insight-article">
@@ -40,6 +44,18 @@ const backLabel = locale === 'de' ? 'Zurück zu Insights' : 'Back to Insights';
   <div class="insight-article__body">
     <Content />
   </div>
+
+  <section class="insight-article__closing" aria-labelledby="insight-closing-title">
+    <p class="eyebrow">{journey.eyebrow}</p>
+    <h2 id="insight-closing-title">{journey.title}</h2>
+    <p>{journey.body}</p>
+    <div class="insight-article__actions">
+      <a class="button" href={demoHref}>{journey.primaryCta}</a>
+      <a class="text-link" href={productHref}
+        >{journey.secondaryCta}<span aria-hidden="true"> →</span></a
+      >
+    </div>
+  </section>
 </article>
 
 <style>
@@ -103,5 +119,44 @@ const backLabel = locale === 'de' ? 'Zurück zu Insights' : 'Back to Insights';
 
   .insight-article__body :global(a) {
     color: var(--color-bordeaux);
+  }
+
+  .insight-article__closing {
+    display: grid;
+    gap: var(--space-4);
+    max-width: 54rem;
+    margin-top: clamp(4rem, 9vw, 8rem);
+    padding-block-start: clamp(3rem, 6vw, 5rem);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .insight-article__closing h2,
+  .insight-article__closing > p {
+    margin: 0;
+  }
+
+  .insight-article__closing h2 {
+    max-width: 18ch;
+    font-size: clamp(2rem, 4vw, 3.6rem);
+  }
+
+  .insight-article__closing > p {
+    color: var(--color-text-muted);
+    line-height: 1.7;
+  }
+
+  .insight-article__actions {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+    margin-top: var(--space-2);
+  }
+
+  @media (max-width: 36rem) {
+    .insight-article__actions {
+      align-items: flex-start;
+      flex-direction: column;
+    }
   }
 </style>

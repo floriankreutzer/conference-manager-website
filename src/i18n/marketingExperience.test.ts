@@ -24,7 +24,7 @@ describe('customer-led marketing experience', () => {
     expect(german.roomBooking.supporting).toContain('Ihre Raumbuchung');
   });
 
-  it('keeps primary navigation compact while preserving evaluation depth in the footer', () => {
+  it('keeps primary navigation buyer-focused while preserving evaluation depth in the footer', () => {
     const english = getNavigationCopy('en');
     const primaryLabels = english.items.map((item) => item.label);
     const evaluationLabels = english.footer.resourceLinks.map((item) => item.label);
@@ -35,6 +35,7 @@ describe('customer-led marketing experience', () => {
       'For Workplace Teams',
       'Integrations',
       'Security & Trust',
+      'Company',
     ]);
     expect(primaryLabels).not.toContain('Pricing');
     expect(primaryLabels).not.toContain('Insights');
@@ -48,6 +49,9 @@ describe('customer-led marketing experience', () => {
       expect(navigation.footer.brandHeading).toBe('Conference Manager by Pavurel');
       expect(navigation.footer.brandBody).toContain('Conference Manager');
       expect(navigation.footer.brandBody).toContain('Pavurel');
+      expect(navigation.footer.productLinks.some((item) => item.href.includes('/company/'))).toBe(
+        true,
+      );
     }
   });
 });

@@ -18,24 +18,22 @@ describe('Integrations copy', () => {
     });
   });
 
-  it('keeps real-tenant and future-provider qualifications explicit', () => {
+  it('keeps customer-controlled enablement and future-provider qualifications explicit', () => {
     const english = getIntegrationsCopy('en');
     const german = getIntegrationsCopy('de');
 
-    expect(
-      english.sections.some((section) => section.body.includes('operational acceptance')),
-    ).toBe(true);
-    expect(german.sections.some((section) => section.body.includes('operative Abnahme'))).toBe(
+    expect(english.sections.some((section) => section.body.includes('customer environment'))).toBe(
       true,
     );
+    expect(german.sections.some((section) => section.body.includes('Kundenumgebung'))).toBe(true);
     expect(
       english.sections.some((section) =>
-        section.body.includes('other providers are not presented as available'),
+        section.body.includes('Other providers are described as available only after'),
       ),
     ).toBe(true);
     expect(
       german.sections.some((section) =>
-        section.body.includes('andere Provider werden erst dann als verfügbar dargestellt'),
+        section.body.includes('Weitere Anbieter werden erst dann als verfügbar beschrieben'),
       ),
     ).toBe(true);
   });
