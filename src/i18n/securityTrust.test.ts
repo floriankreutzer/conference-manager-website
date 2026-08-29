@@ -25,6 +25,6 @@ describe('Security and Trust copy', () => {
     expect(english.sections.some((section) => section.body.includes('certifications'))).toBe(true);
     expect(german.sections.some((section) => section.body.includes('Zertifizierungen'))).toBe(true);
     expect(english.closing.primaryCta).toBe('Book a demo');
-    expect(german.closing.primaryCta).toBe('Demo buchen');
+    expect(german.closing.primaryCta).toBe('Demo anfragen');
   });
 });
