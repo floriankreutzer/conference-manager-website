@@ -46,7 +46,8 @@ const securityTrustCopy: Record<Locale, SecurityTrustCopy> = {
         eyebrow: 'Minimal browser surface',
         title: 'Keep public browser authority deliberately small.',
         body: 'The website is static-first and keeps client-side authority to a minimum. It currently loads no analytics or marketing tracking, uses governed same-origin web fonts and does not ship privileged application credentials in browser code.',
-        statement: 'Public presentation stays public. Trusted application authority stays elsewhere.',
+        statement:
+          'Public presentation stays public. Trusted application authority stays elsewhere.',
       },
       {
         eyebrow: 'Public form boundary',
@@ -67,7 +68,8 @@ const securityTrustCopy: Record<Locale, SecurityTrustCopy> = {
         eyebrow: 'Evidence before assurance',
         title: 'Production security claims start with the real production origin.',
         body: 'The production delivery design requires HTTPS and restrictive controls such as Content Security Policy, HSTS, Referrer Policy, Permissions Policy and nosniff. Those controls are acceptance requirements until the Scaleway origin is provisioned and verified; this page does not turn planned controls into achieved certifications or blanket compliance claims.',
-        statement: 'Security & Trust should show evidence and boundaries, not decorative assurance language.',
+        statement:
+          'Security & Trust should show evidence and boundaries, not decorative assurance language.',
       },
     ],
     closing: {
@@ -99,11 +101,13 @@ const securityTrustCopy: Record<Locale, SecurityTrustCopy> = {
         eyebrow: 'Kleine Browser-Angriffsfläche',
         title: 'Halte die Autorität des öffentlichen Browsers bewusst klein.',
         body: 'Die Website ist static-first und minimiert die Autorität im Browser. Aktuell lädt sie kein Analytics- oder Marketing-Tracking, nutzt kontrollierte Same-Origin-Webfonts und liefert keine privilegierten Anwendungszugangsdaten im Browsercode aus.',
-        statement: 'Öffentliche Darstellung bleibt öffentlich. Vertrauenswürdige Anwendungsautorität bleibt an anderer Stelle.',
+        statement:
+          'Öffentliche Darstellung bleibt öffentlich. Vertrauenswürdige Anwendungsautorität bleibt an anderer Stelle.',
       },
       {
         eyebrow: 'Öffentliche Formulargrenze',
-        title: 'Eine Demo-Anfrage gilt als nicht vertrauenswürdige Eingabe, nicht als Anwendungsdaten.',
+        title:
+          'Eine Demo-Anfrage gilt als nicht vertrauenswürdige Eingabe, nicht als Anwendungsdaten.',
         body: 'Das Repository enthält eine getrennte serverseitige Verarbeitung für Demo-Anfragen mit serverseitiger Validierung, Größenlimits, Allowlisting, Honeypot-Behandlung und Plain-Text-E-Mail-Erzeugung. Das öffentliche Formular bleibt fail-closed, bis realer Endpoint, Rate Limiting, Postfach, Datenschutzhinweis und operative Evidenz abgenommen sind.',
         points: [
           {
@@ -120,7 +124,8 @@ const securityTrustCopy: Record<Locale, SecurityTrustCopy> = {
         eyebrow: 'Evidenz vor Zusicherung',
         title: 'Produktive Security-Aussagen beginnen am realen Production-Origin.',
         body: 'Das Produktions-Delivery-Design verlangt HTTPS und restriktive Kontrollen wie Content Security Policy, HSTS, Referrer Policy, Permissions Policy und nosniff. Diese Kontrollen bleiben Abnahmeanforderungen, bis der Scaleway-Origin bereitgestellt und verifiziert ist; diese Seite macht aus geplanten Kontrollen weder erreichte Zertifizierungen noch pauschale Compliance-Aussagen.',
-        statement: 'Security & Trust soll Evidenz und Grenzen zeigen – keine dekorative Sicherheitsrhetorik.',
+        statement:
+          'Security & Trust soll Evidenz und Grenzen zeigen – keine dekorative Sicherheitsrhetorik.',
       },
     ],
     closing: {
