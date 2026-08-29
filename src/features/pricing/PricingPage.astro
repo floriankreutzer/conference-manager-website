@@ -1,0 +1,28 @@
+---
+import EditorialStory from '@components/editorial/EditorialStory.astro';
+import type { Locale } from '@config/locales';
+import { withBasePath } from '@domain/routing/basePath';
+import { getPricingCopy } from '@i18n/pricing';
+import { getPublicPageCopy } from '@i18n/publicPages';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const pageCopy = getPublicPageCopy(locale, 'pricing');
+const story = getPricingCopy(locale);
+const demoHref = withBasePath(`/${locale}/book-a-demo/`);
+const productHref = withBasePath(`/${locale}/product/`);
+---
+
+<EditorialStory
+  eyebrow={pageCopy.eyebrow}
+  title={pageCopy.title}
+  lead={pageCopy.body}
+  sections={story.sections}
+  closing={story.closing}
+  primaryHref={demoHref}
+  secondaryHref={productHref}
+  idPrefix="pricing"
+/>

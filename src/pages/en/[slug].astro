@@ -2,6 +2,7 @@
 import DemoRequestForm from '@features/demo-request/DemoRequestForm.astro';
 import InsightsIndex from '@features/insights/InsightsIndex.astro';
 import IntegrationsPage from '@features/integrations/IntegrationsPage.astro';
+import PricingPage from '@features/pricing/PricingPage.astro';
 import ProductStoryPage from '@features/product-story/ProductStoryPage.astro';
 import SecurityTrustPage from '@features/security-trust/SecurityTrustPage.astro';
 import WorkplaceTeamsPage from '@features/workplace-teams/WorkplaceTeamsPage.astro';
@@ -20,7 +21,8 @@ const hasDetailedContent =
   isProductStorySlug(slug) ||
   slug === 'integrations' ||
   slug === 'workplace-teams' ||
-  slug === 'security-trust';
+  slug === 'security-trust' ||
+  slug === 'pricing';
 const title = hasDetailedContent
   ? `${copy.title} — Conference Manager`
   : `${copy.eyebrow} — Conference Manager`;
@@ -40,6 +42,8 @@ const title = hasDetailedContent
       <WorkplaceTeamsPage locale="en" />
     ) : slug === 'security-trust' ? (
       <SecurityTrustPage locale="en" />
+    ) : slug === 'pricing' ? (
+      <PricingPage locale="en" />
     ) : (
       <PublicInfoPage locale="en" slug={slug} />
     )
