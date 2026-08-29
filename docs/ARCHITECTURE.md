@@ -195,7 +195,7 @@ The website may implement the approved PAVUREL candidate art direction while the
 
 Brand assets and tokens must remain isolated enough that a corporate-brand decision can be changed without rewriting product content architecture.
 
-Approved Manrope/Inter typography roles are represented by CSS tokens, but production font binaries remain separately governed. `src/assets/fonts/manifest.json` is fail-closed: while its status is `pending`, no WOFF2 binary may enter the repository; accepted assets require immutable provenance, license evidence and matching SHA-256 before activation.
+Approved Manrope/Inter typography roles are represented by CSS tokens and governed self-hosted WOFF2 assets. `src/assets/fonts/manifest.json` is fail-closed: accepted assets require immutable provenance, retained license evidence and matching SHA-256 hashes. The current Manrope and Inter files satisfy that repository gate and are activated through same-origin `@font-face` declarations with system fallbacks and `font-display: swap`; replacement font binaries must pass the same provenance/hash gate before activation.
 
 ## 11. Security architecture
 
@@ -312,7 +312,7 @@ Target environment model:
 - non-production/staging where required for release acceptance;
 - production.
 
-GitHub Actions is the delivery control plane for the website repository. Preview, cleanup, production and demo-endpoint acceptance workflows are implemented, but successful real infrastructure acceptance still depends on provisioned Scaleway resources and GitHub environment configuration.
+GitHub Actions is the delivery control plane for the website repository. Preview, cleanup, production, delivered-experience and demo-endpoint acceptance workflows are implemented, but successful real infrastructure acceptance still depends on provisioned Scaleway resources and GitHub environment configuration.
 
 PR previews must:
 - use isolated buckets;
@@ -374,12 +374,13 @@ The repository implementation currently enforces:
 - automated Axe accessibility checks;
 - SEO/indexability/preview publication checks;
 - JavaScript/TypeScript CodeQL plus GitHub's Actions analysis;
-- governed font-asset verification;
+- governed font provenance/hash verification plus same-origin, German-glyph, fallback, controlled CLS and 200% reflow browser regression;
 - build-artifact upload;
 - preview/production delivered-response acceptance contracts;
+- controlled manual acceptance for the real production origin, including lab LCP/CLS, same-origin font delivery, 200% reflow and screenshot evidence;
 - controlled manual acceptance for the real demo-request endpoint.
 
-Automated checks do not replace manual accessibility/release acceptance or real infrastructure evidence.
+Automated checks do not replace manual accessibility/release acceptance, representative screen-reader review, field Core Web Vitals or real infrastructure evidence.
 
 Hosting/form production readiness additionally requires executed evidence for TLS, CSP/security headers, EU-region placement, preview isolation/cleanup, IAM separation, durable rate limiting, real malformed/abusive form handling, provider/mailbox behavior, privacy/log minimization and rollback/redeployment.
 
@@ -399,11 +400,12 @@ Accepted and implemented repository baseline:
 - required CI, CodeQL, accessibility, route and performance gates;
 - protected `main` branch with required `validate` and JavaScript/TypeScript CodeQL checks;
 - Scaleway preview/production deployment and delivered-response verification workflows;
-- fail-closed governed font manifest while exact production binaries remain pending.
+- governed self-hosted Manrope/Inter assets with immutable provenance, retained OFL-1.1 licenses, accepted SHA-256 manifest entries and same-origin runtime activation;
+- controlled local typography CLS/200% reflow regression plus a manual real-origin delivered-experience acceptance workflow.
 
 Production readiness is **not** yet claimed. Remaining launch evidence is operational/external rather than an Astro bootstrap task:
 
 1. provision and accept real Scaleway preview/production resources, IAM separation, DNS/Edge/TLS/security headers and preview cleanup/rollback evidence — GitHub #24;
 2. provision and accept the real demo-request function, durable rate limiting, Transactional Email domain/functional mailbox, privacy/retention/logging controls and execute controlled endpoint/mailbox acceptance — GitHub #25;
-3. supply and review the exact governed Manrope/Inter WOFF2 binaries, licenses/provenance/hashes, activate local `@font-face` and complete visual/performance/accessibility verification — GitHub #10;
-4. complete final manual release accessibility/keyboard/screen-reader and production-like acceptance before public launch.
+3. once the real production origin exists, execute `Delivered Experience Acceptance` and retain the controlled lab/screenshot evidence, then complete final human typography/visual and representative screen-reader review — GitHub #10, dependent in part on #24;
+4. complete final targeted manual release accessibility, keyboard and security review before public launch.
