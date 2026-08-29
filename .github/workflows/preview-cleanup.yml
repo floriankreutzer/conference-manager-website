@@ -32,6 +32,16 @@ jobs:
             exit 0
           fi
 
+          case "$SCW_REGION" in
+            fr-par|nl-ams|pl-waw|it-mil) ;;
+            *) echo "Unsupported/non-approved Scaleway region: $SCW_REGION" >&2; exit 1 ;;
+          esac
+
+          if [[ ! "$SCW_PREVIEW_BUCKET_PREFIX" =~ ^[a-z0-9][a-z0-9-]{2,49}[a-z0-9]$ ]]; then
+            echo "Invalid preview bucket prefix." >&2
+            exit 1
+          fi
+
           echo "enabled=true" >> "$GITHUB_OUTPUT"
           echo "bucket=${SCW_PREVIEW_BUCKET_PREFIX}-${{ github.event.pull_request.number }}" >> "$GITHUB_OUTPUT"
           echo "endpoint=https://s3.${SCW_REGION}.scw.cloud" >> "$GITHUB_OUTPUT"
