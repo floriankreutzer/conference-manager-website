@@ -1,7 +1,7 @@
 ---
 locale: de
 translationKey: room-booking-and-conference-management
-slug: raumbuchung-ist-nur-ein-teil-des-konferenzmanagements
+slug: room-booking-is-only-part-of-conference-management
 title: Warum Raumbuchung nur ein Teil des Konferenzmanagements ist
 description: Eine Raumreservierung klärt Ort und Zeit. Professionelle Workplace-Konferenzen können zusätzlich Gäste, Catering, Services und Anforderungen umfassen.
 status: published
