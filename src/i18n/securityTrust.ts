@@ -1,10 +1,6 @@
 import type { Locale } from '@config/locales';
 
-type SecurityTrustPoint = {
-  title: string;
-  body: string;
-};
-
+type SecurityTrustPoint = { title: string; body: string };
 type SecurityTrustSection = {
   eyebrow: string;
   title: string;
@@ -12,70 +8,49 @@ type SecurityTrustSection = {
   points?: readonly SecurityTrustPoint[];
   statement?: string;
 };
-
 type SecurityTrustCopy = {
   sections: readonly SecurityTrustSection[];
-  closing: {
-    eyebrow: string;
-    title: string;
-    body: string;
-    primaryCta: string;
-    secondaryCta: string;
-  };
+  closing: { eyebrow: string; title: string; body: string; primaryCta: string; secondaryCta: string };
 };
 
 const securityTrustCopy: Record<Locale, SecurityTrustCopy> = {
   en: {
     sections: [
       {
-        eyebrow: 'Clear trust boundary',
-        title: 'The marketing website is not an authentication system.',
-        body: 'The public Conference Manager website is an unauthenticated surface. Login is a normal HTTPS handoff to the Conference Manager application. The website does not authenticate users, resolve tenant authority or become part of the trusted application path.',
+        eyebrow: 'Clear application boundary',
+        title: 'Marketing and application access remain separate by design.',
+        body: 'The public website explains Conference Manager and provides a secure handoff to the application. Authentication, tenant authorization and application sessions stay with the Conference Manager application rather than being duplicated in the marketing layer.',
         points: [
-          {
-            title: 'No application tokens or sessions',
-            body: 'The marketing website does not own Conference Manager access tokens, refresh tokens or application session state.',
-          },
-          {
-            title: 'No authentication proxy',
-            body: 'Authenticated application and API traffic is not proxied through the public marketing site and the authenticated app is not embedded in an iframe.',
-          },
+          { title: 'Application sessions stay with the product', body: 'The public website does not own Conference Manager access tokens, refresh tokens or authenticated session state.' },
+          { title: 'Login is a handoff, not a second sign-in flow', body: 'Existing users move to the application-owned authentication flow through an ordinary HTTPS link.' },
         ],
       },
       {
-        eyebrow: 'Minimal browser surface',
-        title: 'Keep public browser authority deliberately small.',
-        body: 'The website is static-first and keeps client-side authority to a minimum. It currently loads no analytics or marketing tracking, uses governed same-origin web fonts and does not ship privileged application credentials in browser code.',
-        statement:
-          'Public presentation stays public. Trusted application authority stays elsewhere.',
+        eyebrow: 'Minimal public surface',
+        title: 'Keep the public website intentionally lightweight.',
+        body: 'The website is static-first, keeps browser-side authority small and currently loads no analytics or marketing tracking. Governed same-origin fonts and a limited dependency surface reduce unnecessary third-party exposure in the first public experience.',
+        statement: 'The marketing experience stays public. Trusted product authority stays with the application and API.',
       },
       {
-        eyebrow: 'Public form boundary',
-        title: 'A demo request is treated as hostile input, not trusted application data.',
-        body: 'The repository contains a separate server-side demo-request processing boundary with server-side validation, size limits, allowlisting, honeypot handling and plain-text email generation. The public form remains fail-closed until the real endpoint, rate limiting, mailbox, privacy text and operational evidence are accepted.',
+        eyebrow: 'Demo request boundary',
+        title: 'Public enquiries are handled separately from application data.',
+        body: 'The demo-request path uses a dedicated server-side processing boundary with input validation, request limits, anti-automation measures and plain-text email generation. It remains disabled for production use until the real endpoint, durable rate limiting, mailbox and privacy controls are accepted.',
         points: [
-          {
-            title: 'No secrets in the browser',
-            body: 'Provider credentials and privileged configuration belong at the server-side processing boundary, not in the public website bundle.',
-          },
-          {
-            title: 'No production-readiness shortcut',
-            body: 'Repository implementation and automated tests do not substitute for real endpoint, anti-abuse, mailbox, privacy and logging acceptance.',
-          },
+          { title: 'No privileged secrets in the website', body: 'Provider credentials and privileged configuration remain server-side and are not shipped in the public browser bundle.' },
+          { title: 'Operational acceptance still matters', body: 'Automated repository tests support confidence but do not replace real endpoint, mailbox, privacy, logging and anti-abuse evidence.' },
         ],
       },
       {
         eyebrow: 'Evidence before assurance',
-        title: 'Production security claims start with the real production origin.',
-        body: 'The production delivery design requires HTTPS and restrictive controls such as Content Security Policy, HSTS, Referrer Policy, Permissions Policy and nosniff. Those controls are acceptance requirements until the Scaleway origin is provisioned and verified; this page does not turn planned controls into achieved certifications or blanket compliance claims.',
-        statement:
-          'Security & Trust should show evidence and boundaries, not decorative assurance language.',
+        title: 'Trust claims follow verified controls, not marketing language.',
+        body: 'The production design requires HTTPS and restrictive browser/security controls. Those requirements remain subject to real Scaleway production-origin verification. Conference Manager does not turn planned controls into certifications, blanket compliance statements or unsupported security guarantees.',
+        statement: 'Enterprise trust starts with clear boundaries and evidence.',
       },
     ],
     closing: {
-      eyebrow: 'Review the boundary',
-      title: 'Evaluate trust requirements against the current architecture.',
-      body: 'A useful security discussion separates what the public website owns, what belongs to the authenticated application and trusted API, and which production controls still require environment-specific evidence.',
+      eyebrow: 'Evaluate what matters',
+      title: 'Review the trust model against your enterprise requirements.',
+      body: 'A useful security discussion separates the public website, authenticated product, trusted API and the environment-specific controls that still require production evidence.',
       primaryCta: 'Book a demo',
       secondaryCta: 'Explore the product',
     },
@@ -83,56 +58,41 @@ const securityTrustCopy: Record<Locale, SecurityTrustCopy> = {
   de: {
     sections: [
       {
-        eyebrow: 'Klare Vertrauensgrenze',
-        title: 'Die Marketing-Website ist kein Authentifizierungssystem.',
-        body: 'Die öffentliche Conference-Manager-Website ist eine nicht authentifizierte Oberfläche. Login ist eine normale HTTPS-Weiterleitung zur Conference-Manager-Anwendung. Die Website authentifiziert keine Nutzer, entscheidet keine Tenant-Berechtigung und wird nicht Teil des vertrauenswürdigen Anwendungspfads.',
+        eyebrow: 'Klare Anwendungsgrenze',
+        title: 'Marketing und Anwendungszugriff bleiben bewusst getrennt.',
+        body: 'Die öffentliche Website erklärt Conference Manager und führt bestehende Nutzer sicher zur Anwendung. Authentifizierung, Tenant-Berechtigung und Anwendungssessions verbleiben in der Conference-Manager-Anwendung und werden nicht in der Marketing-Ebene dupliziert.',
         points: [
-          {
-            title: 'Keine Anwendungstokens oder Sessions',
-            body: 'Die Marketing-Website besitzt keine Conference-Manager-Access-Tokens, Refresh-Tokens oder Anwendungssessions.',
-          },
-          {
-            title: 'Kein Authentifizierungs-Proxy',
-            body: 'Authentifizierter Anwendungs- und API-Verkehr wird nicht über die öffentliche Marketing-Website geleitet und die authentifizierte Anwendung wird nicht per iframe eingebettet.',
-          },
+          { title: 'Anwendungssessions bleiben im Produkt', body: 'Die öffentliche Website besitzt keine Conference-Manager-Access-Tokens, Refresh-Tokens oder authentifizierten Anwendungssessions.' },
+          { title: 'Login ist eine Übergabe, kein zweiter Anmeldeprozess', body: 'Bestehende Nutzer wechseln über einen normalen HTTPS-Link in den von der Anwendung verantworteten Authentifizierungsprozess.' },
         ],
       },
       {
-        eyebrow: 'Kleine Browser-Angriffsfläche',
-        title: 'Halte die Autorität des öffentlichen Browsers bewusst klein.',
-        body: 'Die Website ist static-first und minimiert die Autorität im Browser. Aktuell lädt sie kein Analytics- oder Marketing-Tracking, nutzt kontrollierte Same-Origin-Webfonts und liefert keine privilegierten Anwendungszugangsdaten im Browsercode aus.',
-        statement:
-          'Öffentliche Darstellung bleibt öffentlich. Vertrauenswürdige Anwendungsautorität bleibt an anderer Stelle.',
+        eyebrow: 'Kleine öffentliche Angriffsfläche',
+        title: 'Halten Sie die öffentliche Website bewusst leichtgewichtig.',
+        body: 'Die Website ist Static-first, hält Browser-Autorität klein und lädt aktuell weder Analytics noch Marketing-Tracking. Kontrollierte Same-Origin-Webfonts und eine begrenzte Dependency-Fläche reduzieren unnötige Drittanbieterabhängigkeiten in der ersten öffentlichen Erfahrung.',
+        statement: 'Die Marketing-Erfahrung bleibt öffentlich. Vertrauenswürdige Produkt-Autorität bleibt bei Anwendung und API.',
       },
       {
-        eyebrow: 'Öffentliche Formulargrenze',
-        title:
-          'Eine Demo-Anfrage gilt als nicht vertrauenswürdige Eingabe, nicht als Anwendungsdaten.',
-        body: 'Das Repository enthält eine getrennte serverseitige Verarbeitung für Demo-Anfragen mit serverseitiger Validierung, Größenlimits, Allowlisting, Honeypot-Behandlung und Plain-Text-E-Mail-Erzeugung. Das öffentliche Formular bleibt fail-closed, bis realer Endpoint, Rate Limiting, Postfach, Datenschutzhinweis und operative Evidenz abgenommen sind.',
+        eyebrow: 'Getrennte Demo-Anfrage',
+        title: 'Öffentliche Anfragen werden getrennt von Anwendungsdaten verarbeitet.',
+        body: 'Der Demo-Anfragepfad nutzt eine dedizierte serverseitige Verarbeitung mit Eingabevalidierung, Request-Limits, Anti-Automation-Maßnahmen und Plain-Text-E-Mail-Erzeugung. Für produktiven Einsatz bleibt er deaktiviert, bis realer Endpoint, dauerhaftes Rate Limiting, Postfach und Datenschutzkontrollen abgenommen sind.',
         points: [
-          {
-            title: 'Keine Secrets im Browser',
-            body: 'Provider-Zugangsdaten und privilegierte Konfiguration gehören an die serverseitige Verarbeitungsgrenze und nicht in das öffentliche Website-Bundle.',
-          },
-          {
-            title: 'Kein Shortcut zur Produktionsreife',
-            body: 'Repository-Implementierung und automatisierte Tests ersetzen keine reale Endpoint-, Anti-Abuse-, Mailbox-, Datenschutz- und Logging-Abnahme.',
-          },
+          { title: 'Keine privilegierten Secrets in der Website', body: 'Provider-Zugangsdaten und privilegierte Konfiguration bleiben serverseitig und werden nicht im öffentlichen Browser-Bundle ausgeliefert.' },
+          { title: 'Operative Abnahme bleibt erforderlich', body: 'Automatisierte Repository-Tests unterstützen die Qualität, ersetzen aber keine reale Endpoint-, Mailbox-, Datenschutz-, Logging- und Anti-Abuse-Evidenz.' },
         ],
       },
       {
         eyebrow: 'Evidenz vor Zusicherung',
-        title: 'Produktive Security-Aussagen beginnen am realen Production-Origin.',
-        body: 'Das Produktions-Delivery-Design verlangt HTTPS und restriktive Kontrollen wie Content Security Policy, HSTS, Referrer Policy, Permissions Policy und nosniff. Diese Kontrollen bleiben Abnahmeanforderungen, bis der Scaleway-Origin bereitgestellt und verifiziert ist; diese Seite macht aus geplanten Kontrollen weder erreichte Zertifizierungen noch pauschale Compliance-Aussagen.',
-        statement:
-          'Security & Trust soll Evidenz und Grenzen zeigen – keine dekorative Sicherheitsrhetorik.',
+        title: 'Trust-Aussagen folgen verifizierten Kontrollen – nicht Marketingformulierungen.',
+        body: 'Das Produktionsdesign verlangt HTTPS und restriktive Browser- und Security-Kontrollen. Diese Anforderungen bleiben von der Verifikation des realen Scaleway-Production-Origins abhängig. Conference Manager macht aus geplanten Kontrollen keine Zertifizierungen, pauschalen Compliance-Aussagen oder unbelegten Sicherheitsgarantien.',
+        statement: 'Enterprise Trust beginnt mit klaren Grenzen und belastbarer Evidenz.',
       },
     ],
     closing: {
-      eyebrow: 'Grenzen gemeinsam prüfen',
-      title: 'Bewerte Trust-Anforderungen gegen die aktuelle Architektur.',
-      body: 'Eine sinnvolle Security-Diskussion trennt, was die öffentliche Website besitzt, was zur authentifizierten Anwendung und Trusted API gehört und welche Produktionskontrollen noch umgebungsspezifische Evidenz benötigen.',
-      primaryCta: 'Demo buchen',
+      eyebrow: 'Relevante Anforderungen prüfen',
+      title: 'Bewerten Sie das Trust-Modell gegen Ihre Enterprise-Anforderungen.',
+      body: 'Eine sinnvolle Security-Diskussion trennt öffentliche Website, authentifiziertes Produkt, Trusted API und die umgebungsspezifischen Kontrollen, die weiterhin reale Produktionsevidenz benötigen.',
+      primaryCta: 'Demo anfragen',
       secondaryCta: 'Produkt ansehen',
     },
   },
