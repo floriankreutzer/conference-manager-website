@@ -47,6 +47,12 @@ jobs:
       - name: Format check
         run: npm run format:check
 
+      - name: Temporary formatter diagnostic
+        if: failure()
+        run: |
+          npx prettier --write e2e/public-site.spec.ts
+          git diff -- e2e/public-site.spec.ts
+
       - name: Unit tests
         run: npm test
 
