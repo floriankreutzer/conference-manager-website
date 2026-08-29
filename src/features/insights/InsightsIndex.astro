@@ -1,0 +1,140 @@
+---
+import type { Locale } from '@config/locales';
+import { getPublicPageCopy } from '@i18n/publicPages';
+import { getPublishedInsightsForLocale } from './content';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const copy = getPublicPageCopy(locale, 'insights');
+const entries = await getPublishedInsightsForLocale(locale);
+const emptyText = locale === 'de'
+  ? 'Noch keine veröffentlichten Insights. Inhalte erscheinen hier erst nach vollständiger fachlicher, Brand- und Übersetzungsfreigabe.'
+  : 'No insights are published yet. Content appears here only after complete claim, brand and translation review.';
+const dateLocale = locale === 'de' ? 'de-DE' : 'en-GB';
+---
+
+<section class="insights-index" aria-labelledby="insights-title">
+  <header class="insights-index__header">
+    <p class="eyebrow">{copy.eyebrow}</p>
+    <h1 id="insights-title">{copy.title}</h1>
+    <p>{copy.description}</p>
+  </header>
+
+  {
+    entries.length === 0 ? (
+      <p class="insights-index__empty">{emptyText}</p>
+    ) : (
+      <ol class="insights-list">
+        {entries.map((entry) => (
+          <li>
+            <article>
+              <p class="insights-list__meta">
+                <time datetime={entry.data.publishedAt?.toISOString()}>
+                  {entry.data.publishedAt?.toLocaleDateString(dateLocale, {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                  })}
+                </time>
+              </p>
+              <h2>
+                <a href={`/${locale}/insights/${entry.data.slug}/`}>{entry.data.title}</a>
+              </h2>
+              <p>{entry.data.description}</p>
+            </article>
+          </li>
+        ))}
+      </ol>
+    )
+  }
+</section>
+
+<style>
+  .insights-index {
+    padding-block: clamp(4rem, 9vw, 8rem);
+  }
+
+  .insights-index__header {
+    display: grid;
+    gap: var(--space-4);
+    max-width: 54rem;
+    margin-bottom: clamp(3rem, 7vw, 6rem);
+  }
+
+  .insights-index__header h1 {
+    max-width: 15ch;
+    margin: 0;
+    font-size: clamp(2.8rem, 6vw, 6rem);
+    letter-spacing: -0.05em;
+  }
+
+  .insights-index__header > p:last-child,
+  .insights-index__empty,
+  .insights-list article > p:last-child {
+    color: var(--color-text-muted);
+    line-height: 1.7;
+  }
+
+  .insights-index__empty {
+    max-width: 42rem;
+    padding: clamp(1.5rem, 4vw, 2.5rem);
+    border-inline-start: 3px solid var(--color-camel);
+    background: var(--color-surface);
+  }
+
+  .insights-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--color-ink);
+  }
+
+  .insights-list li {
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .insights-list article {
+    display: grid;
+    grid-template-columns: minmax(8rem, 0.3fr) minmax(0, 0.7fr);
+    gap: clamp(1.5rem, 5vw, 5rem);
+    padding-block: clamp(2rem, 5vw, 3.5rem);
+  }
+
+  .insights-list__meta {
+    margin: 0;
+    color: var(--color-bordeaux);
+    font-size: 0.82rem;
+    font-weight: 700;
+  }
+
+  .insights-list h2 {
+    grid-column: 2;
+    margin: 0;
+    font-size: clamp(1.6rem, 3vw, 2.6rem);
+  }
+
+  .insights-list h2 a {
+    color: inherit;
+    text-decoration-thickness: 0.06em;
+    text-underline-offset: 0.18em;
+  }
+
+  .insights-list article > p:last-child {
+    grid-column: 2;
+    margin: 0;
+  }
+
+  @media (max-width: 42rem) {
+    .insights-list article {
+      grid-template-columns: 1fr;
+    }
+
+    .insights-list h2,
+    .insights-list article > p:last-child {
+      grid-column: auto;
+    }
+  }
+</style>
