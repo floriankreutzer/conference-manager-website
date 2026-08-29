@@ -1,9 +1,11 @@
 ---
 import DemoRequestForm from '@features/demo-request/DemoRequestForm.astro';
 import InsightsIndex from '@features/insights/InsightsIndex.astro';
+import ProductStoryPage from '@features/product-story/ProductStoryPage.astro';
+import { isProductStorySlug } from '@i18n/productStory';
+import { getPublicPageCopy, publicPageSlugs, type PublicPageSlug } from '@i18n/publicPages';
 import MarketingLayout from '@layouts/MarketingLayout.astro';
 import PublicInfoPage from '@layouts/PublicInfoPage.astro';
-import { getPublicPageCopy, publicPageSlugs, type PublicPageSlug } from '@i18n/publicPages';
 
 export function getStaticPaths() {
   return publicPageSlugs.map((slug) => ({ params: { slug } }));
@@ -11,18 +13,19 @@ export function getStaticPaths() {
 
 const slug = Astro.params.slug as PublicPageSlug;
 const copy = getPublicPageCopy('de', slug);
+const title = isProductStorySlug(slug)
+  ? `${copy.title} — Conference Manager`
+  : `${copy.eyebrow} — Conference Manager`;
 ---
 
-<MarketingLayout
-  locale="de"
-  title={`${copy.eyebrow} — Conference Manager`}
-  description={copy.description}
->
+<MarketingLayout locale="de" title={title} description={copy.description}>
   {
     slug === 'book-a-demo' ? (
       <DemoRequestForm locale="de" />
     ) : slug === 'insights' ? (
       <InsightsIndex locale="de" />
+    ) : isProductStorySlug(slug) ? (
+      <ProductStoryPage locale="de" slug={slug} />
     ) : (
       <PublicInfoPage locale="de" slug={slug} />
     )

@@ -35,7 +35,8 @@ src/
 ├── domain/                   # independently testable rules
 ├── features/                 # bounded website use cases/orchestration
 │   ├── demo-request/
-│   └── insights/
+│   ├── insights/
+│   └── product-story/        # Product / How it works editorial narrative
 ├── i18n/                     # localized customer-facing content/contracts
 ├── layouts/                  # page-level composition and layout contracts
 ├── pages/                    # Astro filesystem routes; route composition only
@@ -49,7 +50,7 @@ Use these rules when adding code:
 - `pages/` owns routing, static-path selection and high-level route composition. Do not put substantial presentation or domain logic there.
 - `layouts/` owns page-level composition/templates that are reused by locale routes or route variants.
 - `components/` owns reusable presentation pieces. Do not create `components/pages`, `components/misc`, `components/common` or generic dumping grounds.
-- `features/` owns bounded user-facing use cases that combine presentation and orchestration.
+- `features/` owns bounded user-facing use cases that combine presentation and orchestration. `product-story/` owns only the richer public Product and How it works narrative; unrelated destination pages remain outside that feature.
 - `domain/` owns framework-independent rules where practical.
 - `config/` owns typed environment/public configuration contracts.
 - `functions/` is a separate server-side trust boundary and follows `functions/AGENTS.md` in addition to the root instructions.
