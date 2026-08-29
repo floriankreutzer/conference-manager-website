@@ -4,7 +4,7 @@
 
 This document defines the repository-side deployment contract for the public Conference Manager website.
 
-It implements the delivery foundation accepted in ADR 0003 / Confluence ADR-008. It does not declare the public website production-ready. DNS, actual Scaleway resource provisioning, Edge Services, TLS, legal/privacy acceptance, demo-processing operational acceptance, self-hosted font acceptance and operational rollback evidence remain launch gates.
+It implements the delivery foundation accepted in ADR 0003 / Confluence ADR-008. It does not declare the public website production-ready. DNS, actual Scaleway resource provisioning, Edge Services, TLS, legal/privacy acceptance, demo-processing operational acceptance and operational rollback evidence remain launch gates.
 
 ## 2. Build artifact
 
@@ -16,10 +16,11 @@ It implements the delivery foundation accepted in ADR 0003 / Confluence ADR-008.
 4. Astro/TypeScript checks;
 5. lint and formatting checks;
 6. unit/regression tests;
-7. production build;
-8. static build performance budgets;
-9. Chromium desktop/mobile browser and internal-route tests;
-10. automated accessibility checks.
+7. governed font asset verification;
+8. production build;
+9. static build performance budgets;
+10. Chromium desktop/mobile browser and internal-route tests;
+11. automated accessibility checks.
 
 The validated output is uploaded as a short-lived GitHub Actions artifact named `website-static-<commit-sha>`.
 
@@ -164,6 +165,21 @@ The script intentionally validates required properties rather than prescribing o
 
 The check retries briefly for edge/cache propagation and then fails closed. A production job that uploaded files but cannot prove the delivered public contract is failed and must not be treated as accepted release evidence.
 
+### Delivered experience acceptance
+
+`Delivered Experience Acceptance` is a separate manual `workflow_dispatch` workflow bound to the protected `production` environment. It consumes only the public `PUBLIC_SITE_ORIGIN`; it does not receive Object Storage, Edge or other Scaleway credentials.
+
+Run it after the real public HTTPS origin is available and the delivered production contract has passed. It launches Chromium against the delivered pages and verifies:
+
+- three cold browser-context samples for `/en/`, with median lab LCP at or below 2.5 seconds;
+- cumulative layout shift at or below 0.1 on representative `/en/` and `/de/` routes;
+- delivered font requests remain same-origin;
+- 200% zoom/reflow keeps the primary heading and demo action visible without page-level horizontal overflow.
+
+The workflow records EN, DE and 200%-zoom screenshots as 14-day GitHub Actions artifacts for final human visual review.
+
+These measurements are controlled lab evidence from the GitHub-hosted runner. They must not be presented as real-user/field Core Web Vitals. Field data, if later collected through an approved privacy-compatible mechanism, is a different evidence source and requires its own governance decision.
+
 ## 8. Demo-request boundary
 
 The browser may only receive the public HTTPS demo-processing endpoint and public privacy URL.
@@ -187,6 +203,7 @@ Before public launch, verify and retain evidence for:
 - final domain ownership and DNS;
 - Edge Services/custom-domain/TLS behavior;
 - successful delivered-response acceptance from the production workflow;
+- successful delivered-experience acceptance and screenshot review;
 - cache behavior and invalidation/redeployment;
 - preview credentials cannot overwrite production;
 - preview cleanup works against an actual PR;
@@ -195,8 +212,8 @@ Before public launch, verify and retain evidence for:
 - demo request validation, rate limiting, logging and email-delivery failure behavior;
 - no analytics/tracking unless separately approved;
 - privacy notice and retention/access ownership;
-- self-hosted font provenance and licensing;
-- manual accessibility acceptance in addition to automated Axe checks.
+- governed self-hosted font provenance and licensing;
+- manual accessibility acceptance in addition to automated Axe and 200% reflow checks.
 
 ## 10. Operational rollback
 
