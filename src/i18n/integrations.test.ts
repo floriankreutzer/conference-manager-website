@@ -22,9 +22,17 @@ describe('Integrations copy', () => {
     const english = getIntegrationsCopy('en');
     const german = getIntegrationsCopy('de');
 
-    expect(english.sections.some((section) => section.body.includes('external Pilot acceptance gate'))).toBe(true);
-    expect(german.sections.some((section) => section.body.includes('externer Pilot-Acceptance-Gate'))).toBe(true);
-    expect(english.sections.some((section) => section.body.includes('does not mean that Google'))).toBe(true);
-    expect(german.sections.some((section) => section.body.includes('Das bedeutet nicht, dass Google'))).toBe(true);
+    expect(
+      english.sections.some((section) => section.body.includes('external Pilot acceptance gate')),
+    ).toBe(true);
+    expect(
+      german.sections.some((section) => section.body.includes('externen Pilot-Abnahme')),
+    ).toBe(true);
+    expect(
+      english.sections.some((section) => section.body.includes('does not mean that Google')),
+    ).toBe(true);
+    expect(
+      german.sections.some((section) => section.body.includes('Das bedeutet nicht, dass Google')),
+    ).toBe(true);
   });
 });
