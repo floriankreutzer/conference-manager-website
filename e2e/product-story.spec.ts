@@ -60,7 +60,9 @@ test.describe('Product and How it works narratives', () => {
       }),
     ).toBeVisible();
     await expect(
-      main.getByText('Behalten Sie Ihre Raumbuchung. Strukturieren Sie die Koordination darum herum.'),
+      main.getByText(
+        'Behalten Sie Ihre Raumbuchung. Strukturieren Sie die Koordination darum herum.',
+      ),
     ).toBeVisible();
     await expect(main.getByRole('link', { name: 'Demo anfragen' }).first()).toHaveAttribute(
       'href',

@@ -56,7 +56,9 @@ test.describe('Integrations', () => {
         name: 'Binden Sie Conference Manager in Ihre bestehende Microsoft-Umgebung ein.',
       }),
     ).toBeVisible();
-    await expect(main.getByText(/andere Provider werden erst dann als verfügbar dargestellt/)).toBeVisible();
+    await expect(
+      main.getByText(/andere Provider werden erst dann als verfügbar dargestellt/),
+    ).toBeVisible();
     await expect(main.getByRole('link', { name: 'Demo anfragen' }).first()).toHaveAttribute(
       'href',
       '/de/book-a-demo/',

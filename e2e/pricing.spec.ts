@@ -7,7 +7,9 @@ const germanPath = '/de/pricing/';
 const forbiddenCurrency = /[$€£¥]|\b(?:EUR|USD|GBP|CHF)\b/i;
 
 test.describe('Pricing', () => {
-  test('renders the governed English pre-pricing narrative and conversion paths', async ({ page }) => {
+  test('renders the governed English pre-pricing narrative and conversion paths', async ({
+    page,
+  }) => {
     await page.goto(englishPath);
     const main = page.locator('main');
 
@@ -42,7 +44,9 @@ test.describe('Pricing', () => {
     );
   });
 
-  test('renders the governed German pre-pricing narrative with reciprocal metadata', async ({ page }) => {
+  test('renders the governed German pre-pricing narrative with reciprocal metadata', async ({
+    page,
+  }) => {
     await page.goto(germanPath);
     const main = page.locator('main');
 

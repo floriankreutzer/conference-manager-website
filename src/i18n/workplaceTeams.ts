@@ -118,8 +118,7 @@ const workplaceTeamsCopy: Record<Locale, WorkplaceTeamsCopy> = {
         title:
           'Verbessern Sie den Konferenzbetrieb, ohne ein Austauschprojekt für die Raumbuchung zu starten.',
         body: 'Conference Manager konzentriert sich auf den Konferenzkontext. Ihre Raumbuchung bleibt für die eigentliche Reservierung verantwortlich; Conference Manager strukturiert die Koordination darum herum.',
-        statement:
-          'Behalten Sie Ihre Raumbuchung. Strukturieren Sie die Koordination darum herum.',
+        statement: 'Behalten Sie Ihre Raumbuchung. Strukturieren Sie die Koordination darum herum.',
       },
     ],
     closing: {

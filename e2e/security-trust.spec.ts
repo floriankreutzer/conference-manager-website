@@ -22,7 +22,9 @@ test.describe('Security & Trust', () => {
         name: 'Marketing and application access remain separate by design.',
       }),
     ).toBeVisible();
-    await expect(main.getByText(/does not turn planned controls into certifications/)).toBeVisible();
+    await expect(
+      main.getByText(/does not turn planned controls into certifications/),
+    ).toBeVisible();
     await expect(main.getByRole('link', { name: 'Book a demo' }).first()).toHaveAttribute(
       'href',
       '/en/book-a-demo/',

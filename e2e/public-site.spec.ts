@@ -5,7 +5,9 @@ const accessibilityPaths = ['/en/', '/de/', '/en/book-a-demo/', '/de/book-a-demo
 const routeDiscoveryPaths = ['/en/', '/de/'];
 
 test.describe('public website contracts', () => {
-  test('renders the approved customer-led Pavurel homepage narrative and primary actions', async ({ page }) => {
+  test('renders the approved customer-led Pavurel homepage narrative and primary actions', async ({
+    page,
+  }) => {
     await page.goto('/en/');
 
     await expect(
@@ -29,7 +31,9 @@ test.describe('public website contracts', () => {
     );
   });
 
-  test('uses governed Pavurel identity and restrained application-family control geometry', async ({ page }) => {
+  test('uses governed Pavurel identity and restrained application-family control geometry', async ({
+    page,
+  }) => {
     await page.goto('/en/');
 
     await expect(page.locator('header img[src*="pavurel-signet"]')).toBeVisible();
@@ -38,9 +42,10 @@ test.describe('public website contracts', () => {
     await expect(page.locator('footer')).toContainText('Conference Manager');
     await expect(page.locator('footer')).toContainText('by Pavurel');
 
-    const radius = await page.getByRole('link', { name: 'Book a demo' }).first().evaluate((element) =>
-      getComputedStyle(element).borderRadius,
-    );
+    const radius = await page
+      .getByRole('link', { name: 'Book a demo' })
+      .first()
+      .evaluate((element) => getComputedStyle(element).borderRadius);
     expect(radius).toBe('4px');
   });
 

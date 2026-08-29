@@ -20,7 +20,10 @@ test.describe('For Workplace Teams', () => {
     ).toBeVisible();
     await expect(main.locator('article > ol > li')).toHaveCount(4);
     await expect(
-      main.getByRole('heading', { level: 2, name: 'Receive the information behind the room request.' }),
+      main.getByRole('heading', {
+        level: 2,
+        name: 'Receive the information behind the room request.',
+      }),
     ).toBeVisible();
     await expect(
       main.getByText('Keep your room booking. Replace the coordination around it.'),
@@ -54,10 +57,15 @@ test.describe('For Workplace Teams', () => {
     ).toBeVisible();
     await expect(main.locator('article > ol > li')).toHaveCount(4);
     await expect(
-      main.getByRole('heading', { level: 2, name: 'Erhalten Sie die Informationen hinter der Raumanfrage.' }),
+      main.getByRole('heading', {
+        level: 2,
+        name: 'Erhalten Sie die Informationen hinter der Raumanfrage.',
+      }),
     ).toBeVisible();
     await expect(
-      main.getByText('Behalten Sie Ihre Raumbuchung. Strukturieren Sie die Koordination darum herum.'),
+      main.getByText(
+        'Behalten Sie Ihre Raumbuchung. Strukturieren Sie die Koordination darum herum.',
+      ),
     ).toBeVisible();
     await expect(main.getByRole('link', { name: 'Demo anfragen' }).first()).toHaveAttribute(
       'href',

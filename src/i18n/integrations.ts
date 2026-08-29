@@ -79,7 +79,8 @@ const integrationsCopy: Record<Locale, IntegrationsCopy> = {
         eyebrow: 'Integrationsprinzip',
         title: 'Behalten Sie die Systeme, die bereits eine klare Verantwortung tragen.',
         body: 'Conference Manager verbindet den weitergehenden Konferenzablauf mit spezialisierten Systemen, statt deren Aufgabe zu kopieren. Die Raumbuchung bleibt für Reservierungen verantwortlich, Identity bleibt Teil der Enterprise-Umgebung und angebundene Workplace Services behalten ihre operative Rolle.',
-        statement: 'Den Konferenzablauf verbinden. Spezialisierte Systeme nicht standardmäßig ersetzen.',
+        statement:
+          'Den Konferenzablauf verbinden. Spezialisierte Systeme nicht standardmäßig ersetzen.',
       },
       {
         eyebrow: 'Microsoft 365 · Erster Enterprise-Fokus',
