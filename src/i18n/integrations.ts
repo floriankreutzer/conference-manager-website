@@ -10,7 +10,13 @@ type IntegrationSection = {
 };
 type IntegrationsCopy = {
   sections: readonly IntegrationSection[];
-  closing: { eyebrow: string; title: string; body: string; primaryCta: string; secondaryCta: string };
+  closing: {
+    eyebrow: string;
+    title: string;
+    body: string;
+    primaryCta: string;
+    secondaryCta: string;
+  };
 };
 
 const integrationsCopy: Record<Locale, IntegrationsCopy> = {
@@ -27,8 +33,14 @@ const integrationsCopy: Record<Locale, IntegrationsCopy> = {
         title: 'Fit Conference Manager into an existing Microsoft environment.',
         body: 'The current Microsoft integration scope covers Entra-based tenant connection and Microsoft 365 room/calendar capabilities needed for the pilot model. That allows Conference Manager to work with existing enterprise identity and room context instead of asking customers to create an isolated calendar process. Real tenant use still requires the relevant Microsoft setup and operational acceptance.',
         points: [
-          { title: 'Room resources', body: 'Microsoft 365 room resources can be discovered and mapped through the controlled tenant integration.' },
-          { title: 'Availability and calendar context', body: 'Free/Busy and calendar synchronization are supported within the accepted integration configuration.' },
+          {
+            title: 'Room resources',
+            body: 'Microsoft 365 room resources can be discovered and mapped through the controlled tenant integration.',
+          },
+          {
+            title: 'Availability and calendar context',
+            body: 'Free/Busy and calendar synchronization are supported within the accepted integration configuration.',
+          },
         ],
       },
       {
@@ -42,8 +54,14 @@ const integrationsCopy: Record<Locale, IntegrationsCopy> = {
         title: 'The integration model can grow without turning future plans into current claims.',
         body: 'Conference Manager separates conference workflow responsibilities from provider-specific calendar behavior. That supports future adapters without coupling the product story to one provider. Microsoft 365 and Entra are the current focus; other providers are not presented as available until they are actually delivered and accepted.',
         points: [
-          { title: 'Provider-independent conference logic', body: 'The conference journey remains distinct from provider-specific room and calendar references.' },
-          { title: 'Trusted server-side integration', body: 'Provider credentials and integration authority remain outside the public website and employee browser experience.' },
+          {
+            title: 'Provider-independent conference logic',
+            body: 'The conference journey remains distinct from provider-specific room and calendar references.',
+          },
+          {
+            title: 'Trusted server-side integration',
+            body: 'Provider credentials and integration authority remain outside the public website and employee browser experience.',
+          },
         ],
       },
     ],
@@ -68,23 +86,37 @@ const integrationsCopy: Record<Locale, IntegrationsCopy> = {
         title: 'Binden Sie Conference Manager in Ihre bestehende Microsoft-Umgebung ein.',
         body: 'Der aktuelle Microsoft-Integrationsumfang umfasst die Entra-basierte Tenant-Anbindung sowie Microsoft-365-Raum- und Kalenderfunktionen für das Pilotmodell. So kann Conference Manager vorhandene Enterprise-Identity und Raumkontext nutzen, statt einen isolierten Kalenderprozess einzuführen. Der reale Tenant-Betrieb setzt weiterhin die passende Microsoft-Konfiguration und operative Abnahme voraus.',
         points: [
-          { title: 'Raumressourcen', body: 'Microsoft-365-Raumressourcen können über die kontrollierte Tenant-Integration ermittelt und zugeordnet werden.' },
-          { title: 'Verfügbarkeit und Kalenderkontext', body: 'Free/Busy und Kalendersynchronisierung werden innerhalb der abgenommenen Integrationskonfiguration unterstützt.' },
+          {
+            title: 'Raumressourcen',
+            body: 'Microsoft-365-Raumressourcen können über die kontrollierte Tenant-Integration ermittelt und zugeordnet werden.',
+          },
+          {
+            title: 'Verfügbarkeit und Kalenderkontext',
+            body: 'Free/Busy und Kalendersynchronisierung werden innerhalb der abgenommenen Integrationskonfiguration unterstützt.',
+          },
         ],
       },
       {
         eyebrow: 'Kontrollierte Berechtigungen',
         title: 'Integrationszugriff wird bewusst freigegeben – nicht vorausgesetzt.',
         body: 'Kalender-Schreibzugriffe bleiben an die erforderlichen Microsoft- und Exchange-Kontrollen gebunden. Conference Manager stellt weitreichenden Provider-Zugriff nicht als pauschalen Standard für jeden Tenant dar.',
-        statement: 'Enterprise-Integration soll in das Kontrollmodell des Kunden passen – nicht daran vorbeigehen.',
+        statement:
+          'Enterprise-Integration soll in das Kontrollmodell des Kunden passen – nicht daran vorbeigehen.',
       },
       {
         eyebrow: 'Erweiterbar gedacht',
-        title: 'Das Integrationsmodell kann wachsen, ohne Zukunftspläne als heutige Funktionen darzustellen.',
+        title:
+          'Das Integrationsmodell kann wachsen, ohne Zukunftspläne als heutige Funktionen darzustellen.',
         body: 'Conference Manager trennt die Verantwortung des Konferenzablaufs von providerspezifischem Kalenderverhalten. Das schafft Raum für spätere Adapter, ohne die Produktstory an einen einzelnen Provider zu koppeln. Microsoft 365 und Entra sind der aktuelle Fokus; andere Provider werden erst dann als verfügbar dargestellt, wenn sie tatsächlich geliefert und abgenommen sind.',
         points: [
-          { title: 'Providerunabhängige Konferenzlogik', body: 'Der Konferenzablauf bleibt von providerspezifischen Raum- und Kalenderreferenzen getrennt.' },
-          { title: 'Vertrauenswürdige serverseitige Integration', body: 'Provider-Zugangsdaten und Integrationsautorität bleiben außerhalb der öffentlichen Website und der Employee Experience im Browser.' },
+          {
+            title: 'Providerunabhängige Konferenzlogik',
+            body: 'Der Konferenzablauf bleibt von providerspezifischen Raum- und Kalenderreferenzen getrennt.',
+          },
+          {
+            title: 'Vertrauenswürdige serverseitige Integration',
+            body: 'Provider-Zugangsdaten und Integrationsautorität bleiben außerhalb der öffentlichen Website und der Employee Experience im Browser.',
+          },
         ],
       },
     ],
