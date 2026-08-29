@@ -55,7 +55,11 @@ const visual = visuals[variant];
 const src = withBasePath(visual.src);
 ---
 
-<figure class={`brand-visual brand-visual--${variant}`} data-brand-visual={variant}>
+<figure
+  class={`brand-visual brand-visual--${variant}`}
+  data-brand-visual="approved-pavurel-conference"
+  data-brand-visual-variant={variant}
+>
   <img
     src={src}
     alt={visual.alt[locale]}
