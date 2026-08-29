@@ -13,13 +13,12 @@ export function getStaticPaths() {
 
 const slug = Astro.params.slug as PublicPageSlug;
 const copy = getPublicPageCopy('de', slug);
+const title = isProductStorySlug(slug)
+  ? `${copy.title} — Conference Manager`
+  : `${copy.eyebrow} — Conference Manager`;
 ---
 
-<MarketingLayout
-  locale="de"
-  title={`${copy.eyebrow} — Conference Manager`}
-  description={copy.description}
->
+<MarketingLayout locale="de" title={title} description={copy.description}>
   {
     slug === 'book-a-demo' ? (
       <DemoRequestForm locale="de" />
