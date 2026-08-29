@@ -149,7 +149,7 @@ jobs:
         run: |
           set -euo pipefail
           for attempt in 1 2 3 4 5; do
-            if node scripts/verify-deployment.mjs preview "$PREVIEW_ORIGIN"; then
+            if node scripts/deployment/verify-deployment.mjs preview "$PREVIEW_ORIGIN"; then
               exit 0
             fi
             if [[ "$attempt" -lt 5 ]]; then
