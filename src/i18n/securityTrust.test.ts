@@ -18,13 +18,19 @@ describe('Security and Trust copy', () => {
     });
   });
 
-  it('keeps both locales on evidence-led trust language', () => {
+  it('keeps both locales evidence-led and customer-oriented', () => {
     const english = getSecurityTrustCopy('en');
     const german = getSecurityTrustCopy('de');
+    const englishText = JSON.stringify(english);
+    const germanText = JSON.stringify(german);
 
-    expect(english.sections.some((section) => section.body.includes('certifications'))).toBe(true);
-    expect(german.sections.some((section) => section.body.includes('Zertifizierungen'))).toBe(true);
-    expect(english.closing.primaryCta).toBe('Book a demo');
-    expect(german.closing.primaryCta).toBe('Demo anfragen');
+    expect(englishText).toContain('customer environment');
+    expect(germanText).toContain('Kundenumgebung');
+    expect(englishText).toContain('certifications');
+    expect(germanText).toContain('Zertifizierungen');
+    expect(english.closing.primaryCta).toBe('Explore integrations');
+    expect(german.closing.primaryCta).toBe('Integrationen ansehen');
+    expect(english.closing.primaryCta).not.toBe('Book a demo');
+    expect(german.closing.primaryCta).not.toBe('Demo anfragen');
   });
 });

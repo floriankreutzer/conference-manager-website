@@ -35,7 +35,7 @@ describe('public page route resolution', () => {
       'Produktfit jetzt bewerten. Öffentliche Preise folgen nach Freigabe. — Conference Manager',
     );
     expect(resolvePublicPageRoute('en', 'company').title).toBe(
-      'Conference Manager is the product. Pavurel is the endorsement behind it. — Conference Manager',
+      'Built around the conference, not around another system. — Conference Manager',
     );
     expect(resolvePublicPageRoute('en', 'insights').title).toBe('Insights — Conference Manager');
     expect(resolvePublicPageRoute('de', 'book-a-demo').title).toBe(
@@ -51,7 +51,7 @@ describe('public page route resolution', () => {
       'vorhandener Raumbuchung und Microsoft 365',
     );
     expect(resolvePublicPageRoute('en', 'company').description).toContain(
-      'Pavurel brand direction',
+      'complete workplace conference journey',
     );
   });
 });

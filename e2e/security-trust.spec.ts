@@ -5,24 +5,30 @@ const englishPath = '/en/security-trust/';
 const germanPath = '/de/security-trust/';
 
 test.describe('Security & Trust', () => {
-  test('renders the buyer-readable English trust narrative', async ({ page }) => {
+  test('renders the customer-facing English trust narrative', async ({ page }) => {
     await page.goto(englishPath);
     const main = page.locator('main');
 
     await expect(page).toHaveTitle(
-      'A simple experience with deliberate enterprise boundaries. — Conference Manager',
+      'Enterprise trust without making the employee experience complicated. — Conference Manager',
     );
     await expect(
       main.getByRole('heading', {
         level: 1,
-        name: 'A simple experience with deliberate enterprise boundaries.',
+        name: 'Enterprise trust without making the employee experience complicated.',
       }),
     ).toBeVisible();
     await expect(main.locator('article > ol > li')).toHaveCount(4);
     await expect(
       main.getByRole('heading', {
         level: 2,
-        name: 'The public website does not become a second place to sign in.',
+        name: 'A simple employee journey without giving up organisational control.',
+      }),
+    ).toBeVisible();
+    await expect(
+      main.getByRole('heading', {
+        level: 2,
+        name: 'Connect to your environment without handing control away.',
       }),
     ).toBeVisible();
     await expect(
@@ -30,11 +36,11 @@ test.describe('Security & Trust', () => {
     ).toBeVisible();
     await expect(main).not.toContainText('refresh tokens');
     await expect(main).not.toContainText('browser bundle');
-    await expect(main.getByRole('link', { name: 'Book a demo' }).first()).toHaveAttribute(
+    await expect(main.getByRole('link', { name: 'Explore integrations' })).toHaveAttribute(
       'href',
-      '/en/book-a-demo/',
+      '/en/integrations/',
     );
-    await expect(main.getByRole('link', { name: /Explore the product/ }).first()).toHaveAttribute(
+    await expect(main.getByRole('link', { name: 'Explore the product' })).toHaveAttribute(
       'href',
       '/en/product/',
     );
@@ -44,34 +50,44 @@ test.describe('Security & Trust', () => {
     );
   });
 
-  test('renders the buyer-readable German trust narrative', async ({ page }) => {
+  test('renders the customer-facing German trust narrative', async ({ page }) => {
     await page.goto(germanPath);
     const main = page.locator('main');
 
     await expect(page).toHaveTitle(
-      'Eine einfache Erfahrung mit klaren Enterprise-Grenzen. — Conference Manager',
+      'Enterprise-Sicherheit, ohne den Anfrageprozess kompliziert zu machen. — Conference Manager',
     );
     await expect(
       main.getByRole('heading', {
         level: 1,
-        name: 'Eine einfache Erfahrung mit klaren Enterprise-Grenzen.',
+        name: 'Enterprise-Sicherheit, ohne den Anfrageprozess kompliziert zu machen.',
       }),
     ).toBeVisible();
     await expect(main.locator('article > ol > li')).toHaveCount(4);
     await expect(
       main.getByRole('heading', {
         level: 2,
-        name: 'Die öffentliche Website wird nicht zu einem zweiten Anmeldeort.',
+        name: 'Ein einfacher Anfrageprozess, ohne die Kontrolle des Unternehmens aufzugeben.',
       }),
     ).toBeVisible();
     await expect(
-      main.getByText(/keine Zertifizierungen, pauschalen Compliance-Aussagen/),
+      main.getByRole('heading', {
+        level: 2,
+        name: 'An Ihre Umgebung anbinden, ohne die Kontrolle abzugeben.',
+      }),
+    ).toBeVisible();
+    await expect(
+      main.getByText(/keine Zertifizierungen oder pauschalen Compliance-Garantien/),
     ).toBeVisible();
     await expect(main).not.toContainText('Refresh-Tokens');
     await expect(main).not.toContainText('Trusted API');
-    await expect(main.getByRole('link', { name: 'Demo anfragen' }).first()).toHaveAttribute(
+    await expect(main.getByRole('link', { name: 'Integrationen ansehen' })).toHaveAttribute(
       'href',
-      '/de/book-a-demo/',
+      '/de/integrations/',
+    );
+    await expect(main.getByRole('link', { name: 'Produkt ansehen' })).toHaveAttribute(
+      'href',
+      '/de/product/',
     );
     await expect(page.locator('link[rel="alternate"][hreflang="en"]')).toHaveAttribute(
       'href',
@@ -92,7 +108,7 @@ test.describe('Security & Trust', () => {
     await expect(
       page.getByRole('heading', {
         level: 2,
-        name: 'Kommunizieren Sie nur, was die umgesetzten Kontrollen tatsächlich tragen.',
+        name: 'Vertrauen entsteht durch überprüfbare Antworten, nicht durch unbelegte Badges.',
       }),
     ).toBeVisible();
   });

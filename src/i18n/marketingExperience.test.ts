@@ -12,7 +12,7 @@ describe('customer-led marketing experience', () => {
     expect(english.hero.body).toContain('guests, catering, services');
     expect(english.roomBooking.body).toContain('not another room-booking product');
     expect(english.brand.title).toContain('Operational precision');
-    expect(english.closing.primaryCta).toBe('Book a demo');
+    expect(english.hero.primaryCta).toBe('Book a demo');
   });
 
   it('uses professional German B2B address on the homepage', () => {
@@ -35,7 +35,7 @@ describe('customer-led marketing experience', () => {
       'For Workplace Teams',
       'Integrations',
       'Security & Trust',
-      'Company',
+      'About',
     ]);
     expect(primaryLabels).not.toContain('Pricing');
     expect(primaryLabels).not.toContain('Insights');

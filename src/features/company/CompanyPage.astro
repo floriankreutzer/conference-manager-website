@@ -1,6 +1,7 @@
 ---
 import EditorialStory from '@components/editorial/EditorialStory.astro';
 import BrandLockup from '@components/marketing/BrandLockup.astro';
+import BrandVisual from '@components/marketing/BrandVisual.astro';
 import type { Locale } from '@config/locales';
 import { withBasePath } from '@domain/routing/basePath';
 import { getCompanyCopy } from '@i18n/company';
@@ -13,15 +14,17 @@ interface Props {
 const { locale } = Astro.props;
 const pageCopy = getPublicPageCopy(locale, 'company');
 const story = getCompanyCopy(locale);
-const demoHref = withBasePath(`/${locale}/book-a-demo/`);
 const productHref = withBasePath(`/${locale}/product/`);
-const brandLabel = locale === 'de' ? 'Pavurel Corporate Brand' : 'Pavurel corporate brand';
+const howHref = withBasePath(`/${locale}/how-it-works/`);
+const brandLabel =
+  locale === 'de' ? 'Conference Manager by Pavurel' : 'Conference Manager by Pavurel';
 ---
 
 <div class="company-page">
   <div class="company-page__brand" aria-label={brandLabel}>
     <p class="eyebrow">{brandLabel}</p>
     <BrandLockup showTagline />
+    <BrandVisual locale={locale} />
   </div>
 
   <EditorialStory
@@ -30,8 +33,8 @@ const brandLabel = locale === 'de' ? 'Pavurel Corporate Brand' : 'Pavurel corpor
     lead={pageCopy.body}
     sections={story.sections}
     closing={story.closing}
-    primaryHref={demoHref}
-    secondaryHref={productHref}
+    primaryHref={productHref}
+    secondaryHref={howHref}
     idPrefix="company"
   />
 </div>
@@ -40,11 +43,15 @@ const brandLabel = locale === 'de' ? 'Pavurel Corporate Brand' : 'Pavurel corpor
   .company-page__brand {
     display: grid;
     gap: var(--space-4);
-    max-width: 54rem;
+    max-width: 62rem;
     padding-block: clamp(4rem, 8vw, 7rem) 0;
   }
 
   .company-page__brand :global(.brand-lockup) {
     max-width: 38rem;
+  }
+
+  .company-page__brand :global(.brand-visual) {
+    margin-top: clamp(1rem, 3vw, 2rem);
   }
 </style>
