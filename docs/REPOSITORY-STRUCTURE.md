@@ -29,6 +29,7 @@ conference-manager-website/
 src/
 ├── assets/                   # governed source assets
 ├── components/               # reusable presentation components
+│   ├── editorial/            # shared editorial-story presentation only
 │   └── navigation/           # site navigation presentation
 ├── config/                   # typed public/runtime configuration
 ├── content/                  # Astro content collection records
@@ -36,7 +37,8 @@ src/
 ├── features/                 # bounded website use cases/orchestration
 │   ├── demo-request/
 │   ├── insights/
-│   └── product-story/        # Product / How it works editorial narrative
+│   ├── product-story/        # Product / How it works editorial narrative
+│   └── workplace-teams/      # Workplace Team buyer narrative
 ├── i18n/                     # localized customer-facing content/contracts
 ├── layouts/                  # page-level composition and layout contracts
 ├── pages/                    # Astro filesystem routes; route composition only
@@ -49,8 +51,8 @@ Use these rules when adding code:
 
 - `pages/` owns routing, static-path selection and high-level route composition. Do not put substantial presentation or domain logic there.
 - `layouts/` owns page-level composition/templates that are reused by locale routes or route variants.
-- `components/` owns reusable presentation pieces. Do not create `components/pages`, `components/misc`, `components/common` or generic dumping grounds.
-- `features/` owns bounded user-facing use cases that combine presentation and orchestration. `product-story/` owns only the richer public Product and How it works narrative; unrelated destination pages remain outside that feature.
+- `components/` owns reusable presentation pieces. `components/editorial/` may own presentation shared by multiple editorial features, but it must not own buyer/product content or feature orchestration. Do not create `components/pages`, `components/misc`, `components/common` or generic dumping grounds.
+- `features/` owns bounded user-facing use cases that combine presentation and orchestration. `product-story/` owns Product / How it works content composition; `workplace-teams/` owns the Workplace Team buyer destination. Their localized content remains separate even when they reuse the same editorial presentation component.
 - `domain/` owns framework-independent rules where practical.
 - `config/` owns typed environment/public configuration contracts.
 - `functions/` is a separate server-side trust boundary and follows `functions/AGENTS.md` in addition to the root instructions.
