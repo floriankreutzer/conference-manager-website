@@ -25,9 +25,9 @@ describe('Integrations copy', () => {
     expect(
       english.sections.some((section) => section.body.includes('operational acceptance')),
     ).toBe(true);
-    expect(
-      german.sections.some((section) => section.body.includes('operative Abnahme')),
-    ).toBe(true);
+    expect(german.sections.some((section) => section.body.includes('operative Abnahme'))).toBe(
+      true,
+    );
     expect(
       english.sections.some((section) =>
         section.body.includes('other providers are not presented as available'),
