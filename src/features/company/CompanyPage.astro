@@ -19,11 +19,10 @@ const brandLabel = locale === 'de' ? 'Pavurel Corporate Brand' : 'Pavurel corpor
 ---
 
 <div class="company-page">
-  <section class="company-page__brand" aria-labelledby="company-brand-title">
+  <div class="company-page__brand" aria-label={brandLabel}>
     <p class="eyebrow">{brandLabel}</p>
-    <h2 id="company-brand-title" class="visually-hidden">Conference Manager by Pavurel</h2>
     <BrandLockup showTagline />
-  </section>
+  </div>
 
   <EditorialStory
     eyebrow={pageCopy.eyebrow}
