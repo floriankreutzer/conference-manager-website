@@ -1,0 +1,65 @@
+name: Website Preview Cleanup
+
+on:
+  pull_request:
+    branches: [main]
+    types: [closed]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: website-preview-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.SCW_OBJECT_STORAGE_ACCESS_KEY }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.SCW_OBJECT_STORAGE_SECRET_KEY }}
+      SCW_REGION: ${{ vars.SCW_REGION }}
+      SCW_PREVIEW_BUCKET_PREFIX: ${{ vars.SCW_PREVIEW_BUCKET_PREFIX }}
+    steps:
+      - name: Check cleanup configuration
+        id: config
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ -z "${AWS_ACCESS_KEY_ID}" || -z "${AWS_SECRET_ACCESS_KEY}" || -z "${SCW_REGION}" || -z "${SCW_PREVIEW_BUCKET_PREFIX}" ]]; then
+            echo "enabled=false" >> "$GITHUB_OUTPUT"
+            echo "Preview cleanup is not configured."
+            exit 0
+          fi
+
+          case "$SCW_REGION" in
+            fr-par|nl-ams|pl-waw|it-mil) ;;
+            *) echo "Unsupported/non-approved Scaleway region: $SCW_REGION" >&2; exit 1 ;;
+          esac
+
+          if [[ ! "$SCW_PREVIEW_BUCKET_PREFIX" =~ ^[a-z0-9][a-z0-9-]{2,49}[a-z0-9]$ ]]; then
+            echo "Invalid preview bucket prefix." >&2
+            exit 1
+          fi
+
+          echo "enabled=true" >> "$GITHUB_OUTPUT"
+          echo "bucket=${SCW_PREVIEW_BUCKET_PREFIX}-${{ github.event.pull_request.number }}" >> "$GITHUB_OUTPUT"
+          echo "endpoint=https://s3.${SCW_REGION}.scw.cloud" >> "$GITHUB_OUTPUT"
+
+      - name: Remove isolated preview bucket
+        if: steps.config.outputs.enabled == 'true'
+        env:
+          PREVIEW_BUCKET: ${{ steps.config.outputs.bucket }}
+          SCW_ENDPOINT: ${{ steps.config.outputs.endpoint }}
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if aws s3api head-bucket --bucket "$PREVIEW_BUCKET" --endpoint-url "$SCW_ENDPOINT" >/dev/null 2>&1; then
+            aws s3 rb "s3://${PREVIEW_BUCKET}" \
+              --force \
+              --region "$SCW_REGION" \
+              --endpoint-url "$SCW_ENDPOINT"
+          else
+            echo "Preview bucket does not exist or is already removed."
+          fi

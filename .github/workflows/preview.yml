@@ -1,0 +1,151 @@
+name: Website Preview
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: website-preview-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  preview:
+    if: github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.SCW_OBJECT_STORAGE_ACCESS_KEY }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.SCW_OBJECT_STORAGE_SECRET_KEY }}
+      SCW_REGION: ${{ vars.SCW_REGION }}
+      SCW_PREVIEW_BUCKET_PREFIX: ${{ vars.SCW_PREVIEW_BUCKET_PREFIX }}
+      PUBLIC_CM_APP_ORIGIN: ${{ vars.PREVIEW_CM_APP_ORIGIN }}
+      PUBLIC_PREVIEW: 'true'
+    steps:
+      - name: Check preview configuration
+        id: config
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ -z "${AWS_ACCESS_KEY_ID}" || -z "${AWS_SECRET_ACCESS_KEY}" || -z "${SCW_REGION}" || -z "${SCW_PREVIEW_BUCKET_PREFIX}" ]]; then
+            echo "enabled=false" >> "$GITHUB_OUTPUT"
+            echo "Preview deployment is not configured; validation CI remains authoritative."
+            exit 0
+          fi
+
+          case "$SCW_REGION" in
+            fr-par|nl-ams|pl-waw|it-mil) ;;
+            *) echo "Unsupported/non-approved Scaleway region: $SCW_REGION" >&2; exit 1 ;;
+          esac
+
+          if [[ ! "$SCW_PREVIEW_BUCKET_PREFIX" =~ ^[a-z0-9][a-z0-9-]{2,49}[a-z0-9]$ ]]; then
+            echo "SCW_PREVIEW_BUCKET_PREFIX must be 4-51 lowercase letters, digits or hyphens and cannot begin/end with a hyphen." >&2
+            exit 1
+          fi
+
+          bucket="${SCW_PREVIEW_BUCKET_PREFIX}-${{ github.event.pull_request.number }}"
+          endpoint="https://s3.${SCW_REGION}.scw.cloud"
+          origin="https://${bucket}.s3-website.${SCW_REGION}.scw.cloud"
+
+          echo "enabled=true" >> "$GITHUB_OUTPUT"
+          echo "bucket=${bucket}" >> "$GITHUB_OUTPUT"
+          echo "endpoint=${endpoint}" >> "$GITHUB_OUTPUT"
+          echo "origin=${origin}" >> "$GITHUB_OUTPUT"
+
+      - name: Checkout repository
+        if: steps.config.outputs.enabled == 'true'
+        uses: actions/checkout@v7
+
+      - name: Setup Node.js
+        if: steps.config.outputs.enabled == 'true'
+        uses: actions/setup-node@v6
+        with:
+          node-version: '22.19.0'
+          cache: npm
+
+      - name: Install dependencies
+        if: steps.config.outputs.enabled == 'true'
+        run: npm ci --ignore-scripts
+
+      - name: Build noindex preview
+        if: steps.config.outputs.enabled == 'true'
+        env:
+          PUBLIC_SITE_ORIGIN: ${{ steps.config.outputs.origin }}
+        run: npm run build
+
+      - name: Provision isolated preview bucket
+        if: steps.config.outputs.enabled == 'true'
+        env:
+          PREVIEW_BUCKET: ${{ steps.config.outputs.bucket }}
+          SCW_ENDPOINT: ${{ steps.config.outputs.endpoint }}
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if ! aws s3api head-bucket --bucket "$PREVIEW_BUCKET" --endpoint-url "$SCW_ENDPOINT" >/dev/null 2>&1; then
+            aws s3 mb "s3://${PREVIEW_BUCKET}" --region "$SCW_REGION" --endpoint-url "$SCW_ENDPOINT"
+          fi
+
+          cat > "$RUNNER_TEMP/bucket-website.json" <<'JSON'
+          {
+            "IndexDocument": {
+              "Suffix": "index.html"
+            }
+          }
+          JSON
+
+          aws s3api put-bucket-website \
+            --bucket "$PREVIEW_BUCKET" \
+            --website-configuration "file://$RUNNER_TEMP/bucket-website.json" \
+            --region "$SCW_REGION" \
+            --endpoint-url "$SCW_ENDPOINT"
+
+          cat > "$RUNNER_TEMP/bucket-policy.json" <<JSON
+          {
+            "Version": "2023-04-17",
+            "Id": "ConferenceManagerWebsitePreview",
+            "Statement": [
+              {
+                "Sid": "PublicReadPreviewObjects",
+                "Effect": "Allow",
+                "Principal": "*",
+                "Action": ["s3:GetObject"],
+                "Resource": ["${PREVIEW_BUCKET}/*"]
+              }
+            ]
+          }
+          JSON
+
+          aws s3api put-bucket-policy \
+            --bucket "$PREVIEW_BUCKET" \
+            --policy "file://$RUNNER_TEMP/bucket-policy.json" \
+            --region "$SCW_REGION" \
+            --endpoint-url "$SCW_ENDPOINT"
+
+      - name: Deploy preview
+        if: steps.config.outputs.enabled == 'true'
+        env:
+          PREVIEW_BUCKET: ${{ steps.config.outputs.bucket }}
+          SCW_ENDPOINT: ${{ steps.config.outputs.endpoint }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          aws s3 sync dist/ "s3://${PREVIEW_BUCKET}/" \
+            --delete \
+            --region "$SCW_REGION" \
+            --endpoint-url "$SCW_ENDPOINT"
+
+      - name: Publish preview URL to job summary
+        if: steps.config.outputs.enabled == 'true'
+        env:
+          PREVIEW_ORIGIN: ${{ steps.config.outputs.origin }}
+        run: |
+          {
+            echo "### Website preview"
+            echo
+            echo "$PREVIEW_ORIGIN/en/"
+            echo
+            echo "This preview is intentionally noindex/nofollow."
+          } >> "$GITHUB_STEP_SUMMARY"
