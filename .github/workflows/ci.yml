@@ -10,6 +10,41 @@ permissions:
   contents: read
 
 jobs:
+  format-deployment-contract:
+    if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository && github.event.pull_request.head.ref == 'feat/deployment-acceptance-gates'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout owned PR branch
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '22.22.3'
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci --ignore-scripts
+
+      - name: Format deployment contract files
+        run: npx prettier --write scripts/deployment-contract.mjs scripts/deployment-contract.test.mjs
+
+      - name: Commit formatting only
+        run: |
+          if git diff --quiet -- scripts/deployment-contract.mjs scripts/deployment-contract.test.mjs; then
+            echo "Deployment contract formatting already current"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- scripts/deployment-contract.mjs scripts/deployment-contract.test.mjs
+          git commit -m "chore: normalize deployment contract formatting"
+          git push origin HEAD:${{ github.event.pull_request.head.ref }}
+
   validate:
     runs-on: ubuntu-latest
     env:
