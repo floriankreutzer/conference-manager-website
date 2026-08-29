@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { publicPageSlugs } from '@i18n/publicPages';
+import { publicPageSlugs } from '../i18n/publicPages';
 import { resolvePublicPageRoute } from './publicPageRoute';
 
 const expectedVariants = {
