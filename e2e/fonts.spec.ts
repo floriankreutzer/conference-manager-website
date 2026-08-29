@@ -1,6 +1,7 @@
 import { expect, test } from '@playwright/test';
 
 const germanGlyphProbe = 'ÄÖÜäöüß';
+const layoutStabilityPaths = ['/en/', '/de/'];
 
 test.describe('governed self-hosted webfonts', () => {
   test('loads Inter and Manrope from same-origin assets with German glyph coverage', async ({
@@ -65,6 +66,60 @@ test.describe('governed self-hosted webfonts', () => {
       scrollWidth: document.documentElement.scrollWidth,
       clientWidth: document.documentElement.clientWidth,
     }));
+    expect(dimensions.scrollWidth).toBeLessThanOrEqual(dimensions.clientWidth + 1);
+  });
+
+  for (const path of layoutStabilityPaths) {
+    test(`${path} keeps cumulative layout shift within the good threshold`, async ({ page }) => {
+      await page.addInitScript(() => {
+        const state = { value: 0 };
+        (window as unknown as { __conferenceManagerCls: { value: number } }).__conferenceManagerCls =
+          state;
+
+        new PerformanceObserver((list) => {
+          for (const entry of list.getEntries()) {
+            const shift = entry as PerformanceEntry & { value: number; hadRecentInput: boolean };
+            if (!shift.hadRecentInput) state.value += shift.value;
+          }
+        }).observe({ type: 'layout-shift', buffered: true });
+      });
+
+      await page.goto(path, { waitUntil: 'networkidle' });
+      await page.evaluate(async () => {
+        await document.fonts.ready;
+      });
+
+      const cls = await page.evaluate(
+        () =>
+          (window as unknown as { __conferenceManagerCls: { value: number } })
+            .__conferenceManagerCls.value,
+      );
+
+      expect(cls).toBeLessThanOrEqual(0.1);
+    });
+  }
+
+  test('keeps primary content usable and reflowed at 200% zoom', async ({ page }) => {
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await page.goto('/en/');
+    await page.evaluate(async () => {
+      await document.fonts.ready;
+      document.documentElement.style.zoom = '2';
+    });
+
+    await expect(
+      page.getByRole('heading', {
+        level: 1,
+        name: 'Make every workplace conference feel effortless.',
+      }),
+    ).toBeVisible();
+    await expect(page.getByRole('link', { name: 'Book a demo' }).first()).toBeVisible();
+
+    const dimensions = await page.evaluate(() => ({
+      scrollWidth: document.documentElement.scrollWidth,
+      clientWidth: document.documentElement.clientWidth,
+    }));
+
     expect(dimensions.scrollWidth).toBeLessThanOrEqual(dimensions.clientWidth + 1);
   });
 });
