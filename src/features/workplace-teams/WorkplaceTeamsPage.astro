@@ -2,21 +2,18 @@
 import EditorialStory from '@components/editorial/EditorialStory.astro';
 import type { Locale } from '@config/locales';
 import { withBasePath } from '@domain/routing/basePath';
-import { getProductStoryCopy, type ProductStorySlug } from '@i18n/productStory';
 import { getPublicPageCopy } from '@i18n/publicPages';
+import { getWorkplaceTeamsCopy } from '@i18n/workplaceTeams';
 
 interface Props {
   locale: Locale;
-  slug: ProductStorySlug;
 }
 
-const { locale, slug } = Astro.props;
-const pageCopy = getPublicPageCopy(locale, slug);
-const story = getProductStoryCopy(locale, slug);
+const { locale } = Astro.props;
+const pageCopy = getPublicPageCopy(locale, 'workplace-teams');
+const story = getWorkplaceTeamsCopy(locale);
 const primaryHref = withBasePath(`/${locale}/book-a-demo/`);
-const secondaryHref = withBasePath(
-  slug === 'product' ? `/${locale}/how-it-works/` : `/${locale}/product/`,
-);
+const secondaryHref = withBasePath(`/${locale}/product/`);
 ---
 
 <EditorialStory
@@ -27,5 +24,5 @@ const secondaryHref = withBasePath(
   closing={story.closing}
   primaryHref={primaryHref}
   secondaryHref={secondaryHref}
-  idPrefix="product-story"
+  idPrefix="workplace-teams"
 />

@@ -1,0 +1,271 @@
+---
+type EditorialPoint = {
+  title: string;
+  body: string;
+};
+
+type EditorialSection = {
+  eyebrow: string;
+  title: string;
+  body: string;
+  points?: readonly EditorialPoint[];
+  statement?: string;
+};
+
+interface Props {
+  eyebrow: string;
+  title: string;
+  lead: string;
+  sections: readonly EditorialSection[];
+  closing: {
+    eyebrow: string;
+    title: string;
+    body: string;
+    primaryCta: string;
+    secondaryCta: string;
+  };
+  primaryHref: string;
+  secondaryHref: string;
+  idPrefix: string;
+}
+
+const { eyebrow, title, lead, sections, closing, primaryHref, secondaryHref, idPrefix } =
+  Astro.props;
+const titleId = `${idPrefix}-title`;
+const closingTitleId = `${idPrefix}-closing-title`;
+---
+
+<article class="editorial-story">
+  <header class="editorial-story__hero" aria-labelledby={titleId}>
+    <p class="eyebrow">{eyebrow}</p>
+    <h1 id={titleId}>{title}</h1>
+    <p class="editorial-story__lead">{lead}</p>
+    <div class="editorial-story__actions">
+      <a class="button" href={primaryHref}>{closing.primaryCta}</a>
+      <a class="editorial-story__text-link" href={secondaryHref}
+        >{closing.secondaryCta}<span aria-hidden="true"> →</span></a
+      >
+    </div>
+  </header>
+
+  <ol class="editorial-story__sections">
+    {
+      sections.map((section, index) => {
+        const headingId = `${idPrefix}-section-${index + 1}`;
+        return (
+          <li>
+            <section class="editorial-story__section" aria-labelledby={headingId}>
+              <div class="editorial-story__section-heading">
+                <p class="eyebrow">{section.eyebrow}</p>
+                <h2 id={headingId}>{section.title}</h2>
+              </div>
+              <div class="editorial-story__section-copy">
+                <p>{section.body}</p>
+                {section.points && (
+                  <ul class="editorial-story__points">
+                    {section.points.map((point) => (
+                      <li>
+                        <h3>{point.title}</h3>
+                        <p>{point.body}</p>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+                {section.statement && <p class="editorial-story__statement">{section.statement}</p>}
+              </div>
+            </section>
+          </li>
+        );
+      })
+    }
+  </ol>
+
+  <section class="editorial-story__closing" aria-labelledby={closingTitleId}>
+    <p class="eyebrow editorial-story__closing-eyebrow">{closing.eyebrow}</p>
+    <h2 id={closingTitleId}>{closing.title}</h2>
+    <p>{closing.body}</p>
+    <div class="editorial-story__actions">
+      <a class="button editorial-story__button-light" href={primaryHref}>{closing.primaryCta}</a>
+      <a class="editorial-story__text-link editorial-story__text-link--light" href={secondaryHref}
+        >{closing.secondaryCta}<span aria-hidden="true"> →</span></a
+      >
+    </div>
+  </section>
+</article>
+
+<style>
+  .editorial-story {
+    padding-block: clamp(4rem, 9vw, 8rem);
+    overflow-wrap: anywhere;
+  }
+
+  .editorial-story__hero {
+    display: grid;
+    gap: var(--space-4);
+    max-width: 64rem;
+    padding-block: clamp(1rem, 3vw, 2rem) clamp(4rem, 9vw, 7rem);
+  }
+
+  .editorial-story__hero h1 {
+    max-width: 15ch;
+    margin: 0;
+    font-size: clamp(2.8rem, 6vw, 6rem);
+    letter-spacing: -0.05em;
+  }
+
+  .editorial-story__lead,
+  .editorial-story__section-copy > p,
+  .editorial-story__points p,
+  .editorial-story__closing > p {
+    color: var(--color-text-muted);
+    line-height: 1.75;
+  }
+
+  .editorial-story__lead {
+    margin: 0;
+    font-size: clamp(1.08rem, 1.6vw, 1.35rem);
+  }
+
+  .editorial-story__actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    flex-wrap: wrap;
+    margin-top: var(--space-3);
+  }
+
+  .editorial-story__text-link {
+    font-weight: 700;
+    text-decoration-thickness: 0.08em;
+    text-underline-offset: 0.25em;
+  }
+
+  .editorial-story__sections {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--color-ink);
+  }
+
+  .editorial-story__sections > li {
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .editorial-story__section {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    gap: clamp(2rem, 7vw, 7rem);
+    padding-block: clamp(3rem, 7vw, 6rem);
+  }
+
+  .editorial-story__section-heading {
+    display: grid;
+    align-content: start;
+    gap: var(--space-4);
+  }
+
+  .editorial-story__section-heading h2 {
+    font-size: clamp(2rem, 4vw, 4rem);
+  }
+
+  .editorial-story__section-copy {
+    display: grid;
+    align-content: start;
+    gap: var(--space-5);
+  }
+
+  .editorial-story__section-copy > p {
+    margin: 0;
+    font-size: 1.05rem;
+  }
+
+  .editorial-story__points {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-5);
+    margin: 0;
+    padding: var(--space-5) 0 0;
+    border-top: 1px solid var(--color-border);
+    list-style: none;
+  }
+
+  .editorial-story__points li {
+    display: grid;
+    align-content: start;
+    gap: var(--space-2);
+  }
+
+  .editorial-story__points h3,
+  .editorial-story__points p {
+    margin: 0;
+  }
+
+  .editorial-story__points h3 {
+    font-size: 1.1rem;
+  }
+
+  .editorial-story__section-copy > .editorial-story__statement {
+    max-width: 24ch;
+    padding-inline-start: var(--space-4);
+    border-inline-start: 3px solid var(--color-camel);
+    color: var(--color-ink);
+    font-family: var(--font-display);
+    font-size: clamp(1.4rem, 2.7vw, 2.25rem);
+    font-weight: 650;
+    line-height: 1.25;
+  }
+
+  .editorial-story__closing {
+    display: grid;
+    gap: var(--space-4);
+    margin-top: clamp(4rem, 9vw, 8rem);
+    padding: clamp(2rem, 6vw, 5rem);
+    border-radius: var(--radius-lg);
+    background: var(--color-ink);
+    color: var(--color-on-accent);
+  }
+
+  .editorial-story__closing h2,
+  .editorial-story__closing > p {
+    margin: 0;
+  }
+
+  .editorial-story__closing > p {
+    color: var(--color-on-dark-muted);
+  }
+
+  .editorial-story__closing-eyebrow {
+    color: var(--color-camel);
+  }
+
+  .editorial-story__button-light {
+    background: var(--color-surface);
+    color: var(--color-ink);
+  }
+
+  .editorial-story__button-light:hover {
+    background: var(--color-canvas);
+  }
+
+  .editorial-story__text-link--light {
+    color: var(--color-on-accent);
+  }
+
+  @media (max-width: 52rem) {
+    .editorial-story__section {
+      grid-template-columns: 1fr;
+      gap: var(--space-5);
+    }
+  }
+
+  @media (max-width: 36rem) {
+    .editorial-story__points {
+      grid-template-columns: 1fr;
+    }
+
+    .editorial-story__actions {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+  }
+</style>
