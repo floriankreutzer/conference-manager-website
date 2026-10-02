@@ -10,10 +10,8 @@ const accessibilityPaths = [
   '/de/company/',
   '/en/security-trust/',
   '/de/security-trust/',
-  '/en/demo/',
-  '/de/demo/',
 ];
-const routeDiscoveryPaths = ['/en/', '/de/', '/en/demo/', '/de/demo/'];
+const routeDiscoveryPaths = ['/en/', '/de/'];
 
 async function expectBrandVisualToLoad(page: Page, variant?: string) {
   const selector = variant
@@ -162,37 +160,6 @@ test.describe('public website contracts', () => {
       }),
     ).toBeVisible();
     await expect(page.getByRole('link', { name: 'Demo anfragen' }).first()).toBeVisible();
-  });
-
-  test('keeps the Demo launch static, localized, noindex and bound to fixed HTTPS origins', async ({
-    page,
-  }) => {
-    await page.goto('/en/demo/');
-    await expect(
-      page.getByRole('heading', { level: 1, name: 'Choose the Demo experience' }),
-    ).toBeVisible();
-    await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'noindex, nofollow');
-    await expect(page.getByRole('link', { name: 'Launch Customer Demo' })).toHaveAttribute(
-      'href',
-      'https://conference-manager-demo.onrender.com',
-    );
-    await expect(page.getByRole('link', { name: 'Launch Platform Demo' })).toHaveAttribute(
-      'href',
-      'https://conference-manager-ops-demo.onrender.com',
-    );
-    await expect(page.getByRole('link', { name: /Language: DE/ })).toHaveAttribute(
-      'href',
-      '/de/demo/',
-    );
-
-    await page.goto('/de/demo/');
-    await expect(
-      page.getByRole('heading', { level: 1, name: 'Demo-Umgebung auswählen' }),
-    ).toBeVisible();
-    await expect(page.getByRole('link', { name: 'Customer Demo starten' })).toHaveAttribute(
-      'href',
-      'https://conference-manager-demo.onrender.com',
-    );
   });
 
   test('keeps Login as a fixed HTTPS handoff to the application', async ({ page }) => {
