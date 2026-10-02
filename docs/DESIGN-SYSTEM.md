@@ -22,12 +22,9 @@ Preferred endorsed lockup where approved:
 
 `by Pavurel` is subordinate and is not part of the official product name.
 
-Current governance status:
-- PAVUREL is the preferred corporate-brand candidate;
-- SAVELUN is the reserve candidate;
-- legal/domain/trademark clearance remains pending.
+Internal brand-selection alternatives and clearance status remain in private governance sources.
 
-Do not visually or textually imply registered/legal ownership that has not been cleared.
+Do not visually or textually imply registered/legal ownership without verified publication approval.
 
 ## 3. Core palette
 

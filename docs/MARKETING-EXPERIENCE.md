@@ -26,7 +26,7 @@ Initial commercial focus remains DACH with an English/German experience that is 
 
 The website explains this relationship briefly after the core product, audience, integration and trust story. The brand explanation must support product confidence rather than become the hero category.
 
-PAVUREL trademark/company-name/domain clearance remains a separate legal gate. The website must not describe the endorsement as registered or legally cleared without evidence.
+Legal/trademark/domain status remains governed outside this public repository. The website must not describe a corporate endorsement as registered, legally cleared, or owned without verified publication evidence.
 
 ## 4. Homepage narrative
 
@@ -122,4 +122,4 @@ Photography added later must follow the repository image-performance and provena
 
 ## 12. Architecture decision status
 
-No ADR is introduced by this marketing refactor. The implementation remains inside the existing Astro/static-first architecture, repository-owned content model, login handoff, demo-request boundary and PAVUREL candidate publication governance.
+No ADR is introduced by this marketing refactor. The implementation remains inside the existing Astro/static-first architecture, repository-owned content model, login handoff, demo-request boundary and public brand publication governance.

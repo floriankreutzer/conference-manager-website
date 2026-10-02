@@ -194,11 +194,7 @@ Concrete public prices must not be published until the pricing model is explicit
 
 Official product name: `Conference Manager`.
 
-Current strategic corporate-brand state:
-- PAVUREL — preferred candidate, legal clearance pending;
-- SAVELUN — reserve candidate, legal clearance pending.
-
-The website may implement the approved PAVUREL candidate art direction while the project is not publicly launched, but public release gates must prevent unqualified representation of PAVUREL as a legally adopted or registered corporate brand before clearance.
+Internal corporate-brand selection and legal-decision metadata remain in private governance sources. This public repository may implement only the currently approved public art direction and must not represent a corporate endorsement as legally adopted, registered, or owned without verified publication approval.
 
 Brand assets and tokens must remain isolated enough that a corporate-brand decision can be changed without rewriting product content architecture.
 
