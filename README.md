@@ -1,5 +1,9 @@
 # Conference Manager Website
 
+## SaaS 3.9 public repository boundary
+
+This repository remains intentionally public. SaaS 3.9 hardens its public-content boundary and plans to move the supported static Demo landing surface here without moving application, identity, API, persistence or authorization responsibilities. See `docs/PUBLIC-REPOSITORY-BOUNDARY.md`. The landing-surface migration is a target state until its owning milestone issue is accepted.
+
 Public marketing website for **Conference Manager**.
 
 ## Repository responsibility
