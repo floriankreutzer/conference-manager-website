@@ -2,7 +2,7 @@
 
 ## SaaS 3.9 public repository boundary
 
-This repository remains intentionally public. SaaS 3.9 hardens its public-content boundary and plans to move the supported static Demo landing surface here without moving application, identity, API, persistence or authorization responsibilities. See `docs/PUBLIC-REPOSITORY-BOUNDARY.md`. The landing-surface migration is a target state until its owning milestone issue is accepted.
+This repository remains intentionally public. SaaS 3.9 hardens its public-content boundary. The website-side static Demo landing routes are implemented without moving application, identity, API, persistence or authorization responsibilities. See `docs/PUBLIC-REPOSITORY-BOUNDARY.md`. Final cutover from the application repository remains gated by #252/#254 acceptance.
 
 Public marketing website for **Conference Manager**.
 
