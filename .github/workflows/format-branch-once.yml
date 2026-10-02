@@ -3,7 +3,7 @@ name: Format branch once
 on:
   push:
     branches:
-      - feat/saas39-demo-landing
+      - feat/complete-marketing-brand-gaps
 
 permissions:
   contents: write
@@ -16,7 +16,7 @@ jobs:
       - name: Checkout branch
         uses: actions/checkout@v7
         with:
-          ref: feat/saas39-demo-landing
+          ref: feat/complete-marketing-brand-gaps
 
       - name: Setup Node.js
         uses: actions/setup-node@v6
@@ -39,4 +39,4 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add src e2e scripts functions '*.js' '*.mjs' '*.json' '*.ts' 2>/dev/null || true
           git commit -m "chore: apply repository formatting"
-          git push origin HEAD:feat/saas39-demo-landing
+          git push origin HEAD:feat/complete-marketing-brand-gaps
