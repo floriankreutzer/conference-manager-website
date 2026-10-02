@@ -31,16 +31,14 @@ Current strategic baseline:
 
 ## 4. Corporate-brand status
 
-Current state:
-- PAVUREL — preferred corporate-brand candidate, not legally cleared;
-- SAVELUN — reserve candidate, not legally cleared.
+Internal brand alternatives, preference rankings, clearance work and adoption decisions remain in private governance sources.
 
-Until professional clearance and explicit adoption:
-- do not claim PAVUREL is registered, trademarked, legally adopted, or already the company name;
+For public content:
+- do not claim a corporate endorsement is registered, trademarked, legally adopted, or the company name without verified publication approval;
 - do not state ownership of domains that have not been acquired/verified;
 - do not imply legal clearance through copyright/trademark symbols without basis;
-- keep `Conference Manager` as the product name;
-- use `by Pavurel` only as the approved subordinate candidate endorsement in contexts where that status is acceptable.
+- keep `Conference Manager` as the product name unless an approved public naming decision changes it;
+- use a subordinate corporate endorsement only where the current public brand source explicitly approves it.
 
 ## 5. Claim classification
 
