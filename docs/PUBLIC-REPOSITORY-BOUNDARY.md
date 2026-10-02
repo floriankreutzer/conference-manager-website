@@ -13,7 +13,7 @@ This repository may contain:
 - approved public product, company, trust and integration content;
 - public SEO/metadata and localized content;
 - public Demo/contact conversion surfaces;
-- the static public Demo landing surface when #252 completes;
+- the implemented static public Demo landing surface;
 - public deployment configuration that contains no secret or confidential values.
 
 ## Prohibited content
@@ -29,7 +29,7 @@ Do not store:
 
 ## Demo landing boundary
 
-The future public Demo landing surface remains a static navigation surface only. It must not become an application runtime, identity/session boundary, API proxy, persistence layer or authorization layer. Customer and Platform Demo applications continue to use their separately hosted, separately authenticated runtime boundaries.
+The public Demo landing surface is implemented as a static navigation surface only. Final cutover from the legacy application-repository launchpad remains gated by #252/#254 acceptance. It must not become an application runtime, identity/session boundary, API proxy, persistence layer or authorization layer. Customer and Platform Demo applications continue to use their separately hosted, separately authenticated runtime boundaries.
 
 ## Publication controls
 
