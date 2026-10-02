@@ -34,7 +34,10 @@ const alternateSocialLocale = locale === 'de' ? 'en_US' : 'de_DE';
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <meta name="description" content={description} />
-    <meta name="robots" content={seo.indexable && !noindex ? 'index, follow' : 'noindex, nofollow'} />
+    <meta
+      name="robots"
+      content={seo.indexable && !noindex ? 'index, follow' : 'noindex, nofollow'}
+    />
     <link rel="canonical" href={canonical} />
     <link rel="alternate" hreflang="en" href={new URL(enPath, canonicalBase)} />
     <link rel="alternate" hreflang="de" href={new URL(dePath, canonicalBase)} />
