@@ -109,9 +109,7 @@ CI additionally performs secret scanning, dependency vulnerability review and Co
 
 The official product name remains **Conference Manager**.
 
-Current strategic corporate-brand state:
-- **PAVUREL** — preferred candidate, legal clearance pending
-- **SAVELUN** — reserve candidate, legal clearance pending
+Corporate-brand presentation is publication-governed and must not imply unverified legal, trademark, domain, or ownership status.
 
 The public website must verify concrete product/security/integration claims against current authoritative product implementation and documentation before publication.
 
