@@ -37,6 +37,6 @@
     "vitest": "4.1.11"
   },
   "overrides": {
-    "devalue": "6.0.2"
+    "devalue": "5.9.4"
   }
 }
