@@ -164,9 +164,13 @@ test.describe('public website contracts', () => {
     await expect(page.getByRole('link', { name: 'Demo anfragen' }).first()).toBeVisible();
   });
 
-  test('keeps the Demo launch static, localized, noindex and bound to fixed HTTPS origins', async ({ page }) => {
+  test('keeps the Demo launch static, localized, noindex and bound to fixed HTTPS origins', async ({
+    page,
+  }) => {
     await page.goto('/en/demo/');
-    await expect(page.getByRole('heading', { level: 1, name: 'Choose the Demo experience' })).toBeVisible();
+    await expect(
+      page.getByRole('heading', { level: 1, name: 'Choose the Demo experience' }),
+    ).toBeVisible();
     await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'noindex, nofollow');
     await expect(page.getByRole('link', { name: 'Launch Customer Demo' })).toHaveAttribute(
       'href',
@@ -176,10 +180,15 @@ test.describe('public website contracts', () => {
       'href',
       'https://conference-manager-ops-demo.onrender.com',
     );
-    await expect(page.getByRole('link', { name: /Language: DE/ })).toHaveAttribute('href', '/de/demo/');
+    await expect(page.getByRole('link', { name: /Language: DE/ })).toHaveAttribute(
+      'href',
+      '/de/demo/',
+    );
 
     await page.goto('/de/demo/');
-    await expect(page.getByRole('heading', { level: 1, name: 'Demo-Umgebung auswählen' })).toBeVisible();
+    await expect(
+      page.getByRole('heading', { level: 1, name: 'Demo-Umgebung auswählen' }),
+    ).toBeVisible();
     await expect(page.getByRole('link', { name: 'Customer Demo starten' })).toHaveAttribute(
       'href',
       'https://conference-manager-demo.onrender.com',
