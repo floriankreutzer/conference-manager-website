@@ -119,11 +119,11 @@ Public claims must follow `docs/CONTENT-GOVERNANCE.md`. Target-state capabilitie
 
 The official product name remains `Conference Manager`.
 
-The current strategic brand baseline identifies PAVUREL as the preferred corporate-brand candidate and SAVELUN as the reserve candidate, with legal clearance pending. Until the documented clearance gate is completed:
-- do not represent PAVUREL as a legally adopted or registered company/trademark;
+Internal brand-selection alternatives and decision status belong in private governance sources, not this public repository. For public implementation:
+- do not represent any corporate endorsement as a legally adopted or registered company/trademark without verified publication approval;
 - do not silently rename the product;
-- `by Pavurel` remains a subordinate corporate endorsement where approved for the current publication context;
-- implementation must be easy to revise if the corporate-brand decision changes.
+- use a subordinate corporate endorsement only where the current public brand source explicitly approves it;
+- implementation must remain easy to revise when the approved public brand changes.
 
 Brand implementation must follow `docs/DESIGN-SYSTEM.md` and the current approved Confluence brand sources.
 
