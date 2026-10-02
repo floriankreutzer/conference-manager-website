@@ -1,0 +1,87 @@
+---
+import type { Locale } from '@config/locales';
+import { getDemoLaunchCopy } from '@i18n/demoLaunch';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const copy = getDemoLaunchCopy(locale);
+---
+
+<section class="demo-launch" aria-labelledby="demo-launch-title">
+  <p class="demo-launch__eyebrow">{copy.eyebrow}</p>
+  <h1 id="demo-launch-title">{copy.title}</h1>
+  <p class="demo-launch__lead">{copy.lead}</p>
+  <p class="demo-launch__notice"><strong>{copy.cold}</strong></p>
+  <div class="demo-launch__grid">
+    <article>
+      <h2>{copy.customer}</h2>
+      <p>{copy.customerText}</p>
+      <a class="button" href="https://conference-manager-demo.onrender.com">
+        {copy.customerAction}
+      </a>
+    </article>
+    <article>
+      <h2>{copy.platform}</h2>
+      <p>{copy.platformText}</p>
+      <a class="button" href="https://conference-manager-ops-demo.onrender.com">
+        {copy.platformAction}
+      </a>
+    </article>
+  </div>
+  <section class="demo-launch__boundary" aria-labelledby="demo-boundary-title">
+    <h2 id="demo-boundary-title">{copy.boundary}</h2>
+    <p>{copy.boundaryText}</p>
+  </section>
+</section>
+
+<style>
+  .demo-launch {
+    padding-block: clamp(4rem, 8vw, 7rem);
+  }
+
+  .demo-launch__eyebrow {
+    font-weight: 750;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .demo-launch h1 {
+    max-width: 18ch;
+    margin-block: 1rem;
+    font-size: clamp(3rem, 8vw, 6.5rem);
+  }
+
+  .demo-launch__lead {
+    font-size: clamp(1.1rem, 2vw, 1.4rem);
+  }
+
+  .demo-launch__notice,
+  .demo-launch__boundary {
+    padding: 1.25rem;
+    margin-block-start: 2rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+  }
+
+  .demo-launch__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+    gap: 1rem;
+    margin-block-start: 2rem;
+  }
+
+  .demo-launch__grid article {
+    padding: clamp(1.25rem, 3vw, 2rem);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-surface);
+  }
+
+  .demo-launch__grid h2,
+  .demo-launch__boundary h2 {
+    font-size: clamp(1.7rem, 3vw, 2.5rem);
+    letter-spacing: -0.025em;
+  }
+</style>
