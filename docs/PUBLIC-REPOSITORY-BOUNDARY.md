@@ -4,7 +4,7 @@
 
 `conference-manager-website` is intentionally public. SaaS 3.9 issue #253 hardens this public-content boundary and #252 moves the supported public Demo landing surface out of the application source repository.
 
-This document records the approved target boundary; implementation and cutover evidence remain owned by the milestone issues.
+This document records the implemented public-content boundary. Dated cutover evidence remains in private governance sources; it is not a claim of Production readiness.
 
 ## Allowed content
 
@@ -29,7 +29,7 @@ Do not store:
 
 ## Demo landing boundary
 
-The public Demo landing surface is implemented as a static navigation surface only. Final cutover from the legacy application-repository launchpad remains gated by #252/#254 acceptance. It must not become an application runtime, identity/session boundary, API proxy, persistence layer or authorization layer. Customer and Platform Demo applications continue to use their separately hosted, separately authenticated runtime boundaries.
+The public Demo landing surface is implemented as a static navigation surface only. The legacy application-repository launchpad has been retired and its Pages publishing is disabled. It must not become an application runtime, identity/session boundary, API proxy, persistence layer or authorization layer. Customer and Platform Demo applications continue to use their separately hosted, separately authenticated runtime boundaries.
 
 ## Publication controls
 

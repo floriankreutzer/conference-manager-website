@@ -2,7 +2,7 @@
 
 ## SaaS 3.9 public repository boundary
 
-This repository remains intentionally public. SaaS 3.9 hardens its public-content boundary. The website-side static Demo landing routes are implemented without moving application, identity, API, persistence or authorization responsibilities. See `docs/PUBLIC-REPOSITORY-BOUNDARY.md`. Final cutover from the application repository remains gated by #252/#254 acceptance.
+This repository remains intentionally public. SaaS 3.9 hardens its public-content boundary. The website-side static Demo landing routes are implemented without moving application, identity, API, persistence or authorization responsibilities. See [PUBLIC-REPOSITORY-BOUNDARY.md](docs/PUBLIC-REPOSITORY-BOUNDARY.md). The supported bilingual static Demo landing is delivered; the legacy application-repository Pages surface is disabled. This website retains only navigation responsibility and acquires no application/session authority.
 
 Public marketing website for **Conference Manager**.
 
@@ -22,7 +22,7 @@ The website provides a `Login` / `Sign in` action that performs a normal HTTPS h
 
 Authentication starts in the application-owned flow. This repository must not store application tokens, share application session cookies, or implement a parallel Entra/OIDC flow.
 
-See `docs/adr/0001-public-website-boundary.md`.
+See [0001-public-website-boundary.md](docs/adr/0001-public-website-boundary.md).
 
 ## Current implementation
 
@@ -72,21 +72,21 @@ The repository is organized by responsibility and trust boundary:
 - `scripts/performance/` — deterministic performance tooling;
 - `e2e/` — browser-level public journey tests.
 
-See `docs/REPOSITORY-STRUCTURE.md` for placement and dependency-direction rules.
+See [REPOSITORY-STRUCTURE.md](docs/REPOSITORY-STRUCTURE.md) for placement and dependency-direction rules.
 
 ## Mandatory contributor/agent reading
 
 Start with:
 1. `AGENTS.md`
-2. `docs/CODING-STANDARDS.md`
-3. `docs/ARCHITECTURE.md`
+2. [CODING-STANDARDS.md](docs/CODING-STANDARDS.md)
+3. [ARCHITECTURE.md](docs/ARCHITECTURE.md)
 
 Then read the standards relevant to the change:
-- `docs/REPOSITORY-STRUCTURE.md`
-- `docs/DESIGN-SYSTEM.md`
-- `docs/SEO-STANDARDS.md`
-- `docs/SECURITY.md`
-- `docs/CONTENT-GOVERNANCE.md`
+- [REPOSITORY-STRUCTURE.md](docs/REPOSITORY-STRUCTURE.md)
+- [DESIGN-SYSTEM.md](docs/DESIGN-SYSTEM.md)
+- [SEO-STANDARDS.md](docs/SEO-STANDARDS.md)
+- [SECURITY.md](docs/SECURITY.md)
+- [CONTENT-GOVERNANCE.md](docs/CONTENT-GOVERNANCE.md)
 - `docs/adr/`
 - the nearest nested `AGENTS.md`, if present
 

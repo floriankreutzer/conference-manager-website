@@ -218,3 +218,13 @@ Cover at least:
 - tests/validation
 
 Only mark an item fulfilled when implementation and executed verification support the claim.
+
+## Cost-constrained execution
+
+Work must remain within the owner's configured zero-additional-spend limits. Do not upgrade plans, increase paid quotas, change spending limits, or start billable runners or deployments without an explicit new owner decision. Prefer local validation, bundle related documentation changes, and avoid unnecessary workflow reruns and Hosted Demo traffic. Configured cost controls do not provide additional included capacity.
+
+Required reviews, security checks, regression/progression tests and release gates remain mandatory. A local result does not substitute for a required GitHub status check. If a required gate is blocked by quota, record it as pending or unavailable and retain the open release/merge gate. Do not weaken protections, skip checks, or claim completion to work around cost limits. User-reported spending controls must be distinguished from independently verified provider settings.
+
+## Documentation status integrity
+
+Reconcile current documentation with the exact merged implementation and named deployment evidence. Distinguish current main, unmerged pull requests, deployed immutable counterparts, dated test evidence and planned behavior. Keep historical failures and accepted scope limits explicitly historical. A closed milestone does not prove every later change passed its own gates.
