@@ -16,7 +16,9 @@ The output contains `sbom.cdx.json`, an exact `git archive` source artifact `sou
 `provenance.json`. The manifest binds source commit/tree, lockfile/source/SBOM SHA-256, actual
 Node/npm versions, time, environment class and GitHub workflow/run/attempt identity where present.
 Effective YAML is parsed with duplicate-key/tag/alias rejection rather than extracting refs from
-comments or shell strings. Moving or unresolved paired refs fail closed. API embedded-frontend/render pins must agree; the permanent acceptance ref and application paired
+comments or shell strings. Moving or unresolved paired refs fail closed. The API frontend checkout must be a literal commit
+matching Render and the Gitlink; a dynamic step expression is insufficient even when its producer
+currently reads Render. The existing runtime/CI verification remains an independent guard. API embedded-frontend/render pins must agree; the permanent acceptance ref and application paired
 API ref are extracted from the committed source, validated as immutable and recorded separately.
 An API source archive contains its Gitlink, not the embedded frontend's file bytes; its separate
 component inventory and exact counterpart acceptance remain required. This is not a deployed image

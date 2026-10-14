@@ -64,7 +64,7 @@ export function apiCounterparts({ workflow, render, gitlink }) {
   const frontend = sources.filter((step) => step.path === 'frontend');
   const acceptance = sources.filter((step) => step.path === 'acceptance');
   requireCondition(
-    frontend.length === 1 && frontend[0].ref === '${{ steps.frontend_ref.outputs.ref }}',
+    frontend.length === 1 && isCommit(frontend[0].ref) && frontend[0].ref === refs[0],
   );
   requireCondition(acceptance.length === 1 && isCommit(acceptance[0].ref));
   return [

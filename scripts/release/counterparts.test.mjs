@@ -18,7 +18,7 @@ function applicationWorkflow(value = ref) {
 
 function apiFixture() {
   return {
-    workflow: `jobs:\n  shared:\n    steps:\n      - uses: ${checkout}\n        with:\n          repository: ${app}\n          path: frontend\n          ref: \${{ steps.frontend_ref.outputs.ref }}\n      - uses: ${checkout}\n        with:\n          repository: ${app}\n          path: acceptance\n          ref: ${acceptance}\n`,
+    workflow: `jobs:\n  shared:\n    steps:\n      - uses: ${checkout}\n        with:\n          repository: ${app}\n          path: frontend\n          ref: ${ref}\n      - uses: ${checkout}\n        with:\n          repository: ${app}\n          path: acceptance\n          ref: ${acceptance}\n`,
     render: `services:\n  - name: customer\n    envVars:\n      - key: DEMO_FRONTEND_REF\n        value: ${ref}\n  - name: operations\n    envVars:\n      - key: DEMO_FRONTEND_REF\n        value: ${ref}\n`,
     gitlink: `160000 commit ${ref}\tvendor/demo-frontend`,
   };
@@ -52,6 +52,14 @@ test('binds both effective render values, Gitlink and the actual acceptance chec
     { repository: app, commit: ref, purpose: 'embedded-frontend' },
     { repository: app, commit: acceptance, purpose: 'acceptance-contract' },
   ]);
+  const dynamic = apiFixture();
+  dynamic.workflow = dynamic.workflow.replace(
+    `ref: ${ref}`,
+    'ref: ${{ steps.frontend_ref.outputs.ref }}',
+  );
+  dynamic.workflow +=
+    '\n# frontend_ref may emit main or a foreign SHA; unresolved producers are never accepted.\n';
+  expect(() => apiCounterparts(dynamic)).toThrow();
   const moving = apiFixture();
   moving.workflow = moving.workflow.replace(`ref: ${acceptance}`, 'ref: main');
   moving.workflow += `\n# ACCEPTANCE_REF: ${acceptance}\n`;
