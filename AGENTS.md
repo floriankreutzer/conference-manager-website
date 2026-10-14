@@ -169,6 +169,10 @@ Avoid:
 
 Every implementation change requires regression/progression validation appropriate to its scope.
 
+Use the [canonical cross-repository test strategy](https://github.com/floriankreutzer/conference-manager-api/blob/main/docs/TEST-STRATEGY.md)
+for risk-based test ownership, execution evidence and flaky-test handling. It complements these
+instructions and the coding standards; it cannot waive required checks or publication gates.
+
 Once the implementation stack is selected, CI must provide explicit commands for at least:
 - formatting/lint/static validation;
 - dependency vulnerability review;
