@@ -21,6 +21,10 @@ jobs:
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
           node-version: '22.22.3'
+      - name: Install the pinned standalone evidence tool dependency
+        run: |
+          npm ci --prefix scripts/release --ignore-scripts
+          npm audit --prefix scripts/release --audit-level=high
       - name: Generate and independently verify source evidence
         run: |
           node scripts/release/generate.mjs generate "$GITHUB_REPOSITORY"

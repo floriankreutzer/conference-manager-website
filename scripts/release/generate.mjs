@@ -2,6 +2,7 @@ import { execFile } from 'node:child_process';
 import { lstat, mkdir, readFile, writeFile } from 'node:fs/promises';
 import { promisify } from 'node:util';
 import { digest, validateProvenance, verifyEvidence } from './provenance.mjs';
+import { applicationCounterparts, apiCounterparts } from './counterparts.mjs';
 
 const exec = promisify(execFile);
 const repository = process.argv[3];
@@ -34,48 +35,13 @@ async function evidenceFile(name, limit) {
 async function counterparts(commit) {
   if (repository.endsWith('-website')) return [];
   const workflow = await gitText(['show', `${commit}:.github/workflows/ci.yml`]);
-  if (repository.endsWith('-api')) {
-    const render = await gitText(['show', `${commit}:render.yaml`]);
-    const refs = [...render.matchAll(/key: DEMO_FRONTEND_REF\s+value: ([a-f0-9]{40})/g)].map(
-      (m) => m[1],
-    );
-    const gitlink = await gitText(['ls-tree', commit, 'vendor/demo-frontend']);
-    const match = /^160000 commit ([a-f0-9]{40})\tvendor\/demo-frontend$/.exec(gitlink);
-    const acceptance = [...workflow.matchAll(/ACCEPTANCE_REF: ([a-f0-9]{40})/g)].map((m) => m[1]);
-    if (
-      refs.length !== 2 ||
-      new Set(refs).size !== 1 ||
-      !match ||
-      match[1] !== refs[0] ||
-      new Set(acceptance).size !== 1
-    )
-      throw new Error('COUNTERPART_INVALID');
-    return [
-      {
-        repository: 'floriankreutzer/conference-manager',
-        commit: refs[0],
-        purpose: 'embedded-frontend',
-      },
-      {
-        repository: 'floriankreutzer/conference-manager',
-        commit: acceptance[0],
-        purpose: 'acceptance-contract',
-      },
-    ];
-  }
-  const refs = [
-    ...workflow.matchAll(
-      /repository: floriankreutzer\/conference-manager-api\s+ref: ([a-f0-9]{40})/g,
-    ),
-  ].map((m) => m[1]);
-  if (new Set(refs).size !== 1) throw new Error('COUNTERPART_INVALID');
-  return [
-    {
-      repository: 'floriankreutzer/conference-manager-api',
-      commit: refs[0],
-      purpose: 'paired-api',
-    },
-  ];
+  if (repository.endsWith('-api'))
+    return apiCounterparts({
+      workflow,
+      render: await gitText(['show', `${commit}:render.yaml`]),
+      gitlink: await gitText(['ls-tree', commit, 'vendor/demo-frontend']),
+    });
+  return applicationCounterparts(workflow);
 }
 
 async function createInventory(commit) {

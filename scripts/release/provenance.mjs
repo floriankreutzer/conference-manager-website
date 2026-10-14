@@ -2,6 +2,9 @@ import { createHash } from 'node:crypto';
 
 const SHA = /^[a-f0-9]{40}$/;
 const DIGEST = /^[a-f0-9]{64}$/;
+export function isCommit(value) {
+  return typeof value === 'string' && value.length === 40 && SHA.test(value);
+}
 const REPOSITORIES = new Set([
   'floriankreutzer/conference-manager',
   'floriankreutzer/conference-manager-api',
@@ -26,7 +29,7 @@ export function validateProvenance(value) {
   requireCondition(value.schemaVersion === 1);
   keys(value.source, ['repository', 'commit', 'tree', 'lockSha256']);
   requireCondition(REPOSITORIES.has(value.source.repository));
-  requireCondition(SHA.test(value.source.commit) && SHA.test(value.source.tree));
+  requireCondition(isCommit(value.source.commit) && isCommit(value.source.tree));
   requireCondition(DIGEST.test(value.source.lockSha256));
   keys(value.build, [
     'environment',
@@ -50,7 +53,7 @@ export function validateProvenance(value) {
         build.workflowRef.startsWith(`${value.source.repository}/.github/workflows/`),
     );
     requireCondition(/^[a-zA-Z0-9_./@-]{1,300}$/.test(build.workflowRef));
-    requireCondition(SHA.test(build.workflowSha));
+    requireCondition(isCommit(build.workflowSha));
     requireCondition(
       /^[1-9]\d{0,19}$/.test(build.runId) && /^[1-9]\d{0,5}$/.test(build.runAttempt),
     );
@@ -92,7 +95,7 @@ export function validateProvenance(value) {
   requireCondition(purposes === requiredPurposes);
   for (const ref of value.counterparts) {
     keys(ref, ['repository', 'commit', 'purpose']);
-    requireCondition(REPOSITORIES.has(ref.repository) && SHA.test(ref.commit));
+    requireCondition(REPOSITORIES.has(ref.repository) && isCommit(ref.commit));
     requireCondition(
       ['embedded-frontend', 'acceptance-contract', 'paired-api'].includes(ref.purpose),
     );
@@ -102,7 +105,7 @@ export function validateProvenance(value) {
 
 export function verifyEvidence({ provenance, sbom, archive, expectedRepository, expectedCommit }) {
   validateProvenance(provenance);
-  requireCondition(REPOSITORIES.has(expectedRepository) && SHA.test(expectedCommit));
+  requireCondition(REPOSITORIES.has(expectedRepository) && isCommit(expectedCommit));
   requireCondition(
     provenance.source.repository === expectedRepository &&
       provenance.source.commit === expectedCommit,

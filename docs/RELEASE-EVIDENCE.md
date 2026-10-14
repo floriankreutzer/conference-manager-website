@@ -1,8 +1,9 @@
 # Release source inventory and provenance
 
-Tracking: application issue #301. This public repository owns the shared, dependency-free
+Tracking: application issue #301. This public repository owns the shared
 release-evidence command so application/API workflows can pin it after returning to private.
-It processes source artifacts only; it owns no application business logic or authorization.
+Its isolated package locks the existing YAML parser family to 2.9.1; install with
+`npm ci --prefix scripts/release --ignore-scripts`. It processes source artifacts only; it owns no application business logic or authorization.
 
 `scripts/release/generate.mjs generate OWNER/REPOSITORY` runs npm's native lockfile-only
 CycloneDX 1.5 generator with dev/optional/peer dependencies explicitly included and lifecycle
@@ -14,7 +15,8 @@ This inventories npm dependencies, not operating-system/container packages or vu
 The output contains `sbom.cdx.json`, an exact `git archive` source artifact `source.tar`, and
 `provenance.json`. The manifest binds source commit/tree, lockfile/source/SBOM SHA-256, actual
 Node/npm versions, time, environment class and GitHub workflow/run/attempt identity where present.
-API embedded-frontend/render pins must agree; the permanent acceptance ref and application paired
+Effective YAML is parsed with duplicate-key/tag/alias rejection rather than extracting refs from
+comments or shell strings. Moving or unresolved paired refs fail closed. API embedded-frontend/render pins must agree; the permanent acceptance ref and application paired
 API ref are extracted from the committed source, validated as immutable and recorded separately.
 An API source archive contains its Gitlink, not the embedded frontend's file bytes; its separate
 component inventory and exact counterpart acceptance remain required. This is not a deployed image
