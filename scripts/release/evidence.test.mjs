@@ -148,6 +148,34 @@ test('actual CLI generates and verifies a committed lockfile, then rejects wrong
     expect(generated.status, generated.stderr).toBe(0);
     expect(cli('verify', repository, sha).status).toBe(0);
     expect(cli('verify', repository, 'f'.repeat(40)).status).not.toBe(0);
+    const sbomFile = path.join(root, 'release-evidence/sbom.cdx.json');
+    const provenanceFile = path.join(root, 'release-evidence/provenance.json');
+    const originalInventory = readFileSync(sbomFile);
+    const originalProvenance = readFileSync(provenanceFile);
+    for (const mutation of ['version', 'graph']) {
+      const inventory = JSON.parse(originalInventory);
+      if (mutation === 'version') {
+        inventory.metadata.component.version = '999.0.0';
+        inventory.metadata.component.purl = 'pkg:npm/conference-manager-website@999.0.0';
+      } else {
+        inventory.components.push({
+          type: 'library',
+          name: 'synthetic-extra',
+          version: '1.0.0',
+          'bom-ref': 'synthetic-extra@1.0.0',
+        });
+        inventory.dependencies[0].dependsOn.push('synthetic-extra@1.0.0');
+      }
+      const forged = Buffer.from(JSON.stringify(inventory));
+      const binding = JSON.parse(originalProvenance);
+      binding.sbom.sha256 = digest(forged);
+      binding.sbom.componentCount = inventory.components.length;
+      writeFileSync(sbomFile, forged);
+      writeFileSync(provenanceFile, JSON.stringify(binding));
+      expect(cli('verify', repository, sha).status).not.toBe(0);
+    }
+    writeFileSync(sbomFile, originalInventory);
+    writeFileSync(provenanceFile, originalProvenance);
     const sourceFile = path.join(root, 'release-evidence/source.tar');
     const original = readFileSync(sourceFile);
     const changed = Buffer.from(original);
@@ -155,7 +183,6 @@ test('actual CLI generates and verifies a committed lockfile, then rejects wrong
     writeFileSync(sourceFile, changed);
     expect(cli('verify', repository, sha).status).not.toBe(0);
     writeFileSync(sourceFile, original);
-    const provenanceFile = path.join(root, 'release-evidence/provenance.json');
     const p = JSON.parse(readFileSync(provenanceFile));
     const originalTree = p.source.tree;
     p.source.tree = '0'.repeat(40);

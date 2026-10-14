@@ -22,7 +22,7 @@ or an assertion that the source candidate is already running in Production.
 
 `scripts/release/generate.mjs verify OWNER/REPOSITORY EXPECTED_COMMIT` requires the independently
 chosen exact checkout commit, recreates its archive and lock digest, verifies the committed
-counterpart refs and rejects altered SBOM/archive/manifest values. Do not take the expected identity
+counterpart refs and regenerates the complete inventory with the recorded npm version. Component versions, dependency graph, licenses and other inventory fields must match; only the volatile document UUID and inventory timestamp are excluded from semantic comparison. Raw-byte digests and signatures still bind those fields. Source identity, archive, lock, tree and inventory mutations are rejected. Build/time claims additionally require independent attestation or trusted GitHub run/artifact evidence. Do not take the expected identity
 from the manifest being verified. The actual CLI tests exercise positive generation, wrong commit,
 changed artifact bytes and a changed lock binding; additional negative cases cover metadata and refs.
 

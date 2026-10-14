@@ -78,44 +78,7 @@ async function counterparts(commit) {
   ];
 }
 
-async function run() {
-  if (!allowed.includes(repository) || !['generate', 'verify'].includes(mode))
-    throw new Error('ARGUMENT_INVALID');
-  const commit = await gitText(['rev-parse', 'HEAD']);
-  if (!shaPattern.test(commit)) throw new Error('SOURCE_INVALID');
-  const expected = mode === 'verify' ? process.argv[4] : process.env.GITHUB_SHA || commit;
-  if (!shaPattern.test(expected) || expected !== commit) throw new Error('SOURCE_MISMATCH');
-  await command('git', ['diff', '--exit-code', 'HEAD', '--', 'package.json', 'package-lock.json']);
-  const archive = await command(
-    'git',
-    ['-c', 'tar.umask=0022', 'archive', '--format=tar', commit],
-    64 * 1024 * 1024,
-  );
-  const lock = await command('git', ['show', `${commit}:package-lock.json`], 16 * 1024 * 1024);
-  const refs = await counterparts(commit);
-  if (mode === 'verify') {
-    const provenance = JSON.parse(
-      (await evidenceFile('provenance.json', 64 * 1024)).toString('utf8'),
-    );
-    const actualArchive = await evidenceFile('source.tar', 64 * 1024 * 1024);
-    const sbom = await evidenceFile('sbom.cdx.json', 16 * 1024 * 1024);
-    verifyEvidence({
-      provenance,
-      archive: actualArchive,
-      sbom,
-      expectedRepository: repository,
-      expectedCommit: expected,
-    });
-    if (
-      digest(archive) !== provenance.artifact.sha256 ||
-      provenance.source.tree !== (await gitText(['rev-parse', 'HEAD^{tree}'])) ||
-      digest(lock) !== provenance.source.lockSha256 ||
-      JSON.stringify(refs) !== JSON.stringify(provenance.counterparts)
-    )
-      throw new Error('SOURCE_CONTENT_MISMATCH');
-    process.stdout.write('Verified source, lockfile, counterpart refs and evidence digests.\n');
-    return;
-  }
+async function createInventory(commit) {
   const rawSbom = await command(
     'npm',
     [
@@ -139,6 +102,82 @@ async function run() {
     throw new Error('SBOM_COMPONENT_MISMATCH');
   // npm can use the checkout directory as the root display name; retain source package identity.
   inventory.metadata.component.name = pkg.name;
+  return inventory;
+}
+
+function inventoryMeaning(value) {
+  const data = JSON.parse(JSON.stringify(value));
+  delete data.serialNumber;
+  delete data.metadata.timestamp;
+  const ordered = (item) => {
+    if (Array.isArray(item)) return item.map(ordered);
+    if (item && typeof item === 'object')
+      return Object.fromEntries(
+        Object.keys(item)
+          .sort()
+          .map((key) => [key, ordered(item[key])]),
+      );
+    return item;
+  };
+  return JSON.stringify(ordered(data));
+}
+
+async function run() {
+  if (!allowed.includes(repository) || !['generate', 'verify'].includes(mode))
+    throw new Error('ARGUMENT_INVALID');
+  const commit = await gitText(['rev-parse', 'HEAD']);
+  if (!shaPattern.test(commit)) throw new Error('SOURCE_INVALID');
+  const expected = mode === 'verify' ? process.argv[4] : process.env.GITHUB_SHA || commit;
+  if (!shaPattern.test(expected) || expected !== commit) throw new Error('SOURCE_MISMATCH');
+  await command('git', ['diff', '--exit-code', 'HEAD', '--', 'package.json', 'package-lock.json']);
+  const archive = await command(
+    'git',
+    ['-c', 'tar.umask=0022', 'archive', '--format=tar', commit],
+    64 * 1024 * 1024,
+  );
+  const lock = await command('git', ['show', `${commit}:package-lock.json`], 16 * 1024 * 1024);
+  const refs = await counterparts(commit);
+  const expectedFiles = await gitText([
+    'rev-parse',
+    `${commit}:package.json`,
+    `${commit}:package-lock.json`,
+  ]);
+  const actualFiles = await gitText(['hash-object', '--', 'package.json', 'package-lock.json']);
+  if (actualFiles !== expectedFiles) throw new Error('SOURCE_WORKTREE_MISMATCH');
+  const npmVersion = (await command('npm', ['--version'])).toString('utf8').trim();
+  if (mode === 'verify') {
+    const provenance = JSON.parse(
+      (await evidenceFile('provenance.json', 64 * 1024)).toString('utf8'),
+    );
+    const actualArchive = await evidenceFile('source.tar', 64 * 1024 * 1024);
+    const sbom = await evidenceFile('sbom.cdx.json', 16 * 1024 * 1024);
+    verifyEvidence({
+      provenance,
+      archive: actualArchive,
+      sbom,
+      expectedRepository: repository,
+      expectedCommit: expected,
+    });
+    if (
+      digest(archive) !== provenance.artifact.sha256 ||
+      provenance.source.tree !== (await gitText(['rev-parse', 'HEAD^{tree}'])) ||
+      digest(lock) !== provenance.source.lockSha256 ||
+      JSON.stringify(refs) !== JSON.stringify(provenance.counterparts)
+    )
+      throw new Error('SOURCE_CONTENT_MISMATCH');
+    if (
+      provenance.build.npmVersion !== npmVersion ||
+      inventoryMeaning(JSON.parse(sbom.toString('utf8'))) !==
+        inventoryMeaning(await createInventory(commit))
+    ) {
+      throw new Error('SOURCE_INVENTORY_MISMATCH');
+    }
+    process.stdout.write(
+      'Verified source, lockfile, counterpart refs, inventory semantics and evidence digests.\n',
+    );
+    return;
+  }
+  const inventory = await createInventory(commit);
   const sbom = Buffer.from(`${JSON.stringify(inventory, null, 2)}\n`);
   const inActions = process.env.GITHUB_ACTIONS === 'true';
   const provenance = validateProvenance({
@@ -157,7 +196,7 @@ async function run() {
       runAttempt: inActions ? process.env.GITHUB_RUN_ATTEMPT : null,
       createdAt: new Date().toISOString(),
       nodeVersion: process.version,
-      npmVersion: (await command('npm', ['--version'])).toString('utf8').trim(),
+      npmVersion,
     },
     artifact: { name: 'source.tar', kind: 'git-source-archive', sha256: digest(archive) },
     sbom: {
