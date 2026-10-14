@@ -5,6 +5,7 @@ export default defineConfig({
   fullyParallel: true,
   forbidOnly: true,
   retries: 1,
+  failOnFlakyTests: true,
   workers: 2,
   reporter: 'github',
   use: {
