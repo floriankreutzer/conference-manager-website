@@ -86,7 +86,11 @@ async function run() {
   const expected = mode === 'verify' ? process.argv[4] : process.env.GITHUB_SHA || commit;
   if (!shaPattern.test(expected) || expected !== commit) throw new Error('SOURCE_MISMATCH');
   await command('git', ['diff', '--exit-code', 'HEAD', '--', 'package.json', 'package-lock.json']);
-  const archive = await command('git', ['archive', '--format=tar', commit], 64 * 1024 * 1024);
+  const archive = await command(
+    'git',
+    ['-c', 'tar.umask=0022', 'archive', '--format=tar', commit],
+    64 * 1024 * 1024,
+  );
   const lock = await command('git', ['show', `${commit}:package-lock.json`], 16 * 1024 * 1024);
   const refs = await counterparts(commit);
   if (mode === 'verify') {
@@ -104,6 +108,7 @@ async function run() {
     });
     if (
       digest(archive) !== provenance.artifact.sha256 ||
+      provenance.source.tree !== (await gitText(['rev-parse', 'HEAD^{tree}'])) ||
       digest(lock) !== provenance.source.lockSha256 ||
       JSON.stringify(refs) !== JSON.stringify(provenance.counterparts)
     )

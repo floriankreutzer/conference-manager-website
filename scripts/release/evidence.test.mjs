@@ -157,6 +157,11 @@ test('actual CLI generates and verifies a committed lockfile, then rejects wrong
     writeFileSync(sourceFile, original);
     const provenanceFile = path.join(root, 'release-evidence/provenance.json');
     const p = JSON.parse(readFileSync(provenanceFile));
+    const originalTree = p.source.tree;
+    p.source.tree = '0'.repeat(40);
+    writeFileSync(provenanceFile, JSON.stringify(p));
+    expect(cli('verify', repository, sha).status).not.toBe(0);
+    p.source.tree = originalTree;
     p.source.lockSha256 = '0'.repeat(64);
     writeFileSync(provenanceFile, JSON.stringify(p));
     expect(cli('verify', repository, sha).status).not.toBe(0);
