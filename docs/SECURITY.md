@@ -1,5 +1,8 @@
 # Conference Manager Website — Security Baseline
 
+For private vulnerability reports and the product-wide response process, see the
+[canonical disclosure policy](../SECURITY.md). Do not report sensitive findings publicly.
+
 ## 1. Trust model
 
 The public website is an unauthenticated, internet-facing surface. Browser state in this repository is never trusted authority for Conference Manager application access.
