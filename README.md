@@ -1,126 +1,75 @@
 # Conference Manager Website
 
-## SaaS 3.9 public repository boundary
+Public marketing website for Conference Manager, with English and German product pages, demo information and an application sign-in handoff.
 
-This repository remains intentionally public. SaaS 3.9 hardens its public-content boundary. The website-side static Demo landing routes are implemented without moving application, identity, API, persistence or authorization responsibilities. See [PUBLIC-REPOSITORY-BOUNDARY.md](docs/PUBLIC-REPOSITORY-BOUNDARY.md). The supported bilingual static Demo landing is delivered; the legacy application-repository Pages surface is disabled. This website retains only navigation responsibility and acquires no application/session authority.
+## Technology
 
-Public marketing website for **Conference Manager**.
+- Astro and TypeScript.
+- Static rendering with limited client-side JavaScript.
+- Localized content, responsive layouts and self-hosted fonts.
 
-## Repository responsibility
+The website provides public information. Application authentication, sessions and booking workflows belong to the Conference Manager application and API.
 
-This repository owns the public, unauthenticated Conference Manager website: product information, brand presentation, SEO, trust content, demo/contact conversion, and the public entry point to the authenticated product.
+## Requirements
 
-It does **not** own Conference Manager application authentication, tenant authorization, application sessions, or business workflows.
+- Node.js 22.22.3 or a compatible Node.js 22 release within the range declared in `package.json`.
+- npm.
 
-Related authoritative repositories:
-- `floriankreutzer/conference-manager` — authenticated Conference Manager browser application
-- `floriankreutzer/conference-manager-api` — trusted backend/API
-
-## Login boundary
-
-The website provides a `Login` / `Sign in` action that performs a normal HTTPS handoff to the configured Conference Manager application origin.
-
-Authentication starts in the application-owned flow. This repository must not store application tokens, share application session cookies, or implement a parallel Entra/OIDC flow.
-
-See [0001-public-website-boundary.md](docs/adr/0001-public-website-boundary.md).
-
-## Current implementation
-
-The accepted implementation baseline is:
-
-- Astro + TypeScript;
-- static-first rendering with minimal browser JavaScript;
-- complete English/German route architecture with centralized shared public-page composition;
-- detailed bilingual Product / How it works, Workplace Teams, Security & Trust and qualified Integrations destinations;
-- a governed bilingual pre-pricing destination with no unapproved monetary amount, tier or commercial offer;
-- repository-owned content and Astro Content Collections for Insights;
-- Scaleway-oriented preview/production delivery automation;
-- governed self-hosted Manrope/Inter webfonts;
-- a separate server-side demo-request function boundary;
-- required CI, dependency audit, secret scanning, CodeQL, browser/accessibility and performance gates.
-
-Production readiness is **not** yet claimed. Real Scaleway infrastructure, final Edge/TLS/DNS evidence, demo-processing operational acceptance, privacy/retention acceptance and final human release acceptance remain external release gates.
-
-## GitHub Pages review site
-
-GitHub Pages is supported as a separate, non-production review/demo environment. It does not replace the Scaleway production architecture from ADR 0003.
-
-The review build:
-- is generated from `main` by `.github/workflows/github-pages.yml`;
-- uses the project base path `/conference-manager-website/`;
-- keeps English and German routes functional under that base path;
-- is built with `PUBLIC_PREVIEW=true` and therefore remains `noindex, nofollow`;
-- uses a non-production application handoff origin;
-- does not enable the real demo-processing endpoint.
-
-Expected review URLs after GitHub Pages is enabled with **Source: GitHub Actions**:
-- English: `https://floriankreutzer.github.io/conference-manager-website/en/`
-- German: `https://floriankreutzer.github.io/conference-manager-website/de/`
-
-## Repository structure
-
-The repository is organized by responsibility and trust boundary:
-
-- `src/pages/` — filesystem routes, static-path selection and locale delegation;
-- `src/layouts/` — shared page-level composition and route contracts;
-- `src/components/` — reusable presentation components;
-- `src/features/` — bounded website use cases;
-- `src/domain/` — framework-independent rules;
-- `src/config/` and `src/i18n/` — configuration and localized content contracts;
-- `functions/` — public server-side trust boundaries with additional local agent instructions;
-- `scripts/deployment/` — delivered-site acceptance tooling;
-- `scripts/performance/` — deterministic performance tooling;
-- `e2e/` — browser-level public journey tests.
-
-See [REPOSITORY-STRUCTURE.md](docs/REPOSITORY-STRUCTURE.md) for placement and dependency-direction rules.
-
-## Mandatory contributor/agent reading
-
-Start with:
-1. `AGENTS.md`
-2. [CODING-STANDARDS.md](docs/CODING-STANDARDS.md)
-3. [ARCHITECTURE.md](docs/ARCHITECTURE.md)
-
-Then read the standards relevant to the change:
-- [REPOSITORY-STRUCTURE.md](docs/REPOSITORY-STRUCTURE.md)
-- [DESIGN-SYSTEM.md](docs/DESIGN-SYSTEM.md)
-- [SEO-STANDARDS.md](docs/SEO-STANDARDS.md)
-- [SECURITY.md](docs/SECURITY.md)
-- [CONTENT-GOVERNANCE.md](docs/CONTENT-GOVERNANCE.md)
-- `docs/adr/`
-- the nearest nested `AGENTS.md`, if present
-
-## Development and validation
+## Local development
 
 ```bash
+git clone https://github.com/floriankreutzer/conference-manager-website.git
+cd conference-manager-website
 npm ci --ignore-scripts
+PUBLIC_PREVIEW=true PUBLIC_CM_APP_ORIGIN=https://app.example.invalid npm run dev
+```
+
+Use the local URL printed by Astro. The example application origin is deliberately nonfunctional; replace it only with an approved development destination. Preview mode keeps the site non-indexable.
+
+To build and inspect a static preview:
+
+```bash
+PUBLIC_PREVIEW=true PUBLIC_CM_APP_ORIGIN=https://app.example.invalid npm run build
+npm run preview
+```
+
+The generated site is written to `dist/`. A production build requires a valid public site origin and separately approved application and demo-processing configuration.
+
+## Project layout
+
+| Directory | Responsibility |
+| --- | --- |
+| `src/` | Routes, components, content and localization |
+| `public/` | Static public assets |
+| `functions/` | Server-side demo-request processing |
+| `e2e/` | Browser journey tests |
+| `scripts/` | Asset, performance and validation tools |
+
+## Validation
+
+```bash
 npm run check
 npm run lint
 npm run format:check
 npm test
-npm run build
+npm audit --audit-level=high
+npm run test:fonts
+PUBLIC_PREVIEW=true PUBLIC_CM_APP_ORIGIN=https://app.example.invalid npm run build
 npm run test:performance
-npm run test:e2e
+npx playwright install chromium
+PUBLIC_PREVIEW=true PUBLIC_CM_APP_ORIGIN=https://app.example.invalid npm run test:e2e
 ```
 
-CI additionally performs secret scanning, dependency vulnerability review and CodeQL/security analysis.
+These checks cover different parts of the website. They do not by themselves establish production deployment, legal approval or formal accessibility conformance.
 
-## Product and brand baseline
+## Contributing
 
-The official product name remains **Conference Manager**.
+Read [AGENTS.md](AGENTS.md), the [coding standards](docs/CODING-STANDARDS.md) and the guidance relevant to your change. Keep public product claims accurate, preserve both languages and use the existing design system.
 
-Corporate-brand presentation is publication-governed and must not imply unverified legal, trademark, domain, or ownership status.
+## Security
 
-The public website must verify concrete product/security/integration claims against current authoritative product implementation and documentation before publication.
+Do not publish application credentials, customer data or private operational material. Use the private reporting route in [SECURITY.md](SECURITY.md) for suspected vulnerabilities.
 
-## Quality baseline
+## License
 
-The website is expected to be:
-- secure and privacy-aware by default;
-- WCAG 2.2 AA-oriented;
-- responsive/mobile-first;
-- English/German capable from launch architecture;
-- SEO/indexability-first;
-- performant with minimal client JavaScript;
-- evidence-based in public claims;
-- governed through pull requests and CI.
+No project-level license file is currently included. Refer to the corresponding notices for third-party fonts, assets and dependencies.
