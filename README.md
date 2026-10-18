@@ -33,7 +33,7 @@ PUBLIC_PREVIEW=true PUBLIC_CM_APP_ORIGIN=https://app.example.invalid npm run bui
 npm run preview
 ```
 
-The generated site is written to `dist/`. A production build requires a valid public site origin and separately approved application and demo-processing configuration.
+The generated site is written to `dist/`. A production build requires valid public site and application origins. The demo-request endpoint and privacy URL are optional: leave them unset until demo processing is accepted. Without both values, the demo-request form remains disabled.
 
 ## Project layout
 
