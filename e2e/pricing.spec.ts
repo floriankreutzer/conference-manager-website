@@ -7,32 +7,32 @@ const germanPath = '/de/pricing/';
 const forbiddenCurrency = /[$€£¥]|\b(?:EUR|USD|GBP|CHF)\b/i;
 
 test.describe('Pricing', () => {
-  test('renders the buyer-led English pre-pricing journey and conversion paths', async ({
+  test('renders the English setup and software-use offer with its conditions and conversion paths', async ({
     page,
   }) => {
     await page.goto(englishPath);
     const main = page.locator('main');
 
-    await expect(page).toHaveTitle(
-      'Evaluate product fit now. Public pricing follows approval. — Conference Manager',
-    );
+    await expect(page).toHaveTitle('Try it with your own meetings. — Conference Manager');
     await expect(
       main.getByRole('heading', {
         level: 1,
-        name: 'Evaluate product fit now. Public pricing follows approval.',
+        name: 'Try it with your own meetings.',
       }),
     ).toBeVisible();
-    await expect(main.locator('article > ol > li')).toHaveCount(4);
-    await expect(
-      main.getByRole('heading', {
-        level: 2,
-        name: 'Understand the product before choosing a commercial model.',
-      }),
-    ).toBeVisible();
+    const offer = main.getByRole('region', { name: '30 days of free software use.' });
+    await expect(offer).toBeVisible();
+    await expect(offer.getByText('A one-time setup fee applies.')).toBeVisible();
+    await expect(offer.getByText('The 30 days start after setup is complete.')).toBeVisible();
+    await expect(offer).toContainText('your own real meetings');
+    await expect(offer).toContainText('your configured customer environment');
+    await expect(offer).toContainText('still to be agreed');
+    const steps = main.locator('ol > li');
+    await expect(steps).toHaveCount(3);
+    await expect(steps.nth(0)).toContainText('Explore your meeting process.');
+    await expect(steps.nth(1)).toContainText('A one-time setup fee applies.');
+    await expect(steps.nth(2)).toContainText('The 30 days start after setup is complete.');
     await expect(main).not.toContainText(forbiddenCurrency);
-    await expect(
-      main.getByText(/Use a demo to decide whether the product is relevant/),
-    ).toBeVisible();
     await expect(main.getByRole('link', { name: 'Book a demo' }).first()).toHaveAttribute(
       'href',
       '/en/book-a-demo/',
@@ -47,30 +47,34 @@ test.describe('Pricing', () => {
     );
   });
 
-  test('renders the buyer-led German pre-pricing journey with reciprocal metadata', async ({
+  test('renders the German setup and software-use offer with reciprocal metadata', async ({
     page,
   }) => {
     await page.goto(germanPath);
     const main = page.locator('main');
 
-    await expect(page).toHaveTitle(
-      'Produktfit jetzt bewerten. Öffentliche Preise folgen nach Freigabe. — Conference Manager',
-    );
+    await expect(page).toHaveTitle('Mit eigenen Besprechungen erproben. — Conference Manager');
     await expect(
       main.getByRole('heading', {
         level: 1,
-        name: 'Produktfit jetzt bewerten. Öffentliche Preise folgen nach Freigabe.',
+        name: 'Mit eigenen Besprechungen erproben.',
       }),
     ).toBeVisible();
-    await expect(main.locator('article > ol > li')).toHaveCount(4);
+    const offer = main.getByRole('region', { name: '30 Tage kostenlose Softwarenutzung.' });
+    await expect(offer).toBeVisible();
+    await expect(offer.getByText('Die Einrichtung ist einmalig kostenpflichtig.')).toBeVisible();
     await expect(
-      main.getByRole('heading', {
-        level: 2,
-        name: 'Verstehen Sie zuerst das Produkt – danach das kommerzielle Modell.',
-      }),
+      offer.getByText('Die 30 Tage beginnen nach abgeschlossener Einrichtung.'),
     ).toBeVisible();
+    await expect(offer).toContainText('Ihren eigenen realen Besprechungen');
+    await expect(offer).toContainText('Ihrer eingerichteten Kundenumgebung');
+    await expect(offer).toContainText('noch offen');
+    const steps = main.locator('ol > li');
+    await expect(steps).toHaveCount(3);
+    await expect(steps.nth(0)).toContainText('Ihren Besprechungsablauf kennenlernen.');
+    await expect(steps.nth(1)).toContainText('Die Einrichtung ist einmalig kostenpflichtig.');
+    await expect(steps.nth(2)).toContainText('nach abgeschlossener Einrichtung');
     await expect(main).not.toContainText(forbiddenCurrency);
-    await expect(main.getByText(/Nutzen Sie eine Demo, um die Relevanz/)).toBeVisible();
     await expect(main.getByRole('link', { name: 'Demo anfragen' }).first()).toHaveAttribute(
       'href',
       '/de/book-a-demo/',
@@ -93,11 +97,93 @@ test.describe('Pricing', () => {
     expect(dimensions.scrollWidth).toBeLessThanOrEqual(dimensions.clientWidth + 1);
     await expect(
       page.getByRole('heading', {
-        level: 2,
-        name: 'Nutzen Sie eine Demo, um die Relevanz für Ihr Unternehmen zu bewerten.',
+        level: 3,
+        name: 'Mit Ihren eigenen Besprechungen arbeiten.',
       }),
     ).toBeVisible();
   });
+
+  for (const locale of ['en', 'de'] as const) {
+    test(`${locale} demo journey repeats the qualified offer and preserves the disabled form contract`, async ({
+      page,
+    }) => {
+      await page.goto(`/${locale}/pricing/`);
+      await page
+        .locator('main')
+        .getByRole('link', { name: locale === 'de' ? 'Demo anfragen' : 'Book a demo' })
+        .first()
+        .click();
+      await expect(page).toHaveURL(new RegExp(`/${locale}/book-a-demo/$`));
+
+      const main = page.locator('main');
+      await expect(
+        main.getByRole('heading', {
+          level: 1,
+          name:
+            locale === 'de'
+              ? 'Lernen Sie Conference Manager kennen.'
+              : 'See Conference Manager in action.',
+        }),
+      ).toBeVisible();
+      const offer = main.getByRole('region', {
+        name:
+          locale === 'de' ? '30 Tage kostenlose Softwarenutzung.' : '30 days of free software use.',
+      });
+      await expect(
+        offer.getByText(
+          locale === 'de'
+            ? 'Die Einrichtung ist einmalig kostenpflichtig.'
+            : 'A one-time setup fee applies.',
+        ),
+      ).toBeVisible();
+      await expect(
+        offer.getByText(
+          locale === 'de'
+            ? 'Die 30 Tage beginnen nach abgeschlossener Einrichtung.'
+            : 'The 30 days start after setup is complete.',
+        ),
+      ).toBeVisible();
+      await expect(offer.getByRole('link')).toHaveAttribute('href', `/${locale}/pricing/`);
+
+      const form = main.locator('form');
+      await expect(form).toHaveAttribute('method', 'post');
+      await expect(form).toHaveAttribute('accept-charset', 'UTF-8');
+      await expect(form).toHaveAttribute('aria-disabled', 'true');
+      expect(await form.getAttribute('action')).toBeNull();
+      await expect(form.locator('input[name="locale"]')).toHaveValue(locale);
+      expect(
+        await form
+          .locator('input, select, textarea')
+          .evaluateAll((fields) => fields.map((field) => field.getAttribute('name'))),
+      ).toEqual([
+        'locale',
+        'firstName',
+        'lastName',
+        'email',
+        'company',
+        'companySize',
+        'message',
+        'website',
+        'privacyAcknowledged',
+      ]);
+      for (const field of await form
+        .locator('input:not([type="hidden"]), select, textarea, button')
+        .all()) {
+        await expect(field).toBeDisabled();
+      }
+      await expect(form.locator('[name="website"]')).toHaveAttribute('tabindex', '-1');
+      await expect(form.locator('[name="privacyAcknowledged"]')).toHaveAttribute('required');
+      await expect(form.locator('textarea')).toHaveAccessibleName(
+        locale === 'de'
+          ? 'Was möchten Sie besprechen? Optional'
+          : 'What would you like to discuss? Optional',
+      );
+      await expect(form.locator('textarea')).toHaveAttribute(
+        'aria-describedby',
+        'demo-message-hint',
+      );
+    });
+  }
 
   for (const path of [englishPath, germanPath]) {
     test(`${path} has no automated WCAG A/AA violations`, async ({ page }) => {

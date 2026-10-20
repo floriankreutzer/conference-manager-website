@@ -40,10 +40,10 @@ const pages: Record<Locale, Record<PublicPageSlug, PublicPageCopy>> = {
     },
     integrations: {
       eyebrow: 'Integrations',
-      title: 'Fit Conference Manager into the workplace you already run.',
+      title: 'Your systems. One meeting workflow.',
       description:
-        'Use Conference Manager with existing room-booking and Microsoft 365 capabilities instead of introducing another isolated conference process.',
-      body: 'Conference Manager is designed to work alongside the systems that already handle room reservations, identity and collaboration. Microsoft 365 and Entra are the current enterprise focus, with real use enabled only when the customer environment is ready for it.',
+        'Room reservations, Microsoft sign-in and catering coordination: we work with you to confirm how Conference Manager fits your company.',
+      body: 'Keep your existing room reservations and company sign-in. Conference Manager brings guest information, catering and technical requirements into one shared workflow. We work with you to confirm which connections fit your company.',
       note: 'Only capabilities verified against the current product are presented as available.',
     },
     'workplace-teams': {
@@ -61,12 +61,12 @@ const pages: Record<Locale, Record<PublicPageSlug, PublicPageCopy>> = {
       body: 'Employees should be able to request a conference without learning the security model behind the product. Your organisation still needs control over sign-in, roles, integrations and operational access. Conference Manager is designed to support both needs without turning Security & Trust into a page of infrastructure language.',
     },
     pricing: {
-      eyebrow: 'Pricing',
-      title: 'Evaluate product fit now. Public pricing follows approval.',
+      eyebrow: 'Setup & pilot',
+      title: 'Try it with your own meetings.',
       description:
-        'Conference Manager is preparing a transparent commercial model. Until it is approved, the website does not publish a price, tier or offer.',
-      body: 'A demo can already help you understand where Conference Manager fits your workplace, which conference journeys matter and what scope would be relevant. A public commercial model will be added only after formal validation and approval.',
-      note: 'No amount, package or commercial offer is currently published.',
+        'Start with a demo. Once your customer environment is set up, use the software free for 30 days. A one-time setup fee applies.',
+      body: 'Start with a demo. Once your customer environment is set up, use the software free for 30 days. A one-time setup fee applies.',
+      note: 'Prices and terms for continued use are agreed separately.',
     },
     insights: {
       eyebrow: 'Insights',
@@ -84,10 +84,10 @@ const pages: Record<Locale, Record<PublicPageSlug, PublicPageCopy>> = {
     },
     'book-a-demo': {
       eyebrow: 'Book a demo',
-      title: 'See how Conference Manager fits your workplace.',
+      title: 'See Conference Manager in action.',
       description:
-        'Request a Conference Manager demo and discuss how the product could fit your existing room-booking and workplace processes.',
-      body: 'Bring one real conference journey: what happens after the room is chosen, what your team needs to prepare and where coordination moves between people and tools today.',
+        'Discuss your current process and existing systems. Explore Conference Manager together in a demo.',
+      body: 'Bring your current meeting workflow and the systems your team uses today.',
       note: 'Demo requests are available only where the approved processing and privacy configuration is active.',
     },
   },
@@ -108,10 +108,10 @@ const pages: Record<Locale, Record<PublicPageSlug, PublicPageCopy>> = {
     },
     integrations: {
       eyebrow: 'Integrationen',
-      title: 'Conference Manager passt in die Arbeitswelt, die Sie bereits betreiben.',
+      title: 'Ihre Systeme. Ein gemeinsamer Ablauf.',
       description:
-        'Nutzen Sie Conference Manager mit vorhandener Raumbuchung und Microsoft 365, statt einen weiteren isolierten Konferenzprozess einzuführen.',
-      body: 'Conference Manager ist darauf ausgelegt, mit den Systemen zusammenzuarbeiten, die bereits Raumbuchung, Identität und Zusammenarbeit unterstützen. Microsoft 365 und Entra bilden den aktuellen Enterprise-Fokus; die reale Nutzung wird erst aktiviert, wenn die Kundenumgebung dafür vorbereitet ist.',
+        'Raumreservierung, Microsoft-Anmeldung und Cateringkoordination: Wir prüfen gemeinsam, wie Conference Manager zu Ihrem Unternehmen passt.',
+      body: 'Ihre Raumreservierung und Unternehmensanmeldung bleiben erhalten. Conference Manager führt Angaben zu Gästen, Catering und Technik in einem gemeinsamen Ablauf zusammen. Welche Anbindungen zu Ihrem Unternehmen passen, klären wir gemeinsam.',
       note: 'Als verfügbar werden nur Fähigkeiten dargestellt, die gegen den aktuellen Produktstand verifiziert sind.',
     },
     'workplace-teams': {
@@ -129,12 +129,12 @@ const pages: Record<Locale, Record<PublicPageSlug, PublicPageCopy>> = {
       body: 'Mitarbeitende sollen eine Konferenz anfragen können, ohne das Sicherheitsmodell des Produkts verstehen zu müssen. Ihr Unternehmen benötigt trotzdem Kontrolle über Anmeldung, Rollen, Integrationen und operativen Zugriff. Conference Manager ist darauf ausgelegt, beides zu verbinden, ohne Security & Trust zu einer Seite voller Infrastrukturbegriffe zu machen.',
     },
     pricing: {
-      eyebrow: 'Preise',
-      title: 'Produktfit jetzt bewerten. Öffentliche Preise folgen nach Freigabe.',
+      eyebrow: 'Einrichtung & Pilot',
+      title: 'Mit eigenen Besprechungen erproben.',
       description:
-        'Conference Manager bereitet ein transparentes kommerzielles Modell vor. Bis zur Freigabe veröffentlicht die Website keine Preise, Tiers oder Angebote.',
-      body: 'Eine Demo kann bereits klären, wo Conference Manager in Ihre Arbeitswelt passt, welche Konferenzabläufe relevant sind und welcher Umfang sinnvoll wäre. Ein öffentliches kommerzielles Modell wird erst nach formaler Validierung und Freigabe ergänzt.',
-      note: 'Aktuell wird kein Betrag, Paket oder kommerzielles Angebot veröffentlicht.',
+        'Starten Sie mit einer Demo. Nach abgeschlossener, einmalig kostenpflichtiger Einrichtung nutzen Sie die Software 30 Tage kostenlos in Ihrer Kundenumgebung.',
+      body: 'Starten Sie mit einer Demo. Nach abgeschlossener, einmalig kostenpflichtiger Einrichtung nutzen Sie die Software 30 Tage kostenlos in Ihrer Kundenumgebung.',
+      note: 'Preise und Bedingungen für eine weitere Nutzung werden gesondert vereinbart.',
     },
     insights: {
       eyebrow: 'Insights',
@@ -152,10 +152,10 @@ const pages: Record<Locale, Record<PublicPageSlug, PublicPageCopy>> = {
     },
     'book-a-demo': {
       eyebrow: 'Demo anfragen',
-      title: 'Sehen Sie, wie Conference Manager in Ihre Arbeitswelt passt.',
+      title: 'Lernen Sie Conference Manager kennen.',
       description:
-        'Fordern Sie eine Conference-Manager-Demo an und besprechen Sie, wie sich das Produkt in bestehende Raumbuchungs- und Workplace-Prozesse einfügen kann.',
-      body: 'Bringen Sie einen realen Konferenzablauf mit: Was passiert nach der Raumentscheidung, was benötigt Ihr Team für die Vorbereitung und wo wechselt die Koordination heute zwischen Menschen und Tools?',
+        'Besprechen Sie Ihren heutigen Ablauf und Ihre vorhandenen Systeme. Lernen Sie Conference Manager in einer gemeinsamen Demo kennen.',
+      body: 'Bringen Sie Ihren heutigen Besprechungsablauf und die Systeme mit, die Ihr Team nutzt.',
       note: 'Demo-Anfragen sind nur verfügbar, wenn die freigegebene Verarbeitung und Datenschutzkonfiguration aktiv sind.',
     },
   },

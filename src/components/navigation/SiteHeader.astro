@@ -21,18 +21,29 @@ const currentPath = withBasePath(alternatePath);
 <header class="site-header">
   <a class="skip-link" href="#main-content">{navigation.skipToContent}</a>
   <div class="site-header__inner">
-    <a
-      class="brand"
-      href={withBasePath(`/${locale}/`)}
-      aria-label={`Conference Manager ${locale === 'de' ? 'Startseite' : 'home'}`}
-    >
+    <a class="brand" href={withBasePath(`/${locale}/`)} aria-label={navigation.homeLabel}>
       <BrandLockup compact />
     </a>
 
-    <nav
-      class="primary-nav"
-      aria-label={locale === 'de' ? 'Hauptnavigation' : 'Primary navigation'}
+    <button
+      class="nav-toggle"
+      type="button"
+      aria-controls="primary-navigation"
+      aria-expanded="false"
+      hidden
     >
+      <span>{navigation.menu}</span>
+      <svg
+        viewBox="0 0 24 24"
+        width="20"
+        height="20"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.5"
+        aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"></path></svg
+      >
+    </button>
+    <nav id="primary-navigation" class="primary-nav" aria-label={navigation.primaryLabel}>
       <ul class="site-nav">
         {
           navigation.items.map((item) => (
@@ -59,3 +70,5 @@ const currentPath = withBasePath(alternatePath);
     </div>
   </div>
 </header>
+
+<script src="./site-navigation.ts"></script>

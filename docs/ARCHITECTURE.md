@@ -143,7 +143,7 @@ Rules:
 - `pages` own filesystem routing and static-path selection; locale route files delegate shared public-page composition rather than duplicating feature dispatch or metadata rules;
 - `layouts` own shared page-level composition and may compose features/components; the localized public `[slug]` routes use one `PublicPageRoute` dispatcher plus a framework-independent resolver for page variant/title semantics;
 - `components` are reusable presentation-oriented building blocks and do not own buyer/product/security/integration/pricing content;
-- `features` own bounded website behavior and orchestration, including Product / How it works, Workplace Teams, Security & Trust, Integrations and governed pre-pricing narratives;
+- `features` own bounded website behavior and orchestration, including Product / How it works, Workplace Teams, Security & Trust, Integrations and the agreed setup-and-pilot offer;
 - `domain` owns testable rules independent of Astro/browser rendering where practical;
 - `config` centralizes application-login origin, publication and public integration configuration;
 - `functions` is a separate public server-side trust boundary and follows `functions/AGENTS.md` in addition to root governance;
@@ -179,6 +179,8 @@ Do not bury strategic product copy in complex component logic. Localized content
 A future CMS requires an ADR and must preserve localization, schema validation, preview, security and publication governance.
 
 ## 9. Pricing architecture
+
+The current public offer comprises one-time paid setup and 30 days of free software use after completed setup, using real meetings in a configured customer environment. Setup amounts, ongoing prices and the ongoing pricing model remain open; the website must not infer them.
 
 The website may implement a modular, testable pricing calculator.
 
@@ -396,7 +398,7 @@ Accepted and implemented repository baseline:
 - centralized bilingual public-route composition with thin locale filesystem routes and one tested page-variant/title resolver;
 - bilingual PAVUREL website shell/homepage and publication-governed public pages;
 - detailed bilingual Product / How it works, Workplace Teams, Security & Trust and qualified Integrations destinations;
-- governed bilingual pre-pricing destination that publishes no unapproved monetary amount, tier or commercial offer;
+- governed bilingual setup-and-pilot destination with the agreed one-time paid setup and 30 days of free software use after setup, without unapproved monetary amounts or tiers;
 - Insights Content Collection foundation with bilingual publication gates and governed bilingual article delivery;
 - no CMS and no tracking at launch — ADRs 0002/0003;
 - secure configurable Login handoff to the authenticated application;

@@ -10,9 +10,10 @@ describe('public bilingual content contract', () => {
     const de = getHomepageCopy('de');
 
     expect(de.value.cards).toHaveLength(en.value.cards.length);
-    expect(de.howItWorks.steps).toHaveLength(en.howItWorks.steps.length);
-    expect(de.readiness.themes).toHaveLength(en.readiness.themes.length);
-    expect(de.why.cards).toHaveLength(en.why.cards.length);
+    expect(de.pilot.steps).toHaveLength(en.pilot.steps.length);
+    expect(de.roomBooking.nodes).toHaveLength(en.roomBooking.nodes.length);
+    expect(de.faq.items).toHaveLength(en.faq.items.length);
+    expect(de.overview.items).toHaveLength(en.overview.items.length);
   });
 
   it.each(publicPageSlugs)('provides %s in both launch locales', (slug) => {
@@ -40,7 +41,11 @@ describe('public bilingual content contract', () => {
   });
 
   it('preserves the room-booking-not-replacement position in both locales', () => {
-    expect(getHomepageCopy('en').roomBooking.supporting).toContain("don't replace");
-    expect(getHomepageCopy('de').roomBooking.supporting).toContain('ersetzen');
+    expect(getHomepageCopy('en').roomBooking.supporting).toContain(
+      'existing room-booking system remains responsible for reservations',
+    );
+    expect(getHomepageCopy('de').roomBooking.supporting).toContain(
+      'bestehende Raumbuchung bleibt für die Reservierung zuständig',
+    );
   });
 });

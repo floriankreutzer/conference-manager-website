@@ -21,3 +21,8 @@ The source package `PAVUREL_Bildpaket_komplett.zip` contains nine AI-generated k
 `public/assets/brand/hero-conference.webp` is an optimized web derivative of `02_PowerPoint_Zuschnitte/11_Conference_Room_Full_16x9.jpg`. It is used as an editorial workplace/conference visual, not as documentary evidence of a real customer site or a representation of the Conference Manager UI.
 
 Web derivatives must preserve the established Pavurel photography direction, use responsive dimensions, avoid layout shift, and be accompanied by meaningful alt text when they carry content. New AI visuals must not introduce unsupported product screens, customer logos, certifications, security claims or corporate claims.
+
+The sales website redesign also uses responsive room and catering derivatives from the
+approved package and an additional AI-generated meeting-preparation visual. The owner
+approved their use with the website design on 19 October 2026. The source/placement
+mapping is recorded in `public/assets/brand/README.md`. These images are editorial illustrations.

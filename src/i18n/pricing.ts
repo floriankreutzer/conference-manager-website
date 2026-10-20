@@ -1,14 +1,25 @@
 import type { Locale } from '@config/locales';
 
-type PricingPoint = { title: string; body: string };
 type PricingSection = {
   eyebrow: string;
   title: string;
   body: string;
-  points?: readonly PricingPoint[];
   statement?: string;
 };
 type PricingCopy = {
+  offer: {
+    eyebrow: string;
+    title: string;
+    body: string;
+    start: string;
+    setupFee: string;
+    pricingStatus: string;
+  };
+  journey: {
+    eyebrow: string;
+    title: string;
+    body: string;
+  };
   sections: readonly PricingSection[];
   closing: {
     eyebrow: string;
@@ -21,88 +32,85 @@ type PricingCopy = {
 
 const pricingCopy: Record<Locale, PricingCopy> = {
   en: {
+    offer: {
+      eyebrow: 'Setup & pilot',
+      title: '30 days of free software use.',
+      body: 'Try Conference Manager with your own real meetings in your configured customer environment.',
+      start: 'The 30 days start after setup is complete.',
+      setupFee: 'A one-time setup fee applies.',
+      pricingStatus:
+        'The amounts for setup and ongoing use, and the ongoing pricing model, are still to be agreed.',
+    },
+    journey: {
+      eyebrow: 'Getting started',
+      title: 'From a shared demo to your own meetings.',
+      body: 'First, we discuss your current process. Then we agree the setup scope and prepare your customer environment before the 30 days begin.',
+    },
     sections: [
       {
-        eyebrow: 'Current status',
-        title: 'Understand the product before choosing a commercial model.',
-        body: 'Conference Manager does not yet publish an approved public price list. Rather than present a number that has not been formally validated, the current website focuses on whether the product fits the conference-management problem your Workplace Team is trying to solve.',
-        statement: 'Product fit first. Public pricing after approval.',
+        eyebrow: 'Demo',
+        title: 'Explore your meeting process.',
+        body: 'Show us how your office or conference team works today. Together, we look at your requests, existing room-booking system and services, and discuss which setup and supported connections fit your needs.',
       },
       {
-        eyebrow: 'What a future model should do',
-        title: 'Make the commercial basis easy to understand.',
-        body: 'The approved direction is to keep future packaging clear enough for buyers and procurement teams to understand without unnecessary billing complexity. The final packages are not defined here; the principle is clarity.',
-        points: [
-          {
-            title: 'Clear scope',
-            body: 'Buyers should be able to understand what Conference Manager covers without decoding a long list of artificial tiers.',
-          },
-          {
-            title: 'Proportionate complexity',
-            body: 'Commercial structure should stay no more complicated than the product and customer use case require.',
-          },
-        ],
+        eyebrow: 'Setup',
+        title: 'Prepare your customer environment.',
+        body: 'After the demo, we agree the scope and prerequisites with you. We then set up your customer environment for the agreed process.',
+        statement: 'A one-time setup fee applies.',
       },
       {
-        eyebrow: 'Value basis',
-        title: 'Price the conference-management problem, not a checklist of integrations.',
-        body: 'Conference Manager is intended to create operational value by giving employees a clearer request journey and Workplace Teams a more coherent basis for preparation and change. Integrations affect fit and implementation, but their count should not become the product story.',
-        statement: 'Commercial logic should reflect the workplace problem the product addresses.',
-      },
-      {
-        eyebrow: 'What you can do now',
-        title: 'Use a demo to decide whether the product is relevant to your organisation.',
-        body: 'A useful discussion can already map your current conference journey, existing room-booking environment and the areas where Workplace Teams spend coordination effort. Public pricing will be added only after the commercial model is formally validated and approved.',
+        eyebrow: '30 days of software use',
+        title: 'Work with your own meetings.',
+        body: 'Use Conference Manager free for 30 days with your own real meetings in the configured customer environment. This gives your team an opportunity to experience the agreed process in everyday use.',
+        statement: 'The 30 days start after setup is complete.',
       },
     ],
     closing: {
-      eyebrow: 'Evaluate the fit',
-      title: 'Start with the conference journey, not a speculative price.',
-      body: 'Bring a real workplace-conference scenario to the demo and see whether Conference Manager addresses the coordination problem your team actually has. No public amount or package is presented as an offer before approval.',
+      eyebrow: 'Start the conversation',
+      title: 'Bring your meeting process to the demo.',
+      body: 'Let us look at your current workflow and the scope of a suitable setup together. The demo is the first step towards trying Conference Manager with your team.',
       primaryCta: 'Book a demo',
       secondaryCta: 'Explore the product',
     },
   },
   de: {
+    offer: {
+      eyebrow: 'Einrichtung & Pilot',
+      title: '30 Tage kostenlose Softwarenutzung.',
+      body: 'Erproben Sie Conference Manager mit Ihren eigenen realen Besprechungen in Ihrer eingerichteten Kundenumgebung.',
+      start: 'Die 30 Tage beginnen nach abgeschlossener Einrichtung.',
+      setupFee: 'Die Einrichtung ist einmalig kostenpflichtig.',
+      pricingStatus:
+        'Die Beträge für Einrichtung und anschließende Nutzung sowie das laufende Preismodell sind noch offen.',
+    },
+    journey: {
+      eyebrow: 'Ihr Einstieg',
+      title: 'Von der gemeinsamen Demo zu Ihren eigenen Besprechungen.',
+      body: 'Zuerst besprechen wir Ihren heutigen Ablauf. Anschließend stimmen wir den Einrichtungsumfang ab und bereiten Ihre Kundenumgebung vor, bevor die 30 Tage beginnen.',
+    },
     sections: [
       {
-        eyebrow: 'Aktueller Stand',
-        title: 'Verstehen Sie zuerst das Produkt – danach das kommerzielle Modell.',
-        body: 'Conference Manager veröffentlicht derzeit noch keine freigegebene öffentliche Preisliste. Statt einen formal nicht validierten Betrag zu nennen, konzentriert sich die Website darauf, ob das Produkt zu dem Konferenzmanagement-Problem passt, das Ihr Workplace Team lösen möchte.',
-        statement: 'Zuerst der Produktfit. Öffentliche Preise nach der Freigabe.',
+        eyebrow: 'Demo',
+        title: 'Ihren Besprechungsablauf kennenlernen.',
+        body: 'Zeigen Sie uns, wie Ihr Office- oder Konferenzteam heute arbeitet. Gemeinsam betrachten wir Ihre Anfragen, die vorhandene Raumbuchung und die benötigten Services. Wir besprechen, welche Einrichtung und unterstützten Anbindungen zu Ihrem Bedarf passen.',
       },
       {
-        eyebrow: 'Was ein künftiges Modell leisten soll',
-        title: 'Machen Sie die kommerzielle Grundlage leicht verständlich.',
-        body: 'Die freigegebene Richtung ist, künftiges Packaging so klar zu halten, dass Käufer und Einkauf es ohne unnötige Abrechnungskomplexität verstehen können. Finale Pakete werden hier noch nicht definiert; verbindlich ist das Prinzip der Klarheit.',
-        points: [
-          {
-            title: 'Verständlicher Umfang',
-            body: 'Kunden sollen erkennen können, was Conference Manager abdeckt, ohne eine lange Liste künstlicher Tarifstufen entschlüsseln zu müssen.',
-          },
-          {
-            title: 'Angemessene Komplexität',
-            body: 'Die kommerzielle Struktur soll nicht komplizierter sein, als Produkt und Kundenanwendung es tatsächlich erfordern.',
-          },
-        ],
+        eyebrow: 'Einrichtung',
+        title: 'Ihre Kundenumgebung vorbereiten.',
+        body: 'Nach der Demo stimmen wir den Umfang und die Voraussetzungen mit Ihnen ab. Anschließend richten wir Ihre Kundenumgebung für den vereinbarten Ablauf ein.',
+        statement: 'Die Einrichtung ist einmalig kostenpflichtig.',
       },
       {
-        eyebrow: 'Wertbasis',
-        title: 'Bewerten Sie das Konferenzmanagement-Problem – nicht eine Integrations-Checkliste.',
-        body: 'Conference Manager soll operativen Nutzen schaffen: eine klarere Anfrage für Mitarbeitende und einen zusammenhängenden Kontext für Workplace Teams bei Vorbereitung und Änderungen. Integrationen beeinflussen den Product Fit und die Einführung, ihre Anzahl soll aber nicht die Produktstory bestimmen.',
-        statement:
-          'Die kommerzielle Logik soll dem Workplace-Problem folgen, das das Produkt adressiert.',
-      },
-      {
-        eyebrow: 'Was Sie heute bereits tun können',
-        title: 'Nutzen Sie eine Demo, um die Relevanz für Ihr Unternehmen zu bewerten.',
-        body: 'Eine sinnvolle Diskussion kann bereits Ihren heutigen Konferenzablauf, die vorhandene Raumbuchung und die Bereiche betrachten, in denen Workplace Teams Koordinationsaufwand haben. Öffentliche Preise werden erst ergänzt, wenn das kommerzielle Modell formal validiert und freigegeben ist.',
+        eyebrow: '30 Tage Softwarenutzung',
+        title: 'Mit Ihren eigenen Besprechungen arbeiten.',
+        body: 'Nutzen Sie Conference Manager 30 Tage kostenlos mit Ihren eigenen realen Besprechungen in der eingerichteten Kundenumgebung. So kann Ihr Team den vereinbarten Ablauf im Arbeitsalltag erproben.',
+        statement: 'Die 30 Tage beginnen nach abgeschlossener Einrichtung.',
       },
     ],
     closing: {
-      eyebrow: 'Produktfit bewerten',
-      title: 'Beginnen Sie mit dem Konferenzablauf – nicht mit einem spekulativen Preis.',
-      body: 'Bringen Sie ein reales Workplace-Konferenzszenario mit in die Demo und prüfen Sie, ob Conference Manager das tatsächliche Koordinationsproblem Ihres Teams adressiert. Vor der Freigabe wird kein öffentlicher Betrag und kein Paket als Angebot dargestellt.',
+      eyebrow: 'Gemeinsam starten',
+      title: 'Bringen Sie Ihren Ablauf mit in die Demo.',
+      body: 'Besprechen wir Ihre heutigen Abläufe und den Umfang einer passenden Einrichtung. Die Demo ist der erste Schritt, um Conference Manager mit Ihrem Team zu erproben.',
       primaryCta: 'Demo anfragen',
       secondaryCta: 'Produkt ansehen',
     },

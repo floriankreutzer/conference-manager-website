@@ -11,6 +11,9 @@ type NavigationCopy = {
   bookDemo: string;
   languageLabel: string;
   skipToContent: string;
+  menu: string;
+  primaryLabel: string;
+  homeLabel: string;
   footer: {
     productHeading: string;
     resourcesHeading: string;
@@ -26,14 +29,15 @@ type NavigationCopy = {
 const copy: Record<Locale, NavigationCopy> = {
   en: {
     items: [
-      { label: 'Product', href: '/en/product/' },
       { label: 'How it works', href: '/en/how-it-works/' },
-      { label: 'For Workplace Teams', href: '/en/workplace-teams/' },
+      { label: 'For your team', href: '/en/workplace-teams/' },
       { label: 'Integrations', href: '/en/integrations/' },
-      { label: 'Security & Trust', href: '/en/security-trust/' },
-      { label: 'About', href: '/en/company/' },
+      { label: 'Setup & pilot', href: '/en/pricing/' },
     ],
-    login: 'Login',
+    login: 'Sign in',
+    menu: 'Menu',
+    primaryLabel: 'Primary navigation',
+    homeLabel: 'Conference Manager home',
     bookDemo: 'Book a demo',
     languageLabel: 'Language',
     skipToContent: 'Skip to content',
@@ -42,7 +46,7 @@ const copy: Record<Locale, NavigationCopy> = {
       resourcesHeading: 'Evaluate',
       brandHeading: 'Conference Manager by Pavurel',
       brandBody:
-        'Conference Manager combines a clear employee experience with the operational context Workplace Teams need to prepare professional conferences. Pavurel provides the subordinate brand direction behind that experience.',
+        'Conference Manager by Pavurel brings meeting requests, guests, catering and equipment together for your office and conference team.',
       productLinks: [
         { label: 'Product', href: '/en/product/' },
         { label: 'How it works', href: '/en/how-it-works/' },
@@ -52,7 +56,7 @@ const copy: Record<Locale, NavigationCopy> = {
       resourceLinks: [
         { label: 'Integrations', href: '/en/integrations/' },
         { label: 'Security & Trust', href: '/en/security-trust/' },
-        { label: 'Pricing approach', href: '/en/pricing/' },
+        { label: 'Setup & pilot', href: '/en/pricing/' },
         { label: 'Insights', href: '/en/insights/' },
       ],
       demoLabel: 'Book a demo',
@@ -61,14 +65,15 @@ const copy: Record<Locale, NavigationCopy> = {
   },
   de: {
     items: [
-      { label: 'Produkt', href: '/de/product/' },
       { label: 'So funktioniert es', href: '/de/how-it-works/' },
-      { label: 'Für Workplace Teams', href: '/de/workplace-teams/' },
+      { label: 'Für Ihr Team', href: '/de/workplace-teams/' },
       { label: 'Integrationen', href: '/de/integrations/' },
-      { label: 'Security & Trust', href: '/de/security-trust/' },
-      { label: 'Über Conference Manager', href: '/de/company/' },
+      { label: 'Einführung & Pilot', href: '/de/pricing/' },
     ],
-    login: 'Login',
+    login: 'Anmelden',
+    menu: 'Menü',
+    primaryLabel: 'Hauptnavigation',
+    homeLabel: 'Conference Manager Startseite',
     bookDemo: 'Demo anfragen',
     languageLabel: 'Sprache',
     skipToContent: 'Zum Inhalt springen',
@@ -77,7 +82,7 @@ const copy: Record<Locale, NavigationCopy> = {
       resourcesHeading: 'Evaluieren',
       brandHeading: 'Conference Manager by Pavurel',
       brandBody:
-        'Conference Manager verbindet einen klaren Anfrageprozess für Mitarbeitende mit dem operativen Kontext, den Workplace Teams für professionell vorbereitete Konferenzen benötigen. Pavurel prägt die untergeordnete Markenrichtung dahinter.',
+        'Conference Manager by Pavurel führt Besprechungsanfragen, Gäste, Catering und Technik für Ihr Office- und Konferenzteam zusammen.',
       productLinks: [
         { label: 'Produkt', href: '/de/product/' },
         { label: 'So funktioniert es', href: '/de/how-it-works/' },
@@ -87,7 +92,7 @@ const copy: Record<Locale, NavigationCopy> = {
       resourceLinks: [
         { label: 'Integrationen', href: '/de/integrations/' },
         { label: 'Security & Trust', href: '/de/security-trust/' },
-        { label: 'Preismodell', href: '/de/pricing/' },
+        { label: 'Einführung & Pilot', href: '/de/pricing/' },
         { label: 'Insights', href: '/de/insights/' },
       ],
       demoLabel: 'Demo anfragen',

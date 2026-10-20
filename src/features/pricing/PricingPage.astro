@@ -1,5 +1,4 @@
 ---
-import EditorialStory from '@components/editorial/EditorialStory.astro';
 import type { Locale } from '@config/locales';
 import { withBasePath } from '@domain/routing/basePath';
 import { getPricingCopy } from '@i18n/pricing';
@@ -16,13 +15,230 @@ const demoHref = withBasePath(`/${locale}/book-a-demo/`);
 const productHref = withBasePath(`/${locale}/product/`);
 ---
 
-<EditorialStory
-  eyebrow={pageCopy.eyebrow}
-  title={pageCopy.title}
-  lead={pageCopy.body}
-  sections={story.sections}
-  closing={story.closing}
-  primaryHref={demoHref}
-  secondaryHref={productHref}
-  idPrefix="pricing"
-/>
+<article class="pricing-page" aria-labelledby="pricing-title">
+  <header class="pricing-page__hero">
+    <div class="pricing-page__intro">
+      <p class="eyebrow">{pageCopy.eyebrow}</p>
+      <h1 id="pricing-title">{pageCopy.title}</h1>
+      <p class="pricing-page__lead">{pageCopy.body}</p>
+      <div class="pricing-page__actions">
+        <a class="button" href={demoHref}>{story.closing.primaryCta}</a>
+        <a class="pricing-page__text-link" href={productHref}>{story.closing.secondaryCta}</a>
+      </div>
+    </div>
+
+    <section class="pricing-page__offer" aria-labelledby="pricing-offer-title">
+      <p class="eyebrow">{story.offer.eyebrow}</p>
+      <h2 id="pricing-offer-title">{story.offer.title}</h2>
+      <p>{story.offer.body}</p>
+      <p>{story.offer.start}</p>
+      <p class="pricing-page__setup-fee"><strong>{story.offer.setupFee}</strong></p>
+      <p class="pricing-page__pricing-note">{story.offer.pricingStatus}</p>
+    </section>
+  </header>
+
+  <section class="pricing-page__journey" aria-labelledby="pricing-journey-title">
+    <div class="pricing-page__journey-heading">
+      <p class="eyebrow">{story.journey.eyebrow}</p>
+      <h2 id="pricing-journey-title">{story.journey.title}</h2>
+      <p>{story.journey.body}</p>
+    </div>
+    <ol class="pricing-page__steps">
+      {
+        story.sections.map((section, index) => (
+          <li>
+            <div class="pricing-page__step-heading">
+              <span class="pricing-page__step-number" aria-hidden="true">
+                {index + 1}
+              </span>
+              <p class="eyebrow">{section.eyebrow}</p>
+              <h3>{section.title}</h3>
+            </div>
+            <div class="pricing-page__step-copy">
+              <p>{section.body}</p>
+              {section.statement && <p class="pricing-page__statement">{section.statement}</p>}
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+
+  <section class="pricing-page__closing" aria-labelledby="pricing-closing-title">
+    <p class="eyebrow">{story.closing.eyebrow}</p>
+    <h2 id="pricing-closing-title">{story.closing.title}</h2>
+    <p>{story.closing.body}</p>
+    <a class="button" href={demoHref}>{story.closing.primaryCta}</a>
+  </section>
+</article>
+
+<style>
+  .pricing-page {
+    padding-block: clamp(3rem, 7vw, 7rem);
+    overflow-wrap: anywhere;
+  }
+
+  .pricing-page__hero {
+    display: grid;
+    gap: var(--space-6);
+    align-items: start;
+  }
+
+  .pricing-page__intro,
+  .pricing-page__offer,
+  .pricing-page__journey-heading,
+  .pricing-page__closing {
+    display: grid;
+    gap: var(--space-4);
+  }
+
+  .pricing-page h1,
+  .pricing-page h2,
+  .pricing-page h3,
+  .pricing-page p {
+    margin: 0;
+  }
+
+  .pricing-page h1 {
+    max-width: 20ch;
+    font-size: clamp(2.3rem, 4vw, 3.5rem);
+    line-height: 1.1;
+    letter-spacing: -0.04em;
+    overflow-wrap: normal;
+    text-wrap: balance;
+  }
+
+  .pricing-page__lead {
+    max-width: var(--copy-max);
+    color: var(--color-text-muted);
+    font-size: clamp(1.05rem, 1.5vw, 1.25rem);
+    line-height: 1.7;
+  }
+
+  .pricing-page__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-4);
+  }
+
+  .pricing-page__text-link {
+    font-weight: 700;
+    text-underline-offset: 0.25em;
+  }
+
+  .pricing-page__offer {
+    padding: clamp(1.5rem, 3vw, 2.5rem);
+    border: 1px solid var(--color-border);
+    border-block-start: 4px solid var(--color-bordeaux);
+    border-radius: var(--radius-md);
+    background: var(--color-surface);
+  }
+
+  .pricing-page__offer h2 {
+    max-width: 18ch;
+    font-size: clamp(1.8rem, 3vw, 2.75rem);
+  }
+
+  .pricing-page__offer > p,
+  .pricing-page__step-copy > p,
+  .pricing-page__journey-heading > p,
+  .pricing-page__closing > p {
+    line-height: 1.7;
+  }
+
+  .pricing-page__setup-fee {
+    color: var(--color-bordeaux);
+  }
+
+  .pricing-page__pricing-note {
+    padding-block-start: var(--space-4);
+    border-block-start: 1px solid var(--color-border);
+    color: var(--color-text-muted);
+  }
+
+  .pricing-page__journey {
+    margin-block-start: clamp(4rem, 9vw, 8rem);
+  }
+
+  .pricing-page__journey-heading {
+    max-width: 48rem;
+    margin-block-end: var(--space-6);
+  }
+
+  .pricing-page__journey-heading h2,
+  .pricing-page__closing h2 {
+    max-width: 25ch;
+    font-size: clamp(2rem, 4vw, 3.5rem);
+  }
+
+  .pricing-page__journey-heading > p:last-child {
+    color: var(--color-text-muted);
+  }
+
+  .pricing-page__steps {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-block-start: 1px solid var(--color-ink);
+  }
+
+  .pricing-page__steps > li {
+    display: grid;
+    gap: var(--space-4);
+    padding-block: var(--space-6);
+    border-block-end: 1px solid var(--color-border);
+  }
+
+  .pricing-page__step-heading,
+  .pricing-page__step-copy {
+    display: grid;
+    align-content: start;
+    gap: var(--space-3);
+  }
+
+  .pricing-page__step-number {
+    color: var(--color-bordeaux);
+    font-family: var(--font-display);
+    font-size: 1.75rem;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  .pricing-page__step-heading h3 {
+    font-size: clamp(1.5rem, 2.8vw, 2.25rem);
+  }
+
+  .pricing-page__step-copy {
+    color: var(--color-text-muted);
+  }
+
+  .pricing-page__statement {
+    color: var(--color-ink);
+    font-weight: 650;
+  }
+
+  .pricing-page__closing {
+    justify-items: start;
+    margin-block-start: var(--space-7);
+    padding: clamp(1.5rem, 4vw, 3.5rem);
+    border-radius: var(--radius-md);
+    background: var(--color-camel-soft);
+  }
+
+  .pricing-page__closing > p {
+    max-width: var(--copy-max);
+  }
+
+  @media (min-width: 52rem) {
+    .pricing-page__hero {
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+      gap: clamp(3rem, 6vw, 6rem);
+    }
+
+    .pricing-page__steps > li {
+      grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+      gap: var(--space-7);
+    }
+  }
+</style>

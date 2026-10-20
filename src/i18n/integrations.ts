@@ -2,14 +2,23 @@ import type { Locale } from '@config/locales';
 
 type IntegrationPoint = { title: string; body: string };
 type IntegrationSection = {
+  id: 'rooms' | 'identity' | 'catering' | 'visitors';
   eyebrow: string;
   title: string;
   body: string;
-  points?: readonly IntegrationPoint[];
-  statement?: string;
+  points: readonly IntegrationPoint[];
+  qualification: string;
 };
 type IntegrationsCopy = {
+  overviewTitle: string;
+  overviewCta: string;
+  visualCaption: string;
   sections: readonly IntegrationSection[];
+  setup: {
+    eyebrow: string;
+    title: string;
+    steps: readonly IntegrationPoint[];
+  };
   closing: {
     eyebrow: string;
     title: string;
@@ -21,110 +30,195 @@ type IntegrationsCopy = {
 
 const integrationsCopy: Record<Locale, IntegrationsCopy> = {
   en: {
+    overviewTitle: 'Connections that fit your working day.',
+    overviewCta: 'Explore the connections',
+    visualCaption: 'Your rooms. Your team. A shared meeting workflow.',
     sections: [
       {
-        eyebrow: 'Integration principle',
-        title: 'Keep the systems your workplace already relies on.',
-        body: 'Conference Manager is designed to add conference coordination around specialist systems rather than replace them by default. Room booking can continue to own the reservation, while identity and collaboration remain part of the enterprise environment your organisation already manages.',
-        statement: 'Improve the conference journey without creating a replacement programme.',
-      },
-      {
-        eyebrow: 'Microsoft 365 · Initial enterprise focus',
-        title: 'Use Conference Manager with your existing Microsoft environment.',
-        body: 'The current Microsoft focus lets Conference Manager work with Entra-based access and Microsoft 365 room and calendar context used by the pilot model. That means organisations can build on familiar enterprise capabilities instead of introducing an isolated calendar process. Real use still depends on the Microsoft configuration and approvals chosen by the customer.',
+        id: 'rooms',
+        eyebrow: 'Room reservations',
+        title: 'Start here. Keep your room booking.',
+        body: 'Employees start their request in Conference Manager. Your existing room reservation system remains part of the process where a supported connection is available.',
         points: [
           {
-            title: 'Existing room resources',
-            body: 'Use room resources already managed in Microsoft 365 as part of the conference journey.',
+            title: 'One guided request',
+            body: 'Collect the details for participants, catering and equipment in one place, replacing the separate spreadsheets and request forms used for this process.',
           },
           {
-            title: 'Availability and calendar context',
-            body: 'Bring the room availability and calendar context needed for the supported conference flow into the experience.',
+            title: 'Existing Microsoft 365 rooms',
+            body: 'Use the room resources your company already manages. We confirm the connection and the calendar functions needed before your pilot begins.',
           },
         ],
+        qualification:
+          'Room availability and calendar changes require a supported connection and the Microsoft and Exchange permissions your organisation approves.',
       },
       {
-        eyebrow: 'Controlled enterprise access',
-        title: 'Enable only the access your organisation is ready to allow.',
-        body: 'Conference Manager does not assume broad calendar access. Capabilities that can change calendar information remain dependent on the Microsoft and Exchange controls selected for the customer environment.',
-        statement: 'Integration should fit your control model, not work around it.',
-      },
-      {
-        eyebrow: 'Designed to extend',
-        title: 'Add connected systems over time without changing the conference story.',
-        body: 'Conference Manager keeps the conference journey separate from the details of any one room or calendar provider. Microsoft 365 and Entra are the current focus. Other providers are described as available only after the relevant integration has actually been delivered and accepted.',
+        id: 'identity',
+        eyebrow: 'Microsoft sign-in',
+        title: 'Use your company account.',
+        body: 'Employees sign in with their Microsoft work account. We agree on who submits requests, who handles them and who administers your customer environment.',
         points: [
           {
-            title: 'A stable conference experience',
-            body: 'Employees and Workplace Teams can keep a consistent conference journey even when specialist systems differ between organisations.',
-          },
-          {
-            title: 'Sensitive access stays out of the public site',
-            body: 'Credentials and privileged integration access are handled outside the public marketing website and employee browser experience.',
+            title: 'Permissions for your team',
+            body: 'Your company decides which people need access and which responsibilities they take on. We set up the required roles with you.',
           },
         ],
+        qualification:
+          'Microsoft sign-in requires setup and your organisation’s approval. Roles are configured for your customer environment before use.',
+      },
+      {
+        id: 'catering',
+        eyebrow: 'Catering coordination',
+        title: 'Include your catering supplier.',
+        body: 'Agree on an order and a clear way to follow up. During setup, we confirm how your office team works with its catering supplier.',
+        points: [
+          {
+            title: 'Email and office-team follow-up',
+            body: 'Your office team sends the order by email and records the supplier’s response in Conference Manager. We agree on this working process for your pilot.',
+          },
+          {
+            title: 'Other connections to assess',
+            body: 'We can assess links to your supplier’s existing portal or an API connection with that supplier. These options are agreed only after the assessment.',
+          },
+        ],
+        qualification:
+          'Automatic sending and supplier status updates are agreed only when a suitable connection has been assessed and confirmed as available.',
+      },
+      {
+        id: 'visitors',
+        eyebrow: 'Optional visitor connection',
+        title: 'Discuss your guest workflow.',
+        body: 'If you also want to connect visitor registration or check-in, we assess the options for your existing visitor management system separately.',
+        points: [
+          {
+            title: 'Confirm what is possible',
+            body: 'We discuss which information your reception team needs and whether a suitable connection is available. Only confirmed options become part of the agreed scope.',
+          },
+        ],
+        qualification:
+          'Visitor registration and check-in require a separate feasibility check; they are not automatically included in the pilot.',
       },
     ],
+    setup: {
+      eyebrow: 'A clear start',
+      title: 'Agree on the setup. Then try your own meetings.',
+      steps: [
+        {
+          title: 'Review your process',
+          body: 'Bring a typical meeting to the demo. We discuss your rooms, teams and the connections you need.',
+        },
+        {
+          title: 'Set up your environment',
+          body: 'Pavurel provides a one-time paid setup. We agree on the scope, supported connections and setup price with you in advance.',
+        },
+        {
+          title: 'Try it for 30 days',
+          body: 'Your free 30-day pilot begins after setup is complete. Use your own meetings in your customer environment.',
+        },
+      ],
+    },
     closing: {
-      eyebrow: 'Start with your environment',
-      title: 'See how Conference Manager can fit the systems you already use.',
-      body: 'Bring your current room-booking and Microsoft 365 setup to a demo. We can map what should remain in place, what Conference Manager adds and which customer controls matter before an integration is enabled.',
+      eyebrow: 'Start with your company',
+      title: 'Let’s look at your meeting process.',
+      body: 'A personal demo shows how requests, room reservations and office-team coordination can fit together. We confirm the scope and costs before setting up your pilot.',
       primaryCta: 'Book a demo',
-      secondaryCta: 'Explore the product',
+      secondaryCta: 'Pilot & setup',
     },
   },
   de: {
+    overviewTitle: 'Passende Anbindungen für Ihren Alltag.',
+    overviewCta: 'Anbindungen ansehen',
+    visualCaption: 'Ihre Räume. Ihr Team. Ein gemeinsamer Ablauf.',
     sections: [
       {
-        eyebrow: 'Integrationsprinzip',
-        title: 'Behalten Sie die Systeme, auf die Ihre Arbeitswelt bereits angewiesen ist.',
-        body: 'Conference Manager ergänzt die Konferenzkoordination rund um spezialisierte Systeme, statt sie standardmäßig zu ersetzen. Ihre Raumbuchung kann weiterhin die Reservierung verantworten; Identität und Zusammenarbeit bleiben Teil der Enterprise-Umgebung, die Ihr Unternehmen bereits betreibt.',
-        statement:
-          'Verbessern Sie den Konferenzablauf, ohne daraus ein Austauschprojekt zu machen.',
-      },
-      {
-        eyebrow: 'Microsoft 365 · Erster Enterprise-Fokus',
-        title: 'Nutzen Sie Conference Manager mit Ihrer bestehenden Microsoft-Umgebung.',
-        body: 'Der aktuelle Microsoft-Fokus verbindet Conference Manager mit Entra-basiertem Zugang sowie dem Microsoft-365-Raum- und Kalenderkontext des Pilotmodells. Unternehmen können damit auf vertrauten Enterprise-Fähigkeiten aufbauen, statt einen isolierten Kalenderprozess einzuführen. Die reale Nutzung hängt weiterhin von der Microsoft-Konfiguration und den Freigaben ab, die der Kunde für seine Umgebung festlegt.',
+        id: 'rooms',
+        eyebrow: 'Raumreservierung',
+        title: 'Hier anfragen. Ihre Raumbuchung behalten.',
+        body: 'Mitarbeitende starten ihre Anfrage im Conference Manager. Ihre bestehende Raumreservierung bleibt Teil des Ablaufs, wenn eine unterstützte Anbindung verfügbar ist.',
         points: [
           {
-            title: 'Vorhandene Raumressourcen',
-            body: 'Nutzen Sie bereits in Microsoft 365 verwaltete Räume als Teil des Konferenzablaufs.',
+            title: 'Eine geführte Anfrage',
+            body: 'Erfassen Sie Angaben zu Teilnehmern, Catering und Technik an einem Ort. So können Sie die separaten Excel-Listen und Anfrageformulare für diesen Ablauf ablösen.',
           },
           {
-            title: 'Verfügbarkeit und Kalenderkontext',
-            body: 'Binden Sie die für den unterstützten Konferenzablauf benötigte Raumverfügbarkeit und den Kalenderkontext ein.',
+            title: 'Vorhandene Microsoft-365-Räume',
+            body: 'Nutzen Sie die Räume, die Ihr Unternehmen bereits verwaltet. Die passende Anbindung und benötigten Kalenderfunktionen klären wir vor dem Pilotstart.',
           },
         ],
+        qualification:
+          'Raumverfügbarkeit und Kalenderänderungen benötigen eine unterstützte Anbindung und die Microsoft- und Exchange-Freigaben Ihres Unternehmens.',
       },
       {
-        eyebrow: 'Kontrollierter Enterprise-Zugriff',
-        title: 'Aktivieren Sie nur den Zugriff, den Ihre Organisation freigeben möchte.',
-        body: 'Conference Manager setzt keinen weitreichenden Kalenderzugriff voraus. Funktionen, die Kalenderinformationen verändern können, bleiben von den Microsoft- und Exchange-Kontrollen abhängig, die für die jeweilige Kundenumgebung festgelegt werden.',
-        statement: 'Integration soll zu Ihrem Kontrollmodell passen – nicht daran vorbeiarbeiten.',
-      },
-      {
-        eyebrow: 'Erweiterbar gedacht',
-        title: 'Ergänzen Sie weitere angebundene Systeme, ohne die Konferenzstory neu zu bauen.',
-        body: 'Conference Manager hält den Konferenzablauf von den Details eines einzelnen Raum- oder Kalenderanbieters getrennt. Microsoft 365 und Entra sind der aktuelle Fokus. Weitere Anbieter werden erst dann als verfügbar beschrieben, wenn die jeweilige Integration tatsächlich geliefert und abgenommen ist.',
+        id: 'identity',
+        eyebrow: 'Microsoft-Anmeldung',
+        title: 'Mit Ihrem Unternehmenskonto anmelden.',
+        body: 'Mitarbeitende melden sich mit ihrem Microsoft-Unternehmenskonto an. Wir stimmen ab, wer Anfragen stellt, wer sie bearbeitet und wer Ihre Kundenumgebung verwaltet.',
         points: [
           {
-            title: 'Ein konsistentes Konferenzerlebnis',
-            body: 'Mitarbeitende und Workplace Teams können einen stabilen Ablauf behalten, auch wenn spezialisierte Systeme zwischen Unternehmen unterschiedlich sind.',
-          },
-          {
-            title: 'Sensibler Zugriff bleibt außerhalb der öffentlichen Website',
-            body: 'Zugangsdaten und privilegierter Integrationszugriff werden nicht in der öffentlichen Marketingwebsite oder im Browser der Mitarbeitenden verarbeitet.',
+            title: 'Berechtigungen für Ihr Team',
+            body: 'Ihr Unternehmen legt fest, welche Personen Zugang benötigen und welche Aufgaben sie übernehmen. Die erforderlichen Rollen richten wir mit Ihnen ein.',
           },
         ],
+        qualification:
+          'Die Microsoft-Anmeldung benötigt die Einrichtung und Freigabe Ihres Unternehmens. Rollen werden vor der Nutzung für Ihre Kundenumgebung konfiguriert.',
+      },
+      {
+        id: 'catering',
+        eyebrow: 'Cateringkoordination',
+        title: 'Ihren Caterer einbeziehen.',
+        body: 'Eine abgestimmte Bestellung und ein klarer Weg für Rückmeldungen. Bei der Einrichtung klären wir, wie Ihr Office-Team mit seinem Caterer zusammenarbeitet.',
+        points: [
+          {
+            title: 'E-Mail und Rückpflege durch Ihr Office-Team',
+            body: 'Ihr Office-Team versendet die Bestellung per E-Mail und hält die Rückmeldung des Caterers im Conference Manager fest. Diesen Arbeitsablauf vereinbaren wir für Ihren Pilot.',
+          },
+          {
+            title: 'Weitere Anbindungen prüfen',
+            body: 'Verweise auf das vorhandene Portal Ihres Caterers oder eine Schnittstelle zu diesem Anbieter prüfen wir gesondert. Diese Möglichkeiten werden erst nach der Prüfung vereinbart.',
+          },
+        ],
+        qualification:
+          'Automatischer Versand und Statusrückmeldungen werden nur vereinbart, wenn eine passende Anbindung geprüft und verfügbar ist.',
+      },
+      {
+        id: 'visitors',
+        eyebrow: 'Optionale Besucheranbindung',
+        title: 'Ihre Gästeabläufe besprechen.',
+        body: 'Wenn Sie auch Gästeanmeldung oder Check-in einbinden möchten, prüfen wir die Möglichkeiten für Ihr vorhandenes Besuchersystem gesondert.',
+        points: [
+          {
+            title: 'Möglichkeiten gemeinsam klären',
+            body: 'Wir besprechen, welche Informationen Ihr Empfang benötigt und ob eine passende Anbindung verfügbar ist. Nur bestätigte Möglichkeiten gehören zum vereinbarten Umfang.',
+          },
+        ],
+        qualification:
+          'Gästeanmeldung und Check-in erfordern eine gesonderte Machbarkeitsprüfung und sind nicht automatisch im Pilot enthalten.',
       },
     ],
+    setup: {
+      eyebrow: 'Ein klarer Einstieg',
+      title: 'Einrichtung abstimmen. Eigene Besprechungen erproben.',
+      steps: [
+        {
+          title: 'Ihren Ablauf ansehen',
+          body: 'Bringen Sie einen typischen Termin mit in die Demo. Wir besprechen Ihre Räume, Teams und die benötigten Anbindungen.',
+        },
+        {
+          title: 'Ihre Kundenumgebung einrichten',
+          body: 'Pavurel übernimmt die einmalige kostenpflichtige Einrichtung. Umfang, unterstützte Anbindungen und Einrichtungspreis stimmen wir vorher mit Ihnen ab.',
+        },
+        {
+          title: '30 Tage im Alltag erproben',
+          body: 'Ihr kostenloser 30-Tage-Pilot beginnt nach abgeschlossener Einrichtung. Nutzen Sie Ihre eigenen Besprechungen in Ihrer Kundenumgebung.',
+        },
+      ],
+    },
     closing: {
-      eyebrow: 'Ihre Umgebung als Ausgangspunkt',
-      title: 'Sehen Sie, wie Conference Manager zu Ihren bestehenden Systemen passt.',
-      body: 'Bringen Sie Ihre heutige Raumbuchung und Microsoft-365-Umgebung mit in die Demo. Gemeinsam lässt sich klären, was bestehen bleibt, was Conference Manager ergänzt und welche Kundenvorgaben vor der Aktivierung einer Integration relevant sind.',
+      eyebrow: 'Ihr Unternehmen als Ausgangspunkt',
+      title: 'Lassen Sie uns Ihren Besprechungsablauf ansehen.',
+      body: 'Eine persönliche Demo zeigt, wie Anfrage, Raumreservierung und die Arbeit Ihres Office-Teams zusammenspielen können. Umfang und Kosten klären wir vor der Einrichtung Ihres Pilots.',
       primaryCta: 'Demo anfragen',
-      secondaryCta: 'Produkt ansehen',
+      secondaryCta: 'Pilot & Einrichtung',
     },
   },
 };

@@ -1,5 +1,6 @@
 ---
-import EditorialStory from '@components/editorial/EditorialStory.astro';
+import BrandVisual from '@components/marketing/BrandVisual.astro';
+import ConferenceIcon from '@components/marketing/ConferenceIcon.astro';
 import type { Locale } from '@config/locales';
 import { withBasePath } from '@domain/routing/basePath';
 import { getIntegrationsCopy } from '@i18n/integrations';
@@ -13,16 +14,343 @@ const { locale } = Astro.props;
 const pageCopy = getPublicPageCopy(locale, 'integrations');
 const story = getIntegrationsCopy(locale);
 const demoHref = withBasePath(`/${locale}/book-a-demo/`);
-const productHref = withBasePath(`/${locale}/product/`);
+const pilotHref = withBasePath(`/${locale}/pricing/`);
+const icons = {
+  rooms: 'room-equipment',
+  identity: 'coordination',
+  catering: 'catering',
+  visitors: 'participants',
+} as const;
 ---
 
-<EditorialStory
-  eyebrow={pageCopy.eyebrow}
-  title={pageCopy.title}
-  lead={pageCopy.body}
-  sections={story.sections}
-  closing={story.closing}
-  primaryHref={demoHref}
-  secondaryHref={productHref}
-  idPrefix="integrations"
-/>
+<article class="integrations-page">
+  <header class="integrations-page__hero" aria-labelledby="integrations-title">
+    <div class="integrations-page__intro">
+      <p class="eyebrow">{pageCopy.eyebrow}</p>
+      <h1 id="integrations-title">{pageCopy.title}</h1>
+      <p class="integrations-page__lead">{pageCopy.body}</p>
+      <div class="integrations-page__actions">
+        <a class="button" href={demoHref}>{story.closing.primaryCta}</a>
+        <a class="integrations-page__text-link" href="#integrations-overview">
+          {story.overviewCta}<span aria-hidden="true">↓</span>
+        </a>
+      </div>
+    </div>
+    <div class="integrations-page__visual">
+      <BrandVisual locale={locale} variant="catering" priority />
+      <p>{story.visualCaption}</p>
+    </div>
+  </header>
+
+  <section
+    id="integrations-overview"
+    class="integrations-page__overview"
+    aria-labelledby="integrations-overview-title"
+    tabindex="-1"
+  >
+    <h2 id="integrations-overview-title">{story.overviewTitle}</h2>
+    <ul class="integrations-page__cards" role="list">
+      {
+        story.sections.map((section) => (
+          <li>
+            <section
+              class="integrations-page__card"
+              data-integration={section.id}
+              aria-labelledby={`integrations-${section.id}-title`}
+            >
+              <div class="integrations-page__card-heading">
+                <span class="integrations-page__icon" aria-hidden="true">
+                  <ConferenceIcon name={icons[section.id]} />
+                </span>
+                <p class="eyebrow">{section.eyebrow}</p>
+                <h3 id={`integrations-${section.id}-title`}>{section.title}</h3>
+              </div>
+              <p class="integrations-page__card-body">{section.body}</p>
+              <ul class="integrations-page__points" role="list">
+                {section.points.map((point) => (
+                  <li>
+                    <h4>{point.title}</h4>
+                    <p>{point.body}</p>
+                  </li>
+                ))}
+              </ul>
+              <p class="integrations-page__qualification">{section.qualification}</p>
+            </section>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section class="integrations-page__setup" aria-labelledby="integrations-setup-title">
+    <div class="integrations-page__setup-heading">
+      <p class="eyebrow">{story.setup.eyebrow}</p>
+      <h2 id="integrations-setup-title">{story.setup.title}</h2>
+    </div>
+    <ol class="integrations-page__steps" role="list">
+      {
+        story.setup.steps.map((step, index) => (
+          <li>
+            <span class="integrations-page__step-number" aria-hidden="true">
+              {index + 1}
+            </span>
+            <div>
+              <h3>{step.title}</h3>
+              <p>{step.body}</p>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+
+  <section class="integrations-page__closing" aria-labelledby="integrations-closing-title">
+    <p class="eyebrow">{story.closing.eyebrow}</p>
+    <h2 id="integrations-closing-title">{story.closing.title}</h2>
+    <p>{story.closing.body}</p>
+    <div class="integrations-page__actions">
+      <a class="button" href={demoHref}>{story.closing.primaryCta}</a>
+      <a class="integrations-page__text-link" href={pilotHref}>{story.closing.secondaryCta}</a>
+    </div>
+  </section>
+</article>
+
+<style>
+  .integrations-page {
+    padding-block: clamp(3rem, 8vw, 7rem);
+    overflow-wrap: anywhere;
+  }
+
+  .integrations-page__hero {
+    display: grid;
+    gap: var(--space-6);
+    align-items: center;
+    padding-block-end: clamp(4rem, 8vw, 7rem);
+  }
+
+  .integrations-page__intro {
+    display: grid;
+    gap: var(--space-4);
+  }
+
+  .integrations-page h1 {
+    max-width: 20ch;
+    margin: 0;
+    font-size: clamp(2.3rem, 4vw, 3.5rem);
+    letter-spacing: -0.05em;
+    line-height: 1.1;
+    overflow-wrap: normal;
+  }
+
+  .integrations-page__lead {
+    margin: 0;
+    color: var(--color-text-muted);
+    font-size: clamp(1.05rem, 1.5vw, 1.25rem);
+    line-height: 1.7;
+  }
+
+  .integrations-page__visual {
+    max-width: 30rem;
+    padding: var(--space-3);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background: var(--color-surface);
+  }
+
+  .integrations-page__visual p {
+    margin: var(--space-3) 0 0;
+    font-family: var(--font-display);
+    font-size: 0.9rem;
+    font-weight: 650;
+    line-height: 1.5;
+  }
+
+  .integrations-page__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+    align-items: center;
+  }
+
+  .integrations-page__text-link {
+    display: inline-flex;
+    min-height: var(--control-height);
+    gap: var(--space-1);
+    align-items: center;
+    font-weight: 700;
+    text-underline-offset: 0.25em;
+  }
+
+  .integrations-page__overview {
+    scroll-margin-block-start: var(--space-4);
+  }
+
+  .integrations-page__overview > h2 {
+    max-width: 22ch;
+    margin: 0 0 var(--space-5);
+    font-size: clamp(2rem, 3.7vw, 3.5rem);
+  }
+
+  .integrations-page__cards,
+  .integrations-page__points,
+  .integrations-page__steps {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .integrations-page__cards {
+    display: grid;
+    gap: var(--space-4);
+  }
+
+  .integrations-page__cards > li {
+    min-width: 0;
+  }
+
+  .integrations-page__card {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    gap: var(--space-4);
+    padding: clamp(1.5rem, 3vw, 2.75rem);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background: var(--color-surface);
+  }
+
+  .integrations-page__card-heading {
+    display: grid;
+    gap: var(--space-3);
+  }
+
+  .integrations-page__icon {
+    display: grid;
+    width: 3.25rem;
+    height: 3.25rem;
+    place-items: center;
+    border-radius: var(--radius-md);
+    background: var(--color-camel-soft);
+    color: var(--color-bordeaux);
+  }
+
+  .integrations-page__card h3 {
+    max-width: 24ch;
+    margin: 0;
+    font-size: clamp(1.7rem, 2.6vw, 2.4rem);
+    line-height: 1.18;
+  }
+
+  .integrations-page__card-body,
+  .integrations-page__points p,
+  .integrations-page__steps p {
+    margin: 0;
+    color: var(--color-text-muted);
+    line-height: 1.7;
+  }
+
+  .integrations-page__points {
+    display: grid;
+    gap: var(--space-4);
+  }
+
+  .integrations-page__points h4 {
+    margin: 0 0 var(--space-1);
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 700;
+  }
+
+  .integrations-page__qualification {
+    margin: auto 0 0;
+    padding-block-start: var(--space-4);
+    border-block-start: 1px solid var(--color-border);
+    color: var(--color-ink);
+    font-size: 0.9rem;
+    line-height: 1.65;
+  }
+
+  .integrations-page__setup {
+    display: grid;
+    gap: var(--space-6);
+    margin-block: clamp(4rem, 8vw, 7rem);
+    padding-block-start: var(--space-6);
+    border-block-start: 1px solid var(--color-border-strong);
+  }
+
+  .integrations-page__setup-heading {
+    display: grid;
+    gap: var(--space-4);
+    align-content: start;
+  }
+
+  .integrations-page__setup h2 {
+    max-width: 18ch;
+    margin: 0;
+    font-size: clamp(2rem, 3.7vw, 3.5rem);
+  }
+
+  .integrations-page__steps {
+    display: grid;
+    gap: var(--space-5);
+  }
+
+  .integrations-page__steps li {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: var(--space-3);
+    align-items: start;
+  }
+
+  .integrations-page__step-number {
+    display: grid;
+    width: 2rem;
+    height: 2rem;
+    place-items: center;
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-pill);
+    color: var(--color-bordeaux);
+    font-family: var(--font-display);
+    font-weight: 750;
+  }
+
+  .integrations-page__steps h3 {
+    margin: 0 0 var(--space-2);
+    font-size: 1.2rem;
+    line-height: 1.4;
+  }
+
+  .integrations-page__closing {
+    display: grid;
+    gap: var(--space-4);
+    padding: clamp(1.5rem, 5vw, 4rem);
+    border-radius: var(--radius-lg);
+    background: var(--color-camel-soft);
+  }
+
+  .integrations-page__closing h2 {
+    max-width: 23ch;
+    margin: 0;
+    font-size: clamp(2rem, 4vw, 3.8rem);
+  }
+
+  .integrations-page__closing > p:not(.eyebrow) {
+    margin: 0;
+    color: var(--color-ink);
+    line-height: 1.7;
+  }
+
+  @media (min-width: 48rem) {
+    .integrations-page__hero {
+      grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.8fr);
+    }
+
+    .integrations-page__cards {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .integrations-page__setup {
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    }
+  }
+</style>
