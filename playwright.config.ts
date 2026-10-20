@@ -23,7 +23,8 @@ export default defineConfig({
     },
   ],
   webServer: {
-    command: 'npm run dev -- --host 127.0.0.1',
+    // Exercise the built pages without development hot reloads interrupting browser checks.
+    command: 'npm run build && npm run preview -- --host 127.0.0.1 --port 4321',
     url: 'http://127.0.0.1:4321/en/',
     reuseExistingServer: false,
     timeout: 120_000,

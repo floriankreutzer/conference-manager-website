@@ -9,22 +9,22 @@ test.describe('Product and How it works narratives', () => {
     const main = page.locator('main');
 
     await expect(page).toHaveTitle(
-      'Conference management around the complete request. — Conference Manager',
+      'One request. Everything for your meeting. — Conference Manager',
     );
     await expect(
       main.getByRole('heading', {
         level: 1,
-        name: 'Conference management around the complete request.',
+        name: 'One request. Everything for your meeting.',
       }),
     ).toBeVisible();
     await expect(
       main.getByRole('heading', {
         level: 2,
-        name: 'Keep the decisions that belong together in one place.',
+        name: 'Bring the details together before preparation starts.',
       }),
     ).toBeVisible();
     await expect(
-      main.getByText('Keep your room booking. Replace the coordination around it.'),
+      main.getByText(/Your room-booking system stays responsible for reservations/),
     ).toBeVisible();
     await expect(main.getByRole('link', { name: 'Book a demo' }).first()).toHaveAttribute(
       'href',
@@ -45,24 +45,22 @@ test.describe('Product and How it works narratives', () => {
     const main = page.locator('main');
 
     await expect(page).toHaveTitle(
-      'Konferenzmanagement rund um die vollständige Anfrage. — Conference Manager',
+      'Eine Anfrage. Alles für Ihre Besprechung. — Conference Manager',
     );
     await expect(
       main.getByRole('heading', {
         level: 1,
-        name: 'Konferenzmanagement rund um die vollständige Anfrage.',
+        name: 'Eine Anfrage. Alles für Ihre Besprechung.',
       }),
     ).toBeVisible();
     await expect(
       main.getByRole('heading', {
         level: 2,
-        name: 'Halten Sie zusammen, was für dieselbe Konferenz entschieden wird.',
+        name: 'Die Angaben zusammenführen, bevor die Vorbereitung beginnt.',
       }),
     ).toBeVisible();
     await expect(
-      main.getByText(
-        'Behalten Sie Ihre Raumbuchung. Strukturieren Sie die Koordination darum herum.',
-      ),
+      main.getByText(/Ihr Raumbuchungssystem bleibt für Reservierungen zuständig/),
     ).toBeVisible();
     await expect(main.getByRole('link', { name: 'Demo anfragen' }).first()).toHaveAttribute(
       'href',
@@ -74,32 +72,37 @@ test.describe('Product and How it works narratives', () => {
     );
   });
 
-  test('explains the English How it works flow as five ordered stages', async ({ page }) => {
+  test('explains the three stages and lets visitors explore a catering change', async ({
+    page,
+  }) => {
     await page.goto('/en/how-it-works/');
     const main = page.locator('main');
 
-    await expect(page).toHaveTitle(
-      'From conference request to prepared experience. — Conference Manager',
-    );
+    await expect(page).toHaveTitle('One meeting. Three clear steps. — Conference Manager');
     await expect(
       main.getByRole('heading', {
         level: 1,
-        name: 'From conference request to prepared experience.',
+        name: 'One meeting. Three clear steps.',
       }),
     ).toBeVisible();
-    await expect(main.locator('article > ol > li')).toHaveCount(5);
+    await expect(main.locator('article > ol > li')).toHaveCount(3);
     await expect(
-      main.getByRole('heading', { level: 2, name: 'Start with the conference itself.' }),
+      main.getByRole('heading', { level: 2, name: 'The employee describes the meeting.' }),
     ).toBeVisible();
     await expect(
       main.getByRole('heading', {
         level: 2,
-        name: 'Keep room booking connected, not duplicated.',
+        name: 'The conference team prepares the meeting.',
       }),
     ).toBeVisible();
     await expect(
-      main.getByText("We don't replace your room booking system. We connect it."),
+      main.getByText(/The existing room-booking system remains responsible for the reservation/),
     ).toBeVisible();
+    const example = main.locator('meeting-example');
+    await expect(example.getByRole('tab')).toHaveCount(3);
+    await example.getByRole('tab', { name: 'Change', exact: true }).click();
+    await expect(example.getByText('Coffee-break package for 18', { exact: true })).toBeVisible();
+    await expect(example.getByText('Change awaiting review', { exact: true })).toBeVisible();
     await expect(main.getByRole('link', { name: /Explore the product/ }).first()).toHaveAttribute(
       'href',
       '/en/product/',
@@ -119,7 +122,7 @@ test.describe('Product and How it works narratives', () => {
     await expect(
       page.getByRole('heading', {
         level: 2,
-        name: 'Binden Sie die Raumbuchung ein, statt sie zu duplizieren.',
+        name: 'Eine Änderung bleibt bei der Besprechung.',
       }),
     ).toBeVisible();
   });

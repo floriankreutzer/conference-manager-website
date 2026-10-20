@@ -33,6 +33,10 @@ seed/checksum, browser coverage, assertions or security limits merely to fit a b
 Website baseline commands are `npm run check`, `npm run lint`, `npm run format:check`, `npm test`,
 `npm run test:fonts`, `npm run build`, `npm run test:performance`, `npm audit --audit-level=high`
 and `npm run test:e2e`. API baseline is `npm run check`, `npm run audit`, `npm run test:db`.
+The website browser runner builds and serves the static preview with its declared test
+configuration. It does not use the development server: hot reloads can replace a page's
+execution context during an accessibility scan. Browser assertions, coverage and the
+fail-on-flaky gate apply unchanged to the compiled pages.
 Application baseline is `npm run check`, `npm run audit` plus applicable ordinary/shared/scenario E2E.
 Use each repository's declared Node version and lockfile; use locked, reviewed installs in CI.
 

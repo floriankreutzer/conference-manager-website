@@ -50,12 +50,12 @@ const copy: Record<Locale, NavigationCopy> = {
       productLinks: [
         { label: 'Product', href: '/en/product/' },
         { label: 'How it works', href: '/en/how-it-works/' },
-        { label: 'For Workplace Teams', href: '/en/workplace-teams/' },
+        { label: 'For your team', href: '/en/workplace-teams/' },
         { label: 'About Conference Manager', href: '/en/company/' },
       ],
       resourceLinks: [
         { label: 'Integrations', href: '/en/integrations/' },
-        { label: 'Security & Trust', href: '/en/security-trust/' },
+        { label: 'Security & trust', href: '/en/security-trust/' },
         { label: 'Setup & pilot', href: '/en/pricing/' },
         { label: 'Insights', href: '/en/insights/' },
       ],
@@ -86,12 +86,12 @@ const copy: Record<Locale, NavigationCopy> = {
       productLinks: [
         { label: 'Produkt', href: '/de/product/' },
         { label: 'So funktioniert es', href: '/de/how-it-works/' },
-        { label: 'Für Workplace Teams', href: '/de/workplace-teams/' },
+        { label: 'Für Ihr Team', href: '/de/workplace-teams/' },
         { label: 'Über Conference Manager', href: '/de/company/' },
       ],
       resourceLinks: [
         { label: 'Integrationen', href: '/de/integrations/' },
-        { label: 'Security & Trust', href: '/de/security-trust/' },
+        { label: 'Sicherheit & Vertrauen', href: '/de/security-trust/' },
         { label: 'Einführung & Pilot', href: '/de/pricing/' },
         { label: 'Insights', href: '/de/insights/' },
       ],

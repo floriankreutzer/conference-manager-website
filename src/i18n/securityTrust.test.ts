@@ -18,7 +18,7 @@ describe('Security and Trust copy', () => {
     });
   });
 
-  it('keeps both locales evidence-led and customer-oriented', () => {
+  it('qualifies access and integration claims and provides a demo next step', () => {
     const english = getSecurityTrustCopy('en');
     const german = getSecurityTrustCopy('de');
     const englishText = JSON.stringify(english);
@@ -26,11 +26,21 @@ describe('Security and Trust copy', () => {
 
     expect(englishText).toContain('customer environment');
     expect(germanText).toContain('Kundenumgebung');
+    expect(englishText).toContain('configured for Microsoft Entra');
+    expect(englishText).toContain('assessed separately');
+    expect(englishText).toContain('once availability');
+    expect(englishText).not.toContain('demo enquiries use a separate public processing path');
     expect(englishText).toContain('certifications');
+    expect(germanText).toContain('für Microsoft Entra eingerichteten Kundenumgebung');
+    expect(germanText).toContain('gesondert geprüft');
+    expect(germanText).toContain('wenn Verfügbarkeit');
+    expect(germanText).not.toContain(
+      'Demo-Anfragen laufen über einen getrennten öffentlichen Verarbeitungsweg',
+    );
     expect(germanText).toContain('Zertifizierungen');
-    expect(english.closing.primaryCta).toBe('Explore integrations');
-    expect(german.closing.primaryCta).toBe('Integrationen ansehen');
-    expect(english.closing.primaryCta).not.toBe('Book a demo');
-    expect(german.closing.primaryCta).not.toBe('Demo anfragen');
+    expect(english.closing.primaryCta).toBe('Book a demo');
+    expect(german.closing.primaryCta).toBe('Demo anfragen');
+    expect(english.closing.secondaryCta).toBe('Explore integrations');
+    expect(german.closing.secondaryCta).toBe('Integrationen ansehen');
   });
 });

@@ -87,37 +87,33 @@ test.describe('public website contracts', () => {
     await expect(
       page.getByRole('heading', {
         level: 1,
-        name: 'Why Conference Manager exists — and what that means for your organisation.',
+        name: 'From first conversation to everyday meetings.',
       }),
     ).toBeVisible();
+    await expect(page.getByText('Make meeting preparation easier to coordinate.')).toBeVisible();
+    await expect(page.getByText('A shared basis for the team')).toBeVisible();
+    await expect(page.getByText('Build on the systems your company already uses.')).toBeVisible();
     await expect(
-      page.getByText('A booked room does not mean a prepared conference.'),
+      page.getByText('Agree the process. Set it up. Try it with your team.'),
     ).toBeVisible();
+    await expect(page.getByText('Use the software free for 30 days')).toBeVisible();
     await expect(
-      page.getByText('For organisations that want a clearer preparation process.'),
-    ).toBeVisible();
-    await expect(
-      page.getByText('Improve coordination around systems that already work.'),
-    ).toBeVisible();
-    await expect(
-      page.getByText('Start with a real conference journey and prove the fit.'),
-    ).toBeVisible();
-    await expect(page.getByText('One request. Everything your conference needs.')).toBeVisible();
-    await expect(
-      page.getByText('Keep your room booking. Replace the coordination around it.'),
+      page.getByText(
+        'Start in Conference Manager. Reserve through your existing room-booking system.',
+      ),
     ).toBeVisible();
     await expect(
       page.getByText(/formal company-name, domain and trademark clearance/i),
     ).toHaveCount(0);
-    await expect(page.getByRole('link', { name: 'Book a demo' })).toHaveCount(1);
-    await expect(page.getByRole('link', { name: 'Explore the product' })).toHaveAttribute(
+    await expect(page.getByRole('link', { name: 'Book a demo' })).toHaveCount(3);
+    await expect(page.getByRole('link', { name: 'Explore setup & pilot' }).first()).toHaveAttribute(
       'href',
-      '/en/product/',
+      '/en/pricing/',
     );
-    await expectBrandVisualToLoad(page, 'about');
-    await expect(page.locator('[data-brand-visual-variant="about"] img')).toHaveAttribute(
+    await expectBrandVisualToLoad(page, 'preparation');
+    await expect(page.locator('[data-brand-visual-variant="preparation"] img')).toHaveAttribute(
       'src',
-      '/assets/brand/about-hospitality-400.webp',
+      '/assets/brand/meeting-preparation-960.webp',
     );
   });
 
@@ -129,17 +125,13 @@ test.describe('public website contracts', () => {
     await expect(
       page.getByRole('heading', {
         level: 1,
-        name: 'Enterprise trust without making the employee experience complicated.',
+        name: 'Clear answers for your IT team.',
       }),
     ).toBeVisible();
-    await expect(
-      page.getByText('A simple employee journey without giving up organisational control.'),
-    ).toBeVisible();
-    await expect(
-      page.getByText('Connect to your environment without handing control away.'),
-    ).toBeVisible();
-    await expect(page.getByRole('link', { name: 'Book a demo' })).toHaveCount(1);
-    await expect(page.getByRole('link', { name: 'Explore integrations' })).toHaveAttribute(
+    await expect(page.getByText('How do employees access Conference Manager?')).toBeVisible();
+    await expect(page.getByText('Which systems need to be connected?')).toBeVisible();
+    await expect(page.getByRole('link', { name: 'Book a demo' })).toHaveCount(3);
+    await expect(page.getByRole('link', { name: 'Explore integrations' }).first()).toHaveAttribute(
       'href',
       '/en/integrations/',
     );
@@ -327,11 +319,11 @@ test.describe('SEO and preview publication contracts', () => {
   test('publishes customer-led About metadata in both locales', async ({ page }) => {
     await page.goto('/en/company/');
     await expect(page).toHaveTitle(
-      'Built around the conference, not around another system. — Conference Manager',
+      'From first conversation to everyday meetings. — Conference Manager',
     );
     await expect(page.locator('meta[name="description"]')).toHaveAttribute(
       'content',
-      /complete workplace conference journey/,
+      /helps you agree the setup of Conference Manager/,
     );
     await expect(page.locator('link[rel="alternate"][hreflang="de"]')).toHaveAttribute(
       'href',

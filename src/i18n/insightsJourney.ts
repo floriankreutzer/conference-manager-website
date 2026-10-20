@@ -1,6 +1,15 @@
 import type { Locale } from '@config/locales';
 
 type InsightsJourneyCopy = {
+  emptyText: string;
+  featuredLabel: string;
+  readArticle: string;
+  backLabel: string;
+  articleEyebrow: string;
+  publishedLabel: string;
+  updatedLabel: string;
+  contentsLabel: string;
+  articleSummaries: Partial<Record<string, { title: string; items: readonly string[] }>>;
   indexClosing: {
     eyebrow: string;
     title: string;
@@ -19,35 +28,71 @@ type InsightsJourneyCopy = {
 
 const copy: Record<Locale, InsightsJourneyCopy> = {
   en: {
+    emptyText: 'Our first articles on organising meetings will appear here soon.',
+    featuredLabel: 'Meeting organisation',
+    readArticle: 'Read the article',
+    backLabel: 'Back to Insights',
+    articleEyebrow: 'Insights',
+    publishedLabel: 'Published',
+    updatedLabel: 'Updated',
+    contentsLabel: 'In this article',
+    articleSummaries: {
+      'room-booking-and-conference-management': {
+        title: 'At a glance',
+        items: [
+          'Your room-booking system stays responsible for reservations.',
+          'Participants, catering and equipment belong in one meeting request.',
+          'Teams need clear responsibilities and a shared view of changes.',
+        ],
+      },
+    },
     indexClosing: {
-      eyebrow: 'From insight to your workplace',
-      title: 'Apply the thinking to a real conference journey.',
-      body: 'If the coordination problem feels familiar, a demo can map the steps your employees and Workplace Team handle today and show where Conference Manager could fit.',
+      eyebrow: 'Your next meeting',
+      title: 'Bring your everyday process to the demo.',
+      body: 'Show us how your office or conference team organises a meeting today. We discuss missing information, handovers and the systems you already use.',
       primaryCta: 'Book a demo',
-      secondaryCta: 'Explore the product',
+      secondaryCta: 'Explore setup & pilot',
     },
     articleClosing: {
-      eyebrow: 'Continue the conversation',
-      title: 'See what this could mean for your Workplace Team.',
-      body: 'Bring one real conference journey and compare the room-booking step with the coordination that follows. Conference Manager is designed for that wider operational context.',
+      eyebrow: 'From reading to trying',
+      title: 'How would this work for your team?',
+      body: 'In a personal demo, we look at one of your typical meetings and discuss which supported connections and setup would fit your organisation.',
       primaryCta: 'Book a demo',
-      secondaryCta: 'Explore the product',
+      secondaryCta: 'Explore integrations',
     },
   },
   de: {
+    emptyText: 'Hier erscheinen in Kürze unsere ersten Beiträge zur Besprechungsorganisation.',
+    featuredLabel: 'Besprechungen organisieren',
+    readArticle: 'Artikel lesen',
+    backLabel: 'Zurück zu Insights',
+    articleEyebrow: 'Insights',
+    publishedLabel: 'Veröffentlicht',
+    updatedLabel: 'Aktualisiert',
+    contentsLabel: 'In diesem Artikel',
+    articleSummaries: {
+      'room-booking-and-conference-management': {
+        title: 'Auf einen Blick',
+        items: [
+          'Ihr Raumbuchungssystem bleibt für Reservierungen zuständig.',
+          'Teilnehmer, Catering und Technik gehören in eine Besprechungsanfrage.',
+          'Teams brauchen klare Zuständigkeiten und einen gemeinsamen Stand bei Änderungen.',
+        ],
+      },
+    },
     indexClosing: {
-      eyebrow: 'Vom Insight zu Ihrer Arbeitswelt',
-      title: 'Übertragen Sie die Perspektive auf einen realen Konferenzablauf.',
-      body: 'Wenn Ihnen das Koordinationsproblem bekannt vorkommt, kann eine Demo die heutigen Schritte von Mitarbeitenden und Workplace Team sichtbar machen und zeigen, wo Conference Manager sinnvoll ansetzen kann.',
+      eyebrow: 'Ihre nächste Besprechung',
+      title: 'Bringen Sie Ihren Alltag mit in die Demo.',
+      body: 'Zeigen Sie uns, wie Ihr Office- oder Konferenzteam heute eine Besprechung organisiert. Wir besprechen fehlende Angaben, Übergaben und Ihre vorhandenen Systeme.',
       primaryCta: 'Demo anfragen',
-      secondaryCta: 'Produkt ansehen',
+      secondaryCta: 'Einführung & Pilot ansehen',
     },
     articleClosing: {
-      eyebrow: 'Gespräch fortsetzen',
-      title: 'Sehen Sie, was das für Ihr Workplace Team bedeuten könnte.',
-      body: 'Bringen Sie einen realen Konferenzablauf mit und vergleichen Sie den Raumbuchungsschritt mit der Koordination, die danach folgt. Conference Manager ist für diesen weitergehenden operativen Kontext ausgelegt.',
+      eyebrow: 'Vom Lesen zum Ausprobieren',
+      title: 'Wie würde das für Ihr Team aussehen?',
+      body: 'In einer persönlichen Demo betrachten wir eine Ihrer typischen Besprechungen und klären, welche unterstützten Anbindungen und welche Einrichtung zu Ihrem Unternehmen passen.',
       primaryCta: 'Demo anfragen',
-      secondaryCta: 'Produkt ansehen',
+      secondaryCta: 'Integrationen ansehen',
     },
   },
 };

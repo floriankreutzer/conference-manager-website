@@ -26,17 +26,17 @@ const pages: Record<Locale, Record<PublicPageSlug, PublicPageCopy>> = {
   en: {
     product: {
       eyebrow: 'Product',
-      title: 'Conference management around the complete request.',
+      title: 'One request. Everything for your meeting.',
       description:
-        'See how Conference Manager brings guests, catering, services, requirements and room context into one guided conference journey for modern workplaces.',
-      body: 'Conference Manager is designed around the professional conference request. Employees get a clear journey while Workplace Teams retain the context needed to prepare and manage the experience.',
+        'Bring meeting details, guests, catering and equipment together. Conference Manager helps your office team coordinate preparation alongside your existing systems.',
+      body: 'Bring guests, catering and equipment into one meeting request. Your office or conference team can follow the details and supported changes while your existing room-booking system handles the reservation.',
     },
     'how-it-works': {
       eyebrow: 'How it works',
-      title: 'From conference request to prepared experience.',
+      title: 'One meeting. Three clear steps.',
       description:
-        'Follow a conference from the first request through room context, services, catering, review and Workplace Team preparation.',
-      body: 'Start with the conference itself, keep the information needed for preparation together and connect the room-booking capability your organisation already uses.',
+        'Follow a meeting from the first request through preparation and a change from 12 to 18 people. See how Conference Manager brings the details together.',
+      body: 'Start the request in Conference Manager, coordinate preparation and keep changes visible. Follow one workshop from 12 to 18 people in the example below.',
     },
     integrations: {
       eyebrow: 'Integrations',
@@ -47,18 +47,18 @@ const pages: Record<Locale, Record<PublicPageSlug, PublicPageCopy>> = {
       note: 'Only capabilities verified against the current product are presented as available.',
     },
     'workplace-teams': {
-      eyebrow: 'For Workplace Teams',
-      title: 'More context for the team. Less process for the requester.',
+      eyebrow: 'For your team',
+      title: 'Fewer follow-ups. Clearer responsibilities.',
       description:
-        'Give Workplace Teams the information to prepare and coordinate conferences while keeping the employee request journey simple.',
-      body: 'Workplace Teams need structured information, clear responsibilities and enough context to prepare a professional conference. Conference Manager makes that work visible without turning the requester experience into an internal checklist.',
+        'Help employees, office teams and service teams prepare meetings together. Keep requests, responsibilities and changes in view.',
+      body: 'For office and conference teams in mid-sized companies: collect the information you need, coordinate the people involved and see what still needs a decision.',
     },
     'security-trust': {
-      eyebrow: 'Security & Trust',
-      title: 'Enterprise trust without making the employee experience complicated.',
+      eyebrow: 'Security & trust',
+      title: 'Clear answers for your IT team.',
       description:
-        'See how Conference Manager combines a simple employee experience with controlled access, customer-specific integrations and evidence-led security claims.',
-      body: 'Employees should be able to request a conference without learning the security model behind the product. Your organisation still needs control over sign-in, roles, integrations and operational access. Conference Manager is designed to support both needs without turning Security & Trust into a page of infrastructure language.',
+        'Understand Microsoft sign-in, roles and customer-specific connections. Discuss access and data requirements before setting up Conference Manager.',
+      body: 'Who can sign in? Who can work on a request? Which systems will be connected? We clarify access, responsibilities and your requirements together before setup.',
     },
     pricing: {
       eyebrow: 'Setup & pilot',
@@ -70,17 +70,17 @@ const pages: Record<Locale, Record<PublicPageSlug, PublicPageCopy>> = {
     },
     insights: {
       eyebrow: 'Insights',
-      title: 'Practical thinking for better workplace conferences.',
+      title: 'Practical ideas for better meeting preparation.',
       description:
-        'Insights on conference operations, workplace experience, governance and connected workplace services.',
-      body: 'Insights focus on the operational realities behind professional workplace conferences and the decisions that help Workplace Teams create clearer, more dependable experiences.',
+        'Practical guidance for office and conference teams: organise meeting details, coordinate catering and connect the systems you already use.',
+      body: 'A meeting takes more than a room. Explore practical ways to coordinate guests, catering, equipment and changes with your team.',
     },
     company: {
-      eyebrow: 'About',
-      title: 'Built around the conference, not around another system.',
+      eyebrow: 'Conference Manager by Pavurel',
+      title: 'From first conversation to everyday meetings.',
       description:
-        'Learn why Conference Manager focuses on the complete workplace conference journey, how it supports employees and Workplace Teams, and what Pavurel contributes to the product experience.',
-      body: 'Conference Manager is built for the work that begins after a room is chosen: guests, catering, services, requirements and the coordination that makes a professional conference feel prepared. The product combines a simple requester experience with the operational context Workplace Teams need.',
+        'See how Pavurel helps you agree the setup of Conference Manager, connect supported systems and try the software with your own meetings.',
+      body: 'Pavurel helps set up Conference Manager for your office or conference team. Together, we agree the workflow and supported connections before you start using it for your own meetings.',
     },
     'book-a-demo': {
       eyebrow: 'Book a demo',
@@ -94,17 +94,17 @@ const pages: Record<Locale, Record<PublicPageSlug, PublicPageCopy>> = {
   de: {
     product: {
       eyebrow: 'Produkt',
-      title: 'Konferenzmanagement rund um die vollständige Anfrage.',
+      title: 'Eine Anfrage. Alles für Ihre Besprechung.',
       description:
-        'Sehen Sie, wie Conference Manager Gäste, Catering, Services, Anforderungen und Raumkontext in einem geführten Konferenzablauf für moderne Arbeitswelten zusammenführt.',
-      body: 'Conference Manager ist rund um die professionelle Konferenzanfrage gestaltet. Mitarbeitende erhalten einen klaren Ablauf, während Workplace Teams den Kontext für Vorbereitung und Steuerung behalten.',
+        'Gäste, Catering und Technik gemeinsam organisieren. Conference Manager unterstützt Ihr Office-Team bei der Vorbereitung und ergänzt Ihre vorhandenen Systeme.',
+      body: 'Gäste, Catering und Technik kommen in einer Besprechungsanfrage zusammen. Ihr Office- oder Konferenzteam behält die Angaben und unterstützten Änderungen im Blick. Die Reservierung übernimmt Ihre bestehende Raumbuchung.',
     },
     'how-it-works': {
       eyebrow: 'So funktioniert es',
-      title: 'Von der Konferenzanfrage zur vorbereiteten Erfahrung.',
+      title: 'Eine Besprechung. Drei klare Schritte.',
       description:
-        'Verfolgen Sie eine Konferenz von der ersten Anfrage über Raumkontext, Services, Catering und Prüfung bis zur Vorbereitung durch das Workplace Team.',
-      body: 'Beginnen Sie bei der Konferenz selbst, halten Sie die für die Vorbereitung benötigten Informationen zusammen und binden Sie die bestehende Raumbuchung Ihres Unternehmens ein.',
+        'Von der Anfrage über die Vorbereitung bis zur Änderung von 12 auf 18 Personen: Ein Beispiel zeigt, wie Conference Manager die Angaben zusammenführt.',
+      body: 'Die Anfrage im Conference Manager starten, die Vorbereitung abstimmen und Änderungen nachvollziehen. Begleiten Sie im Beispiel einen Workshop, der von 12 auf 18 Personen wächst.',
     },
     integrations: {
       eyebrow: 'Integrationen',
@@ -115,18 +115,18 @@ const pages: Record<Locale, Record<PublicPageSlug, PublicPageCopy>> = {
       note: 'Als verfügbar werden nur Fähigkeiten dargestellt, die gegen den aktuellen Produktstand verifiziert sind.',
     },
     'workplace-teams': {
-      eyebrow: 'Für Workplace Teams',
-      title: 'Mehr Kontext für das Team. Weniger Prozess für die anfragende Person.',
+      eyebrow: 'Für Ihr Team',
+      title: 'Weniger Rückfragen. Klarere Zuständigkeiten.',
       description:
-        'Geben Sie Workplace Teams die Informationen für Vorbereitung und Koordination, während der Anfrageprozess für Mitarbeitende einfach bleibt.',
-      body: 'Workplace Teams benötigen strukturierte Informationen, klare Zuständigkeiten und ausreichend Kontext für eine professionell vorbereitete Konferenz. Conference Manager macht diese Arbeit sichtbar, ohne die anfragende Person mit internen Checklisten zu belasten.',
+        'Mitarbeitende, Office-Team und Service-Teams bereiten Besprechungen gemeinsam vor. Behalten Sie Anfragen, Zuständigkeiten und Änderungen im Blick.',
+      body: 'Für Office- und Konferenzteams im Mittelstand: benötigte Angaben sammeln, beteiligte Teams koordinieren und erkennen, wo noch eine Entscheidung fehlt.',
     },
     'security-trust': {
-      eyebrow: 'Security & Trust',
-      title: 'Enterprise-Sicherheit, ohne den Anfrageprozess kompliziert zu machen.',
+      eyebrow: 'Sicherheit & Vertrauen',
+      title: 'Klare Antworten für Ihre IT.',
       description:
-        'Sehen Sie, wie Conference Manager einen einfachen Anfrageprozess mit kontrolliertem Zugriff, kundenspezifischen Integrationen und evidenzbasierten Security-Aussagen verbindet.',
-      body: 'Mitarbeitende sollen eine Konferenz anfragen können, ohne das Sicherheitsmodell des Produkts verstehen zu müssen. Ihr Unternehmen benötigt trotzdem Kontrolle über Anmeldung, Rollen, Integrationen und operativen Zugriff. Conference Manager ist darauf ausgelegt, beides zu verbinden, ohne Security & Trust zu einer Seite voller Infrastrukturbegriffe zu machen.',
+        'Microsoft-Anmeldung, Rollen und kundenspezifische Anbindungen verständlich erklärt. Klären Sie Zugriff und Datenanforderungen vor der Einrichtung.',
+      body: 'Wer kann sich anmelden? Wer darf eine Anfrage bearbeiten? Welche Systeme werden angebunden? Zugriff, Zuständigkeiten und Ihre Anforderungen klären wir gemeinsam vor der Einrichtung.',
     },
     pricing: {
       eyebrow: 'Einrichtung & Pilot',
@@ -138,17 +138,17 @@ const pages: Record<Locale, Record<PublicPageSlug, PublicPageCopy>> = {
     },
     insights: {
       eyebrow: 'Insights',
-      title: 'Praktische Perspektiven für bessere Workplace-Konferenzen.',
+      title: 'Besprechungen besser vorbereiten.',
       description:
-        'Insights zu Konferenzbetrieb, Workplace Experience, Governance und vernetzten Workplace Services.',
-      body: 'Insights konzentrieren sich auf die operative Realität professioneller Workplace-Konferenzen und auf Entscheidungen, mit denen Workplace Teams klarere und verlässlichere Erfahrungen schaffen können.',
+        'Praxiswissen für Office- und Konferenzteams: Besprechungsdetails organisieren, Catering abstimmen und vorhandene Systeme sinnvoll verbinden.',
+      body: 'Zu einer Besprechung gehört mehr als der Raum. Hier finden Sie Anregungen, wie Ihr Team Gäste, Catering, Technik und Änderungen gemeinsam organisieren kann.',
     },
     company: {
-      eyebrow: 'Über uns',
-      title: 'Rund um die Konferenz gebaut – nicht rund um ein weiteres System.',
+      eyebrow: 'Conference Manager by Pavurel',
+      title: 'Mit Pavurel vom ersten Gespräch in den Arbeitsalltag.',
       description:
-        'Erfahren Sie, warum Conference Manager den vollständigen Workplace-Konferenzablauf in den Mittelpunkt stellt, wie Mitarbeitende und Workplace Teams davon profitieren und welche Rolle Pavurel im Produkterlebnis spielt.',
-      body: 'Conference Manager ist für die Arbeit gebaut, die nach der Raumentscheidung beginnt: Gäste, Catering, Services, Anforderungen und die Koordination, durch die eine professionelle Konferenz vorbereitet wirkt. Das Produkt verbindet einen einfachen Anfrageprozess mit dem operativen Kontext, den Workplace Teams benötigen.',
+        'So begleitet Pavurel die Einrichtung von Conference Manager: Ablauf abstimmen, unterstützte Systeme anbinden und mit eigenen Besprechungen erproben.',
+      body: 'Pavurel begleitet die Einrichtung von Conference Manager für Ihr Office- oder Konferenzteam. Gemeinsam stimmen wir den Ablauf und die unterstützten Anbindungen ab, bevor Sie mit eigenen Besprechungen starten.',
     },
     'book-a-demo': {
       eyebrow: 'Demo anfragen',

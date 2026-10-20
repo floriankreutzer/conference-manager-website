@@ -5,7 +5,7 @@ const routes = ['/en/demo/', '/de/demo/'];
 const customerOrigin = 'https://conference-manager-demo.onrender.com';
 const platformOrigin = 'https://conference-manager-ops-demo.onrender.com';
 
-test.describe('public Demo launch', () => {
+test.describe('public demo launch', () => {
   for (const route of routes) {
     test(`${route} resolves and meets automated WCAG A/AA`, async ({ page, request }) => {
       const response = await request.get(route);
@@ -21,32 +21,77 @@ test.describe('public Demo launch', () => {
     });
   }
 
-  test('uses fixed HTTPS Demo handoffs and preserves locale', async ({ page }) => {
+  test('keeps fixed demo handoffs and reveals platform access by keyboard', async ({ page }) => {
     await page.goto('/en/demo/');
-    const heading = page.getByRole('heading', {
-      level: 1,
-      name: 'Choose the Demo experience',
-    });
-    await expect(heading).toBeVisible();
+    const main = page.locator('main');
+    await expect(
+      main.getByRole('heading', { level: 1, name: 'Your product demo starts here.' }),
+    ).toBeVisible();
+    await expect(main.getByRole('link', { name: 'Open product demo' })).toHaveAttribute(
+      'href',
+      customerOrigin,
+    );
+    await expect(main.getByRole('link', { name: 'Book a demo' })).toHaveAttribute(
+      'href',
+      '/en/book-a-demo/',
+    );
+    await expect(main.getByRole('link', { name: 'Explore setup & pilot' })).toHaveAttribute(
+      'href',
+      '/en/pricing/',
+    );
 
-    const customer = page.getByRole('link', { name: 'Launch Customer Demo' });
-    const platform = page.getByRole('link', { name: 'Launch Platform Demo' });
-    await expect(customer).toHaveAttribute('href', customerOrigin);
+    const disclosure = main.locator('details');
+    const summary = disclosure.locator('summary');
+    const platform = disclosure.locator('a');
+    await expect(disclosure).not.toHaveAttribute('open');
     await expect(platform).toHaveAttribute('href', platformOrigin);
+    await expect(platform).toBeHidden();
+
+    await summary.focus();
+    await page.keyboard.press('Enter');
+    await expect(disclosure).toHaveAttribute('open');
+    await expect(platform).toBeVisible();
+    await page.keyboard.press('Tab');
+    await expect(platform).toBeFocused();
+
+    const expandedResults = await new AxeBuilder({ page })
+      .withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa'])
+      .analyze();
+    expect(expandedResults.violations).toEqual([]);
+
+    await summary.focus();
+    await page.keyboard.press('Space');
+    await expect(disclosure).not.toHaveAttribute('open');
+    await expect(platform).toBeHidden();
 
     const german = page.getByRole('link', { name: /Language: DE/ });
     await expect(german).toHaveAttribute('href', '/de/demo/');
+    await german.click();
+    await expect(page).toHaveURL(/\/de\/demo\/$/);
+    await expect(
+      main.getByRole('heading', { level: 1, name: 'Ihre Produktdemo beginnt hier.' }),
+    ).toBeVisible();
+    await expect(main.getByRole('link', { name: 'Produktdemo öffnen' })).toHaveAttribute(
+      'href',
+      customerOrigin,
+    );
+    await expect(main.getByRole('link', { name: 'Demo anfragen' })).toHaveAttribute(
+      'href',
+      '/de/book-a-demo/',
+    );
+  });
 
+  test('keeps both demo choices within a 320px viewport', async ({ page }) => {
+    await page.setViewportSize({ width: 320, height: 800 });
     await page.goto('/de/demo/');
-    const germanHeading = page.getByRole('heading', {
-      level: 1,
-      name: 'Demo-Umgebung auswählen',
-    });
-    await expect(germanHeading).toBeVisible();
+    const disclosure = page.locator('main details');
+    await disclosure.locator('summary').click();
+    await expect(disclosure.getByRole('link', { name: 'Plattformdemo öffnen' })).toBeVisible();
 
-    const germanCustomer = page.getByRole('link', {
-      name: 'Customer Demo starten',
-    });
-    await expect(germanCustomer).toHaveAttribute('href', customerOrigin);
+    const dimensions = await page.evaluate(() => ({
+      scrollWidth: document.documentElement.scrollWidth,
+      clientWidth: document.documentElement.clientWidth,
+    }));
+    expect(dimensions.scrollWidth).toBeLessThanOrEqual(dimensions.clientWidth + 1);
   });
 });

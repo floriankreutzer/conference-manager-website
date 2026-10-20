@@ -11,14 +11,14 @@ test.describe('published Insights', () => {
   }) => {
     await page.goto('/en/insights/');
     const englishArticle = page.getByRole('link', {
-      name: 'Why room booking is only part of conference management',
+      name: 'Why room booking is only part of meeting preparation',
     });
     await expect(englishArticle).toHaveAttribute('href', englishArticlePath);
     await englishArticle.click();
     await expect(
       page.getByRole('heading', {
         level: 1,
-        name: 'Why room booking is only part of conference management',
+        name: 'Why room booking is only part of meeting preparation',
       }),
     ).toBeVisible();
     await expect(page.getByRole('link', { name: 'Back to Insights' })).toHaveAttribute(
@@ -32,14 +32,14 @@ test.describe('published Insights', () => {
 
     await page.goto('/de/insights/');
     const germanArticle = page.getByRole('link', {
-      name: 'Warum Raumbuchung nur ein Teil des Konferenzmanagements ist',
+      name: 'Warum Raumbuchung nur ein Teil der Vorbereitung ist',
     });
     await expect(germanArticle).toHaveAttribute('href', germanArticlePath);
     await germanArticle.click();
     await expect(
       page.getByRole('heading', {
         level: 1,
-        name: 'Warum Raumbuchung nur ein Teil des Konferenzmanagements ist',
+        name: 'Warum Raumbuchung nur ein Teil der Vorbereitung ist',
       }),
     ).toBeVisible();
     await expect(page.getByRole('link', { name: 'Zurück zu Insights' })).toHaveAttribute(

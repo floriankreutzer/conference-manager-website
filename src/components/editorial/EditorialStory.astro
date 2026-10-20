@@ -1,4 +1,9 @@
 ---
+import ConferenceIcon from '@components/marketing/ConferenceIcon.astro';
+
+type SectionIcon =
+  'request' | 'participants' | 'room-equipment' | 'catering' | 'changes' | 'coordination';
+
 type EditorialPoint = {
   title: string;
   body: string;
@@ -27,20 +32,92 @@ interface Props {
   primaryHref: string;
   secondaryHref: string;
   idPrefix: string;
+  sectionIcons?: readonly SectionIcon[];
+  heroActions?: boolean;
+  showOverview?: boolean;
 }
 
-const { eyebrow, title, lead, sections, closing, primaryHref, secondaryHref, idPrefix } =
-  Astro.props;
+const {
+  eyebrow,
+  title,
+  lead,
+  sections,
+  closing,
+  primaryHref,
+  secondaryHref,
+  idPrefix,
+  sectionIcons = [],
+  heroActions = true,
+  showOverview = Astro.slots.has('overview'),
+} = Astro.props;
 const titleId = `${idPrefix}-title`;
 const closingTitleId = `${idPrefix}-closing-title`;
+const hasVisual = Astro.slots.has('visual');
 ---
 
 <article class="editorial-story">
-  <header class="editorial-story__hero" aria-labelledby={titleId}>
-    <p class="eyebrow">{eyebrow}</p>
-    <h1 id={titleId}>{title}</h1>
-    <p class="editorial-story__lead">{lead}</p>
+  <header
+    class:list={['editorial-story__hero', { 'editorial-story__hero--visual': hasVisual }]}
+    aria-labelledby={titleId}
+  >
+    <div class="editorial-story__intro">
+      <p class="eyebrow">{eyebrow}</p>
+      <h1 id={titleId}>{title}</h1>
+      <p class="editorial-story__lead">{lead}</p>
+      {
+        heroActions && (
+          <div class="editorial-story__actions">
+            <a class="button" href={primaryHref}>
+              {closing.primaryCta}
+            </a>
+            <a class="editorial-story__text-link" href={secondaryHref}>
+              {closing.secondaryCta}
+              <span aria-hidden="true"> →</span>
+            </a>
+          </div>
+        )
+      }
+    </div>
+    {
+      hasVisual && (
+        <div class="editorial-story__visual">
+          <slot name="visual" />
+        </div>
+      )
+    }
   </header>
+
+  {
+    showOverview && (
+      <div class="editorial-story__overview">
+        <slot name="overview" />
+      </div>
+    )
+  }
+
+  <nav class="editorial-story__contents" aria-label={eyebrow}>
+    <ol>
+      {
+        sections.map((section, index) => (
+          <li>
+            <a href={`#${idPrefix}-section-${index + 1}`}>
+              <span class="editorial-story__section-icon" aria-hidden="true">
+                {sectionIcons[index] ? (
+                  <ConferenceIcon name={sectionIcons[index]} />
+                ) : (
+                  String(index + 1).padStart(2, '0')
+                )}
+              </span>
+              <span>{section.eyebrow}</span>
+              <span class="editorial-story__contents-arrow" aria-hidden="true">
+                ↗
+              </span>
+            </a>
+          </li>
+        ))
+      }
+    </ol>
+  </nav>
 
   <ol class="editorial-story__sections">
     {
@@ -89,22 +166,48 @@ const closingTitleId = `${idPrefix}-closing-title`;
 
 <style>
   .editorial-story {
-    padding-block: clamp(4rem, 9vw, 8rem);
+    padding-block: clamp(2.5rem, 6vw, 5rem) clamp(3rem, 7vw, 6rem);
     overflow-wrap: anywhere;
   }
 
   .editorial-story__hero {
     display: grid;
+    align-items: center;
+    gap: clamp(2rem, 5vw, 4rem);
+    padding-block-end: clamp(3rem, 6vw, 5rem);
+  }
+
+  .editorial-story__intro {
+    display: grid;
     gap: var(--space-4);
-    max-width: 64rem;
-    padding-block: clamp(1rem, 3vw, 2rem) clamp(4rem, 9vw, 7rem);
+    max-inline-size: 58rem;
   }
 
   .editorial-story__hero h1 {
-    max-width: 15ch;
+    max-inline-size: 21ch;
     margin: 0;
-    font-size: clamp(2.8rem, 6vw, 6rem);
+    font-size: clamp(2.4rem, 5vw, 4.8rem);
     letter-spacing: -0.05em;
+    line-height: 1.08;
+  }
+
+  .editorial-story__visual {
+    min-inline-size: 0;
+    padding: var(--space-2);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background: var(--color-camel-soft);
+  }
+
+  .editorial-story__visual :global(.brand-visual img) {
+    aspect-ratio: 4 / 3;
+    min-block-size: 0;
+    max-block-size: 34rem;
+    object-fit: cover;
+  }
+
+  .editorial-story__overview {
+    margin-block-end: clamp(3rem, 6vw, 5rem);
   }
 
   .editorial-story__lead,
@@ -112,12 +215,13 @@ const closingTitleId = `${idPrefix}-closing-title`;
   .editorial-story__points p,
   .editorial-story__closing > p {
     color: var(--color-text-muted);
-    line-height: 1.75;
+    line-height: 1.7;
   }
 
   .editorial-story__lead {
     margin: 0;
-    font-size: clamp(1.08rem, 1.6vw, 1.35rem);
+    max-inline-size: 58ch;
+    font-size: clamp(1.0625rem, 1.5vw, 1.25rem);
   }
 
   .editorial-story__actions {
@@ -134,11 +238,60 @@ const closingTitleId = `${idPrefix}-closing-title`;
     text-underline-offset: 0.25em;
   }
 
+  .editorial-story__contents ol {
+    display: grid;
+    gap: var(--space-2);
+    margin: 0 0 var(--space-6);
+    padding: 0;
+    list-style: none;
+  }
+
+  .editorial-story__contents li {
+    min-inline-size: 0;
+  }
+
+  .editorial-story__contents a {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    block-size: 100%;
+    min-block-size: 4.5rem;
+    padding: var(--space-3);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-canvas-soft);
+    text-decoration: none;
+    font-weight: 650;
+    font-size: 0.875rem;
+    line-height: 1.4;
+  }
+
+  .editorial-story__contents a:hover {
+    border-color: var(--color-bordeaux);
+    background: var(--color-camel-soft);
+  }
+
+  .editorial-story__section-icon {
+    display: grid;
+    flex: 0 0 2.5rem;
+    block-size: 2.5rem;
+    place-items: center;
+    border-radius: var(--radius-sm);
+    background: var(--color-surface);
+    color: var(--color-bordeaux);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .editorial-story__contents-arrow {
+    margin-inline-start: auto;
+    color: var(--color-bordeaux);
+  }
+
   .editorial-story__sections {
     margin: 0;
     padding: 0;
     list-style: none;
-    border-top: 1px solid var(--color-ink);
+    border-top: 1px solid var(--color-border-strong);
   }
 
   .editorial-story__sections > li {
@@ -147,9 +300,8 @@ const closingTitleId = `${idPrefix}-closing-title`;
 
   .editorial-story__section {
     display: grid;
-    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-    gap: clamp(2rem, 7vw, 7rem);
-    padding-block: clamp(3rem, 7vw, 6rem);
+    gap: var(--space-5);
+    padding-block: clamp(2.5rem, 5vw, 4.5rem);
   }
 
   .editorial-story__section-heading {
@@ -159,7 +311,10 @@ const closingTitleId = `${idPrefix}-closing-title`;
   }
 
   .editorial-story__section-heading h2 {
-    font-size: clamp(2rem, 4vw, 4rem);
+    max-inline-size: 24ch;
+    font-size: clamp(1.75rem, 3vw, 2.75rem);
+    line-height: 1.16;
+    scroll-margin-block-start: var(--space-4);
   }
 
   .editorial-story__section-copy {
@@ -175,11 +330,9 @@ const closingTitleId = `${idPrefix}-closing-title`;
 
   .editorial-story__points {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: var(--space-5);
+    gap: var(--space-3);
     margin: 0;
-    padding: var(--space-5) 0 0;
-    border-top: 1px solid var(--color-border);
+    padding: 0;
     list-style: none;
   }
 
@@ -187,6 +340,10 @@ const closingTitleId = `${idPrefix}-closing-title`;
     display: grid;
     align-content: start;
     gap: var(--space-2);
+    padding: var(--space-4);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-canvas-soft);
   }
 
   .editorial-story__points h3,
@@ -199,12 +356,12 @@ const closingTitleId = `${idPrefix}-closing-title`;
   }
 
   .editorial-story__section-copy > .editorial-story__statement {
-    max-width: 24ch;
+    max-inline-size: 36ch;
     padding-inline-start: var(--space-4);
     border-inline-start: 3px solid var(--color-camel);
     color: var(--color-ink);
     font-family: var(--font-display);
-    font-size: clamp(1.4rem, 2.7vw, 2.25rem);
+    font-size: clamp(1.25rem, 2vw, 1.6rem);
     font-weight: 650;
     line-height: 1.25;
   }
@@ -212,8 +369,8 @@ const closingTitleId = `${idPrefix}-closing-title`;
   .editorial-story__closing {
     display: grid;
     gap: var(--space-4);
-    margin-top: clamp(4rem, 9vw, 8rem);
-    padding: clamp(2rem, 6vw, 5rem);
+    margin-top: clamp(3rem, 6vw, 5rem);
+    padding: clamp(1.5rem, 5vw, 4rem);
     border-radius: var(--radius-lg);
     background: var(--color-ink);
     color: var(--color-on-accent);
@@ -222,6 +379,11 @@ const closingTitleId = `${idPrefix}-closing-title`;
   .editorial-story__closing h2,
   .editorial-story__closing > p {
     margin: 0;
+  }
+
+  .editorial-story__closing h2 {
+    max-inline-size: 26ch;
+    font-size: clamp(1.75rem, 3.5vw, 3rem);
   }
 
   .editorial-story__closing > p {
@@ -245,18 +407,33 @@ const closingTitleId = `${idPrefix}-closing-title`;
     color: var(--color-on-accent);
   }
 
-  @media (max-width: 52rem) {
+  .editorial-story__closing a:focus-visible {
+    outline-color: var(--color-camel);
+  }
+
+  @media (min-width: 38rem) {
+    .editorial-story__contents ol,
+    .editorial-story__points {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 58rem) {
+    .editorial-story__hero--visual {
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+    }
+
+    .editorial-story__contents ol {
+      grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+    }
+
     .editorial-story__section {
-      grid-template-columns: 1fr;
-      gap: var(--space-5);
+      grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+      gap: clamp(2rem, 6vw, 5rem);
     }
   }
 
   @media (max-width: 36rem) {
-    .editorial-story__points {
-      grid-template-columns: 1fr;
-    }
-
     .editorial-story__actions {
       align-items: flex-start;
       flex-direction: column;

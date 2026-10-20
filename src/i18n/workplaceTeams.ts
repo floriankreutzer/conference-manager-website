@@ -23,53 +23,75 @@ const workplaceTeamsCopy: Record<Locale, WorkplaceTeamsCopy> = {
   en: {
     sections: [
       {
-        eyebrow: 'One conference context',
-        title: 'Receive the information your team needs to prepare the conference.',
-        body: 'Conference Manager keeps date and time, room context, services, catering, cost allocation and review decisions with the same conference. Workplace Teams can prepare from one coherent request instead of reconstructing the picture from separate hand-offs.',
+        eyebrow: 'Office and conference teams',
+        title: 'Prepare the meeting from one shared request.',
+        body: 'Guest details, catering choices, equipment requirements and changes arrive in the same place. Your team can review the request, clarify missing information and keep the current processing stage in view.',
         points: [
           {
-            title: 'Services and catering',
-            body: 'Keep service requirements, catering choices, participant counts and dietary needs connected to the conference.',
+            title: 'Coordinate catering',
+            body: 'Maintain the catalogue of items, packages and prices. Send orders by email and record the supplier’s response with the meeting.',
           },
           {
-            title: 'Review before work starts',
-            body: 'Make cost allocation and the final request review visible before operational preparation moves forward.',
+            title: 'Review changes',
+            body: 'See supported changes and outstanding decisions together. Approval steps and deadlines are agreed for your setup.',
           },
         ],
       },
       {
-        eyebrow: 'Operational visibility',
-        title: 'Keep the employee journey simple without losing the detail behind it.',
-        body: 'The requester follows a guided conference journey. Workplace Teams get the booking, room-planning, reporting and administration views needed for their work, so operational detail stays available without becoming part of the employee interface.',
-        statement: 'Simple for the requester. Structured for the team preparing the conference.',
-      },
-      {
-        eyebrow: 'Controlled change',
-        title: 'Know what changed after a conference was confirmed.',
-        body: 'When supported room, schedule or participant details change after confirmation, Conference Manager keeps the proposed change and the decision visible. Workplace Teams do not have to rely on an informal message thread to understand what is still agreed and what is waiting for approval.',
+        eyebrow: 'Employees',
+        title: 'Describe what you need for the meeting.',
+        body: 'Start in Conference Manager and add the attendees, guests, catering and equipment. The guided request brings these details together and lets you follow its processing stage.',
         points: [
           {
-            title: 'Keep the confirmed context understandable',
-            body: 'See the change as a deliberate update to the conference rather than an invisible edit to the original request.',
+            title: 'Choose catering as you plan',
+            body: 'Select individual items with quantities and prices, or a package such as a coffee break per person.',
           },
           {
-            title: 'See what still needs a decision',
-            body: 'Pending changes remain visible until the responsible Conference Manager accepts or rejects them.',
+            title: 'Keep changes with the request',
+            body: 'Submit supported changes in the meeting itself so the responsible team can review them in context.',
+          },
+        ],
+        statement: 'One starting point for the information the preparation team needs.',
+      },
+      {
+        eyebrow: 'Reception, equipment and room preparation',
+        title: 'Agree on who handles each part.',
+        body: 'A prepared room often involves several teams. During setup, we clarify what the conference team coordinates centrally and how other service teams participate. The agreed scope determines the available collaboration.',
+        points: [
+          {
+            title: 'Reception',
+            body: 'Clarify which guest details are needed for the visit. A connection to an existing visitor system is assessed separately.',
+          },
+          {
+            title: 'Equipment and room preparation',
+            body: 'Include requirements such as a display, video conferencing or room preparation in the request. Agree on how these teams receive and handle the work.',
+          },
+          {
+            title: 'Catering suppliers',
+            body: 'Keep email coordination and recorded replies clear. An additional supplier login, link or software connection requires a separate availability assessment.',
           },
         ],
       },
       {
-        eyebrow: 'Existing-system fit',
-        title:
-          'Improve the conference operation without creating a room-booking replacement project.',
-        body: 'Conference Manager is focused on the conference context. Your room-booking capability remains responsible for the reservation itself, while Conference Manager structures the coordination around it.',
-        statement: 'Keep your room booking. Replace the coordination around it.',
+        eyebrow: 'IT and customer administration',
+        title: 'Build on the systems your company already uses.',
+        body: 'Your existing room-booking system remains responsible for reservations. Microsoft work accounts can be used after the required setup and company approval. We agree on access, roles and supported connections before your team starts.',
+        points: [
+          {
+            title: 'Access for the right people',
+            body: 'Your company identifies who submits requests, who handles them and who administers the customer environment. Requirements for mapping company groups are assessed separately.',
+          },
+          {
+            title: 'Adjustments with Pavurel',
+            body: 'Pavurel handles agreed setup changes on request. We confirm which deadline and approval-rule adjustments are supported for your process.',
+          },
+        ],
       },
     ],
     closing: {
-      eyebrow: 'Bring a real conference',
-      title: 'Map what your team handles after the room is chosen.',
-      body: 'A useful evaluation starts with one real journey: what information your team needs, where it arrives today, what changes during preparation and which specialist systems should remain authoritative.',
+      eyebrow: 'Start with your team',
+      title: 'Where does coordination take the most effort today?',
+      body: 'Bring a meeting your team knows well. Together, we look at the information, people and systems involved, then discuss a suitable setup.',
       primaryCta: 'Book a demo',
       secondaryCta: 'Explore the product',
     },
@@ -77,54 +99,75 @@ const workplaceTeamsCopy: Record<Locale, WorkplaceTeamsCopy> = {
   de: {
     sections: [
       {
-        eyebrow: 'Ein Konferenzkontext',
-        title: 'Erhalten Sie die Informationen, die Ihr Team für die Vorbereitung benötigt.',
-        body: 'Conference Manager hält Datum und Zeit, Raumkontext, Services, Catering, Kostenverteilung und Prüfentscheidungen bei derselben Konferenz. Workplace Teams können aus einer zusammenhängenden Anfrage vorbereiten, statt das Gesamtbild aus einzelnen Übergaben rekonstruieren zu müssen.',
+        eyebrow: 'Office- und Konferenzteams',
+        title: 'Die Besprechung aus einer gemeinsamen Anfrage vorbereiten.',
+        body: 'Gästeangaben, Cateringwünsche, Technikbedarf und Änderungen kommen an einem Ort zusammen. Ihr Team kann die Anfrage prüfen, fehlende Informationen klären und den aktuellen Bearbeitungsstand im Blick behalten.',
         points: [
           {
-            title: 'Services und Catering',
-            body: 'Halten Sie Service-Anforderungen, Catering-Auswahl, Teilnehmerzahlen und Ernährungsanforderungen direkt an der Konferenz.',
+            title: 'Catering koordinieren',
+            body: 'Artikel, Pakete und Preise im Katalog pflegen. Bestellungen per E-Mail versenden und die Antwort des Caterers bei der Besprechung festhalten.',
           },
           {
-            title: 'Prüfung vor der Vorbereitung',
-            body: 'Machen Sie Kostenverteilung und abschließende Prüfung sichtbar, bevor die operative Vorbereitung weitergeht.',
+            title: 'Änderungen prüfen',
+            body: 'Unterstützte Änderungen und offene Entscheidungen zusammen sehen. Freigabeschritte und Fristen werden für Ihre Einrichtung abgestimmt.',
           },
         ],
       },
       {
-        eyebrow: 'Operative Transparenz',
-        title: 'Halten Sie die Anfrage einfach, ohne die Details dahinter zu verlieren.',
-        body: 'Die anfragende Person folgt einem geführten Konferenzablauf. Workplace Teams erhalten die für ihre Arbeit benötigten Sichten auf Buchungen, Raumplanung, Reporting und Administration. Operative Details bleiben verfügbar, ohne die Employee Experience zu überladen.',
-        statement:
-          'Einfach für die anfragende Person. Strukturiert für das Team, das die Konferenz vorbereitet.',
-      },
-      {
-        eyebrow: 'Kontrollierte Änderungen',
-        title: 'Erkennen Sie, was sich nach einer Bestätigung geändert hat.',
-        body: 'Wenn sich unterstützte Raum-, Termin- oder Teilnehmerdetails nach der Bestätigung ändern, hält Conference Manager die vorgeschlagene Änderung und die Entscheidung sichtbar. Workplace Teams müssen nicht aus informellen Nachrichten rekonstruieren, was weiterhin gilt und worüber noch entschieden werden muss.',
+        eyebrow: 'Mitarbeitende',
+        title: 'Beschreiben, was für die Besprechung gebraucht wird.',
+        body: 'Starten Sie im Conference Manager und ergänzen Sie Teilnehmende, Gäste, Catering und Technik. Die geführte Anfrage hält diese Angaben zusammen. Den Bearbeitungsstand können Sie bei der Anfrage verfolgen.',
         points: [
           {
-            title: 'Bestätigten Kontext verständlich halten',
-            body: 'Behandeln Sie eine Änderung als bewusste Aktualisierung der Konferenz statt als unsichtbare Bearbeitung der ursprünglichen Anfrage.',
+            title: 'Catering direkt auswählen',
+            body: 'Einzelne Artikel mit Mengen und Preisen oder ein Paket wählen, beispielsweise eine Kaffeepause pro Person.',
           },
           {
-            title: 'Offene Entscheidungen erkennen',
-            body: 'Ausstehende Änderungen bleiben sichtbar, bis die verantwortliche Conference-Manager-Rolle sie freigibt oder ablehnt.',
+            title: 'Änderungen bei der Anfrage halten',
+            body: 'Unterstützte Änderungen direkt zur Besprechung einreichen, damit das verantwortliche Team sie im Zusammenhang prüfen kann.',
+          },
+        ],
+        statement: 'Ein Einstieg für die Angaben, die das vorbereitende Team braucht.',
+      },
+      {
+        eyebrow: 'Empfang, Technik und Raumvorbereitung',
+        title: 'Gemeinsam festlegen, wer sich worum kümmert.',
+        body: 'An einer vorbereiteten Besprechung arbeiten oft mehrere Teams mit. Bei der Einrichtung klären wir, was das Konferenzteam zentral koordiniert und wie weitere Service-Teams mitwirken. Der vereinbarte Umfang bestimmt die verfügbare Zusammenarbeit.',
+        points: [
+          {
+            title: 'Empfang',
+            body: 'Klären, welche Gästeangaben für den Besuch gebraucht werden. Eine Verbindung zum vorhandenen Gästemanagement wird gesondert geprüft.',
+          },
+          {
+            title: 'Technik und Raumvorbereitung',
+            body: 'Bildschirm, Videokonferenz oder Anforderungen an den Raum in der Anfrage festhalten. Gemeinsam abstimmen, wie diese Teams die Aufgaben erhalten und bearbeiten.',
+          },
+          {
+            title: 'Caterer',
+            body: 'Abstimmung per E-Mail und erfasste Rückmeldungen zusammenhalten. Ein zusätzlicher Zugang, Link oder eine Softwareanbindung setzt eine gesonderte Prüfung der Verfügbarkeit voraus.',
           },
         ],
       },
       {
-        eyebrow: 'Bestehende Systeme nutzen',
-        title:
-          'Verbessern Sie den Konferenzbetrieb, ohne ein Austauschprojekt für die Raumbuchung zu starten.',
-        body: 'Conference Manager konzentriert sich auf den Konferenzkontext. Ihre Raumbuchung bleibt für die eigentliche Reservierung verantwortlich; Conference Manager strukturiert die Koordination darum herum.',
-        statement: 'Behalten Sie Ihre Raumbuchung. Strukturieren Sie die Koordination darum herum.',
+        eyebrow: 'IT und Kundenadministration',
+        title: 'Auf den vorhandenen Systemen aufbauen.',
+        body: 'Ihre bestehende Raumbuchung bleibt für Reservierungen zuständig. Microsoft-Unternehmenskonten können nach Einrichtung und Freigabe genutzt werden. Zugriffe, Rollen und unterstützte Anbindungen stimmen wir vor dem Start Ihres Teams ab.',
+        points: [
+          {
+            title: 'Zugang für die richtigen Personen',
+            body: 'Ihr Unternehmen legt fest, wer Anfragen stellt, wer sie bearbeitet und wer die Kundenumgebung verwaltet. Anforderungen an die Zuordnung von Unternehmensgruppen prüfen wir gesondert.',
+          },
+          {
+            title: 'Anpassungen mit Pavurel',
+            body: 'Pavurel übernimmt Änderungen der vereinbarten Einrichtung auf Wunsch. Welche Anpassungen an Fristen und Freigaben unterstützt werden, stimmen wir für Ihren Ablauf ab.',
+          },
+        ],
       },
     ],
     closing: {
-      eyebrow: 'Eine reale Konferenz als Ausgangspunkt',
-      title: 'Ordnen Sie die Arbeit, die nach der Raumentscheidung bei Ihrem Team landet.',
-      body: 'Eine sinnvolle Evaluierung beginnt mit einem realen Ablauf: Welche Informationen braucht Ihr Team, wo kommen sie heute an, was ändert sich während der Vorbereitung und welche spezialisierten Systeme sollen führend bleiben?',
+      eyebrow: 'Mit Ihrem Team starten',
+      title: 'Wo kostet die Abstimmung heute die meiste Mühe?',
+      body: 'Bringen Sie eine Besprechung mit, die Ihr Team gut kennt. Gemeinsam betrachten wir die benötigten Angaben, beteiligten Personen und vorhandenen Systeme und besprechen eine passende Einrichtung.',
       primaryCta: 'Demo anfragen',
       secondaryCta: 'Produkt ansehen',
     },

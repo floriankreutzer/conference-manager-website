@@ -8,6 +8,12 @@ export type DemoLaunchCopy = {
   customer: string;
   customerText: string;
   customerAction: string;
+  sampleData: string;
+  guidedTitle: string;
+  guidedText: string;
+  guidedAction: string;
+  pilotText: string;
+  pilotAction: string;
   platform: string;
   platformText: string;
   platformAction: string;
@@ -17,38 +23,54 @@ export type DemoLaunchCopy = {
 
 const demoLaunchCopy: Record<Locale, DemoLaunchCopy> = {
   en: {
-    eyebrow: 'Conference Manager Demo',
-    title: 'Choose the Demo experience',
-    lead: 'This static launch surface stores no login, session, Tenant ID, role or permission.',
-    cold: 'The free Demo services can require additional startup time on the first request after inactivity.',
-    customer: 'Customer Demo',
+    eyebrow: 'Conference Manager demo access',
+    title: 'Your product demo starts here.',
+    lead: 'Open the example environment for your agreed product demo. Explore the meeting workflow using the prepared sample data.',
+    cold: 'The demo environment may take a little longer to start after a period of inactivity.',
+    customer: 'Explore meeting preparation',
     customerText:
-      'Employee, Conference Manager, Tenant Admin and the approved dual-role combination with synthetic Demo data.',
-    customerAction: 'Launch Customer Demo',
-    platform: 'Platform Demo',
+      'Follow a meeting from the employee request to coordination by the conference team. The demo also includes customer administration and the supported combination of employee and conference-team roles.',
+    customerAction: 'Open product demo',
+    sampleData: 'Example environment · Synthetic data',
+    guidedTitle: 'Would you like us to walk you through it?',
+    guidedText:
+      'Start with a shared demo to discuss your meeting process and which setup could fit your team.',
+    guidedAction: 'Book a demo',
+    pilotText:
+      'The pilot uses your own real meetings in a configured customer environment. It includes 30 days of free software use after the one-time paid setup is complete.',
+    pilotAction: 'Explore setup & pilot',
+    platform: 'Separate access for platform operations',
     platformText:
-      'Separate Platform Operator experience. Customer roles and Platform authority remain isolated.',
-    platformAction: 'Launch Platform Demo',
-    boundary: 'Security boundary',
+      'This demo is for evaluating platform administration. It is separate from the customer demo and uses its own operator permissions.',
+    platformAction: 'Open platform demo',
+    boundary: 'About these demo links',
     boundaryText:
-      'This page is not an authentication, API, persistence or authorization layer. Both actions navigate directly to the separate HTTPS Demo services.',
+      'Each link opens its own demo application. Sign-in, access permissions and data processing are handled there. This launch page does not sign you in or store your application session.',
   },
   de: {
-    eyebrow: 'Conference Manager Demo',
-    title: 'Demo-Umgebung auswählen',
-    lead: 'Dieser statische Absprungpunkt speichert keine Anmeldung, Session, Tenant-ID, Rolle oder Berechtigung.',
-    cold: 'Die kostenlosen Demo-Services können nach Inaktivität beim ersten Aufruf zusätzliche Startzeit benötigen.',
-    customer: 'Customer Demo',
+    eyebrow: 'Conference Manager Demo-Zugang',
+    title: 'Ihre Produktdemo beginnt hier.',
+    lead: 'Öffnen Sie die Beispielumgebung für Ihre vereinbarte Produktdemo. Lernen Sie den Besprechungsablauf mit den vorbereiteten Beispieldaten kennen.',
+    cold: 'Nach einer längeren Pause kann die Demo-Umgebung beim ersten Aufruf etwas mehr Zeit zum Starten benötigen.',
+    customer: 'Besprechungsvorbereitung kennenlernen',
     customerText:
-      'Mitarbeiter, Conference Manager, Tenant Admin und die freigegebene Dual-Role-Kombination mit synthetischen Demo-Daten.',
-    customerAction: 'Customer Demo starten',
-    platform: 'Platform Demo',
+      'Verfolgen Sie eine Besprechung von der Mitarbeiteranfrage bis zur Koordination durch das Konferenzteam. Die Demo umfasst auch die Kundenadministration und die unterstützte Kombination aus Mitarbeiter- und Konferenzteamrolle.',
+    customerAction: 'Produktdemo öffnen',
+    sampleData: 'Beispielumgebung · Synthetische Daten',
+    guidedTitle: 'Möchten Sie den Ablauf gemeinsam kennenlernen?',
+    guidedText:
+      'Starten Sie mit einer begleiteten Demo. Wir besprechen Ihren Besprechungsablauf und eine passende Einrichtung für Ihr Team.',
+    guidedAction: 'Demo anfragen',
+    pilotText:
+      'Im Pilot arbeiten Sie mit eigenen realen Besprechungen in einer eingerichteten Kundenumgebung. Nach abgeschlossener, einmalig kostenpflichtiger Einrichtung nutzen Sie die Software 30 Tage kostenlos.',
+    pilotAction: 'Einführung & Pilot ansehen',
+    platform: 'Separater Zugang für den Plattformbetrieb',
     platformText:
-      'Getrennte Platform-Operator-Erfahrung. Customer-Rollen und Platform-Berechtigungen bleiben isoliert.',
-    platformAction: 'Platform Demo starten',
-    boundary: 'Sicherheitsgrenze',
+      'Diese Demo dient der Betrachtung der Plattformadministration. Sie ist von der Kundendemo getrennt und verwendet eigene Betreiberberechtigungen.',
+    platformAction: 'Plattformdemo öffnen',
+    boundary: 'Zu den Demo-Links',
     boundaryText:
-      'Diese Seite ist kein Authentifizierungs-, API-, Persistenz- oder Autorisierungs-Layer. Beide Aktionen navigieren direkt zu den getrennten HTTPS-Demo-Services.',
+      'Jeder Link öffnet eine eigene Demo-Anwendung. Anmeldung, Zugriffsrechte und Datenverarbeitung erfolgen dort. Diese Einstiegsseite meldet Sie nicht an und speichert keine Anwendungssitzung.',
   },
 };
 

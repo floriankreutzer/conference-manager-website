@@ -67,6 +67,33 @@ The demo form retains its existing fields, POST contract, validation limits, hon
 acknowledgement and configuration gate. This redesign does not activate a missing endpoint or
 claim successful submission when processing is unavailable.
 
+The detail pages continue the same customer journey in both languages:
+
+| Stable route | Customer purpose |
+| --- | --- |
+| `product` | Explain the meeting request, catering catalogue, supported changes and existing-system fit. |
+| `how-it-works` | Follow the three request, coordination and change stages using the same illustrative workshop as the homepage. |
+| `workplace-teams` | Explain the responsibilities of employees, office/conference teams, service teams and customer IT. |
+| `company` | Explain how Pavurel agrees the setup, prepares the customer environment and discusses later adjustments. |
+| `security-trust` | Answer buyer questions about sign-in, roles, meeting data and the requirements to assess before setup. |
+| `insights` and its article | Explain why meeting preparation needs more than room reservations, with a practical example and links to the demo and integrations. |
+| `demo` | Provide the separate product-demo handoff with synthetic example data and clearly distinguish it from the customer pilot. |
+
+Product, workflow, team, company and trust pages share a presentation-only editorial layout with
+a clear hero, responsive Pavurel image, primary demo action, icon-based section links and a final
+next step. The workflow page reuses the existing accessible example rather than introducing a
+second interaction model. The German footer and destination now consistently use `Für Ihr Team`
+and `Sicherheit & Vertrauen`.
+
+Insights preserve their published routes, bilingual pairing and original publication date. A
+separate updated date records editorial revisions. Native contents links use the rendered Markdown
+heading IDs; article-specific summaries do not leak into future articles.
+
+The direct `demo` route remains intentionally noindex and outside the sales navigation. Its
+existing customer and platform destinations remain fixed HTTPS handoffs. The platform link is
+available in a closed native `details` disclosure for the separate platform-operations audience.
+Neither the launcher nor the trust page implies that public demo-request processing is active.
+
 ## 5. Agreed introduction offer
 
 The website may describe the following approved offer in both languages:
@@ -112,6 +139,8 @@ or repurpose the signet.
 
 Responsive WebP sources have intrinsic dimensions. The hero loads eagerly; supporting images
 load lazily. No image CDN, tracking, external embed, UI framework or new package is introduced.
+Detail pages reuse the same meeting, catering and preparation motifs and original six-icon family.
+The photographs illustrate meeting preparation; they do not document customers or software UI.
 
 ## 8. Accessibility, performance and validation
 

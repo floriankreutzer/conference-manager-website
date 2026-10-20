@@ -1,5 +1,6 @@
 ---
 import EditorialStory from '@components/editorial/EditorialStory.astro';
+import BrandVisual from '@components/marketing/BrandVisual.astro';
 import type { Locale } from '@config/locales';
 import { withBasePath } from '@domain/routing/basePath';
 import { getPublicPageCopy } from '@i18n/publicPages';
@@ -25,4 +26,7 @@ const secondaryHref = withBasePath(`/${locale}/product/`);
   primaryHref={primaryHref}
   secondaryHref={secondaryHref}
   idPrefix="workplace-teams"
-/>
+  sectionIcons={['coordination', 'request', 'room-equipment', 'participants']}
+>
+  <BrandVisual slot="visual" locale={locale} variant="preparation" priority />
+</EditorialStory>
