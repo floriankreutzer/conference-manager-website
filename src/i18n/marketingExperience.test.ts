@@ -11,13 +11,15 @@ describe('customer-led marketing experience', () => {
     expect(english.hero.title).toBe('Organise meetings.');
     expect(english.hero.outcome).toBe('Reduce the follow-up.');
     expect(english.hero.body).toContain('guests, catering and equipment');
-    expect(english.roomBooking.supporting).toContain(
+    expect(english.roomBooking.nodes[0]?.body).toContain(
       'existing room-booking system remains responsible for reservations',
     );
-    expect(english.hero.pilot).toContain('after setup is complete');
-    expect(english.hero.setup).toBe('A one-time setup fee applies.');
+    expect(english.pilot.body).toContain('After a one-time paid setup is complete');
+    expect(english.pilot.body).toContain('free for 30 days');
+    expect(english.pilot.body).toContain('your own real meetings');
     expect(english.roomBooking.nodes[3]?.label).toBe('Optional · subject to assessment');
-    expect(english.hero.primaryCta).toBe('Book a demo');
+    expect(english.hero.action).toBe('See how it works');
+    expect(english.closing.primaryCta).toBe('Book a demo');
   });
 
   it('uses professional German B2B address on the homepage', () => {
@@ -25,9 +27,12 @@ describe('customer-led marketing experience', () => {
     const serializedCopy = JSON.stringify(german);
 
     expect(serializedCopy).not.toMatch(informalGermanPronouns);
-    expect(german.hero.primaryCta).toBe('Demo anfragen');
-    expect(german.roomBooking.supporting).toContain('Ihre bestehende Raumbuchung');
-    expect(german.hero.setup).toBe('Die Einrichtung ist einmalig kostenpflichtig.');
+    expect(german.closing.primaryCta).toBe('Demo anfragen');
+    expect(german.roomBooking.nodes[0]?.body).toContain('Ihre bestehende Raumbuchung');
+    expect(german.pilot.body).toContain(
+      'Nach abgeschlossener, einmalig kostenpflichtiger Einrichtung',
+    );
+    expect(german.pilot.body).toContain('30 Tage kostenlos');
   });
 
   it('keeps primary navigation buyer-focused while preserving evaluation depth in the footer', () => {

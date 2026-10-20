@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { getIntegrationsCopy } from './integrations';
 
 describe('Integrations copy', () => {
-  it('keeps English and German connections and setup steps aligned', () => {
+  it('keeps English and German connections and preparation questions aligned', () => {
     const english = getIntegrationsCopy('en');
     const german = getIntegrationsCopy('de');
 
@@ -20,8 +20,8 @@ describe('Integrations copy', () => {
       expect(section.qualification).not.toBe('');
       expect(german.sections[index]?.qualification).not.toBe('');
     });
-    expect(english.setup.steps).toHaveLength(3);
-    expect(german.setup.steps).toHaveLength(english.setup.steps.length);
+    expect(english.preparation.questions).toHaveLength(3);
+    expect(german.preparation.questions).toHaveLength(english.preparation.questions.length);
   });
 
   it.each([
@@ -31,7 +31,7 @@ describe('Integrations copy', () => {
       signInApproval: /requires setup and your organisation’s approval/,
       supplierAvailability: /assessed and confirmed as available/,
       manualFollowUp: /office team sends the order by email and records/,
-      portalAssessment: /assess links to your supplier’s existing portal/,
+      supplierAccessAssessment: /supplier accounts or confirmation links.*assessed separately/,
       visitorAssessment: /separate feasibility check; they are not automatically included/,
     },
     {
@@ -40,7 +40,8 @@ describe('Integrations copy', () => {
       signInApproval: /benötigt die Einrichtung und Freigabe Ihres Unternehmens/,
       supplierAvailability: /Anbindung geprüft und verfügbar/,
       manualFollowUp: /Office-Team versendet die Bestellung per E-Mail und hält/,
-      portalAssessment: /vorhandene Portal Ihres Caterers.*prüfen wir gesondert/,
+      supplierAccessAssessment:
+        /eigenen Caterer-Zugang oder Bestätigungslink.*prüfen wir gesondert/,
       visitorAssessment: /gesonderte Machbarkeitsprüfung und sind nicht automatisch im Pilot/,
     },
   ])(
@@ -51,7 +52,7 @@ describe('Integrations copy', () => {
       signInApproval,
       supplierAvailability,
       manualFollowUp,
-      portalAssessment,
+      supplierAccessAssessment,
       visitorAssessment,
     }) => {
       const { sections } = getIntegrationsCopy(locale);
@@ -64,7 +65,9 @@ describe('Integrations copy', () => {
       expect(identity?.qualification).toMatch(signInApproval);
       expect(catering?.qualification).toMatch(supplierAvailability);
       expect(catering?.points.some((point) => manualFollowUp.test(point.body))).toBe(true);
-      expect(catering?.points.some((point) => portalAssessment.test(point.body))).toBe(true);
+      expect(catering?.points.some((point) => supplierAccessAssessment.test(point.body))).toBe(
+        true,
+      );
       expect(visitors?.qualification).toMatch(visitorAssessment);
     },
   );
@@ -72,24 +75,24 @@ describe('Integrations copy', () => {
   it.each([
     {
       locale: 'en' as const,
-      paidSetup: /one-time paid setup/,
-      pilotStart: /free 30-day pilot begins after setup is complete/,
-      realMeetings: /your own meetings in your customer environment/,
+      existingSystems: /room-booking system and Microsoft environment/,
+      approval: /Who approves access and the exchange/,
+      optionalSystems: /catering or visitor systems/,
     },
     {
       locale: 'de' as const,
-      paidSetup: /einmalige kostenpflichtige Einrichtung/,
-      pilotStart: /kostenloser 30-Tage-Pilot beginnt nach abgeschlossener Einrichtung/,
-      realMeetings: /eigenen Besprechungen in Ihrer Kundenumgebung/,
+      existingSystems: /Raumbuchungssystem und welche Microsoft-Umgebung/,
+      approval: /Wer gibt Zugriffe und den Austausch/,
+      optionalSystems: /Catering- oder Besuchersysteme/,
     },
   ])(
-    'states the agreed setup and pilot sequence in $locale',
-    ({ locale, paidSetup, pilotStart, realMeetings }) => {
-      const { setup } = getIntegrationsCopy(locale);
+    'guides the customer through connection requirements in $locale',
+    ({ locale, existingSystems, approval, optionalSystems }) => {
+      const { preparation } = getIntegrationsCopy(locale);
 
-      expect(setup.steps.some((step) => paidSetup.test(step.body))).toBe(true);
-      expect(setup.steps.some((step) => pilotStart.test(step.body))).toBe(true);
-      expect(setup.steps.some((step) => realMeetings.test(step.body))).toBe(true);
+      expect(preparation.questions.some((question) => existingSystems.test(question))).toBe(true);
+      expect(preparation.questions.some((question) => approval.test(question))).toBe(true);
+      expect(preparation.questions.some((question) => optionalSystems.test(question))).toBe(true);
     },
   );
 });

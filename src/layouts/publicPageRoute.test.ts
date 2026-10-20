@@ -35,7 +35,7 @@ describe('public page route resolution', () => {
       'Mit eigenen Besprechungen erproben. — Conference Manager',
     );
     expect(resolvePublicPageRoute('en', 'company').title).toBe(
-      'From first conversation to everyday meetings. — Conference Manager',
+      'Pavurel supports your setup. — Conference Manager',
     );
     expect(resolvePublicPageRoute('en', 'insights').title).toBe('Insights — Conference Manager');
     expect(resolvePublicPageRoute('de', 'book-a-demo').title).toBe(
@@ -51,7 +51,7 @@ describe('public page route resolution', () => {
       'Raumreservierung, Microsoft-Anmeldung und Cateringkoordination',
     );
     expect(resolvePublicPageRoute('en', 'company').description).toContain(
-      'helps you agree the setup of Conference Manager',
+      'prepares your Conference Manager environment',
     );
   });
 });

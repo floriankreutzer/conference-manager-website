@@ -30,10 +30,15 @@ test.describe('Pricing', () => {
     const steps = main.locator('ol > li');
     await expect(steps).toHaveCount(3);
     await expect(steps.nth(0)).toContainText('Explore your meeting process.');
-    await expect(steps.nth(1)).toContainText('A one-time setup fee applies.');
-    await expect(steps.nth(2)).toContainText('The 30 days start after setup is complete.');
+    await expect(steps.nth(1)).toContainText('supported connections, approval steps and deadlines');
+    await expect(steps.nth(2)).toContainText('uses real meetings to assess');
+    await expect(main.getByText('A one-time setup fee applies.', { exact: true })).toHaveCount(1);
+    await expect(
+      main.getByText('The 30 days start after setup is complete.', { exact: true }),
+    ).toHaveCount(1);
     await expect(main).not.toContainText(forbiddenCurrency);
-    await expect(main.getByRole('link', { name: 'Book a demo' }).first()).toHaveAttribute(
+    await expect(main.getByRole('link', { name: 'Book a demo' })).toHaveCount(1);
+    await expect(main.getByRole('link', { name: 'Book a demo' })).toHaveAttribute(
       'href',
       '/en/book-a-demo/',
     );
@@ -72,10 +77,19 @@ test.describe('Pricing', () => {
     const steps = main.locator('ol > li');
     await expect(steps).toHaveCount(3);
     await expect(steps.nth(0)).toContainText('Ihren Besprechungsablauf kennenlernen.');
-    await expect(steps.nth(1)).toContainText('Die Einrichtung ist einmalig kostenpflichtig.');
-    await expect(steps.nth(2)).toContainText('nach abgeschlossener Einrichtung');
+    await expect(steps.nth(1)).toContainText(
+      'unterstützten Anbindungen, Freigabeschritte und Fristen',
+    );
+    await expect(steps.nth(2)).toContainText('prüft anhand realer Besprechungen');
+    await expect(
+      main.getByText('Die Einrichtung ist einmalig kostenpflichtig.', { exact: true }),
+    ).toHaveCount(1);
+    await expect(
+      main.getByText('Die 30 Tage beginnen nach abgeschlossener Einrichtung.', { exact: true }),
+    ).toHaveCount(1);
     await expect(main).not.toContainText(forbiddenCurrency);
-    await expect(main.getByRole('link', { name: 'Demo anfragen' }).first()).toHaveAttribute(
+    await expect(main.getByRole('link', { name: 'Demo anfragen' })).toHaveCount(1);
+    await expect(main.getByRole('link', { name: 'Demo anfragen' })).toHaveAttribute(
       'href',
       '/de/book-a-demo/',
     );
@@ -104,7 +118,7 @@ test.describe('Pricing', () => {
   });
 
   for (const locale of ['en', 'de'] as const) {
-    test(`${locale} demo journey repeats the qualified offer and preserves the disabled form contract`, async ({
+    test(`${locale} demo journey keeps a compact qualified offer and the disabled form contract`, async ({
       page,
     }) => {
       await page.goto(`/${locale}/pricing/`);
@@ -126,23 +140,23 @@ test.describe('Pricing', () => {
         }),
       ).toBeVisible();
       const offer = main.getByRole('region', {
-        name:
-          locale === 'de' ? '30 Tage kostenlose Softwarenutzung.' : '30 days of free software use.',
+        name: locale === 'de' ? 'Nach der Demo' : 'After the demo',
       });
-      await expect(
-        offer.getByText(
-          locale === 'de'
-            ? 'Die Einrichtung ist einmalig kostenpflichtig.'
-            : 'A one-time setup fee applies.',
-        ),
-      ).toBeVisible();
-      await expect(
-        offer.getByText(
-          locale === 'de'
-            ? 'Die 30 Tage beginnen nach abgeschlossener Einrichtung.'
-            : 'The 30 days start after setup is complete.',
-        ),
-      ).toBeVisible();
+      await expect(offer).toBeVisible();
+      await expect(offer).toContainText(
+        locale === 'de'
+          ? 'Nach abgeschlossener, einmalig kostenpflichtiger Einrichtung'
+          : 'After the one-time paid setup is complete',
+      );
+      await expect(offer).toContainText(locale === 'de' ? '30 Tage kostenlos' : 'free for 30 days');
+      await expect(offer).toContainText(
+        locale === 'de' ? 'Ihren eigenen realen Besprechungen' : 'your own real meetings',
+      );
+      await expect(offer).toContainText(
+        locale === 'de'
+          ? 'Ihrer eingerichteten Kundenumgebung'
+          : 'your configured customer environment',
+      );
       await expect(offer.getByRole('link')).toHaveAttribute('href', `/${locale}/pricing/`);
 
       const form = main.locator('form');

@@ -8,6 +8,8 @@ const copy = {
       'Show us how you organize meetings today. In the demo, we discuss your process and how your existing systems could be connected.',
     formIntro: 'Your details help us prepare the demo and arrange a time with you.',
     pilotEyebrow: 'After the demo',
+    compactOffer:
+      'After the one-time paid setup is complete, use the software free for 30 days with your own real meetings in your configured customer environment.',
     setupDetails: 'Explore setup & pilot',
     firstName: 'First name',
     lastName: 'Last name',
@@ -34,6 +36,8 @@ const copy = {
     formIntro:
       'Ihre Angaben helfen uns, die Demo vorzubereiten und einen Termin mit Ihnen abzustimmen.',
     pilotEyebrow: 'Nach der Demo',
+    compactOffer:
+      'Nach abgeschlossener, einmalig kostenpflichtiger Einrichtung nutzen Sie die Software 30 Tage kostenlos mit Ihren eigenen realen Besprechungen in Ihrer eingerichteten Kundenumgebung.',
     setupDetails: 'Einrichtung & Pilot ansehen',
     firstName: 'Vorname',
     lastName: 'Nachname',

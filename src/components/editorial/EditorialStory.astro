@@ -33,8 +33,6 @@ interface Props {
   secondaryHref: string;
   idPrefix: string;
   sectionIcons?: readonly SectionIcon[];
-  heroActions?: boolean;
-  showOverview?: boolean;
 }
 
 const {
@@ -47,8 +45,6 @@ const {
   secondaryHref,
   idPrefix,
   sectionIcons = [],
-  heroActions = true,
-  showOverview = Astro.slots.has('overview'),
 } = Astro.props;
 const titleId = `${idPrefix}-title`;
 const closingTitleId = `${idPrefix}-closing-title`;
@@ -64,19 +60,6 @@ const hasVisual = Astro.slots.has('visual');
       <p class="eyebrow">{eyebrow}</p>
       <h1 id={titleId}>{title}</h1>
       <p class="editorial-story__lead">{lead}</p>
-      {
-        heroActions && (
-          <div class="editorial-story__actions">
-            <a class="button" href={primaryHref}>
-              {closing.primaryCta}
-            </a>
-            <a class="editorial-story__text-link" href={secondaryHref}>
-              {closing.secondaryCta}
-              <span aria-hidden="true"> →</span>
-            </a>
-          </div>
-        )
-      }
     </div>
     {
       hasVisual && (
@@ -86,14 +69,6 @@ const hasVisual = Astro.slots.has('visual');
       )
     }
   </header>
-
-  {
-    showOverview && (
-      <div class="editorial-story__overview">
-        <slot name="overview" />
-      </div>
-    )
-  }
 
   <nav class="editorial-story__contents" aria-label={eyebrow}>
     <ol>
@@ -152,12 +127,14 @@ const hasVisual = Astro.slots.has('visual');
   </ol>
 
   <section class="editorial-story__closing" aria-labelledby={closingTitleId}>
-    <p class="eyebrow editorial-story__closing-eyebrow">{closing.eyebrow}</p>
+    <p class="eyebrow">{closing.eyebrow}</p>
     <h2 id={closingTitleId}>{closing.title}</h2>
     <p>{closing.body}</p>
     <div class="editorial-story__actions">
-      <a class="button editorial-story__button-light" href={primaryHref}>{closing.primaryCta}</a>
-      <a class="editorial-story__text-link editorial-story__text-link--light" href={secondaryHref}
+      <a class="editorial-story__text-link" href={primaryHref}
+        >{closing.primaryCta}<span aria-hidden="true"> →</span></a
+      >
+      <a class="editorial-story__text-link" href={secondaryHref}
         >{closing.secondaryCta}<span aria-hidden="true"> →</span></a
       >
     </div>
@@ -204,10 +181,6 @@ const hasVisual = Astro.slots.has('visual');
     min-block-size: 0;
     max-block-size: 34rem;
     object-fit: cover;
-  }
-
-  .editorial-story__overview {
-    margin-block-end: clamp(3rem, 6vw, 5rem);
   }
 
   .editorial-story__lead,
@@ -346,6 +319,10 @@ const hasVisual = Astro.slots.has('visual');
     background: var(--color-canvas-soft);
   }
 
+  .editorial-story__points li:only-child {
+    grid-column: 1 / -1;
+  }
+
   .editorial-story__points h3,
   .editorial-story__points p {
     margin: 0;
@@ -368,12 +345,11 @@ const hasVisual = Astro.slots.has('visual');
 
   .editorial-story__closing {
     display: grid;
-    gap: var(--space-4);
-    margin-top: clamp(3rem, 6vw, 5rem);
-    padding: clamp(1.5rem, 5vw, 4rem);
-    border-radius: var(--radius-lg);
-    background: var(--color-ink);
-    color: var(--color-on-accent);
+    gap: var(--space-3);
+    margin-top: var(--space-6);
+    padding: clamp(1.25rem, 3vw, 2rem);
+    border-inline-start: 3px solid var(--color-camel);
+    background: var(--color-canvas-soft);
   }
 
   .editorial-story__closing h2,
@@ -382,33 +358,12 @@ const hasVisual = Astro.slots.has('visual');
   }
 
   .editorial-story__closing h2 {
-    max-inline-size: 26ch;
-    font-size: clamp(1.75rem, 3.5vw, 3rem);
+    max-inline-size: 38ch;
+    font-size: clamp(1.25rem, 2vw, 1.625rem);
   }
 
   .editorial-story__closing > p {
-    color: var(--color-on-dark-muted);
-  }
-
-  .editorial-story__closing-eyebrow {
-    color: var(--color-camel);
-  }
-
-  .editorial-story__button-light {
-    background: var(--color-surface);
-    color: var(--color-ink);
-  }
-
-  .editorial-story__button-light:hover {
-    background: var(--color-canvas);
-  }
-
-  .editorial-story__text-link--light {
-    color: var(--color-on-accent);
-  }
-
-  .editorial-story__closing a:focus-visible {
-    outline-color: var(--color-camel);
+    max-inline-size: 65ch;
   }
 
   @media (min-width: 38rem) {

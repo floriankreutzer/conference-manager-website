@@ -28,17 +28,19 @@ does not imply registration or legal ownership.
 
 The implemented order is:
 
-1. A meeting outcome, concise explanation, existing-system fit and demo action.
+1. A meeting outcome, concise explanation and a link to the example further down the page.
 2. Six descriptive icons for the request, guests, room/equipment, catering, changes and coordination.
 3. Four everyday coordination problems paired with the corresponding benefit.
 4. An interactive, explicitly illustrative meeting example: request, coordination and change.
 5. A shared-process map for room reservations, Microsoft sign-in, caterer coordination and optional
    visitor-system assessment; separate catering spreadsheets and forms can be replaced.
-6. Practical catering, catalogue, supplier response, change, team and setup details.
-7. Employee, office/conference team and IT perspectives.
-8. Demo, paid setup and 30 days of free software use with real customer meetings.
-9. Native FAQ disclosures and a deeper security/trust link.
-10. A final demo action based on the visitor's own meeting process.
+6. Short employee, office/conference and service-team responsibilities, linked to the team page.
+7. One compact, qualified setup-and-pilot offer, linked to its full detail page.
+8. A deeper security/trust link for IT questions.
+9. A final demo action based on the visitor's own meeting process.
+
+The homepage does not repeat the six-item overview as a second feature grid, reproduce the
+complete introduction timeline, or repeat detail-page explanations as an additional FAQ.
 
 The example is an explanatory website component, not a live application or a screenshot. Its
 three states retain the same workshop. The final state changes both participant count and
@@ -59,9 +61,15 @@ Existing localized routes remain stable. Product, company, security/trust and In
 crawlable in the footer. The mobile menu is progressively enhanced; the complete navigation is
 available without JavaScript.
 
-**Book a demo / Demo anfragen** is the primary action. **See how it works / So funktioniert es**
-links directly to the homepage example. **Sign in / Anmelden** is the separate, centrally
-configured application handoff.
+**Book a demo / Demo anfragen** remains the primary conversion. Its placement is deliberately
+limited: one link in the global header and one additional closing action on the homepage and
+setup/pilot page only. The demo-request page omits the redundant header self-link; its form remains
+the action. No hero, inline feature section, other page closing or footer repeats the demo-request
+link. A different label pointing to the same request route is still a demo CTA.
+
+**See how it works / So funktioniert es** in the homepage hero links to the single interactive
+example further down that page. Detail pages use descriptive links to the next relevant content.
+**Sign in / Anmelden** is the separate, centrally configured application handoff.
 
 The demo form retains its existing fields, POST contract, validation limits, honeypot, privacy
 acknowledgement and configuration gate. This redesign does not activate a missing endpoint or
@@ -69,25 +77,32 @@ claim successful submission when processing is unavailable.
 
 The detail pages continue the same customer journey in both languages:
 
-| Stable route | Customer purpose |
-| --- | --- |
-| `product` | Explain the meeting request, catering catalogue, supported changes and existing-system fit. |
-| `how-it-works` | Follow the three request, coordination and change stages using the same illustrative workshop as the homepage. |
-| `workplace-teams` | Explain the responsibilities of employees, office/conference teams, service teams and customer IT. |
-| `company` | Explain how Pavurel agrees the setup, prepares the customer environment and discusses later adjustments. |
-| `security-trust` | Answer buyer questions about sign-in, roles, meeting data and the requirements to assess before setup. |
-| `insights` and its article | Explain why meeting preparation needs more than room reservations, with a practical example and links to the demo and integrations. |
-| `demo` | Provide the separate product-demo handoff with synthetic example data and clearly distinguish it from the customer pilot. |
+| Stable route              | Customer purpose                                                                                                |
+| ------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| Homepage                  | Introduce the outcome and four pains, show the single illustrative meeting example, and signpost detail pages.  |
+| `product`                 | Explain the request information, catering catalogue and supported changes; link to integration details.         |
+| `how-it-works`            | Explain information hand-offs, preparation responsibilities and change decisions; link to the homepage example. |
+| `workplace-teams`         | Explain the responsibilities of employees, office/conference teams, service teams and customer IT.              |
+| `integrations`            | Explain existing-system ownership, available connections, prerequisites and separately assessed paths.          |
+| `pricing`                 | Own the complete setup/pilot offer and the introduction steps, with one final demo invitation.                  |
+| `company`                 | Explain Pavurel's work, the customer's contribution and later adjustments.                                      |
+| `security-trust`          | Address access, meeting data, data exchange and the evidence to assess before setup.                            |
+| `insights`                | Help the reader choose an article, without an additional sales panel.                                           |
+| Existing Insights article | Provide a practical meeting-preparation checklist and link to the workflow for product detail.                  |
+| `demo`                    | Open the separate product demo with synthetic data and distinguish it from a customer pilot.                    |
+| `book-a-demo`             | Collect the request and prepare the conversation; retain only a compact qualified offer note.                   |
 
 Product, workflow, team, company and trust pages share a presentation-only editorial layout with
-a clear hero, responsive Pavurel image, primary demo action, icon-based section links and a final
-next step. The workflow page reuses the existing accessible example rather than introducing a
-second interaction model. The German footer and destination now consistently use `Für Ihr Team`
-and `Sicherheit & Vertrauen`.
+a clear hero, responsive Pavurel image, icon-based section links and a compact, light next-reading
+section. The shared layout does not insert hero actions. Only the homepage renders the interactive
+meeting example; workflow and article pages add information instead of replaying its 12-to-18-person
+story. Brief context for direct page arrivals is useful, but detailed explanations have one primary
+home and are linked from elsewhere. The German footer and destination use `Für Ihr Team` and
+`Sicherheit & Vertrauen`.
 
 Insights preserve their published routes, bilingual pairing and original publication date. A
 separate updated date records editorial revisions. Native contents links use the rendered Markdown
-heading IDs; article-specific summaries do not leak into future articles.
+heading IDs and continue with relevant reading links.
 
 The direct `demo` route remains intentionally noindex and outside the sales navigation. Its
 existing customer and platform destinations remain fixed HTTPS handoffs. The platform link is
@@ -102,8 +117,9 @@ The website may describe the following approved offer in both languages:
 - Thirty days of free **software use**, beginning only after setup is complete.
 - A configured customer environment with the customer's own real meetings.
 
-The setup fee is disclosed next to the free-use statement, including on the homepage, pricing
-and demo pages. Pricing and demo share the typed `getPricingCopy(locale).offer` content block.
+The setup fee and completed-setup start condition are disclosed next to every free-use statement.
+The pricing page owns the full offer; the homepage and demo-request page use a compact qualified
+summary with a link to that page. Other detail pages do not repeat the complete commercial journey.
 No monetary amount, billing formula, tier, automatic renewal, refund term, payment due date or
 setup duration is inferred. Prices and terms for continued use are discussed separately.
 
@@ -155,7 +171,9 @@ checked against the existing restrictive CSP; no unsafe inline exception is intr
 
 Regression coverage includes the new offer, qualified integration copy, navigation and language
 handoffs, three example states, keyboard behavior, no-JavaScript content, responsive reflow,
-Axe, asset loading, metadata and build budgets. Automated checks do not establish formal WCAG
+Axe, asset loading, metadata and build budgets. An explicit route-wide check protects the allowed
+demo-link count and placement in both languages, including the absence of a self-link on the request
+form. Automated checks do not establish formal WCAG
 conformance, real-user performance, provider acceptance or a production deployment.
 
 ## 9. Architecture and publication

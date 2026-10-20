@@ -9,9 +9,7 @@ export type DemoLaunchCopy = {
   customerText: string;
   customerAction: string;
   sampleData: string;
-  guidedTitle: string;
-  guidedText: string;
-  guidedAction: string;
+  pilotTitle: string;
   pilotText: string;
   pilotAction: string;
   platform: string;
@@ -32,12 +30,9 @@ const demoLaunchCopy: Record<Locale, DemoLaunchCopy> = {
       'Follow a meeting from the employee request to coordination by the conference team. The demo also includes customer administration and the supported combination of employee and conference-team roles.',
     customerAction: 'Open product demo',
     sampleData: 'Example environment · Synthetic data',
-    guidedTitle: 'Would you like us to walk you through it?',
-    guidedText:
-      'Start with a shared demo to discuss your meeting process and which setup could fit your team.',
-    guidedAction: 'Book a demo',
+    pilotTitle: 'A separate environment for your own meetings',
     pilotText:
-      'The pilot uses your own real meetings in a configured customer environment. It includes 30 days of free software use after the one-time paid setup is complete.',
+      'This example environment uses synthetic data. A pilot with your own real meetings uses a separately configured customer environment.',
     pilotAction: 'Explore setup & pilot',
     platform: 'Separate access for platform operations',
     platformText:
@@ -57,12 +52,9 @@ const demoLaunchCopy: Record<Locale, DemoLaunchCopy> = {
       'Verfolgen Sie eine Besprechung von der Mitarbeiteranfrage bis zur Koordination durch das Konferenzteam. Die Demo umfasst auch die Kundenadministration und die unterstützte Kombination aus Mitarbeiter- und Konferenzteamrolle.',
     customerAction: 'Produktdemo öffnen',
     sampleData: 'Beispielumgebung · Synthetische Daten',
-    guidedTitle: 'Möchten Sie den Ablauf gemeinsam kennenlernen?',
-    guidedText:
-      'Starten Sie mit einer begleiteten Demo. Wir besprechen Ihren Besprechungsablauf und eine passende Einrichtung für Ihr Team.',
-    guidedAction: 'Demo anfragen',
+    pilotTitle: 'Eine eigene Umgebung für Ihre Besprechungen',
     pilotText:
-      'Im Pilot arbeiten Sie mit eigenen realen Besprechungen in einer eingerichteten Kundenumgebung. Nach abgeschlossener, einmalig kostenpflichtiger Einrichtung nutzen Sie die Software 30 Tage kostenlos.',
+      'Diese Beispielumgebung verwendet synthetische Daten. Ein Pilot mit Ihren eigenen realen Besprechungen findet in einer separat eingerichteten Kundenumgebung statt.',
     pilotAction: 'Einführung & Pilot ansehen',
     platform: 'Separater Zugang für den Plattformbetrieb',
     platformText:

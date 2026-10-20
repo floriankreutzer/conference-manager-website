@@ -26,7 +26,7 @@ test.describe('Security & Trust', () => {
     await expect(
       main.getByRole('heading', {
         level: 2,
-        name: 'Which systems need to be connected?',
+        name: 'What information will be exchanged?',
       }),
     ).toBeVisible();
     await expect(
@@ -34,13 +34,13 @@ test.describe('Security & Trust', () => {
     ).toBeVisible();
     await expect(main).not.toContainText('refresh tokens');
     await expect(main).not.toContainText('browser bundle');
-    await expect(main.getByRole('link', { name: 'Explore integrations' }).first()).toHaveAttribute(
+    await expect(main.getByRole('link', { name: 'Explore integrations' })).toHaveAttribute(
       'href',
       '/en/integrations/',
     );
-    await expect(main.getByRole('link', { name: 'Book a demo' }).first()).toHaveAttribute(
+    await expect(main.getByRole('link', { name: 'Explore setup & pilot' })).toHaveAttribute(
       'href',
-      '/en/book-a-demo/',
+      '/en/pricing/',
     );
     await expect(page.locator('link[rel="alternate"][hreflang="de"]')).toHaveAttribute(
       'href',
@@ -69,19 +69,19 @@ test.describe('Security & Trust', () => {
     await expect(
       main.getByRole('heading', {
         level: 2,
-        name: 'Welche Systeme sollen zusammenarbeiten?',
+        name: 'Welche Angaben werden ausgetauscht?',
       }),
     ).toBeVisible();
     await expect(main.getByText(/Wenn Ihr Unternehmen bestimmte Zertifizierungen/)).toBeVisible();
     await expect(main).not.toContainText('Refresh-Tokens');
     await expect(main).not.toContainText('Trusted API');
-    await expect(main.getByRole('link', { name: 'Integrationen ansehen' }).first()).toHaveAttribute(
+    await expect(main.getByRole('link', { name: 'Integrationen ansehen' })).toHaveAttribute(
       'href',
       '/de/integrations/',
     );
-    await expect(main.getByRole('link', { name: 'Demo anfragen' }).first()).toHaveAttribute(
+    await expect(main.getByRole('link', { name: 'Einrichtung & Pilot ansehen' })).toHaveAttribute(
       'href',
-      '/de/book-a-demo/',
+      '/de/pricing/',
     );
     await expect(page.locator('link[rel="alternate"][hreflang="en"]')).toHaveAttribute(
       'href',

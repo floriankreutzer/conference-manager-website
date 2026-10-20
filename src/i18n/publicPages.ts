@@ -29,21 +29,21 @@ const pages: Record<Locale, Record<PublicPageSlug, PublicPageCopy>> = {
       title: 'One request. Everything for your meeting.',
       description:
         'Bring meeting details, guests, catering and equipment together. Conference Manager helps your office team coordinate preparation alongside your existing systems.',
-      body: 'Bring guests, catering and equipment into one meeting request. Your office or conference team can follow the details and supported changes while your existing room-booking system handles the reservation.',
+      body: 'See how guest details, catering, equipment and supported changes are organised within a meeting request. Your existing room-booking system remains responsible for reservations.',
     },
     'how-it-works': {
       eyebrow: 'How it works',
       title: 'One meeting. Three clear steps.',
       description:
-        'Follow a meeting from the first request through preparation and a change from 12 to 18 people. See how Conference Manager brings the details together.',
-      body: 'Start the request in Conference Manager, coordinate preparation and keep changes visible. Follow one workshop from 12 to 18 people in the example below.',
+        'See how employees, the office team and service teams pass a meeting request through preparation and review changes in Conference Manager.',
+      body: 'See who supplies the information, coordinates preparation and reviews a requested change. Each step keeps the meeting and its current status together.',
     },
     integrations: {
       eyebrow: 'Integrations',
       title: 'Your systems. One meeting workflow.',
       description:
         'Room reservations, Microsoft sign-in and catering coordination: we work with you to confirm how Conference Manager fits your company.',
-      body: 'Keep your existing room reservations and company sign-in. Conference Manager brings guest information, catering and technical requirements into one shared workflow. We work with you to confirm which connections fit your company.',
+      body: 'Keep the systems that already manage rooms and company sign-in. Review which connections are available and which requirements need a separate assessment.',
       note: 'Only capabilities verified against the current product are presented as available.',
     },
     'workplace-teams': {
@@ -58,14 +58,14 @@ const pages: Record<Locale, Record<PublicPageSlug, PublicPageCopy>> = {
       title: 'Clear answers for your IT team.',
       description:
         'Understand Microsoft sign-in, roles and customer-specific connections. Discuss access and data requirements before setting up Conference Manager.',
-      body: 'Who can sign in? Who can work on a request? Which systems will be connected? We clarify access, responsibilities and your requirements together before setup.',
+      body: 'Clarify who can access meeting details, which information is exchanged and which requirements your IT team needs to assess before setup.',
     },
     pricing: {
       eyebrow: 'Setup & pilot',
       title: 'Try it with your own meetings.',
       description:
         'Start with a demo. Once your customer environment is set up, use the software free for 30 days. A one-time setup fee applies.',
-      body: 'Start with a demo. Once your customer environment is set up, use the software free for 30 days. A one-time setup fee applies.',
+      body: 'From the first conversation to your own customer environment: agree the scope, prepare the setup and try the process in everyday use.',
       note: 'Prices and terms for continued use are agreed separately.',
     },
     insights: {
@@ -77,10 +77,10 @@ const pages: Record<Locale, Record<PublicPageSlug, PublicPageCopy>> = {
     },
     company: {
       eyebrow: 'Conference Manager by Pavurel',
-      title: 'From first conversation to everyday meetings.',
+      title: 'Pavurel supports your setup.',
       description:
-        'See how Pavurel helps you agree the setup of Conference Manager, connect supported systems and try the software with your own meetings.',
-      body: 'Pavurel helps set up Conference Manager for your office or conference team. Together, we agree the workflow and supported connections before you start using it for your own meetings.',
+        'Learn how Pavurel prepares your Conference Manager environment, what your team contributes and how later adjustments are agreed.',
+      body: 'We agree your Conference Manager setup, prepare the customer environment and handle agreed adjustments.',
     },
     'book-a-demo': {
       eyebrow: 'Book a demo',
@@ -97,21 +97,21 @@ const pages: Record<Locale, Record<PublicPageSlug, PublicPageCopy>> = {
       title: 'Eine Anfrage. Alles für Ihre Besprechung.',
       description:
         'Gäste, Catering und Technik gemeinsam organisieren. Conference Manager unterstützt Ihr Office-Team bei der Vorbereitung und ergänzt Ihre vorhandenen Systeme.',
-      body: 'Gäste, Catering und Technik kommen in einer Besprechungsanfrage zusammen. Ihr Office- oder Konferenzteam behält die Angaben und unterstützten Änderungen im Blick. Die Reservierung übernimmt Ihre bestehende Raumbuchung.',
+      body: 'Erfahren Sie, wie Gästeangaben, Catering, Technik und unterstützte Änderungen in einer Besprechungsanfrage zusammenkommen. Ihr vorhandenes Raumbuchungssystem bleibt für Reservierungen zuständig.',
     },
     'how-it-works': {
       eyebrow: 'So funktioniert es',
       title: 'Eine Besprechung. Drei klare Schritte.',
       description:
-        'Von der Anfrage über die Vorbereitung bis zur Änderung von 12 auf 18 Personen: Ein Beispiel zeigt, wie Conference Manager die Angaben zusammenführt.',
-      body: 'Die Anfrage im Conference Manager starten, die Vorbereitung abstimmen und Änderungen nachvollziehen. Begleiten Sie im Beispiel einen Workshop, der von 12 auf 18 Personen wächst.',
+        'So geben Mitarbeitende, Office-Team und Service-Teams eine Besprechungsanfrage weiter, stimmen die Vorbereitung ab und prüfen Änderungen im Conference Manager.',
+      body: 'Wer liefert die Angaben, wer stimmt die Vorbereitung ab und wer prüft eine angefragte Änderung? Jeder Schritt bleibt mit der Besprechung und ihrem aktuellen Stand verbunden.',
     },
     integrations: {
       eyebrow: 'Integrationen',
       title: 'Ihre Systeme. Ein gemeinsamer Ablauf.',
       description:
         'Raumreservierung, Microsoft-Anmeldung und Cateringkoordination: Wir prüfen gemeinsam, wie Conference Manager zu Ihrem Unternehmen passt.',
-      body: 'Ihre Raumreservierung und Unternehmensanmeldung bleiben erhalten. Conference Manager führt Angaben zu Gästen, Catering und Technik in einem gemeinsamen Ablauf zusammen. Welche Anbindungen zu Ihrem Unternehmen passen, klären wir gemeinsam.',
+      body: 'Nutzen Sie die Systeme weiter, die Ihre Räume und Unternehmensanmeldung verwalten. Erfahren Sie, welche Anbindungen verfügbar sind und was gesondert geprüft werden muss.',
       note: 'Als verfügbar werden nur Fähigkeiten dargestellt, die gegen den aktuellen Produktstand verifiziert sind.',
     },
     'workplace-teams': {
@@ -126,14 +126,14 @@ const pages: Record<Locale, Record<PublicPageSlug, PublicPageCopy>> = {
       title: 'Klare Antworten für Ihre IT.',
       description:
         'Microsoft-Anmeldung, Rollen und kundenspezifische Anbindungen verständlich erklärt. Klären Sie Zugriff und Datenanforderungen vor der Einrichtung.',
-      body: 'Wer kann sich anmelden? Wer darf eine Anfrage bearbeiten? Welche Systeme werden angebunden? Zugriff, Zuständigkeiten und Ihre Anforderungen klären wir gemeinsam vor der Einrichtung.',
+      body: 'Klären Sie, wer Besprechungsangaben sehen darf, welche Informationen ausgetauscht werden und welche Anforderungen Ihre IT vor der Einrichtung prüfen muss.',
     },
     pricing: {
       eyebrow: 'Einrichtung & Pilot',
       title: 'Mit eigenen Besprechungen erproben.',
       description:
         'Starten Sie mit einer Demo. Nach abgeschlossener, einmalig kostenpflichtiger Einrichtung nutzen Sie die Software 30 Tage kostenlos in Ihrer Kundenumgebung.',
-      body: 'Starten Sie mit einer Demo. Nach abgeschlossener, einmalig kostenpflichtiger Einrichtung nutzen Sie die Software 30 Tage kostenlos in Ihrer Kundenumgebung.',
+      body: 'Vom ersten Gespräch zur eigenen Kundenumgebung: den Umfang abstimmen, die Einrichtung vorbereiten und den Ablauf im Alltag erproben.',
       note: 'Preise und Bedingungen für eine weitere Nutzung werden gesondert vereinbart.',
     },
     insights: {
@@ -145,10 +145,10 @@ const pages: Record<Locale, Record<PublicPageSlug, PublicPageCopy>> = {
     },
     company: {
       eyebrow: 'Conference Manager by Pavurel',
-      title: 'Mit Pavurel vom ersten Gespräch in den Arbeitsalltag.',
+      title: 'Pavurel begleitet Ihre Einführung.',
       description:
-        'So begleitet Pavurel die Einrichtung von Conference Manager: Ablauf abstimmen, unterstützte Systeme anbinden und mit eigenen Besprechungen erproben.',
-      body: 'Pavurel begleitet die Einrichtung von Conference Manager für Ihr Office- oder Konferenzteam. Gemeinsam stimmen wir den Ablauf und die unterstützten Anbindungen ab, bevor Sie mit eigenen Besprechungen starten.',
+        'Erfahren Sie, wie Pavurel Ihre Conference-Manager-Umgebung vorbereitet, was Ihr Team einbringt und wie spätere Anpassungen abgestimmt werden.',
+      body: 'Wir stimmen die Einrichtung von Conference Manager mit Ihnen ab, bereiten die Kundenumgebung vor und begleiten vereinbarte Anpassungen.',
     },
     'book-a-demo': {
       eyebrow: 'Demo anfragen',

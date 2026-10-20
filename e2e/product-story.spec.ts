@@ -4,7 +4,9 @@ import { expect, test } from '@playwright/test';
 const storyPaths = ['/en/product/', '/de/product/', '/en/how-it-works/', '/de/how-it-works/'];
 
 test.describe('Product and How it works narratives', () => {
-  test('renders the English Product narrative with governed conversion links', async ({ page }) => {
+  test('renders the English Product narrative with relevant next-reading links', async ({
+    page,
+  }) => {
     await page.goto('/en/product/');
     const main = page.locator('main');
 
@@ -24,15 +26,16 @@ test.describe('Product and How it works narratives', () => {
       }),
     ).toBeVisible();
     await expect(
-      main.getByText(/Your room-booking system stays responsible for reservations/),
+      main.getByText(/Your existing room-booking system handles the reservation/),
     ).toBeVisible();
-    await expect(main.getByRole('link', { name: 'Book a demo' }).first()).toHaveAttribute(
-      'href',
-      '/en/book-a-demo/',
-    );
+    await expect(main.locator('a[href$="/book-a-demo/"]')).toHaveCount(0);
     await expect(main.getByRole('link', { name: /See how it works/ }).first()).toHaveAttribute(
       'href',
       '/en/how-it-works/',
+    );
+    await expect(main.getByRole('link', { name: /Explore integrations/ })).toHaveAttribute(
+      'href',
+      '/en/integrations/',
     );
     await expect(page.locator('link[rel="alternate"][hreflang="de"]')).toHaveAttribute(
       'href',
@@ -60,11 +63,12 @@ test.describe('Product and How it works narratives', () => {
       }),
     ).toBeVisible();
     await expect(
-      main.getByText(/Ihr Raumbuchungssystem bleibt für Reservierungen zuständig/),
+      main.getByText(/Ihr vorhandenes Raumbuchungssystem übernimmt die Reservierung/),
     ).toBeVisible();
-    await expect(main.getByRole('link', { name: 'Demo anfragen' }).first()).toHaveAttribute(
+    await expect(main.locator('a[href$="/book-a-demo/"]')).toHaveCount(0);
+    await expect(main.getByRole('link', { name: /Integrationen ansehen/ })).toHaveAttribute(
       'href',
-      '/de/book-a-demo/',
+      '/de/integrations/',
     );
     await expect(page.locator('link[rel="alternate"][hreflang="en"]')).toHaveAttribute(
       'href',
@@ -72,7 +76,7 @@ test.describe('Product and How it works narratives', () => {
     );
   });
 
-  test('explains the three stages and lets visitors explore a catering change', async ({
+  test('explains hand-offs and links to the single interactive meeting example', async ({
     page,
   }) => {
     await page.goto('/en/how-it-works/');
@@ -98,15 +102,21 @@ test.describe('Product and How it works narratives', () => {
     await expect(
       main.getByText(/The existing room-booking system remains responsible for the reservation/),
     ).toBeVisible();
-    const example = main.locator('meeting-example');
+    await expect(main.locator('meeting-example')).toHaveCount(0);
+    await expect(main.locator('a[href$="/book-a-demo/"]')).toHaveCount(0);
+    await expect(main.getByRole('link', { name: /See team responsibilities/ })).toHaveAttribute(
+      'href',
+      '/en/workplace-teams/',
+    );
+    const exampleLink = main.getByRole('link', { name: /Explore the meeting example/ });
+    await expect(exampleLink).toHaveAttribute('href', '/en/#how-it-works');
+    await exampleLink.click();
+    await expect(page).toHaveURL(/\/en\/#how-it-works$/);
+    const example = page.locator('meeting-example');
     await expect(example.getByRole('tab')).toHaveCount(3);
     await example.getByRole('tab', { name: 'Change', exact: true }).click();
     await expect(example.getByText('Coffee-break package for 18', { exact: true })).toBeVisible();
     await expect(example.getByText('Change awaiting review', { exact: true })).toBeVisible();
-    await expect(main.getByRole('link', { name: /Explore the product/ }).first()).toHaveAttribute(
-      'href',
-      '/en/product/',
-    );
   });
 
   test('keeps the long German narrative within a narrow reflow viewport', async ({ page }) => {
