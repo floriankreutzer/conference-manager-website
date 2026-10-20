@@ -196,7 +196,7 @@ test.describe('public website contracts', () => {
   test('keeps the compact navigation operable by keyboard across breakpoints', async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto('/en/');
-    const toggle = page.getByRole('button', { name: 'Menu', exact: true });
+    const toggle = page.getByRole('banner').getByRole('button', { name: 'Menu', exact: true });
     const navigation = page.locator('.primary-nav');
     const firstLink = navigation.locator('a').first();
 
