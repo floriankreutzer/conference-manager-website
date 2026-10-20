@@ -29,13 +29,13 @@ describe('public page route resolution', () => {
 
   it('preserves descriptive titles for detailed pages and eyebrow titles for utility destinations', () => {
     expect(resolvePublicPageRoute('en', 'product').title).toBe(
-      'Conference management around the complete request. — Conference Manager',
+      'One request. Everything for your meeting. — Conference Manager',
     );
     expect(resolvePublicPageRoute('de', 'pricing').title).toBe(
       'Mit eigenen Besprechungen erproben. — Conference Manager',
     );
     expect(resolvePublicPageRoute('en', 'company').title).toBe(
-      'Built around the conference, not around another system. — Conference Manager',
+      'From first conversation to everyday meetings. — Conference Manager',
     );
     expect(resolvePublicPageRoute('en', 'insights').title).toBe('Insights — Conference Manager');
     expect(resolvePublicPageRoute('de', 'book-a-demo').title).toBe(
@@ -51,7 +51,7 @@ describe('public page route resolution', () => {
       'Raumreservierung, Microsoft-Anmeldung und Cateringkoordination',
     );
     expect(resolvePublicPageRoute('en', 'company').description).toContain(
-      'complete workplace conference journey',
+      'helps you agree the setup of Conference Manager',
     );
   });
 });

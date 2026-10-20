@@ -1,12 +1,15 @@
 ---
 import DemoLaunchPage from '@features/demo-launch/DemoLaunchPage.astro';
+import { getDemoLaunchCopy } from '@i18n/demoLaunch';
 import MarketingLayout from '@layouts/MarketingLayout.astro';
+
+const copy = getDemoLaunchCopy('en');
 ---
 
 <MarketingLayout
   locale="en"
-  title="Conference Manager Demo | Choose an experience"
-  description="Static entry point for the separate Conference Manager Customer and Platform Demos."
+  title={`${copy.title} — Conference Manager`}
+  description={copy.lead}
   noindex
 >
   <DemoLaunchPage locale="en" />

@@ -4,33 +4,31 @@ import { expect, test } from '@playwright/test';
 const englishPath = '/en/workplace-teams/';
 const germanPath = '/de/workplace-teams/';
 
-test.describe('For Workplace Teams', () => {
+test.describe('For your team', () => {
   test('renders the governed English buyer narrative and conversion paths', async ({ page }) => {
     await page.goto(englishPath);
     const main = page.locator('main');
 
     await expect(page).toHaveTitle(
-      'More context for the team. Less process for the requester. — Conference Manager',
+      'Fewer follow-ups. Clearer responsibilities. — Conference Manager',
     );
     await expect(
       main.getByRole('heading', {
         level: 1,
-        name: 'More context for the team. Less process for the requester.',
+        name: 'Fewer follow-ups. Clearer responsibilities.',
       }),
     ).toBeVisible();
     await expect(main.locator('article > ol > li')).toHaveCount(4);
     await expect(
       main.getByRole('heading', {
         level: 2,
-        name: 'Receive the information your team needs to prepare the conference.',
+        name: 'Prepare the meeting from one shared request.',
       }),
     ).toBeVisible();
     await expect(
-      main.getByText('Keep your room booking. Replace the coordination around it.'),
+      main.getByText(/Your existing room-booking system remains responsible for reservations/),
     ).toBeVisible();
-    await expect(
-      main.getByText(/Know what changed after a conference was confirmed/),
-    ).toBeVisible();
+    await expect(main.getByRole('heading', { level: 3, name: 'Review changes' })).toBeVisible();
     await expect(main.getByRole('link', { name: 'Book a demo' }).first()).toHaveAttribute(
       'href',
       '/en/book-a-demo/',
@@ -50,29 +48,25 @@ test.describe('For Workplace Teams', () => {
     const main = page.locator('main');
 
     await expect(page).toHaveTitle(
-      'Mehr Kontext für das Team. Weniger Prozess für die anfragende Person. — Conference Manager',
+      'Weniger Rückfragen. Klarere Zuständigkeiten. — Conference Manager',
     );
     await expect(
       main.getByRole('heading', {
         level: 1,
-        name: 'Mehr Kontext für das Team. Weniger Prozess für die anfragende Person.',
+        name: 'Weniger Rückfragen. Klarere Zuständigkeiten.',
       }),
     ).toBeVisible();
     await expect(main.locator('article > ol > li')).toHaveCount(4);
     await expect(
       main.getByRole('heading', {
         level: 2,
-        name: 'Erhalten Sie die Informationen, die Ihr Team für die Vorbereitung benötigt.',
+        name: 'Die Besprechung aus einer gemeinsamen Anfrage vorbereiten.',
       }),
     ).toBeVisible();
     await expect(
-      main.getByText(
-        'Behalten Sie Ihre Raumbuchung. Strukturieren Sie die Koordination darum herum.',
-      ),
+      main.getByText(/Ihre bestehende Raumbuchung bleibt für Reservierungen zuständig/),
     ).toBeVisible();
-    await expect(
-      main.getByText(/Erkennen Sie, was sich nach einer Bestätigung geändert hat/),
-    ).toBeVisible();
+    await expect(main.getByRole('heading', { level: 3, name: 'Änderungen prüfen' })).toBeVisible();
     await expect(main.getByRole('link', { name: 'Demo anfragen' }).first()).toHaveAttribute(
       'href',
       '/de/book-a-demo/',
@@ -96,7 +90,7 @@ test.describe('For Workplace Teams', () => {
     await expect(
       page.getByRole('heading', {
         level: 2,
-        name: 'Verbessern Sie den Konferenzbetrieb, ohne ein Austauschprojekt für die Raumbuchung zu starten.',
+        name: 'Auf den vorhandenen Systemen aufbauen.',
       }),
     ).toBeVisible();
   });

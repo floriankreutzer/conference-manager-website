@@ -1,7 +1,9 @@
 ---
 import EditorialStory from '@components/editorial/EditorialStory.astro';
+import BrandVisual from '@components/marketing/BrandVisual.astro';
 import type { Locale } from '@config/locales';
 import { withBasePath } from '@domain/routing/basePath';
+import MeetingExample from '@features/meeting-example/MeetingExample.astro';
 import { getProductStoryCopy, type ProductStorySlug } from '@i18n/productStory';
 import { getPublicPageCopy } from '@i18n/publicPages';
 
@@ -28,4 +30,52 @@ const secondaryHref = withBasePath(
   primaryHref={primaryHref}
   secondaryHref={secondaryHref}
   idPrefix="product-story"
-/>
+  showOverview={Boolean(story.example)}
+  sectionIcons={slug === 'product'
+    ? ['request', 'catering', 'changes', 'coordination']
+    : ['request', 'coordination', 'changes']}
+>
+  <BrandVisual
+    slot="visual"
+    locale={locale}
+    variant={slug === 'product' ? 'catering' : 'meeting'}
+    priority
+  />
+  <Fragment slot="overview">
+    {
+      story.example && (
+        <section class="product-story__example" aria-labelledby="product-example-title">
+          <header class="product-story__example-intro">
+            <p class="eyebrow">{story.example.eyebrow}</p>
+            <h2 id="product-example-title">{story.example.title}</h2>
+            <p>{story.example.body}</p>
+          </header>
+          <MeetingExample locale={locale} idPrefix="product-meeting-example" />
+        </section>
+      )
+    }
+  </Fragment>
+</EditorialStory>
+
+<style>
+  .product-story__example {
+    padding-block-end: clamp(2rem, 6vw, 5rem);
+  }
+
+  .product-story__example-intro {
+    max-inline-size: 46rem;
+    margin-block-end: var(--space-5);
+  }
+
+  .product-story__example-intro h2 {
+    margin-block: var(--space-3);
+    font-size: clamp(1.75rem, 4vw, 3rem);
+    line-height: 1.15;
+    letter-spacing: -0.04em;
+  }
+
+  .product-story__example-intro > p:last-child {
+    color: var(--color-text-muted);
+    line-height: 1.7;
+  }
+</style>

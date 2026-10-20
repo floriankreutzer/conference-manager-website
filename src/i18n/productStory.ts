@@ -19,104 +19,139 @@ type ProductStoryClosing = {
   primaryCta: string;
   secondaryCta: string;
 };
-type ProductStoryCopy = { sections: readonly ProductStorySection[]; closing: ProductStoryClosing };
+type ProductStoryCopy = {
+  sections: readonly ProductStorySection[];
+  closing: ProductStoryClosing;
+  example?: { eyebrow: string; title: string; body: string };
+};
 
 const stories: Record<Locale, Record<ProductStorySlug, ProductStoryCopy>> = {
   en: {
     product: {
       sections: [
         {
-          eyebrow: 'One conference request',
-          title: 'Keep the decisions that belong together in one place.',
-          body: 'Conference Manager guides the requester through date and time, room context, services, catering, cost allocation and review. The value is not another form: it is one conference context that stays understandable from request through preparation.',
+          eyebrow: 'The meeting request',
+          title: 'Bring the details together before preparation starts.',
+          body: 'Employees start in Conference Manager and describe the meeting they need. Your office or conference team receives the details in one request and can see what still needs to be clarified.',
           points: [
             {
-              title: 'Room context',
-              body: 'Keep the room decision connected while the existing booking system remains responsible for the reservation.',
+              title: 'Guests and attendees',
+              body: 'Capture attendee numbers, guest details and requirements for the visit.',
             },
             {
-              title: 'Services',
-              body: 'Capture relevant workplace-service requirements without starting a separate coordination trail.',
+              title: 'Room and equipment',
+              body: 'Include the room, display, video conferencing and other preparation requirements. Your existing room-booking system handles the reservation.',
             },
             {
               title: 'Catering',
-              body: 'Keep catering needs, participant counts and dietary requirements with the conference.',
+              body: 'Choose refreshments as part of the same meeting request, with quantities and dietary requirements.',
             },
             {
-              title: 'Review',
-              body: 'Make cost allocation and final review visible before the request moves forward.',
+              title: 'Progress',
+              body: 'Keep the request and its current processing stage together, from submission through preparation.',
             },
           ],
         },
         {
-          eyebrow: 'Existing-system fit',
-          title: 'Improve conference coordination without replacing room booking.',
-          body: 'Conference Manager is deliberately focused on the work around the reservation. Your room-booking capability remains authoritative for the booking itself; Conference Manager connects that context to the wider conference journey.',
-          statement: 'Keep your room booking. Replace the coordination around it.',
-        },
-        {
-          eyebrow: 'For Workplace Teams',
-          title: 'Give employees simplicity without hiding operational context from the team.',
-          body: 'Employees follow a guided request. Workplace Teams work with separate operational views for bookings, room planning, reporting and administration. The requester does not need to learn the operating model in order to give the team useful information.',
+          eyebrow: 'Catering',
+          title: 'Specify what is needed, and how much.',
+          body: 'Replace separate catering spreadsheets and forms with a catalogue in the meeting request. Employees select individual items with quantities and prices, or a predefined package such as a coffee break per person.',
           points: [
             {
-              title: 'Employee experience',
-              body: 'Ask for the conference through a clear journey rather than navigating internal ownership.',
+              title: 'A catalogue your team maintains',
+              body: 'Your office or conference team maintains the available items, packages and prices. Importing a supplier catalogue requires a confirmed connection.',
             },
             {
-              title: 'Operational visibility',
-              body: 'Work with the booking and management context needed to prepare and oversee the conference.',
+              title: 'Supplier replies stay with the meeting',
+              body: 'Your office team sends the order by email and records the supplier’s response in Conference Manager. Additional supplier access or automatic exchanges are assessed separately.',
             },
           ],
         },
         {
-          eyebrow: 'Controlled lifecycle',
-          title: 'Keep changes deliberate after the first request.',
-          body: 'Conference Manager supports confirmation, change requests, resubmission, rejection and cancellation. Supported post-confirmation changes remain explicit instead of silently rewriting an agreed conference context.',
-          statement: 'Simple to request. Clear when decisions change.',
+          eyebrow: 'Changes',
+          title: 'Keep the agreed request and the proposed change clear.',
+          body: 'A meeting can change after it has been confirmed. Supported changes remain connected to the request, so your team can see what is being proposed and which decision is outstanding.',
+          points: [
+            {
+              title: 'More attendees and more catering',
+              body: 'For example, a workshop grows from 12 to 18 people and the employee also requests six additional catering portions. The revised quantity is submitted for review.',
+            },
+            {
+              title: 'Rules agreed during setup',
+              body: 'We agree on the supported approval steps and deadlines for your customer environment. Pavurel handles possible adjustments on request.',
+            },
+          ],
+          statement: 'The change, its impact and the next decision belong to the same meeting.',
+        },
+        {
+          eyebrow: 'Your existing systems',
+          title: 'Connect the work around your room booking.',
+          body: 'Your room-booking system stays responsible for reservations. Conference Manager brings the request, catering and preparation together around it. We confirm the supported connections before setup.',
+          points: [
+            {
+              title: 'Company sign-in',
+              body: 'Use your Microsoft work account after the required setup and your organisation’s approval. Access and roles are agreed for your environment.',
+            },
+            {
+              title: 'Optional visitor connection',
+              body: 'If you want visitor registration or arrival status from an existing visitor system, we assess feasibility and scope separately.',
+            },
+          ],
         },
       ],
       closing: {
-        eyebrow: 'See it in context',
-        title: 'Bring one real conference journey to the demo.',
-        body: 'The useful question is not how many features fit on a page. It is whether one real request becomes easier for the employee to make and for the Workplace Team to operate.',
+        eyebrow: 'See your own process',
+        title: 'What would your next meeting look like?',
+        body: 'Bring a typical meeting to the demo. We look at the information your team needs, your existing systems and the setup that fits your process.',
         primaryCta: 'Book a demo',
         secondaryCta: 'See how it works',
       },
     },
     'how-it-works': {
+      example: {
+        eyebrow: 'Explore a meeting',
+        title: 'One customer workshop. Three stages.',
+        body: 'Follow the same meeting from the first request through coordination to a change in attendee and catering numbers.',
+      },
       sections: [
         {
           eyebrow: '01 · Request',
-          title: 'Start with the conference itself.',
-          body: 'The employee begins with date, time and room context, then moves through the decisions needed for the conference instead of navigating separate internal processes.',
+          title: 'The employee describes the meeting.',
+          body: 'Start in Conference Manager with the date, time and attendees. Add guest information, catering and equipment in the same request. The existing room-booking system remains responsible for the reservation through an agreed, supported connection.',
+          points: [
+            {
+              title: 'The details are ready for review',
+              body: 'The office or conference team can review one request and identify missing information.',
+            },
+          ],
         },
         {
-          eyebrow: '02 · Requirements',
-          title: 'Keep services and catering in the same journey.',
-          body: 'Service requirements, catering, participant context and dietary needs stay attached to the conference so preparation is not split across unrelated channels.',
+          eyebrow: '02 · Coordination',
+          title: 'The conference team prepares the meeting.',
+          body: 'The team reviews the requirements, coordinates catering and keeps track of outstanding replies. When the caterer responds by email, the office team records the response in Conference Manager.',
+          points: [
+            {
+              title: 'Responsibilities are agreed together',
+              body: 'During setup, we clarify how reception, equipment and room-preparation teams take part. Their involvement depends on the agreed setup.',
+            },
+          ],
         },
         {
-          eyebrow: '03 · Review',
-          title: 'Review the request before it enters processing.',
-          body: 'Cost allocation and a dedicated review step keep important decisions visible before the conference request moves forward.',
-        },
-        {
-          eyebrow: '04 · Connect',
-          title: 'Keep room booking connected, not duplicated.',
-          body: 'The existing room-booking capability remains responsible for the reservation. Conference Manager adds the conference context around it rather than rebuilding specialist booking infrastructure.',
-          statement: "We don't replace your room booking system. We connect it.",
-        },
-        {
-          eyebrow: '05 · Operate and change',
-          title: 'Manage the conference beyond submission.',
-          body: 'Workplace views support bookings, room planning, reporting and administration, while the request lifecycle keeps supported changes, rejection and cancellation explicit.',
+          eyebrow: '03 · Change',
+          title: 'A change stays with the meeting.',
+          body: 'In the example, the workshop grows from 12 to 18 people and the requested catering quantity increases as well. The conference team can review the revised quantity and its effect on services and costs.',
+          points: [
+            {
+              title: 'The decision remains visible',
+              body: 'Supported changes and their processing stage remain connected to the meeting. Applicable approval steps and deadlines are agreed during setup.',
+            },
+          ],
         },
       ],
       closing: {
-        eyebrow: 'Bring your current process',
-        title: 'See where Conference Manager fits your workplace.',
-        body: 'A useful demo starts with what happens after the room decision today: which information is needed, where it moves between people and tools, and what should remain authoritative.',
+        eyebrow: 'From example to your working day',
+        title: 'Let’s walk through one of your meetings.',
+        body: 'Show us where information is missing, who needs to be involved and how changes arrive today. We discuss how Conference Manager can fit that process.',
         primaryCta: 'Book a demo',
         secondaryCta: 'Explore the product',
       },
@@ -126,98 +161,129 @@ const stories: Record<Locale, Record<ProductStorySlug, ProductStoryCopy>> = {
     product: {
       sections: [
         {
-          eyebrow: 'Eine Konferenzanfrage',
-          title: 'Halten Sie zusammen, was für dieselbe Konferenz entschieden wird.',
-          body: 'Conference Manager führt durch Datum und Zeit, Raumkontext, Services, Catering, Kostenverteilung und Prüfung. Der Nutzen ist nicht ein weiteres Formular, sondern ein zusammenhängender Konferenzkontext, der von der Anfrage bis zur Vorbereitung verständlich bleibt.',
+          eyebrow: 'Die Besprechungsanfrage',
+          title: 'Die Angaben zusammenführen, bevor die Vorbereitung beginnt.',
+          body: 'Mitarbeitende starten im Conference Manager und beschreiben ihre Besprechung. Ihr Office- oder Konferenzteam erhält die Angaben in einer Anfrage und sieht, was noch geklärt werden muss.',
           points: [
             {
-              title: 'Raumkontext',
-              body: 'Binden Sie die Raumentscheidung ein, während das vorhandene Buchungssystem für die Reservierung verantwortlich bleibt.',
+              title: 'Gäste und Teilnehmende',
+              body: 'Teilnehmerzahl, Angaben zu Gästen und Anforderungen für den Besuch erfassen.',
             },
             {
-              title: 'Services',
-              body: 'Erfassen Sie relevante Workplace-Services, ohne einen separaten Abstimmungsweg zu starten.',
+              title: 'Raum und Technik',
+              body: 'Raum, Bildschirm, Videokonferenz und weitere Anforderungen an die Vorbereitung ergänzen. Ihr vorhandenes Raumbuchungssystem übernimmt die Reservierung.',
             },
             {
               title: 'Catering',
-              body: 'Halten Sie Catering-Bedarf, Teilnehmerzahlen und Ernährungsanforderungen bei der Konferenz.',
+              body: 'Verpflegung mit Mengen und Ernährungsanforderungen direkt zur Besprechung auswählen.',
             },
             {
-              title: 'Prüfung',
-              body: 'Machen Sie Kostenverteilung und abschließende Prüfung sichtbar, bevor die Anfrage weitergeht.',
+              title: 'Bearbeitungsstand',
+              body: 'Die Anfrage und ihren aktuellen Stand zusammenhalten – vom Einreichen bis zur Vorbereitung.',
             },
           ],
         },
         {
-          eyebrow: 'Bestehende Systeme nutzen',
-          title: 'Verbessern Sie die Konferenzkoordination, ohne Ihre Raumbuchung auszutauschen.',
-          body: 'Conference Manager konzentriert sich bewusst auf die Arbeit rund um die Reservierung. Ihre bestehende Raumbuchung bleibt für die Buchung selbst führend; Conference Manager verbindet diesen Kontext mit dem weiteren Konferenzablauf.',
-          statement:
-            'Behalten Sie Ihre Raumbuchung. Strukturieren Sie die Koordination darum herum.',
-        },
-        {
-          eyebrow: 'Für Workplace Teams',
-          title: 'Einfach für Mitarbeitende, operativer Kontext für das verantwortliche Team.',
-          body: 'Mitarbeitende folgen einer geführten Anfrage. Workplace Teams arbeiten mit getrennten operativen Sichten für Buchungen, Raumplanung, Reporting und Administration. Die anfragende Person muss das Betriebsmodell nicht kennen, um die richtigen Informationen bereitzustellen.',
+          eyebrow: 'Catering',
+          title: 'Auswählen, was gebraucht wird. Mit der passenden Menge.',
+          body: 'Lösen Sie separate Excel-Listen und Cateringformulare durch einen Katalog in der Besprechungsanfrage ab. Mitarbeitende wählen einzelne Artikel mit Mengen und Preisen oder ein vordefiniertes Paket, beispielsweise eine Kaffeepause pro Person.',
           points: [
             {
-              title: 'Employee Experience',
-              body: 'Die Konferenz über einen klaren Ablauf anfragen, statt interne Zuständigkeiten navigieren zu müssen.',
+              title: 'Ihr Team pflegt das Angebot',
+              body: 'Ihr Office- oder Konferenzteam pflegt Artikel, Pakete und Preise. Ein Import aus dem Katalog des Caterers setzt eine bestätigte Anbindung voraus.',
             },
             {
-              title: 'Operative Transparenz',
-              body: 'Mit dem Buchungs- und Managementkontext arbeiten, der für Vorbereitung und Steuerung benötigt wird.',
+              title: 'Rückmeldungen bleiben bei der Besprechung',
+              body: 'Ihr Office-Team versendet die Bestellung per E-Mail und erfasst die Antwort des Caterers im Conference Manager. Zusätzliche Zugänge oder einen automatischen Austausch prüfen wir gesondert.',
             },
           ],
         },
         {
-          eyebrow: 'Kontrollierter Lebenszyklus',
-          title: 'Halten Sie Änderungen auch nach der ersten Anfrage bewusst steuerbar.',
-          body: 'Conference Manager unterstützt Bestätigung, Änderungsanträge, erneutes Einreichen, Ablehnung und Stornierung. Unterstützte Änderungen nach einer Bestätigung bleiben explizit, statt einen abgestimmten Konferenzkontext still zu überschreiben.',
-          statement: 'Einfach anzufragen. Klar, wenn sich Entscheidungen ändern.',
+          eyebrow: 'Änderungen',
+          title: 'Erkennen, was vereinbart ist und was sich ändern soll.',
+          body: 'Auch eine bestätigte Besprechung kann sich ändern. Unterstützte Änderungen bleiben mit der Anfrage verbunden. Ihr Team sieht, was vorgeschlagen wird und welche Entscheidung noch aussteht.',
+          points: [
+            {
+              title: 'Mehr Teilnehmende und mehr Catering',
+              body: 'Ein Workshop wächst beispielsweise von 12 auf 18 Personen. Zusätzlich werden sechs weitere Cateringportionen angefragt. Die geänderte Menge wird zur Prüfung vorgelegt.',
+            },
+            {
+              title: 'Regeln bei der Einrichtung abstimmen',
+              body: 'Die unterstützten Freigabeschritte und Fristen stimmen wir für Ihre Kundenumgebung ab. Pavurel übernimmt mögliche Anpassungen auf Ihren Wunsch.',
+            },
+          ],
+          statement:
+            'Änderung, Auswirkungen und nächste Entscheidung gehören zur selben Besprechung.',
+        },
+        {
+          eyebrow: 'Ihre vorhandenen Systeme',
+          title: 'Die Organisation rund um Ihre Raumbuchung verbinden.',
+          body: 'Ihr Raumbuchungssystem bleibt für Reservierungen zuständig. Conference Manager führt Anfrage, Catering und Vorbereitung darum herum zusammen. Die unterstützten Anbindungen klären wir vor der Einrichtung.',
+          points: [
+            {
+              title: 'Unternehmensanmeldung nutzen',
+              body: 'Nutzen Sie nach Einrichtung und Freigabe Ihres Unternehmens Ihr Microsoft-Konto. Zugriffe und Rollen stimmen wir für Ihre Umgebung ab.',
+            },
+            {
+              title: 'Gästemanagement optional anbinden',
+              body: 'Wenn Sie Gästeanmeldung oder Ankunftsstatus aus einem vorhandenen Besuchersystem einbeziehen möchten, prüfen wir Machbarkeit und Umfang gesondert.',
+            },
+          ],
         },
       ],
       closing: {
-        eyebrow: 'Im Kontext ansehen',
-        title: 'Bringen Sie einen realen Konferenzablauf mit in die Demo.',
-        body: 'Entscheidend ist nicht die Zahl der Features. Entscheidend ist, ob eine reale Anfrage für Mitarbeitende einfacher und für Workplace Teams besser steuerbar wird.',
+        eyebrow: 'Ihren Ablauf kennenlernen',
+        title: 'Wie würde Ihre nächste Besprechung aussehen?',
+        body: 'Bringen Sie einen typischen Termin mit in die Demo. Wir besprechen die benötigten Angaben, Ihre bestehenden Systeme und eine passende Einrichtung.',
         primaryCta: 'Demo anfragen',
         secondaryCta: 'So funktioniert es',
       },
     },
     'how-it-works': {
+      example: {
+        eyebrow: 'Eine Besprechung erkunden',
+        title: 'Ein Kundenworkshop. Drei Schritte.',
+        body: 'Begleiten Sie dieselbe Besprechung von der ersten Anfrage über die Abstimmung bis zu einer geänderten Teilnehmerzahl und Cateringmenge.',
+      },
       sections: [
         {
           eyebrow: '01 · Anfrage',
-          title: 'Beginnen Sie bei der Konferenz selbst.',
-          body: 'Mitarbeitende starten mit Datum, Zeit und Raumkontext und gehen anschließend durch die für die Konferenz relevanten Entscheidungen – nicht durch getrennte interne Prozesse.',
+          title: 'Mitarbeitende beschreiben die Besprechung.',
+          body: 'Starten Sie im Conference Manager mit Datum, Uhrzeit und Teilnehmenden. Ergänzen Sie Gästeangaben, Catering und Technik in derselben Anfrage. Das bestehende Raumbuchungssystem bleibt über eine vereinbarte, unterstützte Anbindung für die Reservierung zuständig.',
+          points: [
+            {
+              title: 'Die Angaben liegen zur Prüfung vor',
+              body: 'Das Office- oder Konferenzteam kann eine gemeinsame Anfrage prüfen und fehlende Informationen erkennen.',
+            },
+          ],
         },
         {
-          eyebrow: '02 · Anforderungen',
-          title: 'Halten Sie Services und Catering im selben Ablauf.',
-          body: 'Service-Anforderungen, Catering, Teilnehmerkontext und Ernährungsanforderungen bleiben an der Konferenz, damit die Vorbereitung nicht auf voneinander getrennte Kanäle verteilt wird.',
+          eyebrow: '02 · Abstimmung',
+          title: 'Das Konferenzteam bereitet die Besprechung vor.',
+          body: 'Das Team prüft die Anforderungen, stimmt das Catering ab und behält offene Rückmeldungen im Blick. Antwortet der Caterer per E-Mail, hält das Office-Team die Rückmeldung im Conference Manager fest.',
+          points: [
+            {
+              title: 'Zuständigkeiten gemeinsam klären',
+              body: 'Wie Empfang, Technik und Raumvorbereitung mitwirken, besprechen wir bei der Einrichtung. Ihre Beteiligung richtet sich nach dem vereinbarten Umfang.',
+            },
+          ],
         },
         {
-          eyebrow: '03 · Prüfung',
-          title: 'Prüfen Sie die Anfrage, bevor sie in die Bearbeitung geht.',
-          body: 'Kostenverteilung und ein eigener Prüfschritt halten wichtige Entscheidungen sichtbar, bevor die Konferenzanfrage weiterläuft.',
-        },
-        {
-          eyebrow: '04 · Verbinden',
-          title: 'Binden Sie die Raumbuchung ein, statt sie zu duplizieren.',
-          body: 'Die bestehende Raumbuchung bleibt für die Reservierung verantwortlich. Conference Manager ergänzt den Konferenzkontext darum herum, statt spezialisierte Buchungsinfrastruktur nachzubauen.',
-          statement: 'Wir ersetzen Ihre Raumbuchung nicht. Wir verbinden sie.',
-        },
-        {
-          eyebrow: '05 · Steuern und ändern',
-          title: 'Begleiten Sie die Konferenz über das Absenden hinaus.',
-          body: 'Workplace-Sichten unterstützen Buchungen, Raumplanung, Reporting und Administration. Gleichzeitig hält der Anfrage-Lebenszyklus unterstützte Änderungen, Ablehnung und Stornierung nachvollziehbar.',
+          eyebrow: '03 · Änderung',
+          title: 'Eine Änderung bleibt bei der Besprechung.',
+          body: 'Im Beispiel wächst der Workshop von 12 auf 18 Personen. Zugleich wird mehr Catering angefragt. Das Konferenzteam kann die neue Menge und ihre Auswirkungen auf Leistungen und Kosten prüfen.',
+          points: [
+            {
+              title: 'Die Entscheidung bleibt nachvollziehbar',
+              body: 'Unterstützte Änderungen und ihr Bearbeitungsstand bleiben mit der Besprechung verbunden. Die geltenden Freigabeschritte und Fristen stimmen wir bei der Einrichtung ab.',
+            },
+          ],
         },
       ],
       closing: {
-        eyebrow: 'Ihr heutiger Prozess',
-        title: 'Sehen Sie, wo Conference Manager in Ihre Arbeitsweise passt.',
-        body: 'Eine sinnvolle Demo beginnt damit, was heute nach der Raumentscheidung passiert: Welche Informationen werden benötigt, wo wechseln sie zwischen Menschen und Tools und welche Systeme sollen führend bleiben?',
+        eyebrow: 'Vom Beispiel in Ihren Alltag',
+        title: 'Gehen wir eine Ihrer Besprechungen gemeinsam durch.',
+        body: 'Zeigen Sie uns, welche Angaben heute fehlen, wer mitarbeitet und wie Änderungen ankommen. Wir besprechen, wie Conference Manager in diesen Ablauf passt.',
         primaryCta: 'Demo anfragen',
         secondaryCta: 'Produkt ansehen',
       },

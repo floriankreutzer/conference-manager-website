@@ -23,110 +23,126 @@ const securityTrustCopy: Record<Locale, SecurityTrustCopy> = {
   en: {
     sections: [
       {
-        eyebrow: 'Enterprise access',
-        title: 'A simple employee journey without giving up organisational control.',
-        body: 'Conference Manager keeps the employee experience straightforward while access to the product remains governed through the application. The current enterprise direction is built around Microsoft Entra, role-aware access and administration that stays with the customer environment rather than the public website.',
+        eyebrow: 'Sign-in and permissions',
+        title: 'How do employees access Conference Manager?',
+        body: 'In a customer environment configured for Microsoft Entra, employees use their work account to sign in to the application. The required connection and customer approvals are part of the setup discussion.',
         points: [
           {
-            title: 'Enterprise identity',
-            body: 'Existing users enter the protected Conference Manager application through the configured enterprise sign-in journey instead of creating a separate public-site account.',
+            title: 'Use your company account',
+            body: 'Sign-in takes place in the Conference Manager application. Employees do not create a separate account on this website.',
           },
           {
-            title: 'Role-aware access',
-            body: 'Product capabilities are exposed according to the roles and permissions defined for the Conference Manager environment.',
+            title: 'Give each role the appropriate access',
+            body: 'Application roles determine which functions a person can use. We agree the supported role assignment with your administrator during setup; automatic mapping of company groups is assessed separately.',
           },
         ],
       },
       {
-        eyebrow: 'Data and privacy',
-        title: 'Keep customer operations separate from public marketing.',
-        body: 'The public website can explain Conference Manager without access to a customer session or operational conference data. Product work stays inside the authenticated application, while demo enquiries use a separate public processing path.',
+        eyebrow: 'Meeting information',
+        title: 'Where does your team work with its meeting data?',
+        body: 'Your team prepares meetings in the signed-in Conference Manager application. This public website explains the product and does not access your application session or the meeting records in your customer environment.',
         statement:
-          'Your conference operations should not need to pass through the marketing website to use the product.',
+          'The product website and your customer environment have separate responsibilities.',
       },
       {
-        eyebrow: 'Controlled integrations',
-        title: 'Connect to your environment without handing control away.',
-        body: 'Conference Manager is designed to work alongside existing room-booking, identity and Microsoft 365 capabilities. Real integration use depends on the configuration and approvals selected for the customer environment, so connections are introduced deliberately rather than assumed by default.',
+        eyebrow: 'Connections',
+        title: 'Which systems need to be connected?',
+        body: 'Start with your existing room-booking system and company sign-in. We review the supported connections, required permissions and customer configuration before agreeing the setup.',
         points: [
           {
-            title: 'Existing systems keep their responsibilities',
-            body: 'Room booking and other specialist workplace systems remain responsible for the functions they already own.',
+            title: 'Your room-booking system keeps the reservation',
+            body: 'Conference Manager brings the meeting request and preparation together. The existing booking system remains responsible for the room reservation.',
           },
           {
-            title: 'Customer-specific enablement',
-            body: 'Microsoft 365 and Entra integration is enabled only where the required customer configuration and approvals are in place.',
+            title: 'Additional connections need their own assessment',
+            body: 'A direct caterer connection or visitor-management integration is only included once availability, data exchange and the agreed scope have been confirmed.',
           },
         ],
       },
       {
-        eyebrow: 'Evidence before claims',
-        title: 'Trust should come from verifiable answers, not badges we cannot prove.',
-        body: 'Conference Manager does not turn planned controls into certifications or broad compliance guarantees. Security, privacy and production-specific statements stay tied to implemented controls and the environment being evaluated, so your IT and security teams can assess the product against real requirements.',
-        statement: 'We would rather give you a precise answer than an oversized security claim.',
+        eyebrow: 'Before setup',
+        title: 'What does your IT team need to assess?',
+        body: 'Bring your requirements for access, data protection and operation to the discussion. We review the specific customer environment with you and clarify which evidence is available before setup.',
+        points: [
+          {
+            title: 'Data and operation',
+            body: 'Discuss the intended use, information involved, hosting requirements and responsibilities for your environment.',
+          },
+          {
+            title: 'Required evidence',
+            body: 'If your organisation requires particular certifications or contractual commitments, raise them before setup so the requirements and available evidence can be checked.',
+          },
+        ],
       },
     ],
     closing: {
-      eyebrow: 'Evaluate the fit',
-      title: 'Review the product in the context of your identity and integration landscape.',
-      body: 'Start with how Conference Manager connects to the systems you already use, then bring the relevant access, privacy and security questions into the evaluation.',
-      primaryCta: 'Explore integrations',
-      secondaryCta: 'Explore the product',
+      eyebrow: 'Include your IT team',
+      title: 'Discuss your meeting process and your requirements together.',
+      body: 'Use the demo to explore the workflow and bring the relevant sign-in, permission and integration questions into the same conversation.',
+      primaryCta: 'Book a demo',
+      secondaryCta: 'Explore integrations',
     },
   },
   de: {
     sections: [
       {
-        eyebrow: 'Enterprise-Zugriff',
-        title: 'Ein einfacher Anfrageprozess, ohne die Kontrolle des Unternehmens aufzugeben.',
-        body: 'Conference Manager hält die Nutzung für Mitarbeitende bewusst einfach, während der Produktzugang in der Anwendung gesteuert bleibt. Die aktuelle Enterprise-Ausrichtung basiert auf Microsoft Entra, rollenbezogenem Zugriff und einer Administration, die in der Kundenumgebung bleibt statt auf der öffentlichen Website.',
+        eyebrow: 'Anmeldung und Berechtigungen',
+        title: 'Wie greifen Mitarbeitende auf Conference Manager zu?',
+        body: 'In einer für Microsoft Entra eingerichteten Kundenumgebung melden sich Mitarbeitende mit ihrem Geschäftskonto in der Anwendung an. Die benötigte Anbindung und die Freigaben Ihres Unternehmens besprechen wir bei der Einrichtung.',
         points: [
           {
-            title: 'Enterprise Identity',
-            body: 'Bestehende Nutzer gelangen über den konfigurierten Enterprise-Login in die geschützte Conference-Manager-Anwendung statt ein separates Konto auf der Marketingwebsite anzulegen.',
+            title: 'Das Unternehmenskonto nutzen',
+            body: 'Die Anmeldung erfolgt in der Conference-Manager-Anwendung. Mitarbeitende legen auf dieser Website kein separates Konto an.',
           },
           {
-            title: 'Rollenbezogener Zugriff',
-            body: 'Produktfunktionen werden entsprechend den Rollen und Berechtigungen der jeweiligen Conference-Manager-Umgebung bereitgestellt.',
+            title: 'Passende Zugriffe je Rolle vergeben',
+            body: 'Anwendungsrollen bestimmen, welche Funktionen eine Person nutzen kann. Die unterstützte Rollenvergabe stimmen wir bei der Einrichtung mit Ihrem Administrator ab. Eine automatische Zuordnung von Unternehmensgruppen wird gesondert geprüft.',
           },
         ],
       },
       {
-        eyebrow: 'Daten und Datenschutz',
-        title: 'Kundenbetrieb und öffentliches Marketing bleiben getrennt.',
-        body: 'Die öffentliche Website kann Conference Manager erklären, ohne Zugriff auf eine Kundensitzung oder operative Konferenzdaten zu benötigen. Die eigentliche Produktarbeit bleibt in der authentifizierten Anwendung; Demo-Anfragen laufen über einen getrennten öffentlichen Verarbeitungsweg.',
-        statement:
-          'Ihre Konferenzprozesse müssen nicht über die Marketingwebsite laufen, um Conference Manager zu nutzen.',
+        eyebrow: 'Besprechungsdaten',
+        title: 'Wo arbeitet Ihr Team mit den Besprechungsdaten?',
+        body: 'Ihr Team bereitet Besprechungen in der angemeldeten Conference-Manager-Anwendung vor. Diese öffentliche Website erklärt das Produkt und greift weder auf Ihre Anwendungssitzung noch auf die Besprechungsdaten Ihrer Kundenumgebung zu.',
+        statement: 'Die Produktwebsite und Ihre Kundenumgebung haben getrennte Aufgaben.',
       },
       {
-        eyebrow: 'Kontrollierte Integrationen',
-        title: 'An Ihre Umgebung anbinden, ohne die Kontrolle abzugeben.',
-        body: 'Conference Manager ist darauf ausgelegt, mit bestehender Raumbuchung, Identity und Microsoft 365 zusammenzuarbeiten. Die reale Integrationsnutzung hängt von der Konfiguration und den Freigaben der jeweiligen Kundenumgebung ab. Verbindungen werden deshalb bewusst aktiviert und nicht einfach vorausgesetzt.',
+        eyebrow: 'Anbindungen',
+        title: 'Welche Systeme sollen zusammenarbeiten?',
+        body: 'Ausgangspunkt sind Ihre vorhandene Raumbuchung und Unternehmensanmeldung. Vor der vereinbarten Einrichtung prüfen wir die unterstützten Anbindungen, die benötigten Berechtigungen und die Konfiguration Ihrer Umgebung.',
         points: [
           {
-            title: 'Bestehende Systeme behalten ihre Aufgaben',
-            body: 'Raumbuchung und andere spezialisierte Workplace-Systeme bleiben für die Funktionen verantwortlich, die sie bereits übernehmen.',
+            title: 'Die Reservierung bleibt in Ihrer Raumbuchung',
+            body: 'Conference Manager führt Anfrage und Vorbereitung zusammen. Ihr vorhandenes Buchungssystem bleibt für die Raumreservierung zuständig.',
           },
           {
-            title: 'Kundenspezifische Aktivierung',
-            body: 'Microsoft 365 und Entra werden nur dort angebunden, wo die erforderliche Kundenkonfiguration und die notwendigen Freigaben vorhanden sind.',
+            title: 'Weitere Anbindungen werden einzeln geprüft',
+            body: 'Eine direkte Catereranbindung oder die Integration eines Gästemanagements gehört erst zum Einrichtungsumfang, wenn Verfügbarkeit, Datenaustausch und Umfang bestätigt sind.',
           },
         ],
       },
       {
-        eyebrow: 'Evidenz vor Behauptungen',
-        title: 'Vertrauen entsteht durch überprüfbare Antworten, nicht durch unbelegte Badges.',
-        body: 'Conference Manager macht aus geplanten Kontrollen keine Zertifizierungen oder pauschalen Compliance-Garantien. Aussagen zu Security, Datenschutz und Produktion bleiben an umgesetzte Kontrollen und die konkret bewertete Umgebung gebunden, damit Ihre IT- und Security-Teams das Produkt gegen reale Anforderungen prüfen können.',
-        statement: 'Eine präzise Antwort ist wertvoller als ein zu großes Sicherheitsversprechen.',
+        eyebrow: 'Vor der Einrichtung',
+        title: 'Was muss Ihre IT für den Einsatz prüfen?',
+        body: 'Bringen Sie Ihre Anforderungen an Zugriff, Datenschutz und Betrieb mit. Gemeinsam betrachten wir Ihre konkrete Kundenumgebung und klären vor der Einrichtung, welche Nachweise vorliegen.',
+        points: [
+          {
+            title: 'Daten und Betrieb',
+            body: 'Besprechen Sie den vorgesehenen Einsatz, die benötigten Informationen, die Anforderungen an das Hosting und die Zuständigkeiten für Ihre Umgebung.',
+          },
+          {
+            title: 'Benötigte Nachweise',
+            body: 'Wenn Ihr Unternehmen bestimmte Zertifizierungen oder vertragliche Zusagen voraussetzt, sprechen Sie diese vor der Einrichtung an. So lassen sich Ihre Anforderungen mit den verfügbaren Nachweisen abgleichen.',
+          },
+        ],
       },
     ],
     closing: {
-      eyebrow: 'Den Fit bewerten',
-      title:
-        'Bewerten Sie Conference Manager im Kontext Ihrer Identity- und Integrationslandschaft.',
-      body: 'Starten Sie damit, wie sich Conference Manager an bestehende Systeme anbinden lässt, und bringen Sie anschließend die relevanten Fragen zu Zugriff, Datenschutz und Security in die Bewertung ein.',
-      primaryCta: 'Integrationen ansehen',
-      secondaryCta: 'Produkt ansehen',
+      eyebrow: 'Ihre IT einbeziehen',
+      title: 'Besprechungsablauf und Anforderungen gemeinsam klären.',
+      body: 'Lernen Sie den Ablauf in der Demo kennen und bringen Sie die Fragen zu Anmeldung, Berechtigungen und Anbindungen in dasselbe Gespräch ein.',
+      primaryCta: 'Demo anfragen',
+      secondaryCta: 'Integrationen ansehen',
     },
   },
 };

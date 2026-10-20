@@ -1,5 +1,7 @@
 ---
+import ConferenceIcon from '@components/marketing/ConferenceIcon.astro';
 import type { Locale } from '@config/locales';
+import { withBasePath } from '@domain/routing/basePath';
 import { getDemoLaunchCopy } from '@i18n/demoLaunch';
 
 interface Props {
@@ -9,79 +11,176 @@ const { locale } = Astro.props;
 const copy = getDemoLaunchCopy(locale);
 ---
 
-<section class="demo-launch" aria-labelledby="demo-launch-title">
-  <p class="demo-launch__eyebrow">{copy.eyebrow}</p>
-  <h1 id="demo-launch-title">{copy.title}</h1>
-  <p class="demo-launch__lead">{copy.lead}</p>
-  <p class="demo-launch__notice"><strong>{copy.cold}</strong></p>
+<article class="demo-launch" aria-labelledby="demo-launch-title">
+  <header class="demo-launch__intro">
+    <p class="eyebrow">{copy.eyebrow}</p>
+    <h1 id="demo-launch-title">{copy.title}</h1>
+    <p class="demo-launch__lead">{copy.lead}</p>
+  </header>
+
   <div class="demo-launch__grid">
-    <article>
-      <h2>{copy.customer}</h2>
+    <section class="demo-launch__customer" aria-labelledby="customer-demo-title">
+      <div class="demo-launch__icon"><ConferenceIcon name="coordination" /></div>
+      <p class="eyebrow">{copy.sampleData}</p>
+      <h2 id="customer-demo-title">{copy.customer}</h2>
       <p>{copy.customerText}</p>
       <a class="button" href="https://conference-manager-demo.onrender.com">
         {copy.customerAction}
       </a>
-    </article>
-    <article>
-      <h2>{copy.platform}</h2>
-      <p>{copy.platformText}</p>
-      <a class="button" href="https://conference-manager-ops-demo.onrender.com">
-        {copy.platformAction}
+      <p class="demo-launch__notice">{copy.cold}</p>
+    </section>
+
+    <aside class="demo-launch__guided" aria-labelledby="guided-demo-title">
+      <h2 id="guided-demo-title">{copy.guidedTitle}</h2>
+      <p>{copy.guidedText}</p>
+      <a class="text-link" href={withBasePath(`/${locale}/book-a-demo/`)}>
+        {copy.guidedAction}<span aria-hidden="true"> →</span>
       </a>
-    </article>
+      <div class="demo-launch__pilot">
+        <p>{copy.pilotText}</p>
+        <a class="text-link" href={withBasePath(`/${locale}/pricing/`)}>
+          {copy.pilotAction}<span aria-hidden="true"> →</span>
+        </a>
+      </div>
+    </aside>
   </div>
+
+  <details class="demo-launch__platform">
+    <summary>{copy.platform}</summary>
+    <div class="demo-launch__platform-content">
+      <p>{copy.platformText}</p>
+      <a class="text-link" href="https://conference-manager-ops-demo.onrender.com">
+        {copy.platformAction}<span aria-hidden="true"> →</span>
+      </a>
+    </div>
+  </details>
+
   <section class="demo-launch__boundary" aria-labelledby="demo-boundary-title">
     <h2 id="demo-boundary-title">{copy.boundary}</h2>
     <p>{copy.boundaryText}</p>
   </section>
-</section>
+</article>
 
 <style>
   .demo-launch {
-    padding-block: clamp(4rem, 8vw, 7rem);
+    padding-block: clamp(3rem, 7vw, 6rem);
+    overflow-wrap: anywhere;
   }
 
-  .demo-launch__eyebrow {
-    font-weight: 750;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
+  .demo-launch__intro {
+    max-width: 55rem;
+    margin-block-end: clamp(2.5rem, 5vw, 4rem);
   }
 
   .demo-launch h1 {
-    max-width: 18ch;
-    margin-block: 1rem;
-    font-size: clamp(3rem, 8vw, 6.5rem);
+    max-width: 17ch;
+    margin-block: var(--space-4);
+    font-size: clamp(2.8rem, 6vw, 5.5rem);
+    letter-spacing: -0.055em;
+    line-height: 1.08;
   }
 
   .demo-launch__lead {
-    font-size: clamp(1.1rem, 2vw, 1.4rem);
-  }
-
-  .demo-launch__notice,
-  .demo-launch__boundary {
-    padding: 1.25rem;
-    margin-block-start: 2rem;
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-md);
+    max-width: 56ch;
+    font-size: clamp(1.1rem, 2vw, 1.35rem);
+    color: var(--color-text-muted);
   }
 
   .demo-launch__grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
-    gap: 1rem;
-    margin-block-start: 2rem;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-4);
   }
 
-  .demo-launch__grid article {
-    padding: clamp(1.25rem, 3vw, 2rem);
+  .demo-launch__customer,
+  .demo-launch__guided {
+    padding: clamp(1.5rem, 4vw, 3rem);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
+  }
+
+  .demo-launch__customer {
     background: var(--color-surface);
   }
 
-  .demo-launch__grid h2,
+  .demo-launch__guided {
+    background: var(--color-camel-soft);
+  }
+
+  .demo-launch__icon {
+    display: grid;
+    place-items: center;
+    width: 3rem;
+    height: 3rem;
+    margin-block-end: var(--space-5);
+    border-radius: var(--radius-md);
+    background: var(--color-bordeaux-soft);
+  }
+
+  .demo-launch__grid h2 {
+    max-width: 22ch;
+    margin-block: var(--space-3) var(--space-4);
+    font-size: clamp(1.5rem, 2.8vw, 2.25rem);
+    letter-spacing: -0.035em;
+    line-height: 1.2;
+  }
+
+  .demo-launch__grid p {
+    max-width: 60ch;
+  }
+
+  .demo-launch__customer > .button {
+    margin-block: var(--space-3);
+  }
+
+  .demo-launch__notice {
+    margin-block: var(--space-3) 0;
+    color: var(--color-text-muted);
+    font-size: 0.875rem;
+  }
+
+  .demo-launch__pilot {
+    margin-block-start: var(--space-6);
+    padding-block-start: var(--space-4);
+    border-block-start: 1px solid var(--color-border);
+  }
+
+  .demo-launch__platform {
+    margin-block-start: var(--space-5);
+    border-block: 1px solid var(--color-border);
+  }
+
+  .demo-launch__platform summary {
+    padding-block: var(--space-4);
+    font-weight: 650;
+    cursor: pointer;
+  }
+
+  .demo-launch__platform-content {
+    padding-block: 0 var(--space-5);
+  }
+
+  .demo-launch__platform-content p {
+    max-width: 70ch;
+    margin-block-start: 0;
+  }
+
+  .demo-launch__boundary {
+    max-width: 70ch;
+    padding-block-start: var(--space-6);
+    color: var(--color-text-muted);
+  }
+
   .demo-launch__boundary h2 {
-    font-size: clamp(1.7rem, 3vw, 2.5rem);
-    letter-spacing: -0.025em;
+    margin-block: 0 var(--space-2);
+    font-size: 1rem;
+    font-weight: 650;
+    color: var(--color-ink);
+  }
+
+  @media (min-width: 54rem) {
+    .demo-launch__grid {
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+    }
   }
 </style>

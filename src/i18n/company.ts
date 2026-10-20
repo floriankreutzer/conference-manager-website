@@ -23,158 +23,114 @@ const companyCopy: Record<Locale, CompanyCopy> = {
   en: {
     sections: [
       {
-        eyebrow: 'The problem we focus on',
-        title: 'A booked room does not mean a prepared conference.',
-        body: [
-          'Professional workplace conferences often need more than a reservation.',
-          'Guests, catering, services, equipment, requirements and changes still need coordination.',
-          'Conference Manager keeps that preparation in one understandable conference context.',
-        ].join(' '),
-        statement: 'One request. Everything your conference needs.',
-      },
-      {
-        eyebrow: 'Who it is for',
-        title: 'For organisations that want a clearer preparation process.',
-        body: [
-          'Conference Manager is for workplaces where employees organise professional conferences',
-          'and Workplace Teams prepare the experience behind them.',
-          'It is especially relevant when room booking already works but the surrounding coordination does not.',
-        ].join(' '),
+        eyebrow: 'Our focus',
+        title: 'Make meeting preparation easier to coordinate.',
+        body: 'Conference Manager is for office and conference teams in mid-sized companies. It brings meeting requests, guests, catering and equipment together so your team can work from the same information.',
         points: [
           {
-            title: 'Employees get one guided request',
-            body: [
-              'Describe the conference and what it needs without knowing which internal team,',
-              'form or channel owns every detail.',
-            ].join(' '),
+            title: 'A clear starting point for employees',
+            body: 'Employees describe their meeting and what it needs in one request. They do not have to assemble separate emails and catering forms first.',
           },
           {
-            title: 'Workplace Teams get the preparation context',
-            body: [
-              'Guests, catering, services, requirements and room context stay connected',
-              'so the team can see what needs attention.',
-            ].join(' '),
+            title: 'A shared basis for the team',
+            body: 'Your office or conference team can review requirements and change requests alongside the meeting, instead of piecing them together from separate messages.',
           },
         ],
       },
       {
-        eyebrow: 'How it fits your environment',
-        title: 'Improve coordination around systems that already work.',
-        body: [
-          'Conference Manager is not intended to replace a functioning room-booking, identity',
-          'or specialist workplace system.',
-          'It connects the conference journey around those capabilities instead.',
-        ].join(' '),
-        statement: 'Keep your room booking. Replace the coordination around it.',
+        eyebrow: 'Your existing environment',
+        title: 'Build on the systems your company already uses.',
+        body: 'Your room-booking system remains responsible for reservations. We discuss the available connection, Microsoft sign-in and any additional service needs with you. The supported scope is agreed before setup.',
+        statement:
+          'Start in Conference Manager. Reserve through your existing room-booking system.',
       },
       {
-        eyebrow: 'What to expect from us',
-        title: 'Start with a real conference journey and prove the fit.',
-        body: [
-          'Take a conference your organisation actually runs and map what happens after the room is selected.',
-          'Then assess where Conference Manager removes unnecessary hand-offs while preserving systems',
-          'and controls you still need.',
-          'Product, integration and security claims stay tied to what is actually implemented.',
-        ].join(' '),
+        eyebrow: 'Your introduction',
+        title: 'Agree the process. Set it up. Try it with your team.',
+        body: 'Pavurel prepares the customer environment for the agreed process. The introduction starts with a demo and a shared understanding of your current meeting organisation.',
+        points: [
+          {
+            title: 'Bring a real meeting to the demo',
+            body: 'We look at the information your team needs, the people involved and where questions or changes arise today.',
+          },
+          {
+            title: 'Agree the setup',
+            body: 'We confirm the scope, prerequisites and supported connections with you. A one-time setup fee applies.',
+          },
+          {
+            title: 'Use the software free for 30 days',
+            body: 'The 30 days begin after the paid setup is complete. Your team uses its own real meetings in the configured customer environment. Prices for setup and ongoing use are still open.',
+          },
+        ],
       },
       {
-        eyebrow: 'Conference Manager by Pavurel',
-        title: 'A precise product with a hospitality-minded experience.',
-        body: [
-          'Pavurel is the current subordinate brand endorsement for Conference Manager.',
-          'It shapes the visual and experience direction around clarity, operational precision',
-          'and workplace hospitality. Conference Manager remains the product customers use.',
-        ].join(' '),
+        eyebrow: 'When your needs change',
+        title: 'Discuss adjustments with Pavurel.',
+        body: 'Bring changes to your ordering deadlines, approval needs or team responsibilities to Pavurel. We agree which adjustments are possible within the supported setup and make the agreed changes on your request.',
       },
     ],
     closing: {
-      eyebrow: 'Evaluate the product',
-      title: 'Does Conference Manager fit your conference journey?',
-      body: [
-        'Explore the product itself or follow the request from the employee perspective',
-        'through to Workplace Team preparation.',
-      ].join(' '),
-      primaryCta: 'Explore the product',
-      secondaryCta: 'See how it works',
+      eyebrow: 'Let us look at your process',
+      title: 'What does your team need to prepare a meeting?',
+      body: 'Bring your current workflow to the demo. We will look at where Conference Manager fits and what a suitable introduction would involve.',
+      primaryCta: 'Book a demo',
+      secondaryCta: 'Explore setup & pilot',
     },
   },
   de: {
     sections: [
       {
-        eyebrow: 'Das Problem, auf das wir uns konzentrieren',
-        title: 'Ein gebuchter Raum bedeutet noch keine vorbereitete Konferenz.',
-        body: [
-          'Professionelle Workplace-Konferenzen benötigen häufig mehr als eine Reservierung.',
-          'Gäste, Catering, Services, Ausstattung, Anforderungen und Änderungen müssen koordiniert werden.',
-          'Conference Manager hält diese Vorbereitung in einem verständlichen Konferenzkontext zusammen.',
-        ].join(' '),
-        statement: 'Eine Anfrage. Alles, was Ihre Konferenz braucht.',
-      },
-      {
-        eyebrow: 'Für wen Conference Manager gedacht ist',
-        title: 'Für Organisationen, die ihre Konferenzvorbereitung klarer machen wollen.',
-        body: [
-          'Conference Manager richtet sich an Arbeitswelten, in denen Mitarbeitende professionelle',
-          'Konferenzen organisieren und Workplace Teams die Erfahrung dahinter vorbereiten.',
-          'Besonders relevant ist das Produkt, wenn die Raumbuchung bereits funktioniert, die Koordination aber nicht.',
-        ].join(' '),
+        eyebrow: 'Unser Fokus',
+        title: 'Besprechungen einfacher gemeinsam vorbereiten.',
+        body: 'Conference Manager richtet sich an Office- und Konferenzteams mittelständischer Unternehmen. Das Produkt führt Besprechungsanfragen, Gäste, Catering und Technik zusammen, damit Ihr Team mit denselben Informationen arbeiten kann.',
         points: [
           {
-            title: 'Mitarbeitende erhalten eine geführte Anfrage',
-            body: [
-              'Beschreiben Sie Konferenz und Anforderungen, ohne wissen zu müssen, welches interne Team,',
-              'Formular oder welcher Kanal für jedes Detail zuständig ist.',
-            ].join(' '),
+            title: 'Ein klarer Einstieg für Mitarbeitende',
+            body: 'Mitarbeitende beschreiben ihre Besprechung und die benötigten Leistungen in einer Anfrage. Separate E-Mails und Cateringformulare müssen dafür nicht erst zusammengestellt werden.',
           },
           {
-            title: 'Workplace Teams erhalten den Vorbereitungskontext',
-            body: [
-              'Gäste, Catering, Services, Anforderungen und Raumkontext bleiben verbunden,',
-              'damit das Team erkennt, was noch Aufmerksamkeit benötigt.',
-            ].join(' '),
+            title: 'Eine gemeinsame Grundlage für das Team',
+            body: 'Ihr Office- oder Konferenzteam kann Anforderungen und Änderungsanfragen direkt bei der Besprechung prüfen, statt sie aus einzelnen Nachrichten zusammenzusuchen.',
           },
         ],
       },
       {
-        eyebrow: 'Wie es in Ihre Umgebung passt',
-        title: 'Koordination verbessern, ohne funktionierende Systeme auszutauschen.',
-        body: [
-          'Conference Manager soll eine funktionierende Raumbuchung, Identity oder spezialisierte',
-          'Workplace-Systeme nicht ersetzen.',
-          'Das Produkt verbindet den Konferenzablauf stattdessen um diese Fähigkeiten herum.',
-        ].join(' '),
-        statement: 'Behalten Sie Ihre Raumbuchung. Ersetzen Sie die Koordination rundherum.',
+        eyebrow: 'Ihre vorhandene Umgebung',
+        title: 'Auf den Systemen aufbauen, die Ihr Unternehmen bereits nutzt.',
+        body: 'Ihr Raumbuchungssystem bleibt für die Reservierung zuständig. Gemeinsam besprechen wir die verfügbare Anbindung, die Microsoft-Anmeldung und weitere benötigte Leistungen. Den unterstützten Umfang stimmen wir vor der Einrichtung ab.',
+        statement: 'Im Conference Manager starten. Über die vorhandene Raumbuchung reservieren.',
       },
       {
-        eyebrow: 'Was Sie von uns erwarten können',
-        title: 'Mit einem realen Konferenzablauf starten und den Fit belegen.',
-        body: [
-          'Nehmen Sie eine Konferenz, die Ihre Organisation tatsächlich durchführt, und betrachten Sie',
-          'den Ablauf nach der Raumentscheidung.',
-          'Prüfen Sie dann, wo Conference Manager unnötige Übergaben reduziert, ohne benötigte Systeme',
-          'und Kontrollen zu verdrängen.',
-          'Aussagen zu Produkt, Integrationen und Security bleiben an den umgesetzten Stand gebunden.',
-        ].join(' '),
+        eyebrow: 'Ihre Einführung',
+        title: 'Ablauf abstimmen. Einrichten. Mit Ihrem Team erproben.',
+        body: 'Pavurel bereitet die Kundenumgebung für den vereinbarten Ablauf vor. Am Anfang stehen eine Demo und ein gemeinsamer Blick auf Ihre heutige Besprechungsorganisation.',
+        points: [
+          {
+            title: 'Eine reale Besprechung in die Demo mitbringen',
+            body: 'Wir betrachten die benötigten Angaben, die beteiligten Personen und die Stellen, an denen heute Rückfragen oder Änderungen entstehen.',
+          },
+          {
+            title: 'Die Einrichtung abstimmen',
+            body: 'Wir klären mit Ihnen den Umfang, die Voraussetzungen und die unterstützten Anbindungen. Die Einrichtung ist einmalig kostenpflichtig.',
+          },
+          {
+            title: 'Die Software 30 Tage kostenlos nutzen',
+            body: 'Die 30 Tage beginnen nach abgeschlossener, kostenpflichtiger Einrichtung. Ihr Team arbeitet mit eigenen realen Besprechungen in der eingerichteten Kundenumgebung. Die Preise für Einrichtung und anschließende Nutzung sind noch offen.',
+          },
+        ],
       },
       {
-        eyebrow: 'Conference Manager by Pavurel',
-        title: 'Ein präzises Produkt mit Hospitality-orientierter Erfahrung.',
-        body: [
-          'Pavurel ist das aktuelle untergeordnete Marken-Endorsement für Conference Manager.',
-          'Es prägt die visuelle und erlebbare Richtung durch Klarheit, operative Präzision',
-          'und Workplace Hospitality. Conference Manager bleibt das Produkt, das Kunden nutzen.',
-        ].join(' '),
+        eyebrow: 'Wenn sich Ihr Bedarf ändert',
+        title: 'Anpassungen mit Pavurel besprechen.',
+        body: 'Wenden Sie sich mit Änderungen an Bestellfristen, Freigaben oder Zuständigkeiten an Pavurel. Gemeinsam stimmen wir ab, welche Anpassungen im unterstützten Einrichtungsumfang möglich sind. Pavurel setzt die vereinbarten Änderungen auf Ihren Wunsch um.',
       },
     ],
     closing: {
-      eyebrow: 'Das Produkt bewerten',
-      title: 'Passt Conference Manager zu Ihrem Konferenzablauf?',
-      body: [
-        'Sehen Sie sich das Produkt an oder verfolgen Sie den Ablauf von der anfragenden Person',
-        'bis zur Vorbereitung durch das Workplace Team.',
-      ].join(' '),
-      primaryCta: 'Produkt ansehen',
-      secondaryCta: 'So funktioniert es',
+      eyebrow: 'Gemeinsam auf Ihren Ablauf schauen',
+      title: 'Was braucht Ihr Team, um eine Besprechung vorzubereiten?',
+      body: 'Bringen Sie Ihren heutigen Ablauf mit in die Demo. Gemeinsam betrachten wir, wo Conference Manager passt und wie eine geeignete Einführung aussehen kann.',
+      primaryCta: 'Demo anfragen',
+      secondaryCta: 'Einführung & Pilot ansehen',
     },
   },
 };
