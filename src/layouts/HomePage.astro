@@ -1,9 +1,11 @@
 ---
 import BrandLockup from '@components/marketing/BrandLockup.astro';
 import BrandVisual from '@components/marketing/BrandVisual.astro';
+import ConferenceIcon from '@components/marketing/ConferenceIcon.astro';
 import SectionHeader from '@components/marketing/SectionHeader.astro';
 import type { Locale } from '@config/locales';
 import { withBasePath } from '@domain/routing/basePath';
+import MeetingExample from '@features/meeting-example/MeetingExample.astro';
 import { getHomepageCopy } from '@i18n/homepage';
 
 interface Props {
@@ -16,52 +18,129 @@ const demoHref = withBasePath(`/${locale}/book-a-demo/`);
 const howHref = withBasePath(`/${locale}/how-it-works/`);
 const productHref = withBasePath(`/${locale}/product/`);
 const integrationsHref = withBasePath(`/${locale}/integrations/`);
+const audiencesHref = withBasePath(`/${locale}/workplace-teams/`);
+const pricingHref = withBasePath(`/${locale}/pricing/`);
 const trustHref = withBasePath(`/${locale}/security-trust/`);
-const companyHref = withBasePath(`/${locale}/company/`);
+const icons = [
+  'request',
+  'participants',
+  'room-equipment',
+  'catering',
+  'changes',
+  'coordination',
+] as const;
 ---
 
 <div class="home-page">
   <section class="hero section" aria-labelledby="hero-title">
     <div class="hero__content">
       <p class="eyebrow">{copy.hero.eyebrow}</p>
-      <BrandLockup />
-      <h1 id="hero-title">{copy.hero.title}</h1>
+      <h1 id="hero-title">
+        <span>{copy.hero.title}</span>
+        <span class="hero__outcome">{copy.hero.outcome}</span>
+      </h1>
       <p class="hero__copy">{copy.hero.body}</p>
+      <p class="hero__connection">{copy.hero.connection}</p>
       <div class="cta-row">
         <a class="button" href={demoHref}>{copy.hero.primaryCta}</a>
-        <a class="text-link" href={howHref}
-          >{copy.hero.secondaryCta}<span aria-hidden="true"> →</span></a
-        >
+        <a class="button button--secondary" href="#how-it-works">{copy.hero.secondaryCta}</a>
       </div>
+      <p class="hero__terms"><span>{copy.hero.pilot}</span> <span>{copy.hero.setup}</span></p>
     </div>
-
     <div class="hero__visual">
-      <BrandVisual locale={locale} priority />
+      <BrandVisual locale={locale} variant="meeting" priority />
     </div>
-
-    <figure class="journey" aria-labelledby="journey-caption">
-      <figcaption id="journey-caption">{copy.journey.caption}</figcaption>
-      <ol aria-label={copy.journey.label}>
-        <li><span>01</span><strong>{copy.journey.request}</strong></li>
-        <li><span>02</span><strong>{copy.journey.booking}</strong></li>
-        <li class="journey__wide"><span>03</span><strong>{copy.journey.details}</strong></li>
-        <li><span>04</span><strong>{copy.journey.team}</strong></li>
-      </ol>
-    </figure>
   </section>
 
-  <section class="section section--statement" aria-labelledby="problem-title">
+  <section class="request-overview" aria-labelledby="overview-label">
+    <p id="overview-label">{copy.overview.label}</p>
+    <ul class="request-overview__items">
+      {
+        copy.overview.items.map((item, index) => (
+          <li>
+            <ConferenceIcon name={icons[index] ?? 'request'} />
+            <span>{item}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section class="section problem-section" aria-labelledby="problem-title">
     <SectionHeader
       eyebrow={copy.problem.eyebrow}
       title={copy.problem.title}
+      body={copy.problem.body}
       titleId="problem-title"
+      wide
     />
-    <div class="statement-copy">
-      <p>{copy.problem.body}</p>
-      <ul class="fragment-list" aria-label={copy.problem.eyebrow}>
-        {copy.problem.fragments.map((fragment) => <li>{fragment}</li>)}
-      </ul>
+    <div class="problem-grid">
+      {
+        copy.problem.cards.map((card) => (
+          <article class="problem-card">
+            <h3>{card.title}</h3>
+            <p>{card.body}</p>
+          </article>
+        ))
+      }
     </div>
+  </section>
+
+  <section class="section workflow-section" id="how-it-works" aria-labelledby="workflow-title">
+    <SectionHeader
+      eyebrow={copy.howItWorks.eyebrow}
+      title={copy.howItWorks.title}
+      body={copy.howItWorks.body}
+      titleId="workflow-title"
+      wide
+    />
+    <MeetingExample locale={locale} />
+    <p class="section-link">
+      <a href={howHref}>{copy.howItWorks.detailLink}<span aria-hidden="true"> →</span></a>
+    </p>
+  </section>
+
+  <section
+    class="section integration-section"
+    id="integrations"
+    aria-labelledby="integration-title"
+  >
+    <SectionHeader
+      eyebrow={copy.roomBooking.eyebrow}
+      title={copy.roomBooking.title}
+      body={copy.roomBooking.body}
+      titleId="integration-title"
+      wide
+    />
+    <div class="integration-map">
+      <div class="integration-map__hub">
+        <BrandLockup />
+        <p>{copy.roomBooking.supporting}</p>
+      </div>
+      <div class="integration-map__nodes">
+        {
+          copy.roomBooking.nodes.map((node, index) => (
+            <article
+              class:list={['integration-node', { 'integration-node--optional': index === 3 }]}
+            >
+              <p class="integration-node__label">{node.label}</p>
+              <h3>{node.title}</h3>
+              <p>{node.body}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+    <div class="integration-replacement">
+      <ConferenceIcon name="catering" />
+      <div>
+        <h3>{copy.roomBooking.replacement.title}</h3>
+        <p>{copy.roomBooking.replacement.body}</p>
+      </div>
+    </div>
+    <p class="section-link">
+      <a href={integrationsHref}>{copy.roomBooking.detailLink}<span aria-hidden="true"> →</span></a>
+    </p>
   </section>
 
   <section class="section" id="product" aria-labelledby="value-title">
@@ -75,8 +154,34 @@ const companyHref = withBasePath(`/${locale}/company/`);
     <div class="capability-grid">
       {
         copy.value.cards.map((card, index) => (
-          <article class:list={['capability-card', { 'capability-card--accent': index === 0 }]}>
-            <span class="card-index" aria-hidden="true">
+          <article class="capability-card">
+            <div class="capability-card__icon">
+              <ConferenceIcon name={icons[index] ?? 'request'} />
+            </div>
+            <h3>{card.title}</h3>
+            <p>{card.body}</p>
+          </article>
+        ))
+      }
+    </div>
+    <p class="section-link">
+      <a href={productHref}>{copy.value.detailLink}<span aria-hidden="true"> →</span></a>
+    </p>
+  </section>
+
+  <section class="section audience-section" id="workplace-teams" aria-labelledby="audience-title">
+    <SectionHeader
+      eyebrow={copy.audiences.eyebrow}
+      title={copy.audiences.title}
+      body={copy.audiences.body}
+      titleId="audience-title"
+      wide
+    />
+    <div class="audience-grid">
+      {
+        copy.audiences.cards.map((card, index) => (
+          <article>
+            <span class="audience-label" aria-hidden="true">
               {String(index + 1).padStart(2, '0')}
             </span>
             <h3>{card.title}</h3>
@@ -86,177 +191,75 @@ const companyHref = withBasePath(`/${locale}/company/`);
       }
     </div>
     <p class="section-link">
-      <a href={productHref}
-        >{locale === 'de' ? 'Produkt im Detail' : 'Explore the product'}<span aria-hidden="true">
-          →</span
-        ></a
-      >
+      <a href={audiencesHref}>{copy.audiences.detailLink}<span aria-hidden="true"> →</span></a>
     </p>
   </section>
 
-  <section class="section section--steps" id="how-it-works" aria-labelledby="steps-title">
-    <SectionHeader
-      eyebrow={copy.howItWorks.eyebrow}
-      title={copy.howItWorks.title}
-      body={copy.howItWorks.intro}
-      titleId="steps-title"
-    />
-    <ol class="steps">
-      {
-        copy.howItWorks.steps.map((step) => (
-          <li>
-            <span class="step-number">{step.number}</span>
-            <div>
-              <h3>{step.title}</h3>
-              <p>{step.body}</p>
-            </div>
-          </li>
-        ))
-      }
-    </ol>
-  </section>
-
-  <section class="section integration-statement" aria-labelledby="booking-title">
-    <p class="eyebrow">{copy.roomBooking.eyebrow}</p>
-    <h2 id="booking-title">{copy.roomBooking.title}</h2>
-    <div class="integration-statement__copy">
-      <p>{copy.roomBooking.body}</p>
-      <p class="pull-quote">{copy.roomBooking.supporting}</p>
-    </div>
-  </section>
-
-  <section class="section" id="workplace-teams" aria-labelledby="audience-title">
-    <SectionHeader
-      eyebrow={copy.audiences.eyebrow}
-      title={copy.audiences.title}
-      titleId="audience-title"
-    />
-    <div class="audience-grid">
-      <article>
-        <span class="audience-label">01</span>
-        <h3>{copy.audiences.employee.title}</h3>
-        <p>{copy.audiences.employee.body}</p>
-      </article>
-      <article>
-        <span class="audience-label">02</span>
-        <h3>{copy.audiences.workplace.title}</h3>
-        <p>{copy.audiences.workplace.body}</p>
-      </article>
-    </div>
-  </section>
-
-  <section class="section hospitality" aria-labelledby="hospitality-title">
-    <div>
-      <p class="eyebrow">{copy.hospitality.eyebrow}</p>
-      <h2 id="hospitality-title">{copy.hospitality.title}</h2>
-    </div>
-    <div class="hospitality__copy">
-      <p>{copy.hospitality.body}</p>
-      <div class="hospitality__material" aria-hidden="true">
-        <span></span><span></span><span></span>
+  <section class="section pilot-section" id="pilot" aria-labelledby="pilot-title">
+    <div class="pilot-section__content">
+      <SectionHeader
+        eyebrow={copy.pilot.eyebrow}
+        title={copy.pilot.title}
+        body={copy.pilot.body}
+        titleId="pilot-title"
+      />
+      <ol class="pilot-steps">
+        {
+          copy.pilot.steps.map((step) => (
+            <li>
+              <span class="pilot-steps__number" aria-hidden="true">
+                {step.number}
+              </span>
+              <div>
+                <>
+                  <h3>{step.title}</h3>
+                  <p>{step.body}</p>
+                </>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+      <p class="pilot-section__terms">{copy.pilot.terms}</p>
+      <div class="cta-row">
+        <a class="button" href={demoHref}>{copy.hero.primaryCta}</a>
+        <a class="text-link" href={pricingHref}
+          >{copy.pilot.detailLink}<span aria-hidden="true"> →</span></a
+        >
       </div>
     </div>
-  </section>
-
-  <section class="section ecosystem" id="integrations" aria-labelledby="ecosystem-title">
-    <SectionHeader
-      eyebrow={copy.ecosystem.eyebrow}
-      title={copy.ecosystem.title}
-      body={copy.ecosystem.body}
-      titleId="ecosystem-title"
-    />
-    <div class="ecosystem__panel">
-      <ul>{copy.ecosystem.items.map((item) => <li>{item}</li>)}</ul>
-      <p>{copy.ecosystem.microsoft}</p>
-      <p class="panel-link">
-        <a href={integrationsHref}
-          >{locale === 'de' ? 'Integrationen bewerten' : 'Evaluate integrations'}<span
-            aria-hidden="true"
-          >
-            →</span
-          ></a
-        >
-      </p>
+    <div class="pilot-section__visual">
+      <BrandVisual locale={locale} variant="preparation" />
     </div>
   </section>
 
-  <section class="section readiness" id="security-trust" aria-labelledby="readiness-title">
-    <SectionHeader
-      eyebrow={copy.readiness.eyebrow}
-      title={copy.readiness.title}
-      body={copy.readiness.body}
-      titleId="readiness-title"
-    />
-    <div>
-      <ul class="theme-list">{copy.readiness.themes.map((theme) => <li>{theme}</li>)}</ul>
-      <p class="section-link">
-        <a href={trustHref}
-          >{locale === 'de' ? 'Security & Trust prüfen' : 'Review Security & Trust'}<span
-            aria-hidden="true"
-          >
-            →</span
-          ></a
-        >
-      </p>
-    </div>
-  </section>
-
-  <section class="section brand-story" aria-labelledby="brand-story-title">
-    <div class="brand-story__mark"><BrandLockup showTagline /></div>
-    <div class="brand-story__copy">
-      <p class="eyebrow">{copy.brand.eyebrow}</p>
-      <h2 id="brand-story-title">{copy.brand.title}</h2>
-      <p>{copy.brand.body}</p>
-      <p class="brand-story__principle">{copy.brand.principle}</p>
-      <p class="section-link">
-        <a href={companyHref}
-          >{locale === 'de' ? 'Mehr über uns' : 'About Conference Manager'}<span aria-hidden="true">
-            →</span
-          ></a
-        >
-      </p>
-    </div>
-  </section>
-
-  <section class="section" aria-labelledby="why-title">
-    <SectionHeader eyebrow={copy.why.eyebrow} title={copy.why.title} titleId="why-title" />
-    <div class="why-grid">
+  <section class="section faq-section" aria-labelledby="faq-title">
+    <SectionHeader eyebrow={copy.faq.eyebrow} title={copy.faq.title} titleId="faq-title" />
+    <div class="faq-list">
       {
-        copy.why.cards.map((card) => (
-          <article>
-            <h3>{card.title}</h3>
-            <p>{card.body}</p>
-          </article>
+        copy.faq.items.map((item) => (
+          <details>
+            <summary>{item.question}</summary>
+            <p>{item.answer}</p>
+          </details>
         ))
       }
     </div>
   </section>
 
+  <aside class="readiness-strip" id="security-trust">
+    <p>{copy.readiness.body}</p>
+    <a class="text-link" href={trustHref}>{copy.readiness.link}<span aria-hidden="true"> →</span></a
+    >
+  </aside>
+
   <section class="section closing" aria-labelledby="closing-title">
-    <p class="eyebrow eyebrow--light">{copy.closing.eyebrow}</p>
-    <h2 id="closing-title">{copy.closing.title}</h2>
-    <p>{copy.closing.body}</p>
-    <div class="cta-row">
-      <a class="button button--light" href={howHref}
-        >{copy.closing.secondaryCta}<span aria-hidden="true"> →</span></a
-      >
+    <div class="closing__content">
+      <p class="eyebrow eyebrow--light">{copy.closing.eyebrow}</p>
+      <h2 id="closing-title">{copy.closing.title}</h2>
+      <p class="closing__copy">{copy.closing.body}</p>
+      <a class="button button--light" href={demoHref}>{copy.closing.primaryCta}</a>
+      <p class="closing__terms">{copy.closing.supporting}</p>
     </div>
   </section>
 </div>
-
-<style>
-  .hero__visual {
-    grid-column: 1 / -1;
-    margin-top: var(--space-4);
-  }
-
-  .hero__visual :global(.brand-visual) {
-    max-height: min(58vh, 42rem);
-  }
-
-  @media (max-width: 48rem) {
-    .hero__visual {
-      margin-top: 0;
-    }
-  }
-</style>

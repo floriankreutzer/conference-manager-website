@@ -6,6 +6,9 @@ export default defineConfig({
   output: 'static',
   base,
   trailingSlash: 'always',
+  vite: {
+    build: { assetsInlineLimit: 0 },
+  },
   i18n: {
     defaultLocale: 'en',
     locales: ['en', 'de'],

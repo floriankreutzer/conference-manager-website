@@ -2,7 +2,9 @@
 import { getDemoRequestConfig } from '@config/demoRequest';
 import type { Locale } from '@config/locales';
 import { companySizeValues, demoRequestLimits } from '@domain/forms/demoRequest';
+import { withBasePath } from '@domain/routing/basePath';
 import { getDemoRequestCopy } from '@i18n/demoRequest';
+import { getPricingCopy } from '@i18n/pricing';
 
 interface Props {
   locale: Locale;
@@ -10,29 +12,28 @@ interface Props {
 
 const { locale } = Astro.props;
 const copy = getDemoRequestCopy(locale);
+const offer = getPricingCopy(locale).offer;
 const config = getDemoRequestConfig();
+const pricingHref = withBasePath(`/${locale}/pricing/`);
 ---
 
 <section class="demo-request" aria-labelledby="demo-form-title">
   <div class="demo-request__intro">
-    <p class="eyebrow">{locale === 'de' ? 'Demo buchen' : 'Book a demo'}</p>
-    <h1 id="demo-form-title">
-      {
-        locale === 'de'
-          ? 'Sieh, wie Conference Manager in deine Arbeitswelt passt.'
-          : 'See how Conference Manager fits your workplace.'
-      }
-    </h1>
-    <p>
-      {
-        locale === 'de'
-          ? 'Erzähl uns kurz, für welches Unternehmen du Conference Manager kennenlernen möchtest. Wir erfassen nur die Angaben, die für die Demo-Anfrage benötigt werden.'
-          : 'Tell us briefly which organisation you would like to explore Conference Manager for. We collect only the information needed to handle the demo request.'
-      }
-    </p>
+    <p class="eyebrow">{copy.eyebrow}</p>
+    <h1 id="demo-form-title">{copy.title}</h1>
+    <p class="demo-request__lead">{copy.intro}</p>
+    <section class="demo-request__offer" aria-labelledby="demo-pilot-title">
+      <p class="eyebrow">{copy.pilotEyebrow}</p>
+      <h2 id="demo-pilot-title">{offer.title}</h2>
+      <p>{offer.body}</p>
+      <p>{offer.start}</p>
+      <p class="demo-request__setup-fee"><strong>{offer.setupFee}</strong></p>
+      <a href={pricingHref}>{copy.setupDetails}</a>
+    </section>
   </div>
 
   <div class="demo-request__panel">
+    <p class="demo-request__form-intro">{copy.formIntro}</p>
     {
       !config.enabled && (
         <p class="demo-request__status" role="status">
@@ -98,14 +99,18 @@ const config = getDemoRequestConfig();
             {companySizeValues.map((value) => <option value={value}>{value}</option>)}
           </select>
         </label>
-        <label class="form-grid__wide">
-          <span>{copy.message} <small>{copy.messageOptional}</small></span>
-          <textarea
-            name="message"
-            rows="5"
-            maxlength={demoRequestLimits.message}
-            disabled={!config.enabled}></textarea>
-        </label>
+        <div class="form-grid__wide">
+          <label>
+            <span>{copy.message} <small>{copy.messageOptional}</small></span>
+            <textarea
+              name="message"
+              aria-describedby="demo-message-hint"
+              rows="5"
+              maxlength={demoRequestLimits.message}
+              disabled={!config.enabled}></textarea>
+          </label>
+          <p class="demo-request__hint" id="demo-message-hint">{copy.messageHint}</p>
+        </div>
       </div>
 
       <div class="honeypot" aria-hidden="true">
@@ -146,30 +151,68 @@ const config = getDemoRequestConfig();
     display: grid;
     grid-template-columns: minmax(0, 0.85fr) minmax(22rem, 1fr);
     gap: clamp(3rem, 8vw, 8rem);
-    align-items: center;
+    align-items: start;
     padding-block: clamp(4rem, 9vw, 8rem);
+    overflow-wrap: anywhere;
   }
   .demo-request__intro {
     display: grid;
     gap: var(--space-4);
   }
   .demo-request h1 {
-    max-width: 13ch;
+    max-width: 20ch;
     margin: 0;
-    font-size: clamp(2.7rem, 5.8vw, 5.8rem);
-    letter-spacing: -0.05em;
+    font-size: clamp(2.3rem, 4vw, 3.5rem);
+    line-height: 1.1;
+    letter-spacing: -0.04em;
+    overflow-wrap: normal;
+    text-wrap: balance;
   }
-  .demo-request__intro > p:last-child {
+  .demo-request__lead {
+    margin: 0;
     color: var(--color-text-muted);
     font-size: clamp(1.05rem, 1.5vw, 1.25rem);
     line-height: 1.7;
   }
+  .demo-request__offer {
+    display: grid;
+    gap: var(--space-3);
+    margin-block-start: var(--space-3);
+    padding: var(--space-4);
+    border-inline-start: 3px solid var(--color-camel);
+    border-radius: var(--radius-md);
+    background: var(--color-canvas-soft);
+  }
+  .demo-request__offer h2,
+  .demo-request__offer p {
+    margin: 0;
+  }
+  .demo-request__offer h2 {
+    font-size: clamp(1.4rem, 2.5vw, 2rem);
+  }
+  .demo-request__offer p {
+    line-height: 1.6;
+  }
+  .demo-request__setup-fee,
+  .demo-request__offer a {
+    color: var(--color-bordeaux);
+  }
+  .demo-request__offer a {
+    justify-self: start;
+    font-weight: 650;
+    text-underline-offset: 0.25em;
+  }
   .demo-request__panel {
     padding: clamp(1.5rem, 4vw, 3rem);
     border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
+    border-radius: var(--radius-md);
     background: var(--color-surface);
     box-shadow: var(--shadow-soft);
+  }
+  .demo-request__form-intro {
+    margin: 0 0 var(--space-4);
+    color: var(--color-text-muted);
+    line-height: 1.6;
   }
   .demo-request__status {
     margin: 0 0 var(--space-4);
@@ -195,6 +238,13 @@ const config = getDemoRequestConfig();
     color: var(--color-text-muted);
     font-size: 0.72rem;
     font-weight: 500;
+  }
+  .demo-request__hint {
+    margin: 0.45rem 0 0;
+    color: var(--color-text-muted);
+    font-size: 0.85rem;
+    font-weight: 400;
+    line-height: 1.5;
   }
   input,
   select,

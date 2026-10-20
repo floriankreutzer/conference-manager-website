@@ -2,7 +2,8 @@
 import type { Locale } from '@config/locales';
 import { withBasePath } from '@domain/routing/basePath';
 
-type VisualVariant = 'hero' | 'workplace' | 'hospitality' | 'about';
+type VisualVariant =
+  'hero' | 'workplace' | 'hospitality' | 'about' | 'meeting' | 'catering' | 'preparation';
 
 interface Props {
   locale: Locale;
@@ -14,8 +15,49 @@ const { locale, variant = 'hero', priority = false } = Astro.props;
 
 const visuals: Record<
   VisualVariant,
-  { src: string; width: number; height: number; alt: Record<Locale, string> }
+  {
+    src: string;
+    width: number;
+    height: number;
+    sources?: number[];
+    sizes?: string;
+    alt: Record<Locale, string>;
+  }
 > = {
+  meeting: {
+    src: '/assets/brand/meeting-room-960.webp',
+    width: 960,
+    height: 540,
+    sources: [640, 960, 1440],
+    // The wide source is cropped to a tall hero; allow enough pixels for its rendered height.
+    sizes: '(min-width: 60rem) 1400px, 100vw',
+    alt: {
+      de: 'Vorbereiteter Besprechungsraum mit warmem Tageslicht, gedecktem Tisch und bordeauxfarbenen Stühlen',
+      en: 'Prepared meeting room with warm daylight, a set table and burgundy chairs',
+    },
+  },
+  catering: {
+    src: '/assets/brand/meeting-catering-800.webp',
+    width: 800,
+    height: 800,
+    sources: [480, 800],
+    sizes: '(min-width: 60rem) 420px, 100vw',
+    alt: {
+      de: 'Kaffeetassen, Wasser und kleine Speisen auf einem vorbereiteten Besprechungstisch',
+      en: 'Coffee cups, water and refreshments on a prepared meeting table',
+    },
+  },
+  preparation: {
+    src: '/assets/brand/meeting-preparation-960.webp',
+    width: 960,
+    height: 640,
+    sources: [640, 960, 1280],
+    sizes: '(min-width: 80rem) 520px, (min-width: 60rem) 44vw, 100vw',
+    alt: {
+      de: 'Zwei Mitarbeitende bereiten gemeinsam einen hellen Besprechungsraum vor',
+      en: 'Two colleagues preparing a bright meeting room together',
+    },
+  },
   hero: {
     src: '/assets/brand/hero-conference-400.webp',
     width: 400,
@@ -56,6 +98,12 @@ const visuals: Record<
 
 const visual = visuals[variant];
 const src = withBasePath(visual.src);
+const srcset = visual.sources
+  ?.map(
+    (width) =>
+      withBasePath(visual.src.replace(/-\d+\.webp$/, '-' + width + '.webp')) + ' ' + width + 'w',
+  )
+  .join(', ');
 ---
 
 <figure
@@ -65,6 +113,8 @@ const src = withBasePath(visual.src);
 >
   <img
     src={src}
+    srcset={srcset}
+    sizes={visual.sizes}
     alt={visual.alt[locale]}
     width={visual.width}
     height={visual.height}
@@ -78,8 +128,8 @@ const src = withBasePath(visual.src);
   .brand-visual {
     margin: 0;
     overflow: hidden;
-    border-radius: 4px;
-    background: var(--color-surface-soft);
+    border-radius: var(--radius-md);
+    background: var(--color-canvas-soft);
   }
 
   .brand-visual img {
@@ -97,5 +147,27 @@ const src = withBasePath(visual.src);
   .brand-visual--hospitality img,
   .brand-visual--about img {
     aspect-ratio: 8 / 5;
+  }
+  .brand-visual--meeting {
+    height: 100%;
+  }
+  .brand-visual--meeting img {
+    height: 100%;
+    min-height: 29rem;
+    aspect-ratio: 1 / 1.08;
+    object-position: 87% center;
+  }
+  .brand-visual--preparation img {
+    aspect-ratio: 3 / 2;
+  }
+  .brand-visual--catering img {
+    aspect-ratio: 16 / 10;
+  }
+  @media (max-width: 60rem) {
+    .brand-visual--meeting img {
+      min-height: 0;
+      max-height: 28rem;
+      aspect-ratio: 16 / 10;
+    }
   }
 </style>

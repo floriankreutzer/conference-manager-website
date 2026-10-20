@@ -33,27 +33,27 @@ test.describe('public website contracts', () => {
     await expect(
       page.getByRole('heading', {
         level: 1,
-        name: 'Make every workplace conference feel effortless.',
+        name: 'Organise meetings. Reduce the follow-up.',
       }),
     ).toBeVisible();
-    await expect(
-      page.getByText('Keep your room booking. Replace the coordination around it.'),
-    ).toBeVisible();
+    await expect(page.getByText('Your systems. One meeting workflow.')).toBeVisible();
     await expect(
       page.getByRole('heading', {
         level: 2,
-        name: 'Operational precision, with a more considered workplace experience.',
+        name: 'Try it with your own meetings.',
       }),
     ).toBeVisible();
     await expect(
-      page.locator('.primary-nav').getByRole('link', { name: 'About', exact: true }),
-    ).toHaveAttribute('href', '/en/company/');
-    await expect(page.getByRole('link', { name: 'Book a demo' })).toHaveCount(2);
+      page
+        .locator('.primary-nav')
+        .getByRole('link', { name: 'Setup & pilot', exact: true, includeHidden: true }),
+    ).toHaveAttribute('href', '/en/pricing/');
+    await expect(page.getByRole('link', { name: 'Book a demo' })).toHaveCount(4);
     await expect(page.locator('footer').getByRole('link', { name: 'Book a demo' })).toHaveCount(0);
-    await expectBrandVisualToLoad(page, 'hero');
-    await expect(page.locator('[data-brand-visual-variant="hero"] img')).toHaveAttribute(
+    await expectBrandVisualToLoad(page, 'meeting');
+    await expect(page.locator('[data-brand-visual-variant="meeting"] img')).toHaveAttribute(
       'src',
-      '/assets/brand/hero-conference-400.webp',
+      '/assets/brand/meeting-room-960.webp',
     );
   });
 
@@ -64,9 +64,9 @@ test.describe('public website contracts', () => {
 
     const signet = page.locator('header .brand-lockup__signet');
     await expect(signet).toBeVisible();
-    await expect(signet).toHaveAttribute('src', /^data:image\/svg\+xml,/);
-    await expect(page.locator('.primary-nav a')).toHaveCount(6);
-    await expect(page.locator('.primary-nav')).toContainText('About');
+    await expect(signet).toHaveAttribute('src', /pavurel-signet.*\.svg/);
+    await expect(page.locator('.primary-nav a')).toHaveCount(4);
+    await expect(page.locator('.primary-nav')).toContainText('Setup & pilot');
     await expect(page.locator('.primary-nav')).not.toContainText('Company');
     await expect(page.locator('.primary-nav')).not.toContainText('Pricing');
     await expect(page.locator('footer')).toContainText('Conference Manager');
@@ -156,15 +156,15 @@ test.describe('public website contracts', () => {
     await expect(
       page.getByRole('heading', {
         level: 1,
-        name: 'Damit sich professionelle Konferenzen einfach anfühlen.',
+        name: 'Besprechungen organisieren. Rückfragen reduzieren.',
       }),
     ).toBeVisible();
     await expect(page.getByRole('link', { name: 'Demo anfragen' }).first()).toBeVisible();
   });
 
-  test('keeps Login as a fixed HTTPS handoff to the application', async ({ page }) => {
+  test('keeps sign-in as a fixed HTTPS handoff to the application', async ({ page }) => {
     await page.goto('/en/');
-    await expect(page.getByRole('link', { name: 'Login', exact: true })).toHaveAttribute(
+    await expect(page.getByRole('link', { name: 'Sign in', exact: true })).toHaveAttribute(
       'href',
       'https://app.example.invalid/login',
     );
@@ -191,6 +191,61 @@ test.describe('public website contracts', () => {
       clientWidth: document.documentElement.clientWidth,
     }));
     expect(dimensions.scrollWidth).toBeLessThanOrEqual(dimensions.clientWidth + 1);
+  });
+
+  test('keeps the compact navigation operable by keyboard across breakpoints', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto('/en/');
+    const toggle = page.getByRole('button', { name: 'Menu', exact: true });
+    const navigation = page.locator('.primary-nav');
+    const firstLink = navigation.locator('a').first();
+
+    await expect(toggle).toHaveAttribute('aria-expanded', 'false');
+    await expect(navigation).toBeHidden();
+    await toggle.focus();
+    await page.keyboard.press('Enter');
+    await expect(toggle).toHaveAttribute('aria-expanded', 'true');
+    await page.keyboard.press('Tab');
+    await expect(firstLink).toBeFocused();
+    await page.keyboard.press('Escape');
+    await expect(navigation).toBeHidden();
+    await expect(toggle).toBeFocused();
+
+    await page.setViewportSize({ width: 1365, height: 900 });
+    await expect(toggle).toBeHidden();
+    await expect(firstLink).toBeVisible();
+    await expect(firstLink).toBeFocused();
+    await page.setViewportSize({ width: 390, height: 844 });
+    await expect(navigation).toBeHidden();
+    await expect(toggle).toBeFocused();
+  });
+
+  test('keeps navigation, pilot terms and demo links usable without JavaScript', async ({
+    browser,
+    baseURL,
+  }) => {
+    const context = await browser.newContext({
+      javaScriptEnabled: false,
+      viewport: { width: 390, height: 844 },
+    });
+    try {
+      const page = await context.newPage();
+      await page.goto(new URL('/de/', baseURL).href);
+      await expect(page.locator('.nav-toggle')).toBeHidden();
+      for (const link of await page.locator('.primary-nav a').all()) {
+        await expect(link).toBeVisible();
+      }
+      const terms = page
+        .locator('details')
+        .filter({ hasText: 'Was ist kostenlos und wann beginnen die 30 Tage?' });
+      await terms.locator('summary').click();
+      await expect(terms).toHaveAttribute('open', '');
+      await expect(terms).toContainText('einmalig kostenpflichtige Leistung');
+      await page.locator('.hero').getByRole('link', { name: 'Demo anfragen', exact: true }).click();
+      await expect(page).toHaveURL(/\/de\/book-a-demo\/$/);
+    } finally {
+      await context.close();
+    }
   });
 });
 
@@ -229,6 +284,9 @@ test.describe('route integrity', () => {
       '/assets/brand/workplace-boardroom-400.webp',
       '/assets/brand/hospitality-service-480.webp',
       '/assets/brand/about-hospitality-400.webp',
+      '/assets/brand/meeting-room-1440.webp',
+      '/assets/brand/meeting-catering-800.webp',
+      '/assets/brand/meeting-preparation-1280.webp',
     ]) {
       const response = await request.get(path);
       expect(response.ok(), `Expected image ${path} to resolve`).toBe(true);

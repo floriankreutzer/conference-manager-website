@@ -1,125 +1,136 @@
 # Conference Manager Website — Marketing Experience
 
-## 1. Purpose
+## 1. Purpose and audience
 
-This document records the implemented customer-facing marketing hierarchy for the public Conference Manager website. It complements `CONTENT-GOVERNANCE.md`, `DESIGN-SYSTEM.md`, `SEO-STANDARDS.md` and the repository architecture; it does not create a new runtime or trust-boundary decision.
+This document records the implemented public website experience. It complements the content,
+design, SEO and architecture standards; it does not create another application runtime.
 
-The public website is a B2B product-marketing surface. It should help a potential buyer understand the workplace problem, product value, operating fit and next step before asking them to evaluate technical architecture.
+The primary audience is **office and conference teams in mid-sized companies**. Employees and IT
+are supporting audiences. The launch experience is complete in English and German; German copy
+uses professional `Sie` address.
 
-## 2. Audience and market frame
+The website explains four recognisable problems: repeated emails and follow-up questions,
+missing guest/catering/equipment information, unclear changes or progress, and coordination
+between teams. Benefits are qualitative; no unsupported time saving or customer metric is used.
 
-Primary audience:
-- Workplace Managers and Workplace Teams;
-- meeting/conference service owners;
-- Corporate Services and Office Management;
-- Facility/Workplace-adjacent teams involved in professional conference delivery.
+## 2. Product and brand hierarchy
 
-Initial commercial focus remains DACH with an English/German experience that is international by design. German public marketing copy uses professional `Sie` address rather than informal consumer-style language.
+- **Conference Manager** is the product; **by Pavurel** is the subordinate endorsement.
+- Pavurel combines operational precision with warm workplace hospitality.
+- Existing room reservation systems retain responsibility for reservations. Supported connections
+  and customer setup determine the available scope.
+- Microsoft work accounts and configured application roles are explained after the meeting value.
 
-## 3. Product and brand hierarchy
+Legal, trademark and domain status remains governed outside this public repository. Visual use
+does not imply registration or legal ownership.
 
-- **Conference Manager** is the product.
-- **by Pavurel** is the subordinate corporate endorsement.
-- PAVUREL provides the visual/emotional framing; it does not replace the product name.
-- The documented PAVUREL brand idea is **operational precision + warm hospitality**.
-- The supporting documented phrase is **Workplace hospitality, thoughtfully managed.**
+## 3. Homepage narrative
 
-The website explains this relationship briefly after the core product, audience, integration and trust story. The brand explanation must support product confidence rather than become the hero category.
+The implemented order is:
 
-Legal/trademark/domain status remains governed outside this public repository. The website must not describe a corporate endorsement as registered, legally cleared, or owned without verified publication evidence.
+1. A meeting outcome, concise explanation, existing-system fit and demo action.
+2. Six descriptive icons for the request, guests, room/equipment, catering, changes and coordination.
+3. Four everyday coordination problems paired with the corresponding benefit.
+4. An interactive, explicitly illustrative meeting example: request, coordination and change.
+5. A shared-process map for room reservations, Microsoft sign-in, caterer coordination and optional
+   visitor-system assessment; separate catering spreadsheets and forms can be replaced.
+6. Practical catering, catalogue, supplier response, change, team and setup details.
+7. Employee, office/conference team and IT perspectives.
+8. Demo, paid setup and 30 days of free software use with real customer meetings.
+9. Native FAQ disclosures and a deeper security/trust link.
+10. A final demo action based on the visitor's own meeting process.
 
-## 4. Homepage narrative
+The example is an explanatory website component, not a live application or a screenshot. Its
+three states retain the same workshop. The final state changes both participant count and
+catering quantity; it does not claim that all participant changes require review, or that only
+cost, service or deadline effects can trigger review. All three sections remain readable without
+JavaScript. With JavaScript, native buttons gain synchronized tab semantics and keyboard controls.
 
-Implemented order:
-1. category + outcome-led Hero;
-2. recognisable coordination problem after room booking;
-3. one-request value proposition;
-4. simple request-to-ready flow;
-5. room-booking integration boundary;
-6. employee / Workplace Team dual value;
-7. workplace-hospitality quality layer;
-8. connected ecosystem / Microsoft qualification;
-9. enterprise readiness and evaluation path;
-10. PAVUREL endorsement explanation;
-11. differentiators;
-12. demo conversion.
+## 4. Information architecture and conversion
 
-This order intentionally follows **problem → benefit → experience → existing-system fit → trust → conversion** rather than technology → architecture → feature list.
+Primary navigation has four destinations:
 
-## 5. Information architecture
+- How it works / So funktioniert es;
+- For your team / Für Ihr Team;
+- Integrations / Integrationen;
+- Setup & pilot / Einführung & Pilot.
 
-Primary navigation is deliberately compact:
-- Product;
-- How it works;
-- For Workplace Teams;
-- Integrations;
-- Security & Trust.
+Existing localized routes remain stable. Product, company, security/trust and Insights remain
+crawlable in the footer. The mobile menu is progressively enhanced; the complete navigation is
+available without JavaScript.
 
-`Book a demo` is the primary conversion action. `Login` remains a utility handoff for existing users and must not compete visually with the primary conversion.
+**Book a demo / Demo anfragen** is the primary action. **See how it works / So funktioniert es**
+links directly to the homepage example. **Sign in / Anmelden** is the separate, centrally
+configured application handoff.
 
-Pricing and Insights remain normal crawlable destinations but move to the footer/evaluation layer rather than occupying primary navigation. This preserves evaluation depth without overloading the first customer journey.
+The demo form retains its existing fields, POST contract, validation limits, honeypot, privacy
+acknowledgement and configuration gate. This redesign does not activate a missing endpoint or
+claim successful submission when processing is unavailable.
 
-## 6. Content hierarchy
+## 5. Agreed introduction offer
 
-### Marketing content
-Homepage and top-level buyer narratives lead with customer problem, operational outcome and workplace experience.
+The website may describe the following approved offer in both languages:
 
-### Product content
-Product / How it works / Workplace Teams explain verified request, room-context, service, catering, lifecycle and management capabilities through buyer outcomes.
+- One-time paid setup.
+- Thirty days of free **software use**, beginning only after setup is complete.
+- A configured customer environment with the customer's own real meetings.
 
-### Evaluation content
-Integrations, Security & Trust and Pricing retain necessary qualifications and boundaries for IT/procurement evaluation. Technical implementation details are used only where they materially explain risk, authority or availability.
+The setup fee is disclosed next to the free-use statement, including on the homepage, pricing
+and demo pages. Pricing and demo share the typed `getPricingCopy(locale).offer` content block.
+No monetary amount, billing formula, tier, automatic renewal, refund term, payment due date or
+setup duration is inferred. Prices and terms for continued use are discussed separately.
 
-### Brand content
-PAVUREL is explained as the corporate endorsement and quality/design principle after the product story is established.
+## 6. Capability and integration language
 
-## 7. Visual system alignment with the application
+Public copy describes implemented request and catalogue capabilities and qualifies setup and
+integration dependencies. The integrations page explains the existing room/Microsoft context,
+manual supplier communication recorded by the office team, and separately assessed supplier or
+visitor-system connections.
 
-The marketing site keeps a more editorial rhythm than the authenticated application but uses the same product-family geometry:
-- standard controls use a 4px radius;
-- small shape tokens are 2px / 3px / 4px;
-- large editorial surfaces may use an 8px radius where hierarchy benefits;
-- pill-shaped primary buttons are prohibited;
-- cards use restrained borders/elevation rather than generic floating SaaS panels;
-- control height aligns to the application baseline of 44px.
+A customer's desired integration is not evidence that a connector exists. Supplier access,
+confirmation links, automatic exchanges and visitor registration/check-in are included only after
+availability and scope are confirmed. Role wording does not promise automatic company-group
+mapping. Participating service teams and responsibilities are agreed during setup.
 
-The colour and type system remains PAVUREL Bordeaux/Camel/Ink/Canvas with Manrope for display and Inter for functional/body copy.
+Pavurel offers setup and later rule adjustments on request. The possible adjustments are agreed
+with the customer; this wording does not promise arbitrary workflow configuration or change the
+application's authorization model.
 
-## 8. Governed brand assets
+Customer examples remain illustrative. No invented customers, logos, testimonials, ROI,
+certifications or formal compliance assurances are added.
 
-The website uses the exact PAVUREL Connection & Flow signet copied from the reviewed Conference Manager application brand package. Provenance is recorded in `src/assets/brand/README.md`.
+## 7. Visual system and assets
 
-Do not substitute text-drawn logo geometry or reconstruct the signet from screenshots/brand boards.
+The implementation keeps the existing Bordeaux, Camel, Ink, Canvas and white tokens, Manrope
+headings, Inter body text and 4px control geometry. Editorial photos, restrained borders and
+purposeful spacing establish the Pavurel character.
 
-The Corporate Master and Confluence Visual Identity System define a premium contemporary workplace/hospitality photography direction. The retained master layouts explicitly contain replaceable image areas; they are not by themselves production-photography provenance. Until an approved production photograph is available as a governed repository asset, the website must not fabricate an "official PAVUREL" photograph or use a composite identity-board mockup as customer evidence.
+The original signet is preserved. Existing approved AI key visuals and the additional meeting
+preparation visual are recorded in the asset READMEs. They are brand illustrations, not evidence
+of a real customer site or deployment. Six original SVG icons describe tasks and do not modify
+or repurpose the signet.
 
-## 9. Claim discipline
+Responsive WebP sources have intrinsic dimensions. The hero loads eagerly; supporting images
+load lazily. No image CDN, tracking, external embed, UI framework or new package is introduced.
 
-Retain the approved truths:
-- Conference Manager is not another room-booking system;
-- existing room-booking capability remains authoritative for the reservation;
-- Microsoft 365 / Entra are the current enterprise integration focus, subject to configuration/acceptance;
-- future providers are not current product claims;
-- no public price before commercial approval;
-- no unsupported certification/compliance/security assurance;
-- no invented customers, testimonials, ROI or usage numbers.
+## 8. Accessibility, performance and validation
 
-## 10. Conversion
+Native links, buttons and `details` retain browser behavior. Menu state and tab state are
+synchronized with actual visibility. Focus remains visible, changes have text labels, the
+example can be operated with arrow keys, Home, End and Tab, and layout reflows to narrow screens.
+Reduced-motion preferences remain respected.
 
-Primary CTA: **Book a demo / Demo anfragen**.
+The navigation and example controllers are external modules. Vite's `assetsInlineLimit: 0`
+prevents small controllers from being inlined in the built HTML. The production output must be
+checked against the existing restrictive CSP; no unsafe inline exception is introduced.
 
-Secondary CTA: **See how it works / So funktioniert es**.
+Regression coverage includes the new offer, qualified integration copy, navigation and language
+handoffs, three example states, keyboard behavior, no-JavaScript content, responsive reflow,
+Axe, asset loading, metadata and build budgets. Automated checks do not establish formal WCAG
+conformance, real-user performance, provider acceptance or a production deployment.
 
-The demo story asks the buyer to bring one real conference journey and discuss where information currently moves between people, room booking and workplace services. It should not default to a generic feature tour.
+## 9. Architecture and publication
 
-## 11. Accessibility, responsive design and performance
-
-The refactor preserves the existing WCAG-oriented automated gates and adds regression coverage for the customer narrative, brand identity and product-family control geometry. Navigation wraps deliberately on narrower screens rather than relying on a desktop-only horizontal navigation strip.
-
-The governed SVG signet has intrinsic dimensions and is bundled with the static site. No tracking, remote brand asset, image CDN or new runtime dependency is introduced.
-
-Photography added later must follow the repository image-performance and provenance requirements, including responsive dimensions, optimized formats, intrinsic sizing and appropriate lazy/eager loading.
-
-## 12. Architecture decision status
-
-No ADR is introduced by this marketing refactor. The implementation remains inside the existing Astro/static-first architecture, repository-owned content model, login handoff, demo-request boundary and public brand publication governance.
+The site remains Astro + TypeScript, static first, with repository-owned localized content and
+the existing application and demo-request boundaries. No new hosting or architecture decision
+is introduced. Existing CI, review, deployment and operational publication gates remain in force.

@@ -32,7 +32,7 @@ describe('public page route resolution', () => {
       'Conference management around the complete request. — Conference Manager',
     );
     expect(resolvePublicPageRoute('de', 'pricing').title).toBe(
-      'Produktfit jetzt bewerten. Öffentliche Preise folgen nach Freigabe. — Conference Manager',
+      'Mit eigenen Besprechungen erproben. — Conference Manager',
     );
     expect(resolvePublicPageRoute('en', 'company').title).toBe(
       'Built around the conference, not around another system. — Conference Manager',
@@ -45,10 +45,10 @@ describe('public page route resolution', () => {
 
   it('preserves localized customer-led descriptions', () => {
     expect(resolvePublicPageRoute('en', 'integrations').description).toContain(
-      'existing room-booking and Microsoft 365 capabilities',
+      'Room reservations, Microsoft sign-in and catering coordination',
     );
     expect(resolvePublicPageRoute('de', 'integrations').description).toContain(
-      'vorhandener Raumbuchung und Microsoft 365',
+      'Raumreservierung, Microsoft-Anmeldung und Cateringkoordination',
     );
     expect(resolvePublicPageRoute('en', 'company').description).toContain(
       'complete workplace conference journey',

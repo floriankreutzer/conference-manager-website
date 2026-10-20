@@ -28,7 +28,7 @@
 
   body {
     margin: 0;
-    background: var(--color-canvas);
+    background: var(--color-surface);
     color: var(--color-ink);
   }
 
@@ -70,7 +70,7 @@
   h2 {
     max-width: var(--headline-max);
     margin: 0;
-    font-size: clamp(2.25rem, 5vw, 4.9rem);
+    font-size: clamp(2rem, 4vw, 3.6rem);
   }
 
   h3 {
@@ -115,7 +115,7 @@
     position: relative;
     z-index: 10;
     border-bottom: 1px solid var(--color-border);
-    background: color-mix(in srgb, var(--color-canvas) 96%, transparent);
+    background: var(--color-surface);
   }
 
   .site-header__inner {
@@ -156,7 +156,29 @@
   .site-nav a,
   .login-link,
   .language-link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
     text-decoration: none;
+  }
+
+  .nav-toggle {
+    display: inline-flex;
+    min-height: 44px;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 0.65rem 0.8rem;
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-md);
+    color: var(--color-ink);
+    background: var(--color-surface);
+    font: inherit;
+    cursor: pointer;
+  }
+
+  .nav-toggle[hidden],
+  .primary-nav[hidden] {
+    display: none;
   }
 
   .site-nav a:hover,
@@ -191,7 +213,10 @@
     color: var(--color-on-accent);
     font-weight: 750;
     text-decoration: none;
-    transition: background-color 150ms ease, border-color 150ms ease, transform 150ms ease;
+    transition:
+      background-color 150ms ease,
+      border-color 150ms ease,
+      transform 150ms ease;
   }
 
   .button:hover {
@@ -220,6 +245,13 @@
       order: 3;
       padding-top: 0.25rem;
       border-top: 1px solid var(--color-border);
+    }
+
+    .nav-toggle {
+      order: 2;
+    }
+    .site-actions {
+      order: 4;
     }
 
     .site-nav {
@@ -255,7 +287,7 @@
     }
 
     .primary-nav {
-      order: 4;
+      order: 3;
     }
   }
 }

@@ -38,7 +38,7 @@ src/
 │   ├── demo-request/
 │   ├── insights/
 │   ├── integrations/         # qualified integration narrative
-│   ├── pricing/              # governed pre-pricing narrative
+│   ├── pricing/              # agreed setup-and-pilot offer
 │   ├── product-story/        # Product / How it works editorial narrative
 │   ├── security-trust/       # evidence-led public trust narrative
 │   └── workplace-teams/      # Workplace Team buyer narrative
@@ -55,7 +55,7 @@ Use these rules when adding code:
 - `pages/` owns filesystem routing and static-path selection. Locale route files should delegate shared page composition rather than duplicate feature-dispatch or metadata rules.
 - `layouts/` owns page-level composition/templates that are reused by locale routes or route variants. `PublicPageRoute.astro` is the single shared dispatcher for localized public `[slug]` routes; its framework-independent resolver keeps variant/title behavior directly testable.
 - `components/` owns reusable presentation pieces. `components/editorial/` may own presentation shared by multiple editorial features, but it must not own buyer/product/security/integration/pricing content or feature orchestration. Do not create `components/pages`, `components/misc`, `components/common` or generic dumping grounds.
-- `features/` owns bounded user-facing use cases that combine presentation and orchestration. `product-story/` owns Product / How it works content composition; `workplace-teams/` owns the Workplace Team buyer destination; `security-trust/` owns the evidence-led public trust destination; `integrations/` owns qualified public integration content; `pricing/` owns governed pre-pricing content while commercial approval remains external to the website. Their localized content remains separate even when they reuse the same editorial presentation component.
+- `features/` owns bounded user-facing use cases that combine presentation and orchestration. `product-story/` owns Product / How it works content composition; `workplace-teams/` owns the Workplace Team buyer destination; `security-trust/` owns the evidence-led public trust destination; `integrations/` owns qualified public integration content; `pricing/` owns the agreed paid-setup and 30-day free-software offer while monetary amounts and ongoing pricing remain open. Their localized content remains separate even when they reuse the same editorial presentation component.
 - `domain/` owns framework-independent rules where practical.
 - `config/` owns typed environment/public configuration contracts.
 - `functions/` is a separate server-side trust boundary and follows `functions/AGENTS.md` in addition to the root instructions.

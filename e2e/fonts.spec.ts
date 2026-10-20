@@ -16,9 +16,16 @@ test.describe('governed self-hosted webfonts', () => {
     });
 
     await page.goto('/de/');
-    await page.evaluate(async () => {
+    await page.evaluate(async (probe) => {
+      const text = `Conference Manager ${probe}`;
+      await Promise.all([
+        document.fonts.load('400 16px Inter', text),
+        document.fonts.load('400 32px Manrope', text),
+        document.fonts.load('700 32px Manrope', text),
+        document.fonts.load('800 32px Manrope', text),
+      ]);
       await document.fonts.ready;
-    });
+    }, germanGlyphProbe);
 
     expect(externalFontRequests).toEqual([]);
 
@@ -57,7 +64,7 @@ test.describe('governed self-hosted webfonts', () => {
     await expect(
       page.getByRole('heading', {
         level: 1,
-        name: 'Make every workplace conference feel effortless.',
+        name: 'Organise meetings. Reduce the follow-up.',
       }),
     ).toBeVisible();
     await expect(page.getByRole('link', { name: 'Book a demo' }).first()).toBeVisible();
@@ -115,7 +122,7 @@ test.describe('governed self-hosted webfonts', () => {
     await expect(
       page.getByRole('heading', {
         level: 1,
-        name: 'Make every workplace conference feel effortless.',
+        name: 'Organise meetings. Reduce the follow-up.',
       }),
     ).toBeVisible();
     await expect(page.getByRole('link', { name: 'Book a demo' }).first()).toBeVisible();
