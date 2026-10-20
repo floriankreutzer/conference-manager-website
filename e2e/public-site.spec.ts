@@ -12,6 +12,20 @@ const accessibilityPaths = [
   '/de/security-trust/',
 ];
 const routeDiscoveryPaths = ['/en/', '/de/'];
+const demoPlacementSlugs = [
+  '',
+  'product',
+  'how-it-works',
+  'workplace-teams',
+  'integrations',
+  'pricing',
+  'company',
+  'security-trust',
+  'insights',
+  'insights/room-booking-is-only-part-of-conference-management',
+  'demo',
+  'book-a-demo',
+] as const;
 
 async function expectBrandVisualToLoad(page: Page, variant?: string) {
   const selector = variant
@@ -48,7 +62,7 @@ test.describe('public website contracts', () => {
         .locator('.primary-nav')
         .getByRole('link', { name: 'Setup & pilot', exact: true, includeHidden: true }),
     ).toHaveAttribute('href', '/en/pricing/');
-    await expect(page.getByRole('link', { name: 'Book a demo' })).toHaveCount(4);
+    await expect(page.getByRole('link', { name: 'Book a demo' })).toHaveCount(2);
     await expect(page.locator('footer').getByRole('link', { name: 'Book a demo' })).toHaveCount(0);
     await expectBrandVisualToLoad(page, 'meeting');
     await expect(page.locator('[data-brand-visual-variant="meeting"] img')).toHaveAttribute(
@@ -79,7 +93,7 @@ test.describe('public website contracts', () => {
     expect(radius).toBe('4px');
   });
 
-  test('explains why Conference Manager exists and what a customer can expect', async ({
+  test('explains the responsibilities of Pavurel and the customer during introduction', async ({
     page,
   }) => {
     await page.goto('/en/company/');
@@ -87,25 +101,18 @@ test.describe('public website contracts', () => {
     await expect(
       page.getByRole('heading', {
         level: 1,
-        name: 'From first conversation to everyday meetings.',
+        name: 'Pavurel supports your setup.',
       }),
     ).toBeVisible();
-    await expect(page.getByText('Make meeting preparation easier to coordinate.')).toBeVisible();
-    await expect(page.getByText('A shared basis for the team')).toBeVisible();
-    await expect(page.getByText('Build on the systems your company already uses.')).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'What Pavurel handles.' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'What your team contributes.' })).toBeVisible();
     await expect(
-      page.getByText('Agree the process. Set it up. Try it with your team.'),
-    ).toBeVisible();
-    await expect(page.getByText('Use the software free for 30 days')).toBeVisible();
-    await expect(
-      page.getByText(
-        'Start in Conference Manager. Reserve through your existing room-booking system.',
-      ),
+      page.getByRole('heading', { name: 'Discuss adjustments with Pavurel.' }),
     ).toBeVisible();
     await expect(
       page.getByText(/formal company-name, domain and trademark clearance/i),
     ).toHaveCount(0);
-    await expect(page.getByRole('link', { name: 'Book a demo' })).toHaveCount(3);
+    await expect(page.getByRole('link', { name: 'Book a demo' })).toHaveCount(1);
     await expect(page.getByRole('link', { name: 'Explore setup & pilot' }).first()).toHaveAttribute(
       'href',
       '/en/pricing/',
@@ -129,8 +136,8 @@ test.describe('public website contracts', () => {
       }),
     ).toBeVisible();
     await expect(page.getByText('How do employees access Conference Manager?')).toBeVisible();
-    await expect(page.getByText('Which systems need to be connected?')).toBeVisible();
-    await expect(page.getByRole('link', { name: 'Book a demo' })).toHaveCount(3);
+    await expect(page.getByText('What information will be exchanged?')).toBeVisible();
+    await expect(page.getByRole('link', { name: 'Book a demo' })).toHaveCount(1);
     await expect(page.getByRole('link', { name: 'Explore integrations' }).first()).toHaveAttribute(
       'href',
       '/en/integrations/',
@@ -227,18 +234,64 @@ test.describe('public website contracts', () => {
       for (const link of await page.locator('.primary-nav a').all()) {
         await expect(link).toBeVisible();
       }
-      const terms = page
-        .locator('details')
-        .filter({ hasText: 'Was ist kostenlos und wann beginnen die 30 Tage?' });
-      await terms.locator('summary').click();
-      await expect(terms).toHaveAttribute('open', '');
-      await expect(terms).toContainText('einmalig kostenpflichtige Leistung');
-      await page.locator('.hero').getByRole('link', { name: 'Demo anfragen', exact: true }).click();
+      const terms = page.locator('#pilot');
+      await expect(terms).toContainText('einmalig kostenpflichtig');
+      await expect(terms).toContainText('30 Tage');
+      await expect(terms.getByRole('link')).toHaveAttribute('href', '/de/pricing/');
+      await page
+        .locator('.closing')
+        .getByRole('link', { name: 'Demo anfragen', exact: true })
+        .click();
       await expect(page).toHaveURL(/\/de\/book-a-demo\/$/);
     } finally {
       await context.close();
     }
   });
+});
+
+test.describe('demo request placement', () => {
+  for (const locale of ['en', 'de'] as const) {
+    test(`${locale} keeps demo requests in the header and only the home and pilot closing sections`, async ({
+      page,
+    }) => {
+      for (const slug of demoPlacementSlugs) {
+        const path = slug ? `/${locale}/${slug}/` : `/${locale}/`;
+        await test.step(path, async () => {
+          await page.goto(path);
+          const requests = await page.locator('a[href]').evaluateAll((links, demoPath) => {
+            const sections = Array.from(document.querySelectorAll('main section'));
+            const finalSection = sections.at(-1);
+            return links
+              .filter((link) => {
+                const href = link.getAttribute('href');
+                if (!href || href.startsWith('#')) return false;
+                const destination = new URL(href, document.baseURI);
+                return (
+                  destination.origin === window.location.origin &&
+                  destination.pathname.replace(/\/+$/, '') === demoPath
+                );
+              })
+              .map((link) => ({
+                header: Boolean(link.closest('.site-header')),
+                main: Boolean(link.closest('main')),
+                footer: Boolean(link.closest('footer')),
+                inFinalSection: finalSection?.contains(link) ?? false,
+              }));
+          }, `/${locale}/book-a-demo`);
+
+          const headerCount = slug === 'book-a-demo' ? 0 : 1;
+          const contentCount = slug === '' || slug === 'pricing' ? 1 : 0;
+          expect(requests.filter((link) => link.header)).toHaveLength(headerCount);
+          expect(requests.filter((link) => link.main)).toHaveLength(contentCount);
+          expect(requests.filter((link) => link.footer)).toHaveLength(0);
+          expect(requests).toHaveLength(headerCount + contentCount);
+          for (const link of requests.filter((request) => request.main)) {
+            expect(link.inFinalSection).toBe(true);
+          }
+        });
+      }
+    });
+  }
 });
 
 test.describe('route integrity', () => {
@@ -318,12 +371,10 @@ test.describe('SEO and preview publication contracts', () => {
 
   test('publishes customer-led About metadata in both locales', async ({ page }) => {
     await page.goto('/en/company/');
-    await expect(page).toHaveTitle(
-      'From first conversation to everyday meetings. — Conference Manager',
-    );
+    await expect(page).toHaveTitle('Pavurel supports your setup. — Conference Manager');
     await expect(page.locator('meta[name="description"]')).toHaveAttribute(
       'content',
-      /helps you agree the setup of Conference Manager/,
+      'Learn how Pavurel prepares your Conference Manager environment, what your team contributes and how later adjustments are agreed.',
     );
     await expect(page.locator('link[rel="alternate"][hreflang="de"]')).toHaveAttribute(
       'href',

@@ -5,7 +5,7 @@ const englishPath = '/en/workplace-teams/';
 const germanPath = '/de/workplace-teams/';
 
 test.describe('For your team', () => {
-  test('renders the governed English buyer narrative and conversion paths', async ({ page }) => {
+  test('explains English team responsibilities and relevant next steps', async ({ page }) => {
     await page.goto(englishPath);
     const main = page.locator('main');
 
@@ -22,20 +22,22 @@ test.describe('For your team', () => {
     await expect(
       main.getByRole('heading', {
         level: 2,
-        name: 'Prepare the meeting from one shared request.',
+        name: 'Coordinate the preparation and open decisions.',
       }),
     ).toBeVisible();
     await expect(
-      main.getByText(/Your existing room-booking system remains responsible for reservations/),
+      main.getByText(
+        /Requirements for automatic mapping of company groups are assessed separately/,
+      ),
     ).toBeVisible();
     await expect(main.getByRole('heading', { level: 3, name: 'Review changes' })).toBeVisible();
-    await expect(main.getByRole('link', { name: 'Book a demo' }).first()).toHaveAttribute(
+    await expect(main.getByRole('link', { name: 'Explore the workflow' })).toHaveAttribute(
       'href',
-      '/en/book-a-demo/',
+      '/en/how-it-works/',
     );
-    await expect(main.getByRole('link', { name: /Explore the product/ }).first()).toHaveAttribute(
+    await expect(main.getByRole('link', { name: 'Review IT requirements' })).toHaveAttribute(
       'href',
-      '/en/product/',
+      '/en/security-trust/',
     );
     await expect(page.locator('link[rel="alternate"][hreflang="de"]')).toHaveAttribute(
       'href',
@@ -60,16 +62,18 @@ test.describe('For your team', () => {
     await expect(
       main.getByRole('heading', {
         level: 2,
-        name: 'Die Besprechung aus einer gemeinsamen Anfrage vorbereiten.',
+        name: 'Vorbereitung und offene Entscheidungen koordinieren.',
       }),
     ).toBeVisible();
     await expect(
-      main.getByText(/Ihre bestehende Raumbuchung bleibt für Reservierungen zuständig/),
+      main.getByText(
+        /Anforderungen an eine automatische Zuordnung von Unternehmensgruppen werden gesondert geprüft/,
+      ),
     ).toBeVisible();
     await expect(main.getByRole('heading', { level: 3, name: 'Änderungen prüfen' })).toBeVisible();
-    await expect(main.getByRole('link', { name: 'Demo anfragen' }).first()).toHaveAttribute(
+    await expect(main.getByRole('link', { name: 'Den Ablauf kennenlernen' })).toHaveAttribute(
       'href',
-      '/de/book-a-demo/',
+      '/de/how-it-works/',
     );
     await expect(page.locator('link[rel="alternate"][hreflang="en"]')).toHaveAttribute(
       'href',
@@ -90,7 +94,7 @@ test.describe('For your team', () => {
     await expect(
       page.getByRole('heading', {
         level: 2,
-        name: 'Auf den vorhandenen Systemen aufbauen.',
+        name: 'Zugriffe und Verantwortung klären.',
       }),
     ).toBeVisible();
   });

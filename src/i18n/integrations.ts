@@ -14,10 +14,10 @@ type IntegrationsCopy = {
   overviewCta: string;
   visualCaption: string;
   sections: readonly IntegrationSection[];
-  setup: {
+  preparation: {
     eyebrow: string;
     title: string;
-    steps: readonly IntegrationPoint[];
+    questions: readonly string[];
   };
   closing: {
     eyebrow: string;
@@ -40,10 +40,6 @@ const integrationsCopy: Record<Locale, IntegrationsCopy> = {
         title: 'Start here. Keep your room booking.',
         body: 'Employees start their request in Conference Manager. Your existing room reservation system remains part of the process where a supported connection is available.',
         points: [
-          {
-            title: 'One guided request',
-            body: 'Collect the details for participants, catering and equipment in one place, replacing the separate spreadsheets and request forms used for this process.',
-          },
           {
             title: 'Existing Microsoft 365 rooms',
             body: 'Use the room resources your company already manages. We confirm the connection and the calendar functions needed before your pilot begins.',
@@ -78,7 +74,7 @@ const integrationsCopy: Record<Locale, IntegrationsCopy> = {
           },
           {
             title: 'Other connections to assess',
-            body: 'We can assess links to your supplier’s existing portal or an API connection with that supplier. These options are agreed only after the assessment.',
+            body: 'Catering supplier accounts or confirmation links and direct connections to supplier software are assessed separately. We confirm how orders, confirmations, changes and status updates can be exchanged before agreeing the scope.',
           },
         ],
         qualification:
@@ -88,41 +84,32 @@ const integrationsCopy: Record<Locale, IntegrationsCopy> = {
         id: 'visitors',
         eyebrow: 'Optional visitor connection',
         title: 'Discuss your guest workflow.',
-        body: 'If you also want to connect visitor registration or check-in, we assess the options for your existing visitor management system separately.',
+        body: 'Discuss whether your existing visitor system can exchange guest details and return arrival information.',
         points: [
           {
-            title: 'Confirm what is possible',
-            body: 'We discuss which information your reception team needs and whether a suitable connection is available. Only confirmed options become part of the agreed scope.',
+            title: 'Define the desired information',
+            body: 'Guest name, company and visit time for reception; arrival or check-in status for the conference team.',
           },
         ],
         qualification:
           'Visitor registration and check-in require a separate feasibility check; they are not automatically included in the pilot.',
       },
     ],
-    setup: {
-      eyebrow: 'A clear start',
-      title: 'Agree on the setup. Then try your own meetings.',
-      steps: [
-        {
-          title: 'Review your process',
-          body: 'Bring a typical meeting to the demo. We discuss your rooms, teams and the connections you need.',
-        },
-        {
-          title: 'Set up your environment',
-          body: 'Pavurel provides a one-time paid setup. We agree on the scope, supported connections and setup price with you in advance.',
-        },
-        {
-          title: 'Try it for 30 days',
-          body: 'Your free 30-day pilot begins after setup is complete. Use your own meetings in your customer environment.',
-        },
+    preparation: {
+      eyebrow: 'Before setup',
+      title: 'Clarify the requirements with your IT team.',
+      questions: [
+        'Which room-booking system and Microsoft environment does your company use?',
+        'Who approves access and the exchange of meeting information?',
+        'Which catering or visitor systems would you like us to assess?',
       ],
     },
     closing: {
-      eyebrow: 'Start with your company',
-      title: 'Let’s look at your meeting process.',
-      body: 'A personal demo shows how requests, room reservations and office-team coordination can fit together. We confirm the scope and costs before setting up your pilot.',
-      primaryCta: 'Book a demo',
-      secondaryCta: 'Pilot & setup',
+      eyebrow: 'Explore further',
+      title: 'Access requirements and your next steps.',
+      body: 'Review the questions about sign-in and data, or find out how the agreed customer setup and pilot work.',
+      primaryCta: 'Review security and trust',
+      secondaryCta: 'Explore setup & pilot',
     },
   },
   de: {
@@ -136,10 +123,6 @@ const integrationsCopy: Record<Locale, IntegrationsCopy> = {
         title: 'Hier anfragen. Ihre Raumbuchung behalten.',
         body: 'Mitarbeitende starten ihre Anfrage im Conference Manager. Ihre bestehende Raumreservierung bleibt Teil des Ablaufs, wenn eine unterstützte Anbindung verfügbar ist.',
         points: [
-          {
-            title: 'Eine geführte Anfrage',
-            body: 'Erfassen Sie Angaben zu Teilnehmern, Catering und Technik an einem Ort. So können Sie die separaten Excel-Listen und Anfrageformulare für diesen Ablauf ablösen.',
-          },
           {
             title: 'Vorhandene Microsoft-365-Räume',
             body: 'Nutzen Sie die Räume, die Ihr Unternehmen bereits verwaltet. Die passende Anbindung und benötigten Kalenderfunktionen klären wir vor dem Pilotstart.',
@@ -174,7 +157,7 @@ const integrationsCopy: Record<Locale, IntegrationsCopy> = {
           },
           {
             title: 'Weitere Anbindungen prüfen',
-            body: 'Verweise auf das vorhandene Portal Ihres Caterers oder eine Schnittstelle zu diesem Anbieter prüfen wir gesondert. Diese Möglichkeiten werden erst nach der Prüfung vereinbart.',
+            body: 'Einen eigenen Caterer-Zugang oder Bestätigungslink sowie eine direkte Anbindung an seine Software prüfen wir gesondert. Dabei klären wir den Austausch von Aufträgen, Bestätigungen, Änderungen und Bearbeitungsständen.',
           },
         ],
         qualification:
@@ -184,41 +167,32 @@ const integrationsCopy: Record<Locale, IntegrationsCopy> = {
         id: 'visitors',
         eyebrow: 'Optionale Besucheranbindung',
         title: 'Ihre Gästeabläufe besprechen.',
-        body: 'Wenn Sie auch Gästeanmeldung oder Check-in einbinden möchten, prüfen wir die Möglichkeiten für Ihr vorhandenes Besuchersystem gesondert.',
+        body: 'Besprechen Sie mit uns, ob Ihr vorhandenes Besuchersystem Gästeangaben austauschen und den Ankunftsstatus zurückmelden kann.',
         points: [
           {
-            title: 'Möglichkeiten gemeinsam klären',
-            body: 'Wir besprechen, welche Informationen Ihr Empfang benötigt und ob eine passende Anbindung verfügbar ist. Nur bestätigte Möglichkeiten gehören zum vereinbarten Umfang.',
+            title: 'Gewünschte Angaben festlegen',
+            body: 'Name, Firma und Besuchszeit für den Empfang; Ankunfts- oder Check-in-Status für das Konferenzteam.',
           },
         ],
         qualification:
           'Gästeanmeldung und Check-in erfordern eine gesonderte Machbarkeitsprüfung und sind nicht automatisch im Pilot enthalten.',
       },
     ],
-    setup: {
-      eyebrow: 'Ein klarer Einstieg',
-      title: 'Einrichtung abstimmen. Eigene Besprechungen erproben.',
-      steps: [
-        {
-          title: 'Ihren Ablauf ansehen',
-          body: 'Bringen Sie einen typischen Termin mit in die Demo. Wir besprechen Ihre Räume, Teams und die benötigten Anbindungen.',
-        },
-        {
-          title: 'Ihre Kundenumgebung einrichten',
-          body: 'Pavurel übernimmt die einmalige kostenpflichtige Einrichtung. Umfang, unterstützte Anbindungen und Einrichtungspreis stimmen wir vorher mit Ihnen ab.',
-        },
-        {
-          title: '30 Tage im Alltag erproben',
-          body: 'Ihr kostenloser 30-Tage-Pilot beginnt nach abgeschlossener Einrichtung. Nutzen Sie Ihre eigenen Besprechungen in Ihrer Kundenumgebung.',
-        },
+    preparation: {
+      eyebrow: 'Vor der Einrichtung',
+      title: 'Die Voraussetzungen mit Ihrer IT klären.',
+      questions: [
+        'Welches Raumbuchungssystem und welche Microsoft-Umgebung nutzt Ihr Unternehmen?',
+        'Wer gibt Zugriffe und den Austausch von Besprechungsdaten frei?',
+        'Welche Catering- oder Besuchersysteme sollen wir für Sie prüfen?',
       ],
     },
     closing: {
-      eyebrow: 'Ihr Unternehmen als Ausgangspunkt',
-      title: 'Lassen Sie uns Ihren Besprechungsablauf ansehen.',
-      body: 'Eine persönliche Demo zeigt, wie Anfrage, Raumreservierung und die Arbeit Ihres Office-Teams zusammenspielen können. Umfang und Kosten klären wir vor der Einrichtung Ihres Pilots.',
-      primaryCta: 'Demo anfragen',
-      secondaryCta: 'Pilot & Einrichtung',
+      eyebrow: 'Mehr erfahren',
+      title: 'Zugriffe und die nächsten Schritte klären.',
+      body: 'Lesen Sie die Fragen zu Anmeldung und Daten oder erfahren Sie, wie die vereinbarte Einrichtung und der Pilot ablaufen.',
+      primaryCta: 'Sicherheit & Vertrauen ansehen',
+      secondaryCta: 'Einrichtung & Pilot ansehen',
     },
   },
 };

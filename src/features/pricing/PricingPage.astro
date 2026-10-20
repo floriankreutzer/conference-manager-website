@@ -22,7 +22,6 @@ const productHref = withBasePath(`/${locale}/product/`);
       <h1 id="pricing-title">{pageCopy.title}</h1>
       <p class="pricing-page__lead">{pageCopy.body}</p>
       <div class="pricing-page__actions">
-        <a class="button" href={demoHref}>{story.closing.primaryCta}</a>
         <a class="pricing-page__text-link" href={productHref}>{story.closing.secondaryCta}</a>
       </div>
     </div>
@@ -56,7 +55,6 @@ const productHref = withBasePath(`/${locale}/product/`);
             </div>
             <div class="pricing-page__step-copy">
               <p>{section.body}</p>
-              {section.statement && <p class="pricing-page__statement">{section.statement}</p>}
             </div>
           </li>
         ))
@@ -211,11 +209,6 @@ const productHref = withBasePath(`/${locale}/product/`);
 
   .pricing-page__step-copy {
     color: var(--color-text-muted);
-  }
-
-  .pricing-page__statement {
-    color: var(--color-ink);
-    font-weight: 650;
   }
 
   .pricing-page__closing {

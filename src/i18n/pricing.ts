@@ -4,7 +4,6 @@ type PricingSection = {
   eyebrow: string;
   title: string;
   body: string;
-  statement?: string;
 };
 type PricingCopy = {
   offer: {
@@ -44,31 +43,29 @@ const pricingCopy: Record<Locale, PricingCopy> = {
     journey: {
       eyebrow: 'Getting started',
       title: 'From a shared demo to your own meetings.',
-      body: 'First, we discuss your current process. Then we agree the setup scope and prepare your customer environment before the 30 days begin.',
+      body: 'Use these steps to prepare the introduction with your team.',
     },
     sections: [
       {
         eyebrow: 'Demo',
         title: 'Explore your meeting process.',
-        body: 'Show us how your office or conference team works today. Together, we look at your requests, existing room-booking system and services, and discuss which setup and supported connections fit your needs.',
+        body: 'Bring a typical request and the questions your office or conference team handles today. We look at the existing room-booking system and the services you need.',
       },
       {
         eyebrow: 'Setup',
         title: 'Prepare your customer environment.',
-        body: 'After the demo, we agree the scope and prerequisites with you. We then set up your customer environment for the agreed process.',
-        statement: 'A one-time setup fee applies.',
+        body: 'Agree the teams involved, supported connections, approval steps and deadlines. Pavurel prepares the customer environment for this scope.',
       },
       {
-        eyebrow: '30 days of software use',
+        eyebrow: 'Pilot',
         title: 'Work with your own meetings.',
-        body: 'Use Conference Manager free for 30 days with your own real meetings in the configured customer environment. This gives your team an opportunity to experience the agreed process in everyday use.',
-        statement: 'The 30 days start after setup is complete.',
+        body: 'Your team uses real meetings to assess whether the agreed preparation, coordination and handling of changes fit its working day.',
       },
     ],
     closing: {
       eyebrow: 'Start the conversation',
-      title: 'Bring your meeting process to the demo.',
-      body: 'Let us look at your current workflow and the scope of a suitable setup together. The demo is the first step towards trying Conference Manager with your team.',
+      title: 'Your questions about getting started.',
+      body: 'Discuss what your team needs for a suitable introduction.',
       primaryCta: 'Book a demo',
       secondaryCta: 'Explore the product',
     },
@@ -86,31 +83,29 @@ const pricingCopy: Record<Locale, PricingCopy> = {
     journey: {
       eyebrow: 'Ihr Einstieg',
       title: 'Von der gemeinsamen Demo zu Ihren eigenen Besprechungen.',
-      body: 'Zuerst besprechen wir Ihren heutigen Ablauf. Anschließend stimmen wir den Einrichtungsumfang ab und bereiten Ihre Kundenumgebung vor, bevor die 30 Tage beginnen.',
+      body: 'So bereiten Sie den Einstieg mit Ihrem Team vor.',
     },
     sections: [
       {
         eyebrow: 'Demo',
         title: 'Ihren Besprechungsablauf kennenlernen.',
-        body: 'Zeigen Sie uns, wie Ihr Office- oder Konferenzteam heute arbeitet. Gemeinsam betrachten wir Ihre Anfragen, die vorhandene Raumbuchung und die benötigten Services. Wir besprechen, welche Einrichtung und unterstützten Anbindungen zu Ihrem Bedarf passen.',
+        body: 'Bringen Sie eine typische Anfrage und die Fragen Ihres Office- oder Konferenzteams mit. Gemeinsam betrachten wir die vorhandene Raumbuchung und die benötigten Leistungen.',
       },
       {
         eyebrow: 'Einrichtung',
         title: 'Ihre Kundenumgebung vorbereiten.',
-        body: 'Nach der Demo stimmen wir den Umfang und die Voraussetzungen mit Ihnen ab. Anschließend richten wir Ihre Kundenumgebung für den vereinbarten Ablauf ein.',
-        statement: 'Die Einrichtung ist einmalig kostenpflichtig.',
+        body: 'Stimmen Sie die beteiligten Teams, unterstützten Anbindungen, Freigabeschritte und Fristen ab. Pavurel bereitet die Kundenumgebung für diesen Umfang vor.',
       },
       {
-        eyebrow: '30 Tage Softwarenutzung',
+        eyebrow: 'Pilot',
         title: 'Mit Ihren eigenen Besprechungen arbeiten.',
-        body: 'Nutzen Sie Conference Manager 30 Tage kostenlos mit Ihren eigenen realen Besprechungen in der eingerichteten Kundenumgebung. So kann Ihr Team den vereinbarten Ablauf im Arbeitsalltag erproben.',
-        statement: 'Die 30 Tage beginnen nach abgeschlossener Einrichtung.',
+        body: 'Ihr Team prüft anhand realer Besprechungen, ob die vereinbarte Vorbereitung, Abstimmung und Bearbeitung von Änderungen zu seinem Alltag passt.',
       },
     ],
     closing: {
       eyebrow: 'Gemeinsam starten',
-      title: 'Bringen Sie Ihren Ablauf mit in die Demo.',
-      body: 'Besprechen wir Ihre heutigen Abläufe und den Umfang einer passenden Einrichtung. Die Demo ist der erste Schritt, um Conference Manager mit Ihrem Team zu erproben.',
+      title: 'Ihre Fragen zur Einführung.',
+      body: 'Besprechen Sie mit uns, was Ihr Team für einen passenden Einstieg benötigt.',
       primaryCta: 'Demo anfragen',
       secondaryCta: 'Produkt ansehen',
     },

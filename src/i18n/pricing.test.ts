@@ -20,10 +20,9 @@ describe('Pricing copy', () => {
     expect(english.sections).toHaveLength(german.sections.length);
     expect(english.sections).toHaveLength(3);
 
-    english.sections.forEach((section, index) => {
+    english.sections.forEach((_section, index) => {
       const translatedSection = german.sections[index];
       expect(translatedSection).toBeDefined();
-      expect(Boolean(section.statement)).toBe(Boolean(translatedSection?.statement));
       expect(translatedSection?.title.trim()).not.toBe('');
       expect(translatedSection?.body.trim()).not.toBe('');
     });
@@ -53,8 +52,8 @@ describe('Pricing copy', () => {
       const copy = getPricingCopy(locale);
 
       expect(copy.sections[0]?.eyebrow).toBe('Demo');
-      expect(copy.sections[1]?.statement).toBe(copy.offer.setupFee);
-      expect(copy.sections[2]?.statement).toBe(copy.offer.start);
+      expect(copy.sections[1]?.eyebrow).toBe(locale === 'de' ? 'Einrichtung' : 'Setup');
+      expect(copy.sections[2]?.eyebrow).toBe('Pilot');
       expect(copy.closing.primaryCta).toBe(locale === 'de' ? 'Demo anfragen' : 'Book a demo');
     }
   });

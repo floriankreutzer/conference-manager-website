@@ -4,7 +4,6 @@ import type { Locale } from '@config/locales';
 import { companySizeValues, demoRequestLimits } from '@domain/forms/demoRequest';
 import { withBasePath } from '@domain/routing/basePath';
 import { getDemoRequestCopy } from '@i18n/demoRequest';
-import { getPricingCopy } from '@i18n/pricing';
 
 interface Props {
   locale: Locale;
@@ -12,7 +11,6 @@ interface Props {
 
 const { locale } = Astro.props;
 const copy = getDemoRequestCopy(locale);
-const offer = getPricingCopy(locale).offer;
 const config = getDemoRequestConfig();
 const pricingHref = withBasePath(`/${locale}/pricing/`);
 ---
@@ -23,11 +21,8 @@ const pricingHref = withBasePath(`/${locale}/pricing/`);
     <h1 id="demo-form-title">{copy.title}</h1>
     <p class="demo-request__lead">{copy.intro}</p>
     <section class="demo-request__offer" aria-labelledby="demo-pilot-title">
-      <p class="eyebrow">{copy.pilotEyebrow}</p>
-      <h2 id="demo-pilot-title">{offer.title}</h2>
-      <p>{offer.body}</p>
-      <p>{offer.start}</p>
-      <p class="demo-request__setup-fee"><strong>{offer.setupFee}</strong></p>
+      <h2 id="demo-pilot-title">{copy.pilotEyebrow}</h2>
+      <p>{copy.compactOffer}</p>
       <a href={pricingHref}>{copy.setupDetails}</a>
     </section>
   </div>
@@ -188,16 +183,13 @@ const pricingHref = withBasePath(`/${locale}/pricing/`);
     margin: 0;
   }
   .demo-request__offer h2 {
-    font-size: clamp(1.4rem, 2.5vw, 2rem);
+    font-size: 1.15rem;
   }
   .demo-request__offer p {
     line-height: 1.6;
   }
-  .demo-request__setup-fee,
   .demo-request__offer a {
     color: var(--color-bordeaux);
-  }
-  .demo-request__offer a {
     justify-self: start;
     font-weight: 650;
     text-underline-offset: 0.25em;

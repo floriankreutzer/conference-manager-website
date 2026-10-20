@@ -14,6 +14,7 @@ const navigation = getNavigationCopy(locale);
 const alternateLocale = locale === 'en' ? 'de' : 'en';
 const alternateLabel = locale === 'en' ? 'DE' : 'EN';
 const relativePath = withoutBasePath(Astro.url.pathname);
+const isDemoRequestPage = relativePath.replace(/\/+$/, '') === `/${locale}/book-a-demo`;
 const alternatePath = relativePath.replace(/^\/(en|de)(?=\/|$)/, `/${alternateLocale}`);
 const currentPath = withBasePath(alternatePath);
 ---
@@ -66,7 +67,13 @@ const currentPath = withBasePath(alternatePath);
         {alternateLabel}
       </a>
       <a class="login-link" href={getLoginUrl()}>{navigation.login}</a>
-      <a class="button" href={withBasePath(`/${locale}/book-a-demo/`)}>{navigation.bookDemo}</a>
+      {
+        !isDemoRequestPage && (
+          <a class="button" href={withBasePath(`/${locale}/book-a-demo/`)}>
+            {navigation.bookDemo}
+          </a>
+        )
+      }
     </div>
   </div>
 </header>

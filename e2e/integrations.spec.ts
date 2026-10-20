@@ -15,10 +15,9 @@ const locales = [
     calendarApproval: /Microsoft and Exchange permissions your organisation approves/,
     supplierAvailability: /assessed and confirmed as available/,
     visitorAssessment: /separate feasibility check; they are not automatically included/,
-    paidSetup: /one-time paid setup/,
-    pilotStart: /free 30-day pilot begins after setup is complete/,
-    demoCta: 'Book a demo',
-    pilotCta: 'Pilot & setup',
+    preparationTitle: 'Clarify the requirements with your IT team.',
+    trustCta: 'Review security and trust',
+    pilotCta: 'Explore setup & pilot',
     alternate: 'de',
     internalCopy: 'Trusted server-side integration',
   },
@@ -32,10 +31,9 @@ const locales = [
     calendarApproval: /Microsoft- und Exchange-Freigaben Ihres Unternehmens/,
     supplierAvailability: /Anbindung geprüft und verfügbar/,
     visitorAssessment: /gesonderte Machbarkeitsprüfung und sind nicht automatisch im Pilot/,
-    paidSetup: /einmalige kostenpflichtige Einrichtung/,
-    pilotStart: /kostenloser 30-Tage-Pilot beginnt nach abgeschlossener Einrichtung/,
-    demoCta: 'Demo anfragen',
-    pilotCta: 'Pilot & Einrichtung',
+    preparationTitle: 'Die Voraussetzungen mit Ihrer IT klären.',
+    trustCta: 'Sicherheit & Vertrauen ansehen',
+    pilotCta: 'Einrichtung & Pilot ansehen',
     alternate: 'en',
     internalCopy: 'Integrationsautorität',
   },
@@ -63,12 +61,14 @@ test.describe('Integrations', () => {
       await expect(overview.getByText(copy.calendarApproval)).toBeVisible();
       await expect(overview.getByText(copy.supplierAvailability)).toBeVisible();
       await expect(overview.getByText(copy.visitorAssessment)).toBeVisible();
-      await expect(main.getByText(copy.paidSetup)).toBeVisible();
-      await expect(main.getByText(copy.pilotStart)).toBeVisible();
+      const preparation = main.getByRole('region', { name: copy.preparationTitle });
+      await expect(preparation).toBeVisible();
+      await expect(preparation.getByRole('listitem')).toHaveCount(3);
       await expect(main).not.toContainText(copy.internalCopy);
-      await expect(main.getByRole('link', { name: copy.demoCta }).first()).toHaveAttribute(
+      await expect(main.locator('a[href$="/book-a-demo/"]')).toHaveCount(0);
+      await expect(main.getByRole('link', { name: copy.trustCta })).toHaveAttribute(
         'href',
-        `/${copy.locale}/book-a-demo/`,
+        `/${copy.locale}/security-trust/`,
       );
       await expect(main.getByRole('link', { name: copy.pilotCta })).toHaveAttribute(
         'href',

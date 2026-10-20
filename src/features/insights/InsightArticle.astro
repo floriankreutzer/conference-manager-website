@@ -3,7 +3,6 @@ import type { CollectionEntry } from 'astro:content';
 import { render } from 'astro:content';
 
 import BrandVisual from '@components/marketing/BrandVisual.astro';
-import ConferenceIcon from '@components/marketing/ConferenceIcon.astro';
 import type { Locale } from '@config/locales';
 import { withBasePath } from '@domain/routing/basePath';
 import { getInsightsJourneyCopy } from '@i18n/insightsJourney';
@@ -17,12 +16,10 @@ const { locale, entry } = Astro.props;
 const { Content, headings } = await render(entry);
 const labels = getInsightsJourneyCopy(locale);
 const journey = labels.articleClosing;
-const summary = labels.articleSummaries[entry.data.translationKey];
 const dateLocale = locale === 'de' ? 'de-DE' : 'en-GB';
-const demoHref = withBasePath(`/${locale}/book-a-demo/`);
+const workflowHref = withBasePath(`/${locale}/how-it-works/`);
 const integrationsHref = withBasePath(`/${locale}/integrations/`);
 const contents = headings.filter((heading) => heading.depth === 2);
-const summaryIcons = ['room-equipment', 'request', 'coordination'] as const;
 const formatDate = (date: Date) =>
   date.toLocaleDateString(dateLocale, {
     year: 'numeric',
@@ -69,22 +66,6 @@ const formatDate = (date: Date) =>
     </div>
   </header>
 
-  {
-    summary && (
-      <aside class="insight-article__summary" aria-labelledby="insight-summary-title">
-        <h2 id="insight-summary-title">{summary.title}</h2>
-        <ul>
-          {summary.items.map((item, index) => (
-            <li>
-              <ConferenceIcon name={summaryIcons[index] ?? 'request'} />
-              <p>{item}</p>
-            </li>
-          ))}
-        </ul>
-      </aside>
-    )
-  }
-
   <div class="insight-article__reading">
     {
       contents.length > 0 && (
@@ -110,7 +91,9 @@ const formatDate = (date: Date) =>
     <h2 id="insight-closing-title">{journey.title}</h2>
     <p>{journey.body}</p>
     <div class="insight-article__actions">
-      <a class="button" href={demoHref}>{journey.primaryCta}</a>
+      <a class="text-link" href={workflowHref}
+        >{journey.primaryCta}<span aria-hidden="true"> →</span></a
+      >
       <a class="text-link" href={integrationsHref}
         >{journey.secondaryCta}<span aria-hidden="true"> →</span></a
       >
@@ -172,17 +155,6 @@ const formatDate = (date: Date) =>
     min-width: 0;
   }
 
-  .insight-article__summary {
-    display: grid;
-    gap: var(--space-5);
-    margin-block: clamp(3rem, 6vw, 5rem);
-    padding: clamp(1.5rem, 4vw, 2.5rem);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-md);
-    background: var(--color-canvas-soft);
-  }
-
-  .insight-article__summary h2,
   .insight-article__contents h2 {
     max-width: none;
     margin: 0;
@@ -190,26 +162,8 @@ const formatDate = (date: Date) =>
     letter-spacing: -0.02em;
   }
 
-  .insight-article__summary ul {
-    display: grid;
-    gap: var(--space-5);
-    margin: 0;
-    padding: 0;
-    list-style: none;
-  }
-
-  .insight-article__summary li {
-    display: grid;
-    align-content: start;
-    gap: var(--space-3);
-  }
-
-  .insight-article__summary p {
-    margin: 0;
-    line-height: 1.6;
-  }
-
   .insight-article__reading {
+    margin-block-start: clamp(3rem, 6vw, 5rem);
     display: grid;
     align-items: start;
     gap: var(--space-6);
@@ -284,9 +238,8 @@ const formatDate = (date: Date) =>
     display: grid;
     gap: var(--space-4);
     margin-top: clamp(3.5rem, 7vw, 6rem);
-    padding: clamp(1.5rem, 4vw, 3rem);
-    border-inline-start: 3px solid var(--color-bordeaux);
-    background: var(--color-canvas-soft);
+    padding-block-start: clamp(1.5rem, 4vw, 3rem);
+    border-block-start: 1px solid var(--color-border);
   }
 
   .insight-article__closing h2,
@@ -295,8 +248,8 @@ const formatDate = (date: Date) =>
   }
 
   .insight-article__closing h2 {
-    max-width: 22ch;
-    font-size: clamp(2rem, 4vw, 3.2rem);
+    max-width: 30ch;
+    font-size: clamp(1.5rem, 2.5vw, 2rem);
   }
 
   .insight-article__closing > p:not(.eyebrow) {
@@ -315,10 +268,6 @@ const formatDate = (date: Date) =>
   @media (min-width: 48rem) {
     .insight-article__header {
       grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
-    }
-
-    .insight-article__summary ul {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
     }
   }
 

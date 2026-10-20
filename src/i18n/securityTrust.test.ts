@@ -18,7 +18,7 @@ describe('Security and Trust copy', () => {
     });
   });
 
-  it('qualifies access and integration claims and provides a demo next step', () => {
+  it('qualifies access and data exchange claims and links to the relevant details', () => {
     const english = getSecurityTrustCopy('en');
     const german = getSecurityTrustCopy('de');
     const englishText = JSON.stringify(english);
@@ -38,9 +38,9 @@ describe('Security and Trust copy', () => {
       'Demo-Anfragen laufen über einen getrennten öffentlichen Verarbeitungsweg',
     );
     expect(germanText).toContain('Zertifizierungen');
-    expect(english.closing.primaryCta).toBe('Book a demo');
-    expect(german.closing.primaryCta).toBe('Demo anfragen');
-    expect(english.closing.secondaryCta).toBe('Explore integrations');
-    expect(german.closing.secondaryCta).toBe('Integrationen ansehen');
+    expect(english.closing.primaryCta).toBe('Explore integrations');
+    expect(german.closing.primaryCta).toBe('Integrationen ansehen');
+    expect(english.closing.secondaryCta).toBe('Explore setup & pilot');
+    expect(german.closing.secondaryCta).toBe('Einrichtung & Pilot ansehen');
   });
 });

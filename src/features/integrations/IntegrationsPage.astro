@@ -13,7 +13,7 @@ interface Props {
 const { locale } = Astro.props;
 const pageCopy = getPublicPageCopy(locale, 'integrations');
 const story = getIntegrationsCopy(locale);
-const demoHref = withBasePath(`/${locale}/book-a-demo/`);
+const trustHref = withBasePath(`/${locale}/security-trust/`);
 const pilotHref = withBasePath(`/${locale}/pricing/`);
 const icons = {
   rooms: 'room-equipment',
@@ -30,7 +30,6 @@ const icons = {
       <h1 id="integrations-title">{pageCopy.title}</h1>
       <p class="integrations-page__lead">{pageCopy.body}</p>
       <div class="integrations-page__actions">
-        <a class="button" href={demoHref}>{story.closing.primaryCta}</a>
         <a class="integrations-page__text-link" href="#integrations-overview">
           {story.overviewCta}<span aria-hidden="true">↓</span>
         </a>
@@ -82,26 +81,14 @@ const icons = {
     </ul>
   </section>
 
-  <section class="integrations-page__setup" aria-labelledby="integrations-setup-title">
-    <div class="integrations-page__setup-heading">
-      <p class="eyebrow">{story.setup.eyebrow}</p>
-      <h2 id="integrations-setup-title">{story.setup.title}</h2>
+  <section class="integrations-page__preparation" aria-labelledby="integrations-preparation-title">
+    <div class="integrations-page__preparation-heading">
+      <p class="eyebrow">{story.preparation.eyebrow}</p>
+      <h2 id="integrations-preparation-title">{story.preparation.title}</h2>
     </div>
-    <ol class="integrations-page__steps" role="list">
-      {
-        story.setup.steps.map((step, index) => (
-          <li>
-            <span class="integrations-page__step-number" aria-hidden="true">
-              {index + 1}
-            </span>
-            <div>
-              <h3>{step.title}</h3>
-              <p>{step.body}</p>
-            </div>
-          </li>
-        ))
-      }
-    </ol>
+    <ul class="integrations-page__questions">
+      {story.preparation.questions.map((question) => <li>{question}</li>)}
+    </ul>
   </section>
 
   <section class="integrations-page__closing" aria-labelledby="integrations-closing-title">
@@ -109,7 +96,7 @@ const icons = {
     <h2 id="integrations-closing-title">{story.closing.title}</h2>
     <p>{story.closing.body}</p>
     <div class="integrations-page__actions">
-      <a class="button" href={demoHref}>{story.closing.primaryCta}</a>
+      <a class="integrations-page__text-link" href={trustHref}>{story.closing.primaryCta}</a>
       <a class="integrations-page__text-link" href={pilotHref}>{story.closing.secondaryCta}</a>
     </div>
   </section>
@@ -192,8 +179,7 @@ const icons = {
   }
 
   .integrations-page__cards,
-  .integrations-page__points,
-  .integrations-page__steps {
+  .integrations-page__points {
     margin: 0;
     padding: 0;
     list-style: none;
@@ -242,8 +228,7 @@ const icons = {
   }
 
   .integrations-page__card-body,
-  .integrations-page__points p,
-  .integrations-page__steps p {
+  .integrations-page__points p {
     margin: 0;
     color: var(--color-text-muted);
     line-height: 1.7;
@@ -270,7 +255,7 @@ const icons = {
     line-height: 1.65;
   }
 
-  .integrations-page__setup {
+  .integrations-page__preparation {
     display: grid;
     gap: var(--space-6);
     margin-block: clamp(4rem, 8vw, 7rem);
@@ -278,60 +263,40 @@ const icons = {
     border-block-start: 1px solid var(--color-border-strong);
   }
 
-  .integrations-page__setup-heading {
+  .integrations-page__preparation-heading {
     display: grid;
     gap: var(--space-4);
     align-content: start;
   }
 
-  .integrations-page__setup h2 {
+  .integrations-page__preparation h2 {
     max-width: 18ch;
     margin: 0;
     font-size: clamp(2rem, 3.7vw, 3.5rem);
   }
 
-  .integrations-page__steps {
+  .integrations-page__questions {
     display: grid;
-    gap: var(--space-5);
-  }
-
-  .integrations-page__steps li {
-    display: grid;
-    grid-template-columns: auto minmax(0, 1fr);
-    gap: var(--space-3);
-    align-items: start;
-  }
-
-  .integrations-page__step-number {
-    display: grid;
-    width: 2rem;
-    height: 2rem;
-    place-items: center;
-    border: 1px solid var(--color-border-strong);
-    border-radius: var(--radius-pill);
-    color: var(--color-bordeaux);
-    font-family: var(--font-display);
-    font-weight: 750;
-  }
-
-  .integrations-page__steps h3 {
-    margin: 0 0 var(--space-2);
-    font-size: 1.2rem;
-    line-height: 1.4;
+    gap: var(--space-4);
+    margin: 0;
+    padding-inline-start: var(--space-5);
+    color: var(--color-text-muted);
+    line-height: 1.7;
   }
 
   .integrations-page__closing {
     display: grid;
     gap: var(--space-4);
-    padding: clamp(1.5rem, 5vw, 4rem);
+    padding: clamp(1.5rem, 4vw, 3rem);
+    border: 1px solid var(--color-border);
     border-radius: var(--radius-lg);
-    background: var(--color-camel-soft);
+    background: var(--color-surface);
   }
 
   .integrations-page__closing h2 {
     max-width: 23ch;
     margin: 0;
-    font-size: clamp(2rem, 4vw, 3.8rem);
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
   }
 
   .integrations-page__closing > p:not(.eyebrow) {
@@ -349,7 +314,7 @@ const icons = {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
-    .integrations-page__setup {
+    .integrations-page__preparation {
       grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
     }
   }

@@ -28,41 +28,25 @@ const securityTrustCopy: Record<Locale, SecurityTrustCopy> = {
         body: 'In a customer environment configured for Microsoft Entra, employees use their work account to sign in to the application. The required connection and customer approvals are part of the setup discussion.',
         points: [
           {
-            title: 'Use your company account',
-            body: 'Sign-in takes place in the Conference Manager application. Employees do not create a separate account on this website.',
-          },
-          {
-            title: 'Give each role the appropriate access',
-            body: 'Application roles determine which functions a person can use. We agree the supported role assignment with your administrator during setup; automatic mapping of company groups is assessed separately.',
+            title: 'Access for each role',
+            body: 'Application roles determine which functions a person can use. We agree supported role assignments with your administrator. Using company groups as a basis, supplemented by assignments from your customer administrator, is assessed separately.',
           },
         ],
       },
       {
         eyebrow: 'Meeting information',
         title: 'Where does your team work with its meeting data?',
-        body: 'Your team prepares meetings in the signed-in Conference Manager application. This public website explains the product and does not access your application session or the meeting records in your customer environment.',
-        statement:
-          'The product website and your customer environment have separate responsibilities.',
+        body: 'Meeting records belong in the signed-in Conference Manager application. This public website does not access your application session or the meeting records in your customer environment.',
       },
       {
-        eyebrow: 'Connections',
-        title: 'Which systems need to be connected?',
-        body: 'Start with your existing room-booking system and company sign-in. We review the supported connections, required permissions and customer configuration before agreeing the setup.',
-        points: [
-          {
-            title: 'Your room-booking system keeps the reservation',
-            body: 'Conference Manager brings the meeting request and preparation together. The existing booking system remains responsible for the room reservation.',
-          },
-          {
-            title: 'Additional connections need their own assessment',
-            body: 'A direct caterer connection or visitor-management integration is only included once availability, data exchange and the agreed scope have been confirmed.',
-          },
-        ],
+        eyebrow: 'Data exchange',
+        title: 'What information will be exchanged?',
+        body: 'For each proposed connection, clarify which information passes between systems, which permissions are required and who approves them. A connection is included only once availability, data exchange and scope are confirmed.',
       },
       {
         eyebrow: 'Before setup',
         title: 'What does your IT team need to assess?',
-        body: 'Bring your requirements for access, data protection and operation to the discussion. We review the specific customer environment with you and clarify which evidence is available before setup.',
+        body: 'Review your requirements for data protection and operation against the specific customer environment and the evidence available before setup.',
         points: [
           {
             title: 'Data and operation',
@@ -76,11 +60,11 @@ const securityTrustCopy: Record<Locale, SecurityTrustCopy> = {
       },
     ],
     closing: {
-      eyebrow: 'Include your IT team',
-      title: 'Discuss your meeting process and your requirements together.',
-      body: 'Use the demo to explore the workflow and bring the relevant sign-in, permission and integration questions into the same conversation.',
-      primaryCta: 'Book a demo',
-      secondaryCta: 'Explore integrations',
+      eyebrow: 'Continue your assessment',
+      title: 'Connect the IT questions with your introduction.',
+      body: 'Review the supported connections and the steps involved in setting up your environment.',
+      primaryCta: 'Explore integrations',
+      secondaryCta: 'Explore setup & pilot',
     },
   },
   de: {
@@ -91,40 +75,25 @@ const securityTrustCopy: Record<Locale, SecurityTrustCopy> = {
         body: 'In einer für Microsoft Entra eingerichteten Kundenumgebung melden sich Mitarbeitende mit ihrem Geschäftskonto in der Anwendung an. Die benötigte Anbindung und die Freigaben Ihres Unternehmens besprechen wir bei der Einrichtung.',
         points: [
           {
-            title: 'Das Unternehmenskonto nutzen',
-            body: 'Die Anmeldung erfolgt in der Conference-Manager-Anwendung. Mitarbeitende legen auf dieser Website kein separates Konto an.',
-          },
-          {
-            title: 'Passende Zugriffe je Rolle vergeben',
-            body: 'Anwendungsrollen bestimmen, welche Funktionen eine Person nutzen kann. Die unterstützte Rollenvergabe stimmen wir bei der Einrichtung mit Ihrem Administrator ab. Eine automatische Zuordnung von Unternehmensgruppen wird gesondert geprüft.',
+            title: 'Zugriffe je Rolle',
+            body: 'Anwendungsrollen bestimmen, welche Funktionen eine Person nutzen kann. Die unterstützte Rollenvergabe stimmen wir mit Ihrem Administrator ab. Unternehmensgruppen als Grundlage und ergänzende Vergaben durch Ihren Kundenadministrator werden gesondert geprüft.',
           },
         ],
       },
       {
         eyebrow: 'Besprechungsdaten',
         title: 'Wo arbeitet Ihr Team mit den Besprechungsdaten?',
-        body: 'Ihr Team bereitet Besprechungen in der angemeldeten Conference-Manager-Anwendung vor. Diese öffentliche Website erklärt das Produkt und greift weder auf Ihre Anwendungssitzung noch auf die Besprechungsdaten Ihrer Kundenumgebung zu.',
-        statement: 'Die Produktwebsite und Ihre Kundenumgebung haben getrennte Aufgaben.',
+        body: 'Besprechungsdaten gehören in die angemeldete Conference-Manager-Anwendung. Diese öffentliche Website greift weder auf Ihre Anwendungssitzung noch auf die Besprechungsdaten Ihrer Kundenumgebung zu.',
       },
       {
-        eyebrow: 'Anbindungen',
-        title: 'Welche Systeme sollen zusammenarbeiten?',
-        body: 'Ausgangspunkt sind Ihre vorhandene Raumbuchung und Unternehmensanmeldung. Vor der vereinbarten Einrichtung prüfen wir die unterstützten Anbindungen, die benötigten Berechtigungen und die Konfiguration Ihrer Umgebung.',
-        points: [
-          {
-            title: 'Die Reservierung bleibt in Ihrer Raumbuchung',
-            body: 'Conference Manager führt Anfrage und Vorbereitung zusammen. Ihr vorhandenes Buchungssystem bleibt für die Raumreservierung zuständig.',
-          },
-          {
-            title: 'Weitere Anbindungen werden einzeln geprüft',
-            body: 'Eine direkte Catereranbindung oder die Integration eines Gästemanagements gehört erst zum Einrichtungsumfang, wenn Verfügbarkeit, Datenaustausch und Umfang bestätigt sind.',
-          },
-        ],
+        eyebrow: 'Datenaustausch',
+        title: 'Welche Angaben werden ausgetauscht?',
+        body: 'Für jede gewünschte Anbindung klären wir, welche Angaben zwischen den Systemen weitergegeben werden, welche Berechtigungen nötig sind und wer sie freigibt. Eine Anbindung wird erst aufgenommen, wenn Verfügbarkeit, Datenaustausch und der vereinbarte Umfang bestätigt sind.',
       },
       {
         eyebrow: 'Vor der Einrichtung',
         title: 'Was muss Ihre IT für den Einsatz prüfen?',
-        body: 'Bringen Sie Ihre Anforderungen an Zugriff, Datenschutz und Betrieb mit. Gemeinsam betrachten wir Ihre konkrete Kundenumgebung und klären vor der Einrichtung, welche Nachweise vorliegen.',
+        body: 'Gleichen Sie Ihre Anforderungen an Datenschutz und Betrieb vor der Einrichtung mit der konkreten Kundenumgebung und den verfügbaren Nachweisen ab.',
         points: [
           {
             title: 'Daten und Betrieb',
@@ -138,11 +107,11 @@ const securityTrustCopy: Record<Locale, SecurityTrustCopy> = {
       },
     ],
     closing: {
-      eyebrow: 'Ihre IT einbeziehen',
-      title: 'Besprechungsablauf und Anforderungen gemeinsam klären.',
-      body: 'Lernen Sie den Ablauf in der Demo kennen und bringen Sie die Fragen zu Anmeldung, Berechtigungen und Anbindungen in dasselbe Gespräch ein.',
-      primaryCta: 'Demo anfragen',
-      secondaryCta: 'Integrationen ansehen',
+      eyebrow: 'Die Prüfung fortsetzen',
+      title: 'IT-Fragen mit der Einführung verbinden.',
+      body: 'Prüfen Sie die unterstützten Anbindungen und die Schritte zur Einrichtung Ihrer Umgebung.',
+      primaryCta: 'Integrationen ansehen',
+      secondaryCta: 'Einrichtung & Pilot ansehen',
     },
   },
 };

@@ -20,10 +20,10 @@ const story = getCompanyCopy(locale);
   title={pageCopy.title}
   lead={pageCopy.body}
   sections={story.sections}
-  sectionIcons={['participants', 'coordination', 'request', 'changes']}
+  sectionIcons={['coordination', 'participants', 'changes']}
   closing={story.closing}
-  primaryHref={withBasePath(`/${locale}/book-a-demo/`)}
-  secondaryHref={withBasePath(`/${locale}/pricing/`)}
+  primaryHref={withBasePath(`/${locale}/pricing/`)}
+  secondaryHref={withBasePath(`/${locale}/security-trust/`)}
   idPrefix="company"
 >
   <BrandVisual slot="visual" locale={locale} variant="preparation" priority />

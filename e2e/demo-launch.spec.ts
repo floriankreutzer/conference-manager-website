@@ -31,10 +31,12 @@ test.describe('public demo launch', () => {
       'href',
       customerOrigin,
     );
-    await expect(main.getByRole('link', { name: 'Book a demo' })).toHaveAttribute(
-      'href',
-      '/en/book-a-demo/',
-    );
+    await expect(main.locator('a[href="/en/book-a-demo/"]')).toHaveCount(0);
+    await expect(
+      main.getByText(
+        /A pilot with your own real meetings uses a separately configured customer environment/,
+      ),
+    ).toBeVisible();
     await expect(main.getByRole('link', { name: 'Explore setup & pilot' })).toHaveAttribute(
       'href',
       '/en/pricing/',
@@ -75,10 +77,12 @@ test.describe('public demo launch', () => {
       'href',
       customerOrigin,
     );
-    await expect(main.getByRole('link', { name: 'Demo anfragen' })).toHaveAttribute(
-      'href',
-      '/de/book-a-demo/',
-    );
+    await expect(main.locator('a[href="/de/book-a-demo/"]')).toHaveCount(0);
+    await expect(
+      main.getByText(
+        /Ein Pilot mit Ihren eigenen realen Besprechungen findet in einer separat eingerichteten Kundenumgebung statt/,
+      ),
+    ).toBeVisible();
   });
 
   test('keeps both demo choices within a 320px viewport', async ({ page }) => {
