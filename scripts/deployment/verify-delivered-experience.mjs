@@ -69,13 +69,14 @@ async function measureRoute(route, screenshotName) {
 }
 
 async function verifyReflow() {
-  const context = await browser.newContext({ viewport: { width: 1280, height: 900 } });
+  // Match the existing browser regression: 640 CSS pixels exercise the responsive
+  // width of a 1280-pixel window at 200% zoom without changing browser tab zoom.
+  const context = await browser.newContext({ viewport: { width: 640, height: 900 } });
   const page = await context.newPage();
   await page.goto(new URL('/en/', origin).href, { waitUntil: 'networkidle', timeout: 30_000 });
   await page.evaluate(async () => {
     const browserGlobal = globalThis;
     await browserGlobal.document.fonts.ready;
-    browserGlobal.document.documentElement.style.zoom = '2';
   });
 
   const result = await page.evaluate(() => {
@@ -102,7 +103,7 @@ async function verifyReflow() {
     };
   });
 
-  await page.screenshot({ path: `${artifactDir}/en-200-percent.png`, fullPage: true });
+  await page.screenshot({ path: `${artifactDir}/en-200-percent-equivalent.png`, fullPage: true });
   await context.close();
   return result;
 }
@@ -132,7 +133,7 @@ try {
   console.log(`EN CLS: ${result.clsByRoute['/en/'].toFixed(3)}`);
   console.log(`DE CLS: ${result.clsByRoute['/de/'].toFixed(3)}`);
   console.log('External font requests: 0');
-  console.log('200% reflow: passed');
+  console.log('200% browser-zoom-equivalent reflow (640 CSS pixels): passed');
   console.log('Note: these are controlled lab measurements, not field Core Web Vitals.');
 } catch (error) {
   console.error(error instanceof Error ? error.message : 'Delivered experience acceptance failed');

@@ -8,11 +8,26 @@ This directory is the trusted public-processing boundary for the `Book a demo` f
 - Handler: `functions/demo-request/handler.handle` when packaged with this directory structure, or `handler.handle` when this directory is the function package root.
 - HTTP method: `POST` only.
 - Content type: `application/x-www-form-urlencoded` only, matching the static HTML form without requiring browser JavaScript.
-- Success response: `202 Accepted` with a generic JSON body.
+- Success response: `202 Accepted` with a generic result. Native browser navigation can receive localized HTML; JSON remains the default representation.
 - Validation/user errors are generic and do not reflect submitted content.
 - Provider/configuration failures return `503` with a generic body and `Retry-After: 60` without exposing infrastructure details.
 
 Scaleway's function event contract provides `httpMethod`, `headers`, `body` and `isBase64Encoded`; the implementation parses only the fields needed by the approved form.
+
+## Native browser completion
+
+The form continues to submit a normal URL-encoded POST without client JavaScript or CORS. When the request's `Accept` header explicitly prefers `text/html` over JSON, the function returns a complete HTML result document. Missing headers, wildcards alone, equal preferences, JSON preference and malformed negotiation retain the JSON response. Specific media ranges take precedence over wildcards.
+
+The document uses the allowlisted `en` or `de` locale from the bounded form body, with English as the fallback. A single function-owned bilingual catalogue supplies the result title and next-step instructions; it contains no submitted values or operational details. The function remains independently packageable.
+
+- `202` confirms acceptance for processing, not mailbox delivery or a booked appointment. Honeypot rejection retains the same generic accepted result without sending mail.
+- `400` asks the visitor to check the form using the browser's Back navigation.
+- `405` and `415` direct the visitor to the normal demo form.
+- `503` says that processing cannot be confirmed and asks the visitor not to immediately resubmit. The existing `Retry-After: 60` and no-automatic-retry semantics remain unchanged.
+
+Result pages contain no scripts, resubmit controls, automatic refresh, external assets, redirects or request-derived navigation URLs. The native browser's Back navigation provides the return path. HTML responses are non-cacheable and non-indexable, suppress referrers and MIME sniffing, and use a deny-by-default CSP with a SHA-256 allowance only for the constant layout stylesheet. This standalone response uses the website's native system-font fallback without introducing a second brand palette or loading font assets from another origin.
+
+The existing JSON status codes and bodies remain unchanged. `Vary: Accept` identifies the representation choice; no provider configuration or form data is exposed in either representation.
 
 ## Secret/environment configuration
 
@@ -82,8 +97,14 @@ Before enabling the Astro form endpoint:
 2. configure secrets with least privilege;
 3. verify the sending domain (SPF/DKIM/DMARC as applicable);
 4. configure edge/function rate limiting;
-5. exercise valid, invalid, oversized, honeypot, explicit provider-rejection and ambiguous timeout/network-failure paths;
+5. exercise valid, invalid, oversized, honeypot, explicit provider-rejection and ambiguous timeout/network-failure paths, including the existing JSON and localized browser results;
 6. confirm logs contain no unnecessary personal form content;
 7. confirm the functional mailbox receives the expected plain-text message;
 8. configure the approved privacy URL;
-9. run browser E2E against the real endpoint before public activation.
+9. run browser E2E against the real endpoint before public activation, including the localized completion and recovery instructions. Do not add an unapproved valid submission to the explicit single-delivery acceptance procedure.
+
+## Repository regression evidence
+
+`npm run test:e2e` retains the existing disabled-form website suite and also exercises a separately built, actively configured form. The active suite uses a synthetic HTTPS endpoint intercepted by Playwright and passes the native POST to this handler with a mocked email transport. It checks the JavaScript-free document transition and localized success/error results without sending real email. The active test build is isolated from the normal `dist/` deployment artifact.
+
+Unit tests cover content negotiation, language selection, constant output and security headers alongside the existing validation, honeypot, JSON and provider-failure contracts. These fixtures do not prove real Scaleway, rate-limit, privacy, provider or mailbox acceptance; issue #25 remains the operational gate.

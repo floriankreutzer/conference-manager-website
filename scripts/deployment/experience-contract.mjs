@@ -37,11 +37,17 @@ export function assertDeliveredExperience({
   }
 
   requireCondition(externalFontRequests.length === 0, 'Delivered site requested external fonts');
-  requireCondition(reflow.primaryHeadingVisible, 'Primary heading is not visible at 200% zoom');
-  requireCondition(reflow.primaryActionVisible, 'Primary action is not visible at 200% zoom');
+  requireCondition(
+    reflow.primaryHeadingVisible,
+    'Primary heading is not visible at 200% browser-zoom-equivalent reflow',
+  );
+  requireCondition(
+    reflow.primaryActionVisible,
+    'Primary action is not visible at 200% browser-zoom-equivalent reflow',
+  );
   requireCondition(
     reflow.scrollWidth <= reflow.clientWidth + 1,
-    'Delivered site has page-level horizontal overflow at 200% zoom',
+    'Delivered site has page-level horizontal overflow at 200% browser-zoom-equivalent reflow',
   );
 
   return { medianLcp, clsByRoute };

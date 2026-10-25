@@ -128,3 +128,86 @@ describe('Scaleway demo request handler', () => {
     expect(result.body).not.toContain('provider detail');
   });
 });
+
+describe('native browser submission results', () => {
+  const browserHeaders = {
+    'Content-Type': 'application/x-www-form-urlencoded',
+    Accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+  };
+
+  for (const locale of ['en', 'de']) {
+    it(`${locale} returns the same generic HTML for acceptance and a honeypot`, async () => {
+      const sendEmail = vi.fn().mockResolvedValue(undefined);
+      const handler = createHandler({ env: configuredEnv, sendEmail });
+      const accepted = await handler(
+        event({ ...validFields, locale }, { headers: browserHeaders }),
+      );
+      const rejected = await handler(
+        event({ ...validFields, locale, website: 'spam' }, { headers: browserHeaders }),
+      );
+
+      expect(accepted.statusCode).toBe(202);
+      expect(rejected).toEqual(accepted);
+      expect(sendEmail).toHaveBeenCalledOnce();
+      expect(accepted.headers['Content-Language']).toBe(locale);
+      for (const marker of ['Ada', 'ada@example.org', 'Analytical Engines', 'alert(1)', 'spam']) {
+        expect(accepted.body).not.toContain(marker);
+      }
+    });
+
+    it(`${locale} gives a generic correction path without sending invalid fields`, async () => {
+      const sendEmail = vi.fn();
+      const handler = createHandler({ env: configuredEnv, sendEmail });
+      const result = await handler(
+        event(
+          { ...validFields, locale, email: 'private-invalid-marker' },
+          { headers: browserHeaders },
+        ),
+      );
+
+      expect(result.statusCode).toBe(400);
+      expect(result.headers['Content-Language']).toBe(locale);
+      expect(result.body).not.toContain('private-invalid-marker');
+      expect(sendEmail).not.toHaveBeenCalled();
+    });
+
+    it(`${locale} makes an ambiguous provider outcome visible without retrying or exposing details`, async () => {
+      const sendEmail = vi.fn().mockRejectedValue(new Error('private-provider-detail'));
+      const handler = createHandler({ env: configuredEnv, sendEmail });
+      const result = await handler(event({ ...validFields, locale }, { headers: browserHeaders }));
+
+      expect(result.statusCode).toBe(503);
+      expect(result.headers['Retry-After']).toBe('60');
+      expect(result.body).toContain(
+        locale === 'de'
+          ? 'Wir können derzeit nicht bestätigen, ob Ihre Anfrage zur Bearbeitung angenommen wurde.'
+          : 'We cannot currently confirm whether your request was accepted for processing.',
+      );
+      expect(result.body).not.toContain('private-provider-detail');
+      expect(sendEmail).toHaveBeenCalledOnce();
+    });
+  }
+
+  it.each([
+    [{ httpMethod: 'GET' }, 405],
+    [{ headers: { ...browserHeaders, 'Content-Type': 'application/json' } }, 415],
+    [{ body: `message=${'a'.repeat(13000)}` }, 400],
+  ])('retains pre-send rejection for browser requests: %j', async (overrides, statusCode) => {
+    const sendEmail = vi.fn();
+    const handler = createHandler({ env: configuredEnv, sendEmail });
+    const result = await handler(event(validFields, { headers: browserHeaders, ...overrides }));
+    expect(result.statusCode).toBe(statusCode);
+    expect(result.headers['Content-Type']).toBe('text/html; charset=utf-8');
+    expect(sendEmail).not.toHaveBeenCalled();
+  });
+
+  it('retains the fail-closed missing-configuration outcome without sending', async () => {
+    const sendEmail = vi.fn();
+    const handler = createHandler({ env: {}, sendEmail });
+    const result = await handler(event(validFields, { headers: browserHeaders }));
+    expect(result.statusCode).toBe(503);
+    expect(result.headers['Retry-After']).toBe('60');
+    expect(result.headers['Content-Type']).toBe('text/html; charset=utf-8');
+    expect(sendEmail).not.toHaveBeenCalled();
+  });
+});

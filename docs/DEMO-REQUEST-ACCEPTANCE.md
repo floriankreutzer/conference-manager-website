@@ -40,6 +40,23 @@ The default mode does **not** submit a valid request and therefore must not crea
 
 If a default acceptance run creates a message in the functional mailbox, treat that as a defect in the honeypot/processing boundary.
 
+## Native browser result acceptance
+
+The function supports the native static-form POST directly. A browser that explicitly prefers HTML receives a complete localized result document; existing JSON clients and the operational acceptance workflow retain the JSON contract. The result must preserve the form's `en` or `de` language, with English as the fallback when no valid form locale is available.
+
+Repository browser regression uses a separately built, actively configured Astro form and the actual handler with a mocked email transport. The native navigation works with JavaScript disabled. This supplements the existing disabled-form tests and does not activate the deployment artifact or provide real-endpoint acceptance.
+
+For the accepted real website/function integration, verify:
+
+- accepted and rejected submissions display understandable HTML instead of a raw JSON document;
+- the result has a meaningful localized title, heading and main landmark, is readable on narrow viewports, and supports native keyboard/browser navigation;
+- acceptance is described as processing acceptance, without claiming mailbox delivery or a confirmed appointment;
+- invalid input has a clear return-and-correct instruction, while an unconfirmed provider outcome does not claim that no message was created or automatically retry it;
+- the result contains no submitted personal data, provider details, untrusted return URLs, scripts or external resources;
+- delivered result headers preserve `no-store`, `noindex`, the restrictive CSP and the existing status/`Retry-After` contract.
+
+Keep ordinary live browser checks non-delivery by using invalid input or a controlled honeypot fixture. A honeypot result proves the browser response path, not provider delivery. Any valid live submission remains an explicit delivery-test opt-in and must be accounted for in the exactly-one-message procedure below; adding a browser check does not authorize another email.
+
 ## Explicit synthetic delivery acceptance
 
 Only after the non-destructive checks pass, rerun **Demo Request Acceptance** with `send_delivery_test=true`.
@@ -64,7 +81,7 @@ The server function performs one Transactional Email create request.
 - explicit non-2xx provider response: failed create request;
 - timeout/network error: ambiguous create outcome;
 - no automatic create retry after an ambiguous outcome while no idempotency key is available;
-- public failure response: generic `503 temporarily_unavailable` with bounded `Retry-After`;
+- public failure response: generic `503 temporarily_unavailable` JSON, or localized HTML explaining that processing cannot be confirmed, with the same bounded `Retry-After`;
 - after a successful create response, Transactional Email owns its downstream delivery-attempt/status lifecycle.
 
 Operational provider-failure testing must not expose provider response bodies, secret values or submitted personal data in public responses or retained application logs.
@@ -118,3 +135,5 @@ Record:
 - privacy/retention/access approval references;
 - log-minimization evidence;
 - final browser E2E / production-like acceptance evidence.
+
+Keep isolated repository browser evidence and real website/function acceptance separately identified. Neither a locally rendered result nor HTTP 202 proves receipt in the functional mailbox.
