@@ -11,10 +11,11 @@ Marketing language may simplify; it may not invent.
 Use this precedence when public statements conflict:
 
 1. current implemented behavior and security boundaries in the authoritative product repositories;
-2. current approved Conference Manager architecture/product documentation;
-3. current approved Confluence Product Positioning & Brand Playbook;
-4. brand-specific approved messaging/homepage application pages;
-5. campaign or page-specific draft copy.
+2. current approved architecture/product requirements recorded in the owning GitHub repositories;
+3. current approved positioning, brand, messaging and publication requirements in this repository's design and content documentation;
+4. campaign or page-specific draft copy.
+
+Confluence documents decisions, rationale and history; it is not a parallel development authority. Reconcile missing or conflicting material requirements in the owning GitHub repository before implementing the affected content change.
 
 If marketing copy conflicts with implementation, correct or qualify the marketing copy. Do not change product truth to preserve a slogan.
 
@@ -188,12 +189,8 @@ Before production publication of a page:
 - no invented social proof;
 - no placeholder content.
 
-## 17. Current strategic Confluence sources
+## 17. Current GitHub sources and documentation context
 
-Verify the current versions of at least the relevant pages:
-- `01 – Product Positioning & Brand Playbook`;
-- `01.1.1 – PAVUREL Product & Commercial Messaging`;
-- `01.1.2 – PAVUREL Website & Homepage Positioning`;
-- `01.1.6 – PAVUREL Brand Applications`;
-- `05.2 – UX & Design Principles`;
-- current roadmap/milestone completion documentation where feature availability is claimed.
+For content work, read the current root `AGENTS.md`, this document, `docs/DESIGN-SYSTEM.md` and `docs/MARKETING-EXPERIENCE.md` from the target website repository. Verify capability and availability claims against the owning application's or API's current implementation and exact release/deployment evidence. A closed milestone or an unmerged design profile is not evidence of delivered behavior.
+
+Confluence may record the background and history of those decisions. Do not treat it as an independent implementation requirement or copy private material into public source. The supplementary website profile referenced by `AGENTS.md` must defer to these current GitHub sources.

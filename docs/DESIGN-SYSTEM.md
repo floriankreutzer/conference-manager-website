@@ -149,13 +149,10 @@ Colour, typography, imagery, and interaction must meet the WCAG 2.2 AA target de
 
 Do not use colour as the only state indicator. Ensure text contrast, link distinction, focus visibility, readable line height, and responsive text scaling.
 
-## 12. Canonical strategic sources
+## 12. Current development sources and supplementary profile
 
-Current Confluence sources include:
-- `01 – Product Positioning & Brand Playbook`
-- `01.1.1 – PAVUREL Product & Commercial Messaging`
-- `01.1.2 – PAVUREL Website & Homepage Positioning`
-- `01.1.6 – PAVUREL Brand Applications`
-- `05.2 – UX & Design Principles`
+For implementation, read the current root `AGENTS.md`, `docs/CODING-STANDARDS.md`, `docs/CONTENT-GOVERNANCE.md`, `docs/MARKETING-EXPERIENCE.md` and `src/styles/tokens.css` together with this document from the target website repository. Representations of implemented application UI must also follow the current application repository's design system and tokens.
 
-Before a material brand change, verify those sources and the current product repository design tokens rather than relying on old screenshots or copied values.
+Confluence retains product/brand rationale and historical documentation. It does not override current GitHub development requirements. Reconcile a missing or conflicting approved decision in the owning GitHub repository before implementing the affected material brand change; do not copy private documentation into this public repository.
+
+The optional [Pavurel Web Design profile](https://github.com/floriankreutzer/automatic-engineering-design-skills/blob/1e812a0f0f82cdd2669b5e2d3e5411ea79a5dd1d/skills/pavurel-web-design/SKILL.md) in [skills PR #1](https://github.com/floriankreutzer/automatic-engineering-design-skills/pull/1) helps apply these current sources to an authorized website task. This pinned candidate's acceptance state is recorded in that PR, and the reference does not install it. It must defer to the current repository requirements and tokens, preserve the existing website architecture and avoid a second design specification. Do not apply marketing-site defaults to the authenticated application.

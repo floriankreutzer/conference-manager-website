@@ -8,7 +8,7 @@ These instructions are mandatory for every human contributor and every AI coding
 - `docs/CODING-STANDARDS.md` contains the detailed engineering standard and is mandatory.
 - `docs/ARCHITECTURE.md`, `docs/SECURITY.md`, `docs/SEO-STANDARDS.md`, `docs/DESIGN-SYSTEM.md`, and `docs/CONTENT-GOVERNANCE.md` are mandatory when their scope is relevant.
 - The current `main` branch is the repository implementation baseline.
-- The Conference Manager Confluence product/brand documentation is the strategic source for approved positioning, website messaging, brand direction, and publication gates. Repository implementation must not contradict those approved product truths.
+- GitHub is the development source of truth. Approved positioning, website messaging, brand direction and publication requirements must be recorded in the applicable current repository documentation. Confluence documents decisions, rationale and history; it does not establish a separate or overriding development rule set. Reconcile missing or conflicting material requirements in the owning GitHub repository before implementing the affected change.
 - The authoritative application repositories remain `floriankreutzer/conference-manager` and `floriankreutzer/conference-manager-api`. This website repository must not duplicate their product runtime or trusted backend responsibilities.
 
 If this file or the mandatory referenced standards cannot be read, do not modify the repository.
@@ -125,7 +125,7 @@ Internal brand-selection alternatives and decision status belong in private gove
 - use a subordinate corporate endorsement only where the current public brand source explicitly approves it;
 - implementation must remain easy to revise when the approved public brand changes.
 
-Brand implementation must follow `docs/DESIGN-SYSTEM.md` and the current approved Confluence brand sources.
+Brand implementation must follow the current `docs/DESIGN-SYSTEM.md`, `docs/CONTENT-GOVERNANCE.md` and approved product/brand decisions recorded in GitHub. Confluence documentation cannot independently change those implementation requirements.
 
 ## 9. SEO and performance are product requirements
 
@@ -222,6 +222,14 @@ Cover at least:
 - tests/validation
 
 Only mark an item fulfilled when implementation and executed verification support the claim.
+
+## Supplementary website design profile
+
+The optional [Pavurel Web Design profile](https://github.com/floriankreutzer/automatic-engineering-design-skills/blob/1e812a0f0f82cdd2669b5e2d3e5411ea79a5dd1d/skills/pavurel-web-design/SKILL.md) in [skills PR #1](https://github.com/floriankreutzer/automatic-engineering-design-skills/pull/1) supports task-specific marketing-site design work. This pinned reference identifies the review candidate from that PR; check its current merge status before adoption. It does not install a skill or replace a repository standard.
+
+Before applying the profile, read the current repository instructions and relevant design, content, architecture, security and test sources from the target repository root, and identify current `main` and the exact work/base ref. The profile must reference and apply these current GitHub requirements rather than duplicate normative rules, freeze a historical baseline or use Confluence as a parallel development authority. Current repository requirements and executable gates prevail over profile defaults; reconcile material conflicts in the owning repository.
+
+Referencing a profile does not install it or authorize dependencies, publication, deployment or merging.
 
 ## Cost-constrained execution
 
