@@ -233,9 +233,17 @@ test.describe('public website contracts', () => {
     await page.setViewportSize({ width: 390, height: 844 });
     const mobileLayout = await systemMap.evaluate((element) => ({
       columns: getComputedStyle(element).gridTemplateColumns.split(' ').filter(Boolean).length,
+      connectorDisplay: getComputedStyle(element, '::before').display,
       overflow: element.scrollWidth <= element.clientWidth + 1,
     }));
+    const mobileNode = await nodes.first().evaluate((element) => ({
+      connectorDisplay: getComputedStyle(element, '::before').display,
+      pulseDisplay: getComputedStyle(element, '::after').display,
+    }));
     expect(mobileLayout.columns).toBe(1);
+    expect(mobileLayout.connectorDisplay).toBe('block');
+    expect(mobileNode.connectorDisplay).toBe('block');
+    expect(mobileNode.pulseDisplay).toBe('none');
     expect(mobileLayout.overflow).toBe(true);
   });
 
