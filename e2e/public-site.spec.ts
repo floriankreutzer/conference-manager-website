@@ -89,8 +89,12 @@ test.describe('public website contracts', () => {
     await expect(preview).toContainText('Display & video conference');
     await expect(page.getByRole('link', { name: 'Book a demo' })).toHaveCount(2);
 
-    const motion = await preview.evaluate((element) => getComputedStyle(element).animationName);
-    expect(motion).toBe('hero-preview-in');
+    const motion = await preview.evaluate((element) => ({
+      animationName: getComputedStyle(element).animationName,
+      opacity: getComputedStyle(element).opacity,
+    }));
+    expect(motion.animationName).toBe('hero-preview-in');
+    expect(motion.opacity).toBe('1');
 
     await page.emulateMedia({ reducedMotion: 'reduce' });
     const reducedMotion = await preview.evaluate(
