@@ -160,6 +160,38 @@ test.describe('public website contracts', () => {
     expect(narrowLayout.pageOverflow).toBe(true);
   });
 
+  test('presents the problem story as an editorial two-column sequence', async ({ page }) => {
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await page.goto('/de/');
+
+    const grid = page.locator('.problem-grid');
+    const cards = grid.locator('.problem-card');
+    await expect(cards).toHaveCount(4);
+    await expect(grid.locator('.problem-card__index')).toHaveText(['01', '02', '03', '04']);
+
+    const desktop = await grid.evaluate((element) => ({
+      columns: getComputedStyle(element).gridTemplateColumns.split(' ').filter(Boolean).length,
+      overflow: element.scrollWidth <= element.clientWidth + 1,
+    }));
+    expect(desktop.columns).toBe(2);
+    expect(desktop.overflow).toBe(true);
+
+    const firstCard = await cards.first().evaluate((element) => ({
+      columns: getComputedStyle(element).gridTemplateColumns.split(' ').filter(Boolean).length,
+      borderTopStyle: getComputedStyle(element).borderTopStyle,
+    }));
+    expect(firstCard.columns).toBe(2);
+    expect(firstCard.borderTopStyle).toBe('solid');
+
+    await page.setViewportSize({ width: 390, height: 844 });
+    const mobile = await grid.evaluate((element) => ({
+      columns: getComputedStyle(element).gridTemplateColumns.split(' ').filter(Boolean).length,
+      overflow: element.scrollWidth <= element.clientWidth + 1,
+    }));
+    expect(mobile.columns).toBe(1);
+    expect(mobile.overflow).toBe(true);
+  });
+
   test('uses a readable four-way system map and disables decorative motion when requested', async ({
     page,
   }) => {
