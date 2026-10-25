@@ -107,7 +107,19 @@ const copy = getMeetingExampleCopy(locale);
               <div>
                 <dt>{copy.cateringLabel}</dt>
                 <dd>
-                  <strong>{step.catering}</strong>
+                  {step.previousCatering === undefined ? (
+                    <strong>{step.catering}</strong>
+                  ) : (
+                    <div class="meeting-example__change meeting-example__change--stacked">
+                      <span>
+                        {copy.previousLabel} <s>{step.previousCatering}</s>
+                      </span>
+                      <span class="meeting-example__updated">
+                        <span>{copy.updatedLabel}</span>
+                        <strong>{step.catering}</strong>
+                      </span>
+                    </div>
+                  )}
                   <p>{step.cateringNote}</p>
                 </dd>
               </div>
@@ -371,6 +383,35 @@ const copy = getMeetingExampleCopy(locale);
     color: var(--color-bordeaux);
   }
 
+  .meeting-example__change--stacked {
+    display: grid;
+    gap: 0.25rem;
+  }
+
+  .meeting-example__updated {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem var(--space-1);
+    color: var(--color-bordeaux);
+    font-weight: 650;
+  }
+
+  .meeting-example__panel:not([hidden]) {
+    animation: meeting-example-panel-in 180ms ease-out both;
+  }
+
+  @keyframes meeting-example-panel-in {
+    from {
+      opacity: 0.55;
+      transform: translateY(0.35rem);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
   .meeting-example__responsibility {
     display: grid;
     gap: 0.25rem;
@@ -404,6 +445,10 @@ const copy = getMeetingExampleCopy(locale);
   @media (prefers-reduced-motion: reduce) {
     .meeting-example__tab {
       transition: none;
+    }
+
+    .meeting-example__panel:not([hidden]) {
+      animation: none;
     }
   }
 </style>
