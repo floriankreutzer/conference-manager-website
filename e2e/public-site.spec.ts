@@ -77,6 +77,7 @@ test.describe('public website contracts', () => {
   test('adds an illustrative hero preparation preview without changing the CTA contract', async ({
     page,
   }) => {
+    await page.setViewportSize({ width: 1280, height: 900 });
     await page.goto('/en/');
 
     const preview = page.getByRole('complementary', {
