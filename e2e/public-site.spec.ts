@@ -74,6 +74,53 @@ test.describe('public website contracts', () => {
     );
   });
 
+  test('uses a readable four-way system map and disables decorative motion when requested', async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await page.emulateMedia({ reducedMotion: 'reduce' });
+    await page.goto('/de/');
+
+    const systemMap = page.locator('.integration-map__nodes');
+    const nodes = systemMap.locator('.integration-node');
+    await expect(nodes).toHaveCount(4);
+
+    const desktopLayout = await systemMap.evaluate((element) => ({
+      columns: getComputedStyle(element).gridTemplateColumns.split(' ').filter(Boolean).length,
+      overflow: element.scrollWidth <= element.clientWidth + 1,
+    }));
+    expect(desktopLayout.columns).toBe(4);
+    expect(desktopLayout.overflow).toBe(true);
+
+    const reducedMotionAnimation = await nodes
+      .first()
+      .evaluate((element) => getComputedStyle(element, '::after').animationName);
+    expect(reducedMotionAnimation).toBe('none');
+
+    const headingAndBody = await nodes.first().evaluate((element) => {
+      const heading = element.querySelector('h3');
+      const body = element.querySelector('h3 + p');
+      if (!(heading instanceof HTMLElement) || !(body instanceof HTMLElement)) return null;
+      return {
+        headingColor: getComputedStyle(heading).color,
+        bodyColor: getComputedStyle(body).color,
+        headingSize: Number.parseFloat(getComputedStyle(heading).fontSize),
+        bodySize: Number.parseFloat(getComputedStyle(body).fontSize),
+      };
+    });
+    expect(headingAndBody).not.toBeNull();
+    expect(headingAndBody!.headingColor).not.toBe(headingAndBody!.bodyColor);
+    expect(headingAndBody!.headingSize).toBeGreaterThan(headingAndBody!.bodySize);
+
+    await page.setViewportSize({ width: 390, height: 844 });
+    const mobileLayout = await systemMap.evaluate((element) => ({
+      columns: getComputedStyle(element).gridTemplateColumns.split(' ').filter(Boolean).length,
+      overflow: element.scrollWidth <= element.clientWidth + 1,
+    }));
+    expect(mobileLayout.columns).toBe(1);
+    expect(mobileLayout.overflow).toBe(true);
+  });
+
   test('uses governed Pavurel identity and restrained application-family control geometry', async ({
     page,
   }) => {
