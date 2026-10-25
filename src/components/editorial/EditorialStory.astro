@@ -109,10 +109,15 @@ const hasVisual = Astro.slots.has('visual');
                 <p>{section.body}</p>
                 {section.points && (
                   <ul class="editorial-story__points">
-                    {section.points.map((point) => (
+                    {section.points.map((point, pointIndex) => (
                       <li>
-                        <h3>{point.title}</h3>
-                        <p>{point.body}</p>
+                        <span class="editorial-story__point-index" aria-hidden="true">
+                          {String(pointIndex + 1).padStart(2, '0')}
+                        </span>
+                        <div>
+                          <h3>{point.title}</h3>
+                          <p>{point.body}</p>
+                        </div>
                       </li>
                     ))}
                   </ul>
@@ -311,16 +316,31 @@ const hasVisual = Astro.slots.has('visual');
 
   .editorial-story__points li {
     display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
     align-content: start;
-    gap: var(--space-2);
-    padding: var(--space-4);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-md);
-    background: var(--color-canvas-soft);
+    gap: var(--space-3);
+    padding-block: var(--space-4);
+    border-top: 1px solid var(--color-border);
   }
 
   .editorial-story__points li:only-child {
     grid-column: 1 / -1;
+  }
+
+  .editorial-story__point-index {
+    color: var(--color-bordeaux);
+    font-family: var(--font-display);
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    line-height: 1.5;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .editorial-story__points li > div {
+    display: grid;
+    gap: var(--space-2);
+    min-inline-size: 0;
   }
 
   .editorial-story__points h3,
