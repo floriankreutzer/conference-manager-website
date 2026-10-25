@@ -111,15 +111,17 @@ test.describe('public website contracts', () => {
       const overview = hero.nextElementSibling;
       const overviewItems = overview?.querySelector('.request-overview__items');
       const imageRect = image?.getBoundingClientRect();
+      const imageRatio =
+        imageRect && imageRect.height > 0 ? imageRect.width / imageRect.height : 0;
+      const overviewColumns = overviewItems
+        ? getComputedStyle(overviewItems).gridTemplateColumns.split(' ').filter(Boolean).length
+        : 0;
       return {
         heroBottom: hero.getBoundingClientRect().bottom,
         imageBottom: visual?.getBoundingClientRect().bottom ?? 0,
-        imageRatio:
-          imageRect && imageRect.height > 0 ? imageRect.width / imageRect.height : 0,
+        imageRatio,
         overviewTop: overview?.getBoundingClientRect().top ?? 0,
-        overviewColumns: overviewItems
-          ? getComputedStyle(overviewItems).gridTemplateColumns.split(' ').filter(Boolean).length
-          : 0,
+        overviewColumns,
         pageOverflow:
           document.documentElement.scrollWidth <= document.documentElement.clientWidth + 1,
       };
@@ -136,12 +138,13 @@ test.describe('public website contracts', () => {
     const narrowLayout = await page.locator('.hero').evaluate((hero) => {
       const overview = hero.nextElementSibling;
       const overviewItems = overview?.querySelector('.request-overview__items');
+      const overviewColumns = overviewItems
+        ? getComputedStyle(overviewItems).gridTemplateColumns.split(' ').filter(Boolean).length
+        : 0;
       return {
         heroBottom: hero.getBoundingClientRect().bottom,
         overviewTop: overview?.getBoundingClientRect().top ?? 0,
-        overviewColumns: overviewItems
-          ? getComputedStyle(overviewItems).gridTemplateColumns.split(' ').filter(Boolean).length
-          : 0,
+        overviewColumns,
         pageOverflow:
           document.documentElement.scrollWidth <= document.documentElement.clientWidth + 1,
       };
