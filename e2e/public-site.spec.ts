@@ -50,6 +50,9 @@ test.describe('public website contracts', () => {
         name: 'Organise meetings. Reduce the follow-up.',
       }),
     ).toBeVisible();
+    await expect(page.locator('.hero__copy')).toHaveText(
+      'Software for meeting preparation: bring guests, catering and equipment together in one request. Your existing room-booking system continues to handle reservations.',
+    );
     await expect(page.getByText('Your systems. One meeting workflow.')).toBeVisible();
     await expect(
       page.getByRole('heading', {
@@ -85,6 +88,9 @@ test.describe('public website contracts', () => {
     await expect(page.locator('.primary-nav')).not.toContainText('Pricing');
     await expect(page.locator('footer')).toContainText('Conference Manager');
     await expect(page.locator('footer')).toContainText('Pavurel');
+    const tagline = page.locator('footer .brand-lockup__tagline');
+    await expect(tagline).toHaveText('Workplace hospitality, thoughtfully managed.');
+    await expect(tagline).toHaveAttribute('lang', 'en');
 
     const radius = await page
       .getByRole('link', { name: 'Book a demo' })
@@ -149,6 +155,9 @@ test.describe('public website contracts', () => {
     await page.goto('/en/');
     const germanLink = page.getByRole('link', { name: /Language: DE/ });
     await expect(germanLink).toHaveAttribute('href', '/de/');
+    await expect(germanLink).toHaveAttribute('hreflang', 'de');
+    await expect(germanLink).toHaveAttribute('lang', 'en');
+    await expect(germanLink).toHaveText('DE');
 
     await germanLink.click();
     await expect(page).toHaveURL(/\/de\/$/);
@@ -158,7 +167,22 @@ test.describe('public website contracts', () => {
         name: 'Besprechungen organisieren. Rückfragen reduzieren.',
       }),
     ).toBeVisible();
+    await expect(page.locator('html')).toHaveAttribute('lang', 'de');
+    await expect(page.locator('.hero__copy')).toHaveText(
+      'Die Software für Ihre Besprechungsvorbereitung: Gäste, Catering und Technik in einer Anfrage. Ihre bestehende Raumbuchung bleibt für Reservierungen zuständig.',
+    );
+    const tagline = page.locator('footer .brand-lockup__tagline');
+    await expect(tagline).toHaveText('Workplace hospitality, thoughtfully managed.');
+    await expect(tagline).toHaveAttribute('lang', 'en');
     await expect(page.getByRole('link', { name: 'Demo anfragen' }).first()).toBeVisible();
+    const englishLink = page.getByRole('link', { name: /Sprache: EN/ });
+    await expect(englishLink).toHaveAttribute('href', '/en/');
+    await expect(englishLink).toHaveAttribute('hreflang', 'en');
+    await expect(englishLink).toHaveAttribute('lang', 'de');
+    await expect(englishLink).toHaveText('EN');
+    await englishLink.click();
+    await expect(page).toHaveURL(/\/en\/$/);
+    await expect(page.locator('html')).toHaveAttribute('lang', 'en');
   });
 
   test('keeps sign-in as a fixed HTTPS handoff to the application', async ({ page }) => {
@@ -344,29 +368,87 @@ test.describe('SEO and preview publication contracts', () => {
   test('publishes localized canonical, hreflang and social metadata from the configured origin', async ({
     page,
   }) => {
-    await page.goto('/en/product/');
+    const socialImageUrl = 'https://preview.example.invalid/assets/brand/meeting-room-1440.webp';
 
-    await expect(page.locator('meta[name="robots"]')).toHaveAttribute(
-      'content',
-      'noindex, nofollow',
-    );
-    await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
-      'href',
-      'https://preview.example.invalid/en/product/',
-    );
-    await expect(page.locator('link[rel="alternate"][hreflang="de"]')).toHaveAttribute(
-      'href',
-      'https://preview.example.invalid/de/product/',
-    );
-    await expect(page.locator('meta[property="og:url"]')).toHaveAttribute(
-      'content',
-      'https://preview.example.invalid/en/product/',
-    );
-    await expect(page.locator('meta[property="og:site_name"]')).toHaveAttribute(
-      'content',
-      'Conference Manager',
-    );
-    await expect(page.locator('meta[name="twitter:card"]')).toHaveAttribute('content', 'summary');
+    for (const { locale, slug, imageAlt } of [
+      {
+        locale: 'en',
+        slug: 'product',
+        imageAlt: 'Illustrative meeting room with burgundy chairs and a prepared conference table.',
+      },
+      {
+        locale: 'de',
+        slug: 'insights/room-booking-is-only-part-of-conference-management',
+        imageAlt:
+          'Illustrativer Besprechungsraum mit bordeauxfarbenen Stühlen und vorbereitetem Besprechungstisch.',
+      },
+    ]) {
+      const canonicalUrl = `https://preview.example.invalid/${locale}/${slug}/`;
+      await page.goto(`/${locale}/${slug}/`);
+
+      await expect(page.locator('meta[name="robots"]')).toHaveAttribute(
+        'content',
+        'noindex, nofollow',
+      );
+      await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', canonicalUrl);
+      for (const alternateLocale of ['en', 'de']) {
+        await expect(
+          page.locator(`link[rel="alternate"][hreflang="${alternateLocale}"]`),
+        ).toHaveAttribute('href', `https://preview.example.invalid/${alternateLocale}/${slug}/`);
+      }
+      await expect(page.locator('meta[property="og:url"]')).toHaveAttribute(
+        'content',
+        canonicalUrl,
+      );
+      await expect(page.locator('meta[property="og:site_name"]')).toHaveAttribute(
+        'content',
+        'Conference Manager',
+      );
+      await expect(page.locator('meta[property="og:image"]')).toHaveAttribute(
+        'content',
+        socialImageUrl,
+      );
+      await expect(page.locator('meta[property="og:image:type"]')).toHaveAttribute(
+        'content',
+        'image/webp',
+      );
+      await expect(page.locator('meta[property="og:image:width"]')).toHaveAttribute(
+        'content',
+        '1440',
+      );
+      await expect(page.locator('meta[property="og:image:height"]')).toHaveAttribute(
+        'content',
+        '810',
+      );
+      await expect(page.locator('meta[property="og:image:alt"]')).toHaveAttribute(
+        'content',
+        imageAlt,
+      );
+      await expect(page.locator('meta[name="twitter:card"]')).toHaveAttribute(
+        'content',
+        'summary_large_image',
+      );
+      await expect(page.locator('meta[name="twitter:image"]')).toHaveAttribute(
+        'content',
+        socialImageUrl,
+      );
+      await expect(page.locator('meta[name="twitter:image:alt"]')).toHaveAttribute(
+        'content',
+        imageAlt,
+      );
+    }
+
+    const publishedImageUrl = await page
+      .locator('meta[property="og:image"]')
+      .getAttribute('content');
+    expect(publishedImageUrl).not.toBeNull();
+    const imageDimensions = await page.evaluate(async (imagePath) => {
+      const image = new Image();
+      image.src = imagePath;
+      await image.decode();
+      return { width: image.naturalWidth, height: image.naturalHeight };
+    }, new URL(publishedImageUrl!).pathname);
+    expect(imageDimensions).toEqual({ width: 1440, height: 810 });
   });
 
   test('publishes customer-led About metadata in both locales', async ({ page }) => {

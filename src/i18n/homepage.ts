@@ -31,7 +31,7 @@ const copy: Record<Locale, HomepageCopy> = {
       eyebrow: 'For office and conference teams in mid-sized companies',
       title: 'Organise meetings.',
       outcome: 'Reduce the follow-up.',
-      body: 'Bring guests, catering and equipment together in one meeting request. Your team can see what is needed, who is involved and what has changed.',
+      body: 'Software for meeting preparation: bring guests, catering and equipment together in one request. Your existing room-booking system continues to handle reservations.',
       action: 'See how it works',
     },
     overview: {
@@ -145,7 +145,7 @@ const copy: Record<Locale, HomepageCopy> = {
       eyebrow: 'Für Office- und Konferenzteams im Mittelstand',
       title: 'Besprechungen organisieren.',
       outcome: 'Rückfragen reduzieren.',
-      body: 'Gäste, Catering und Technik kommen in einer Besprechungsanfrage zusammen. Ihr Team sieht, was benötigt wird, wer beteiligt ist und was sich geändert hat.',
+      body: 'Die Software für Ihre Besprechungsvorbereitung: Gäste, Catering und Technik in einer Anfrage. Ihre bestehende Raumbuchung bleibt für Reservierungen zuständig.',
       action: 'So funktioniert es',
     },
     overview: {

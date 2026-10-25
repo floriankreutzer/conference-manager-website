@@ -26,6 +26,21 @@ The validated output is uploaded as a short-lived GitHub Actions artifact named 
 
 The artifact is evidence and a handoff object. Production deployment still rebuilds from the selected source commit and reruns repository validation rather than trusting an arbitrary uploaded ZIP.
 
+### GitHub Pages review
+
+`GitHub Pages Review` publishes the accepted `main` source as a separate, non-indexable
+review site. Its environment link points to the existing English entry at
+`https://floriankreutzer.github.io/conference-manager-website/en/`; the German entry is
+`https://floriankreutzer.github.io/conference-manager-website/de/`.
+
+The website uses explicit language-prefixed routes and does not generate a page at the
+project root. Review links must include `/en/` or `/de/`. This keeps the current locale
+architecture and manual language choice intact. The eventual production-domain root
+entry remains part of the real hosting acceptance under issue #24.
+
+Pages review keeps `PUBLIC_PREVIEW=true`, the placeholder application handoff and the
+inactive demo form. Its deployment is not production, Scaleway or mailbox acceptance.
+
 ## 3. Scaleway regions
 
 The workflows allow only the currently approved EU Object Storage region identifiers:
@@ -112,7 +127,7 @@ Real cleanup against a provisioned Scaleway PR-preview bucket remains required a
 
 ## 6. Production deployment foundation
 
-Production deployment is deliberately manual through `workflow_dispatch` and the GitHub `production` environment. Merging to `main` does not publish the website.
+Production deployment is deliberately manual through `workflow_dispatch` and the GitHub `production` environment. Merging to `main` updates the separate Pages review site; it does not publish the production website.
 
 Required production configuration:
 
