@@ -105,14 +105,19 @@ test.describe('public website contracts', () => {
     await page.setViewportSize({ width: 390, height: 844 });
     const compactMobile = await preview.evaluate((element) => {
       const items = element.querySelector('.hero-preview__items');
+      const hero = element.closest('.hero');
+      const overview = hero?.nextElementSibling;
       return {
         position: getComputedStyle(element).position,
         columns: items
           ? getComputedStyle(items).gridTemplateColumns.split(' ').filter(Boolean).length
           : 0,
         top: element.getBoundingClientRect().top,
+        bottom: element.getBoundingClientRect().bottom,
         imageBottom:
           element.parentElement?.querySelector('figure')?.getBoundingClientRect().bottom ?? 0,
+        heroBottom: hero?.getBoundingClientRect().bottom ?? 0,
+        overviewTop: overview?.getBoundingClientRect().top ?? 0,
         scrollWidth: element.scrollWidth,
         clientWidth: element.clientWidth,
       };
@@ -120,16 +125,23 @@ test.describe('public website contracts', () => {
     expect(compactMobile.position).toBe('static');
     expect(compactMobile.columns).toBe(3);
     expect(compactMobile.top).toBeGreaterThanOrEqual(compactMobile.imageBottom);
+    expect(compactMobile.bottom).toBeLessThanOrEqual(compactMobile.heroBottom + 1);
+    expect(compactMobile.heroBottom).toBeLessThanOrEqual(compactMobile.overviewTop + 1);
     expect(compactMobile.scrollWidth).toBeLessThanOrEqual(compactMobile.clientWidth + 1);
 
     await page.setViewportSize({ width: 320, height: 800 });
     const narrowMobile = await preview.evaluate((element) => {
       const items = element.querySelector('.hero-preview__items');
+      const hero = element.closest('.hero');
+      const overview = hero?.nextElementSibling;
       return {
         position: getComputedStyle(element).position,
         columns: items
           ? getComputedStyle(items).gridTemplateColumns.split(' ').filter(Boolean).length
           : 0,
+        bottom: element.getBoundingClientRect().bottom,
+        heroBottom: hero?.getBoundingClientRect().bottom ?? 0,
+        overviewTop: overview?.getBoundingClientRect().top ?? 0,
         scrollWidth: element.scrollWidth,
         clientWidth: element.clientWidth,
         right: element.getBoundingClientRect().right,
@@ -137,6 +149,8 @@ test.describe('public website contracts', () => {
     });
     expect(narrowMobile.position).toBe('static');
     expect(narrowMobile.columns).toBe(1);
+    expect(narrowMobile.bottom).toBeLessThanOrEqual(narrowMobile.heroBottom + 1);
+    expect(narrowMobile.heroBottom).toBeLessThanOrEqual(narrowMobile.overviewTop + 1);
     expect(narrowMobile.scrollWidth).toBeLessThanOrEqual(narrowMobile.clientWidth + 1);
     expect(narrowMobile.right).toBeLessThanOrEqual(321);
   });
