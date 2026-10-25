@@ -315,22 +315,26 @@
 
   .problem-grid {
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 0;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(2rem, 4vw, 3.5rem);
   }
 
   .problem-card {
-    padding-inline: 1.65rem;
-    border-inline-start: 1px solid var(--color-border);
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 1rem;
+    padding-block-start: 1.25rem;
+    border-block-start: 1px solid var(--color-border);
   }
 
-  .problem-card:first-child {
-    padding-inline-start: 0;
-    border-inline-start: 0;
-  }
-
-  .problem-card:last-child {
-    padding-inline-end: 0;
+  .problem-card__index {
+    padding-block-start: 0.12rem;
+    color: var(--color-bordeaux);
+    font-family: var(--font-display);
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    line-height: 1.5;
   }
 
   .problem-card h3,
@@ -641,20 +645,6 @@
       gap: 1.5rem;
     }
 
-    .problem-grid {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 2rem 0;
-    }
-
-    .problem-card:nth-child(odd) {
-      padding-inline-start: 0;
-      border-inline-start: 0;
-    }
-
-    .problem-card:nth-child(even) {
-      padding-inline-end: 0;
-    }
-
     .audience-grid {
       gap: 1.5rem;
     }
@@ -736,24 +726,12 @@
     }
 
     .problem-grid {
-      gap: 0;
+      gap: 1.75rem;
     }
 
-    .problem-card,
-    .problem-card:first-child,
-    .problem-card:nth-child(odd) {
-      padding: 1.5rem 0;
-      border-inline-start: 0;
-      border-top: 1px solid var(--color-border);
-    }
-
-    .problem-card:first-child {
-      padding-top: 0;
-      border-top: 0;
-    }
-
-    .problem-card:last-child {
-      padding-bottom: 0;
+    .problem-card {
+      gap: 0.85rem;
+      padding-block-start: 1.1rem;
     }
 
     .integration-section {
