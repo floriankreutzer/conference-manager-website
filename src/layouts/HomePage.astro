@@ -46,6 +46,30 @@ const icons = [
     </div>
     <div class="hero__visual">
       <BrandVisual locale={locale} variant="meeting" priority />
+      <aside class="hero-preview" aria-label={copy.heroPreview.label}>
+        <div class="hero-preview__header">
+          <div>
+            <p class="hero-preview__label">{copy.heroPreview.label}</p>
+            <p class="hero-preview__title">{copy.heroPreview.title}</p>
+          </div>
+          <span class="hero-preview__status">{copy.heroPreview.status}</span>
+        </div>
+        <ul class="hero-preview__items">
+          {
+            copy.heroPreview.items.map((item, index) => (
+              <li>
+                <ConferenceIcon
+                  name={index === 0 ? 'participants' : index === 1 ? 'catering' : 'room-equipment'}
+                />
+                <span>
+                  <small>{item.label}</small>
+                  <strong>{item.value}</strong>
+                </span>
+              </li>
+            ))
+          }
+        </ul>
+      </aside>
     </div>
   </section>
 

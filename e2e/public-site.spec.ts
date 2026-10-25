@@ -74,6 +74,46 @@ test.describe('public website contracts', () => {
     );
   });
 
+  test('adds an illustrative hero preparation preview without changing the CTA contract', async ({
+    page,
+  }) => {
+    await page.goto('/en/');
+
+    const preview = page.getByRole('complementary', {
+      name: 'Illustrative preparation overview',
+    });
+    await expect(preview).toBeVisible();
+    await expect(preview).toContainText('Customer workshop');
+    await expect(preview).toContainText('18 attendees');
+    await expect(preview).toContainText('Coffee-break package');
+    await expect(preview).toContainText('Display & video conference');
+    await expect(page.getByRole('link', { name: 'Book a demo' })).toHaveCount(2);
+
+    const motion = await preview.evaluate((element) => ({
+      animationName: getComputedStyle(element).animationName,
+      opacity: getComputedStyle(element).opacity,
+    }));
+    expect(motion.animationName).toBe('hero-preview-in');
+    expect(motion.opacity).toBe('1');
+
+    await page.emulateMedia({ reducedMotion: 'reduce' });
+    const reducedMotion = await preview.evaluate(
+      (element) => getComputedStyle(element).animationName,
+    );
+    expect(reducedMotion).toBe('none');
+
+    await page.setViewportSize({ width: 320, height: 800 });
+    const mobile = await preview.evaluate((element) => ({
+      position: getComputedStyle(element).position,
+      scrollWidth: element.scrollWidth,
+      clientWidth: element.clientWidth,
+      right: element.getBoundingClientRect().right,
+    }));
+    expect(mobile.position).toBe('static');
+    expect(mobile.scrollWidth).toBeLessThanOrEqual(mobile.clientWidth + 1);
+    expect(mobile.right).toBeLessThanOrEqual(321);
+  });
+
   test('uses a readable four-way system map and disables decorative motion when requested', async ({
     page,
   }) => {

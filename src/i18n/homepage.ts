@@ -5,6 +5,12 @@ type Section = { eyebrow: string; title: string; body: string };
 type HomepageCopy = {
   meta: { title: string; description: string };
   hero: Section & { outcome: string; action: string };
+  heroPreview: {
+    label: string;
+    title: string;
+    status: string;
+    items: { label: string; value: string }[];
+  };
   overview: { label: string; items: string[]; detailLink: string };
   problem: Section & { cards: Card[] };
   howItWorks: Section & { detailLink: string };
@@ -33,6 +39,16 @@ const copy: Record<Locale, HomepageCopy> = {
       outcome: 'Reduce the follow-up.',
       body: 'Software for meeting preparation: bring guests, catering and equipment together in one request. Your existing room-booking system continues to handle reservations.',
       action: 'See how it works',
+    },
+    heroPreview: {
+      label: 'Illustrative preparation overview',
+      title: 'Customer workshop',
+      status: 'Preparation in progress',
+      items: [
+        { label: 'Guests', value: '18 attendees' },
+        { label: 'Catering', value: 'Coffee-break package' },
+        { label: 'Equipment', value: 'Display & video conference' },
+      ],
     },
     overview: {
       label: 'One request. A clear overview.',
@@ -147,6 +163,16 @@ const copy: Record<Locale, HomepageCopy> = {
       outcome: 'Rückfragen reduzieren.',
       body: 'Die Software für Ihre Besprechungsvorbereitung: Gäste, Catering und Technik in einer Anfrage. Ihre bestehende Raumbuchung bleibt für Reservierungen zuständig.',
       action: 'So funktioniert es',
+    },
+    heroPreview: {
+      label: 'Illustrative Übersicht der Vorbereitung',
+      title: 'Kundenworkshop',
+      status: 'Vorbereitung läuft',
+      items: [
+        { label: 'Gäste', value: '18 Teilnehmende' },
+        { label: 'Catering', value: 'Paket Kaffeepause' },
+        { label: 'Technik', value: 'Bildschirm & Videokonferenz' },
+      ],
     },
     overview: {
       label: 'Eine Anfrage. Ein klarer Überblick.',
