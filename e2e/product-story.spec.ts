@@ -119,6 +119,35 @@ test.describe('Product and How it works narratives', () => {
     await expect(example.getByText('Change awaiting review', { exact: true })).toBeVisible();
   });
 
+  test('presents supporting details as numbered editorial rows across breakpoints', async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await page.goto('/en/product/');
+
+    const firstPoints = page.locator('.editorial-story__points').first();
+    const items = firstPoints.locator(':scope > li');
+    await expect(items).toHaveCount(3);
+    await expect(items.locator('.editorial-story__point-index')).toHaveText(['01', '02', '03']);
+
+    const desktop = await firstPoints.evaluate((element) => ({
+      columns: getComputedStyle(element).gridTemplateColumns.split(' ').filter(Boolean).length,
+      firstBackground: getComputedStyle(element.querySelector('li')!).backgroundColor,
+      firstRadius: getComputedStyle(element.querySelector('li')!).borderRadius,
+    }));
+    expect(desktop.columns).toBe(2);
+    expect(desktop.firstBackground).toBe('rgba(0, 0, 0, 0)');
+    expect(desktop.firstRadius).toBe('0px');
+
+    await page.setViewportSize({ width: 320, height: 800 });
+    const mobile = await firstPoints.evaluate((element) => ({
+      columns: getComputedStyle(element).gridTemplateColumns.split(' ').filter(Boolean).length,
+      overflow: element.scrollWidth <= element.clientWidth + 1,
+    }));
+    expect(mobile.columns).toBe(1);
+    expect(mobile.overflow).toBe(true);
+  });
+
   test('keeps the long German narrative within a narrow reflow viewport', async ({ page }) => {
     await page.setViewportSize({ width: 320, height: 800 });
     await page.goto('/de/how-it-works/');
