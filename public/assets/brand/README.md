@@ -17,7 +17,7 @@ These assets are governed editorial visuals for the public Conference Manager we
 | `workplace-boardroom-400.webp` | `01_Boardroom_Table_Premium.png` | Workplace Team preparation context |
 | `hospitality-service-480.webp` | `06_Hospitality_Service_Details.png` | Workplace hospitality/service context |
 | `about-hospitality-400.webp` | `05_Hotel_Reception.png` | About Conference Manager / hospitality context |
-| `meeting-room-{640,960,1440}.webp` | `04_Conference_Room_Negative_Space.png` | Responsive homepage hero |
+| `meeting-room-{640,960,1440}.webp` | `04_Conference_Room_Negative_Space.png` | Responsive homepage hero; the 1440 × 810 variant is also the shared social-preview image |
 | `meeting-catering-{480,800}.webp` | `09_Conference_Table_Service_Closeup.png` | Catering preparation and connected workplace detail |
 | `meeting-preparation-{640,960,1280}.webp` | Additional AI-generated Pavurel meeting-preparation visual, approved with the website design on 19 October 2026 | Two colleagues preparing a meeting; setup/pilot context |
 

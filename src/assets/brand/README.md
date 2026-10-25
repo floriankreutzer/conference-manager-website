@@ -18,7 +18,7 @@ Do not redraw, stretch, rotate or arbitrarily recolour the signet. The signet is
 
 The source package `PAVUREL_Bildpaket_komplett.zip` contains nine AI-generated key visuals and presentation crops from the PAVUREL Corporate Master context. On 2026-08-29 the owner explicitly approved these visuals for use on the public Conference Manager website and also approved creation of additional visuals in the same established style when required.
 
-`public/assets/brand/hero-conference.webp` is an optimized web derivative of `02_PowerPoint_Zuschnitte/11_Conference_Room_Full_16x9.jpg`. It is used as an editorial workplace/conference visual, not as documentary evidence of a real customer site or a representation of the Conference Manager UI.
+The current responsive web derivatives and their approved source mapping are listed in `public/assets/brand/README.md`. They are editorial workplace/conference visuals, not documentary evidence of a real customer site or a representation of the Conference Manager UI.
 
 Web derivatives must preserve the established Pavurel photography direction, use responsive dimensions, avoid layout shift, and be accompanied by meaningful alt text when they carry content. New AI visuals must not introduce unsupported product screens, customer logos, certifications, security claims or corporate claims.
 

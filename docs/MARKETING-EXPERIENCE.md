@@ -28,7 +28,8 @@ does not imply registration or legal ownership.
 
 The implemented order is:
 
-1. A meeting outcome, concise explanation and a link to the example further down the page.
+1. A meeting outcome, a concise explanation of the software and its relationship to the
+   existing room-booking system, and a link to the example further down the page.
 2. Six descriptive icons for the request, guests, room/equipment, catering, changes and coordination.
 3. Four everyday coordination problems paired with the corresponding benefit.
 4. An interactive, explicitly illustrative meeting example: request, coordination and change.
@@ -153,10 +154,19 @@ preparation visual are recorded in the asset READMEs. They are brand illustratio
 of a real customer site or deployment. Six original SVG icons describe tasks and do not modify
 or repurpose the signet.
 
+The English brand tagline keeps its wording and carries an explicit English language
+attribute in both locales. The language switch declares the language of its accessible
+label separately from the target page's `hreflang`.
+
 Responsive WebP sources have intrinsic dimensions. The hero loads eagerly; supporting images
 load lazily. No image CDN, tracking, external embed, UI framework or new package is introduced.
 Detail pages reuse the same meeting, catering and preparation motifs and original six-icon family.
 The photographs illustrate meeting preparation; they do not document customers or software UI.
+
+Social metadata uses the existing approved 1440 × 810 meeting-room image as a shared
+fallback, with an absolute URL that includes the configured site base path. English and
+German image descriptions are owned by the central site-metadata copy. This is editorial
+brand imagery, not a product screenshot or customer proof.
 
 ## 8. Accessibility, performance and validation
 

@@ -4,6 +4,7 @@ import SiteHeader from '@components/navigation/SiteHeader.astro';
 import type { Locale } from '@config/locales';
 import { getSeoConfig } from '@config/seo';
 import { withoutBasePath, withBasePath } from '@domain/routing/basePath';
+import { getSiteMetadataCopy } from '@i18n/siteMetadata';
 import '../styles/global.css';
 
 interface Props {
@@ -21,6 +22,8 @@ const seo = getSeoConfig({
 });
 const canonicalBase = seo.siteOrigin ?? Astro.site ?? Astro.url.origin;
 const canonical = new URL(Astro.url.pathname, canonicalBase);
+const socialImage = new URL(withBasePath('/assets/brand/meeting-room-1440.webp'), canonicalBase);
+const metadataCopy = getSiteMetadataCopy(locale);
 const relativePath = withoutBasePath(Astro.url.pathname);
 const enPath = withBasePath(relativePath.replace(/^\/de(?=\/|$)/, '/en'));
 const dePath = withBasePath(relativePath.replace(/^\/en(?=\/|$)/, '/de'));
@@ -48,11 +51,18 @@ const alternateSocialLocale = locale === 'de' ? 'en_US' : 'de_DE';
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={socialImage} />
+    <meta property="og:image:type" content="image/webp" />
+    <meta property="og:image:width" content="1440" />
+    <meta property="og:image:height" content="810" />
+    <meta property="og:image:alt" content={metadataCopy.socialImageAlt} />
     <meta property="og:locale" content={socialLocale} />
     <meta property="og:locale:alternate" content={alternateSocialLocale} />
-    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={socialImage} />
+    <meta name="twitter:image:alt" content={metadataCopy.socialImageAlt} />
 
     <title>{title}</title>
   </head>
