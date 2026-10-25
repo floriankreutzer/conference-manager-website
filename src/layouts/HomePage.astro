@@ -57,7 +57,7 @@ const icons = [
         <ul class="hero-preview__items">
           {
             copy.heroPreview.items.map((item, index) => (
-              <li style={`--hero-preview-index: ${index}`}>
+              <li>
                 <ConferenceIcon
                   name={index === 0 ? 'participants' : index === 1 ? 'catering' : 'room-equipment'}
                 />
