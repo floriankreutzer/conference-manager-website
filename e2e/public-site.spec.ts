@@ -192,6 +192,40 @@ test.describe('public website contracts', () => {
     expect(mobile.overflow).toBe(true);
   });
 
+  test('presents audience roles as an editorial sequence instead of a card grid', async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await page.goto('/en/');
+
+    const audience = page.locator('.audience-grid');
+    const roles = audience.locator('article');
+    await expect(roles).toHaveCount(3);
+    await expect(audience.locator('.audience-label')).toHaveText(['01', '02', '03']);
+
+    const desktop = await audience.evaluate((element) => ({
+      columns: getComputedStyle(element).gridTemplateColumns.split(' ').filter(Boolean).length,
+      overflow: element.scrollWidth <= element.clientWidth + 1,
+    }));
+    expect(desktop.columns).toBe(1);
+    expect(desktop.overflow).toBe(true);
+
+    const firstRole = await roles.first().evaluate((element) => ({
+      columns: getComputedStyle(element).gridTemplateColumns.split(' ').filter(Boolean).length,
+      borderTopStyle: getComputedStyle(element).borderTopStyle,
+    }));
+    expect(firstRole.columns).toBe(3);
+    expect(firstRole.borderTopStyle).toBe('solid');
+
+    await page.setViewportSize({ width: 390, height: 844 });
+    const mobileRole = await roles.first().evaluate((element) => ({
+      columns: getComputedStyle(element).gridTemplateColumns.split(' ').filter(Boolean).length,
+      overflow: element.scrollWidth <= element.clientWidth + 1,
+    }));
+    expect(mobileRole.columns).toBe(2);
+    expect(mobileRole.overflow).toBe(true);
+  });
+
   test('uses a readable four-way system map and disables decorative motion when requested', async ({
     page,
   }) => {
