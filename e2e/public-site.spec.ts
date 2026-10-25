@@ -117,9 +117,9 @@ test.describe('public website contracts', () => {
         clientWidth: element.clientWidth,
       };
     });
-    expect(compactMobile.position).toBe('relative');
+    expect(compactMobile.position).toBe('static');
     expect(compactMobile.columns).toBe(3);
-    expect(compactMobile.top).toBeLessThan(compactMobile.imageBottom);
+    expect(compactMobile.top).toBeGreaterThanOrEqual(compactMobile.imageBottom);
     expect(compactMobile.scrollWidth).toBeLessThanOrEqual(compactMobile.clientWidth + 1);
 
     await page.setViewportSize({ width: 320, height: 800 });
@@ -135,7 +135,7 @@ test.describe('public website contracts', () => {
         right: element.getBoundingClientRect().right,
       };
     });
-    expect(narrowMobile.position).toBe('relative');
+    expect(narrowMobile.position).toBe('static');
     expect(narrowMobile.columns).toBe(1);
     expect(narrowMobile.scrollWidth).toBeLessThanOrEqual(narrowMobile.clientWidth + 1);
     expect(narrowMobile.right).toBeLessThanOrEqual(321);
