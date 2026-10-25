@@ -93,7 +93,9 @@ test.describe('public website contracts', () => {
     expect(motion).toBe('hero-preview-in');
 
     await page.emulateMedia({ reducedMotion: 'reduce' });
-    const reducedMotion = await preview.evaluate((element) => getComputedStyle(element).animationName);
+    const reducedMotion = await preview.evaluate(
+      (element) => getComputedStyle(element).animationName,
+    );
     expect(reducedMotion).toBe('none');
 
     await page.setViewportSize({ width: 320, height: 800 });
