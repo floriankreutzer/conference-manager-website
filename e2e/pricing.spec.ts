@@ -99,6 +99,50 @@ test.describe('Pricing', () => {
     );
   });
 
+  test('connects demo, setup and pilot as a responsive reduced-motion-safe timeline', async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await page.goto(englishPath);
+
+    const timeline = page.locator('.pricing-page__steps');
+    const steps = timeline.locator(':scope > li');
+    await expect(steps).toHaveCount(3);
+
+    const desktop = await timeline.evaluate((element) => ({
+      columns: getComputedStyle(element).gridTemplateColumns.split(' ').filter(Boolean).length,
+      overflow: element.scrollWidth <= element.clientWidth + 1,
+    }));
+    expect(desktop.columns).toBe(3);
+    expect(desktop.overflow).toBe(true);
+
+    const normalAnimation = await steps
+      .first()
+      .evaluate((element) => getComputedStyle(element, '::before').animationName);
+    expect(normalAnimation).toBe('pricing-timeline-line-in-horizontal');
+
+    await page.emulateMedia({ reducedMotion: 'reduce' });
+    const reducedAnimation = await steps
+      .first()
+      .evaluate((element) => getComputedStyle(element, '::before').animationName);
+    expect(reducedAnimation).toBe('none');
+
+    await page.setViewportSize({ width: 320, height: 800 });
+    const mobile = await timeline.evaluate((element) => ({
+      columns: getComputedStyle(element).gridTemplateColumns.split(' ').filter(Boolean).length,
+      scrollWidth: element.scrollWidth,
+      clientWidth: element.clientWidth,
+      right: element.getBoundingClientRect().right,
+    }));
+    expect(mobile.columns).toBe(1);
+    expect(mobile.scrollWidth).toBeLessThanOrEqual(mobile.clientWidth + 1);
+    expect(mobile.right).toBeLessThanOrEqual(321);
+
+    await expect(steps.nth(0)).toContainText('Demo');
+    await expect(steps.nth(1)).toContainText('Setup');
+    await expect(steps.nth(2)).toContainText('Pilot');
+  });
+
   test('keeps the German pricing narrative within a 320px reflow viewport', async ({ page }) => {
     await page.setViewportSize({ width: 320, height: 800 });
     await page.goto(germanPath);
