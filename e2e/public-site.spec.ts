@@ -111,11 +111,15 @@ test.describe('public website contracts', () => {
       const overview = hero.nextElementSibling;
       const overviewItems = overview?.querySelector('.request-overview__items');
       const imageRect = image?.getBoundingClientRect();
-      const imageRatio =
-        imageRect && imageRect.height > 0 ? imageRect.width / imageRect.height : 0;
-      const overviewColumns = overviewItems
-        ? getComputedStyle(overviewItems).gridTemplateColumns.split(' ').filter(Boolean).length
-        : 0;
+      let imageRatio = 0;
+      if (imageRect && imageRect.height > 0) {
+        imageRatio = imageRect.width / imageRect.height;
+      }
+      let overviewColumns = 0;
+      if (overviewItems) {
+        const columns = getComputedStyle(overviewItems).gridTemplateColumns;
+        overviewColumns = columns.split(' ').filter(Boolean).length;
+      }
       return {
         heroBottom: hero.getBoundingClientRect().bottom,
         imageBottom: visual?.getBoundingClientRect().bottom ?? 0,
@@ -138,9 +142,11 @@ test.describe('public website contracts', () => {
     const narrowLayout = await page.locator('.hero').evaluate((hero) => {
       const overview = hero.nextElementSibling;
       const overviewItems = overview?.querySelector('.request-overview__items');
-      const overviewColumns = overviewItems
-        ? getComputedStyle(overviewItems).gridTemplateColumns.split(' ').filter(Boolean).length
-        : 0;
+      let overviewColumns = 0;
+      if (overviewItems) {
+        const columns = getComputedStyle(overviewItems).gridTemplateColumns;
+        overviewColumns = columns.split(' ').filter(Boolean).length;
+      }
       return {
         heroBottom: hero.getBoundingClientRect().bottom,
         overviewTop: overview?.getBoundingClientRect().top ?? 0,
