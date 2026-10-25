@@ -44,12 +44,12 @@ Before writing, editing, refactoring, or reviewing implementation:
 
 1. Read this `AGENTS.md` completely.
 2. Read `docs/CODING-STANDARDS.md` completely.
-3. Read all additional standards relevant to the change.
+3. Read all additional standards relevant to the change. At the start of each repository task, automatically use the available `use-agent-knowledge` skill without requiring a separate user invocation. If the skill is unavailable, use available authorized GitHub tools to read `AGENTS.md`, `README.md`, `INDEX.md`, `projects.json` and the matching project entry point from a consistent current commit of `floriankreutzer/automatic-engineering-agent-knowledge`; load only relevant entries and recheck scope, dates and current source evidence. This repository's current requirements remain authoritative. If knowledge access is unavailable, report the limitation and continue work permitted by the available project sources; do not invent retrieval or bypass mandatory instructions.
 4. Inspect the current version of every existing file before modifying it.
 5. Confirm the current architecture/stack decision before introducing dependencies or tooling.
 6. Reuse approved brand, content, accessibility, security, SEO, and component patterns.
 7. Assess security, privacy, accessibility, SEO, performance, responsive, i18n/l10n, content-evidence, and regression impact.
-8. Make the smallest coherent change required.
+8. Make the smallest coherent change required. Before completing ordinary work, automatically create or update useful, durable, evidence-backed lessons in that private knowledge repository as part of the owner's requested workflow; no separate reminder is needed. Respect explicit read-only requests and narrower user scope. Read its current format and matching entries, avoid duplicates, update the index, follow its branch/review/test rules and verify the remote save. If no useful new learning exists, no write is needed. Report applied/saved entry IDs or the concrete access, check or save limitation. Never copy the private corpus, confidential customer/employer data, credentials or transcripts into this public repository; do not add permissions, a background service or a runtime dependency.
 
 Do not introduce a framework, CMS, analytics platform, consent platform, hosting provider, form processor, authentication library, or other material platform dependency without an explicit architecture decision and documented impact assessment.
 
