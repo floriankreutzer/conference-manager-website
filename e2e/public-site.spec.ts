@@ -105,7 +105,9 @@ test.describe('public website contracts', () => {
     await page.setViewportSize({ width: 390, height: 844 });
     const compactMobile = await preview.evaluate((element) => ({
       position: getComputedStyle(element).position,
-      columns: getComputedStyle(element.querySelector('.hero-preview__items')!).gridTemplateColumns
+      columns: getComputedStyle(
+        element.querySelector('.hero-preview__items')!,
+      ).gridTemplateColumns
         .split(' ')
         .filter(Boolean).length,
       top: element.getBoundingClientRect().top,
