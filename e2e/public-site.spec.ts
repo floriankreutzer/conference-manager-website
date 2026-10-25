@@ -217,6 +217,10 @@ test.describe('public website contracts', () => {
     expect(firstRole.columns).toBe(3);
     expect(firstRole.borderTopStyle).toBe('solid');
 
+    await page.setViewportSize({ width: 800, height: 900 });
+    const tabletGap = await audience.evaluate((element) => getComputedStyle(element).rowGap);
+    expect(tabletGap).toBe('0px');
+
     await page.setViewportSize({ width: 390, height: 844 });
     const mobileRole = await roles.first().evaluate((element) => ({
       columns: getComputedStyle(element).gridTemplateColumns.split(' ').filter(Boolean).length,
@@ -224,6 +228,49 @@ test.describe('public website contracts', () => {
     }));
     expect(mobileRole.columns).toBe(2);
     expect(mobileRole.overflow).toBe(true);
+  });
+
+  test('uses a calm readiness and closing conversion rhythm across breakpoints', async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await page.goto('/en/');
+
+    const readiness = page.locator('.readiness-strip');
+    const closingContent = page.locator('.closing__content');
+    const closingButton = closingContent.getByRole('link', { name: 'Book a demo' });
+
+    const desktopReadiness = await readiness.evaluate((element) => ({
+      columns: getComputedStyle(element).gridTemplateColumns.split(' ').filter(Boolean).length,
+      borderTopStyle: getComputedStyle(element).borderTopStyle,
+      borderBottomStyle: getComputedStyle(element).borderBottomStyle,
+    }));
+    expect(desktopReadiness.columns).toBe(2);
+    expect(desktopReadiness.borderTopStyle).toBe('solid');
+    expect(desktopReadiness.borderBottomStyle).toBe('solid');
+
+    const desktopClosing = await closingContent.evaluate((element) => ({
+      columns: getComputedStyle(element).gridTemplateColumns.split(' ').filter(Boolean).length,
+      overflow: element.scrollWidth <= element.clientWidth + 1,
+    }));
+    expect(desktopClosing.columns).toBe(2);
+    expect(desktopClosing.overflow).toBe(true);
+    await expect(closingButton).toBeVisible();
+
+    await page.setViewportSize({ width: 390, height: 844 });
+    const mobileReadiness = await readiness.evaluate((element) => ({
+      columns: getComputedStyle(element).gridTemplateColumns.split(' ').filter(Boolean).length,
+      overflow: element.scrollWidth <= element.clientWidth + 1,
+    }));
+    const mobileClosing = await closingContent.evaluate((element) => ({
+      columns: getComputedStyle(element).gridTemplateColumns.split(' ').filter(Boolean).length,
+      overflow: element.scrollWidth <= element.clientWidth + 1,
+    }));
+    expect(mobileReadiness.columns).toBe(1);
+    expect(mobileReadiness.overflow).toBe(true);
+    expect(mobileClosing.columns).toBe(1);
+    expect(mobileClosing.overflow).toBe(true);
+    await expect(closingButton).toBeVisible();
   });
 
   test('uses a readable four-way system map and disables decorative motion when requested', async ({
