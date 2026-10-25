@@ -114,9 +114,10 @@ const copy = getMeetingExampleCopy(locale);
                       <span>
                         {copy.previousLabel} <s>{step.previousCatering}</s>
                       </span>
-                      <strong>
-                        {copy.updatedLabel} {step.catering}
-                      </strong>
+                      <span class="meeting-example__updated">
+                        <span>{copy.updatedLabel}</span>
+                        <strong>{step.catering}</strong>
+                      </span>
                     </div>
                   )}
                   <p>{step.cateringNote}</p>
@@ -385,6 +386,14 @@ const copy = getMeetingExampleCopy(locale);
   .meeting-example__change--stacked {
     display: grid;
     gap: 0.25rem;
+  }
+
+  .meeting-example__updated {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem var(--space-1);
+    color: var(--color-bordeaux);
+    font-weight: 650;
   }
 
   .meeting-example__panel:not([hidden]) {
