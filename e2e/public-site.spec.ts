@@ -102,16 +102,43 @@ test.describe('public website contracts', () => {
     );
     expect(reducedMotion).toBe('none');
 
+    await page.setViewportSize({ width: 390, height: 844 });
+    const compactMobile = await preview.evaluate((element) => {
+      const items = element.querySelector('.hero-preview__items');
+      return {
+        position: getComputedStyle(element).position,
+        columns: items
+          ? getComputedStyle(items).gridTemplateColumns.split(' ').filter(Boolean).length
+          : 0,
+        top: element.getBoundingClientRect().top,
+        imageBottom:
+          element.parentElement?.querySelector('figure')?.getBoundingClientRect().bottom ?? 0,
+        scrollWidth: element.scrollWidth,
+        clientWidth: element.clientWidth,
+      };
+    });
+    expect(compactMobile.position).toBe('relative');
+    expect(compactMobile.columns).toBe(3);
+    expect(compactMobile.top).toBeLessThan(compactMobile.imageBottom);
+    expect(compactMobile.scrollWidth).toBeLessThanOrEqual(compactMobile.clientWidth + 1);
+
     await page.setViewportSize({ width: 320, height: 800 });
-    const mobile = await preview.evaluate((element) => ({
-      position: getComputedStyle(element).position,
-      scrollWidth: element.scrollWidth,
-      clientWidth: element.clientWidth,
-      right: element.getBoundingClientRect().right,
-    }));
-    expect(mobile.position).toBe('static');
-    expect(mobile.scrollWidth).toBeLessThanOrEqual(mobile.clientWidth + 1);
-    expect(mobile.right).toBeLessThanOrEqual(321);
+    const narrowMobile = await preview.evaluate((element) => {
+      const items = element.querySelector('.hero-preview__items');
+      return {
+        position: getComputedStyle(element).position,
+        columns: items
+          ? getComputedStyle(items).gridTemplateColumns.split(' ').filter(Boolean).length
+          : 0,
+        scrollWidth: element.scrollWidth,
+        clientWidth: element.clientWidth,
+        right: element.getBoundingClientRect().right,
+      };
+    });
+    expect(narrowMobile.position).toBe('relative');
+    expect(narrowMobile.columns).toBe(1);
+    expect(narrowMobile.scrollWidth).toBeLessThanOrEqual(narrowMobile.clientWidth + 1);
+    expect(narrowMobile.right).toBeLessThanOrEqual(321);
   });
 
   test('uses a readable four-way system map and disables decorative motion when requested', async ({
