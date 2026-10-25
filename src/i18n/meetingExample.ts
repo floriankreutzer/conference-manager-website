@@ -12,6 +12,7 @@ type MeetingExampleStep = {
   participantsNote: string;
   roomNote: string;
   catering: string;
+  previousCatering?: string;
   cateringNote: string;
   equipmentNote: string;
   responsibility: string;
@@ -101,6 +102,7 @@ const copy: Record<Locale, MeetingExampleCopy> = {
         participantsNote: 'The requested attendee count has increased.',
         roomNote: 'Check capacity for 18 and the existing reservation.',
         catering: 'Coffee-break package for 18',
+        previousCatering: 'Coffee-break package for 12',
         cateringNote: 'Six additional portions requested; review the resulting cost.',
         equipmentNote: 'Equipment requirements are unchanged.',
         responsibility: 'Reviews the revised catering quantity and its service and cost impact.',
@@ -170,6 +172,7 @@ const copy: Record<Locale, MeetingExampleCopy> = {
         participantsNote: 'Die angefragte Teilnehmerzahl wurde erhöht.',
         roomNote: 'Kapazität für 18 und die vorhandene Reservierung prüfen.',
         catering: 'Paket Kaffeepause für 18',
+        previousCatering: 'Paket Kaffeepause für 12',
         cateringNote: 'Sechs zusätzliche Portionen angefragt; entstehende Kosten prüfen.',
         equipmentNote: 'Der Technikbedarf bleibt unverändert.',
         responsibility: 'Prüft die neue Cateringmenge sowie die Folgen für Leistungen und Kosten.',
