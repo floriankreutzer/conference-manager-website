@@ -99,7 +99,154 @@
   }
 
   .hero__visual {
+    position: relative;
     min-width: 0;
+  }
+
+  .hero-preview {
+    position: absolute;
+    inset-inline: 1.25rem;
+    inset-block-end: 1.25rem;
+    display: grid;
+    gap: var(--space-3);
+    max-inline-size: 23rem;
+    padding: 1rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-surface);
+    box-shadow: var(--shadow-soft);
+    color: var(--color-ink);
+    font-family: var(--font-body);
+    animation: hero-preview-in 480ms ease-out both;
+  }
+
+  .hero-preview p,
+  .hero-preview ul {
+    margin: 0;
+  }
+
+  .hero-preview__header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--space-2);
+  }
+
+  .hero-preview__label {
+    color: var(--color-text-muted);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.055em;
+    line-height: 1.45;
+    text-transform: uppercase;
+  }
+
+  .hero-preview__title {
+    margin-block-start: 0.2rem !important;
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 800;
+    line-height: 1.35;
+  }
+
+  .hero-preview__status {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.25rem 0.45rem;
+    border-radius: var(--radius-xs);
+    background: var(--color-camel-soft);
+    color: var(--color-ink);
+    font-size: 0.68rem;
+    font-weight: 700;
+    line-height: 1.35;
+  }
+
+  .hero-preview__status::before {
+    inline-size: 0.42rem;
+    block-size: 0.42rem;
+    border-radius: var(--radius-pill);
+    background: var(--color-bordeaux);
+    content: '';
+  }
+
+  .hero-preview__items {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .hero-preview__items li {
+    display: grid;
+    min-inline-size: 0;
+    align-content: start;
+    gap: 0.45rem;
+    padding-inline: 0.7rem;
+    border-inline-start: 1px solid var(--color-border);
+    animation: hero-preview-item-in 420ms ease-out both;
+  }
+
+  .hero-preview__items li:first-child {
+    padding-inline-start: 0;
+    border-inline-start: 0;
+  }
+
+  .hero-preview__items li:last-child {
+    padding-inline-end: 0;
+  }
+
+  .hero-preview__items li:nth-child(2) {
+    animation-delay: 90ms;
+  }
+
+  .hero-preview__items li:nth-child(3) {
+    animation-delay: 180ms;
+  }
+
+  .hero-preview__items span {
+    display: grid;
+    min-inline-size: 0;
+    gap: 0.12rem;
+  }
+
+  .hero-preview__items small {
+    color: var(--color-text-muted);
+    font-size: 0.66rem;
+    line-height: 1.35;
+  }
+
+  .hero-preview__items strong {
+    font-size: 0.74rem;
+    font-weight: 700;
+    line-height: 1.4;
+    overflow-wrap: anywhere;
+  }
+
+  @keyframes hero-preview-in {
+    from {
+      opacity: 0.82;
+      transform: translateY(0.45rem);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes hero-preview-item-in {
+    from {
+      opacity: 0.72;
+      transform: translateY(0.25rem);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 
   .cta-row {
@@ -485,6 +632,10 @@
       max-width: 43rem;
     }
 
+    .hero-preview {
+      max-inline-size: min(24rem, calc(100% - 2.5rem));
+    }
+
     .hero h1 {
       max-width: 18ch;
     }
@@ -559,6 +710,28 @@
 
     .hero__copy {
       font-size: 1rem;
+    }
+
+    .hero-preview {
+      position: static;
+      max-inline-size: none;
+      margin-block-start: 0.75rem;
+      box-shadow: none;
+    }
+
+    .hero-preview__items {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 0.75rem;
+    }
+
+    .hero-preview__items li,
+    .hero-preview__items li:first-child,
+    .hero-preview__items li:last-child {
+      grid-template-columns: auto minmax(0, 1fr);
+      align-items: center;
+      gap: 0.65rem;
+      padding: 0;
+      border-inline-start: 0;
     }
 
     .eyebrow {
@@ -637,6 +810,8 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
+    .hero-preview,
+    .hero-preview__items li,
     .integration-node::after {
       animation: none;
     }
