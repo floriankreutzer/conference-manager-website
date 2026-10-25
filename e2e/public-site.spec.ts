@@ -106,32 +106,57 @@ test.describe('public website contracts', () => {
     await page.setViewportSize({ width: 390, height: 844 });
     await expect(preview).toBeHidden();
     const mobileLayout = await page.locator('.hero').evaluate((hero) => {
-      const image = hero.querySelector('[data-brand-visual-variant="meeting"]');
+      const visual = hero.querySelector('[data-brand-visual-variant="meeting"]');
+      const image = visual?.querySelector('img');
       const overview = hero.nextElementSibling;
+      const overviewItems = overview?.querySelector('.request-overview__items');
+      const imageRect = image?.getBoundingClientRect();
+      let imageRatio = 0;
+      if (imageRect && imageRect.height > 0) {
+        imageRatio = imageRect.width / imageRect.height;
+      }
+      let overviewColumns = 0;
+      if (overviewItems) {
+        const columns = getComputedStyle(overviewItems).gridTemplateColumns;
+        overviewColumns = columns.split(' ').filter(Boolean).length;
+      }
       return {
         heroBottom: hero.getBoundingClientRect().bottom,
-        imageBottom: image?.getBoundingClientRect().bottom ?? 0,
+        imageBottom: visual?.getBoundingClientRect().bottom ?? 0,
+        imageRatio,
         overviewTop: overview?.getBoundingClientRect().top ?? 0,
+        overviewColumns,
         pageOverflow:
           document.documentElement.scrollWidth <= document.documentElement.clientWidth + 1,
       };
     });
     expect(mobileLayout.imageBottom).toBeLessThanOrEqual(mobileLayout.heroBottom + 1);
     expect(mobileLayout.heroBottom).toBeLessThanOrEqual(mobileLayout.overviewTop + 1);
+    expect(mobileLayout.imageRatio).toBeGreaterThan(1.74);
+    expect(mobileLayout.imageRatio).toBeLessThan(1.81);
+    expect(mobileLayout.overviewColumns).toBe(2);
     expect(mobileLayout.pageOverflow).toBe(true);
 
     await page.setViewportSize({ width: 320, height: 800 });
     await expect(preview).toBeHidden();
     const narrowLayout = await page.locator('.hero').evaluate((hero) => {
       const overview = hero.nextElementSibling;
+      const overviewItems = overview?.querySelector('.request-overview__items');
+      let overviewColumns = 0;
+      if (overviewItems) {
+        const columns = getComputedStyle(overviewItems).gridTemplateColumns;
+        overviewColumns = columns.split(' ').filter(Boolean).length;
+      }
       return {
         heroBottom: hero.getBoundingClientRect().bottom,
         overviewTop: overview?.getBoundingClientRect().top ?? 0,
+        overviewColumns,
         pageOverflow:
           document.documentElement.scrollWidth <= document.documentElement.clientWidth + 1,
       };
     });
     expect(narrowLayout.heroBottom).toBeLessThanOrEqual(narrowLayout.overviewTop + 1);
+    expect(narrowLayout.overviewColumns).toBe(2);
     expect(narrowLayout.pageOverflow).toBe(true);
   });
 

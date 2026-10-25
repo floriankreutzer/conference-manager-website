@@ -717,14 +717,16 @@
     }
 
     .request-overview__items {
-      gap: 1.25rem 0.75rem;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.4rem 1rem;
     }
 
     .request-overview__items li {
       align-items: flex-start;
       flex-direction: column;
-      gap: 0.6rem;
-      font-size: 0.78rem;
+      gap: 0.55rem;
+      font-size: 0.82rem;
+      line-height: 1.4;
     }
 
     .problem-grid,
