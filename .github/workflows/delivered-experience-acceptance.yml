@@ -63,6 +63,6 @@ jobs:
             echo "Origin: $PUBLIC_SITE_ORIGIN"
             echo "Result: passed"
             echo
-            echo "Validated: median cold-navigation lab LCP <= 2.5s, EN/DE CLS <= 0.1, same-origin fonts and 200% reflow."
+            echo "Validated: median cold-navigation lab LCP <= 2.5s, EN/DE CLS <= 0.1, same-origin fonts and 200% browser-zoom-equivalent reflow (640 CSS pixels)."
             echo "These are controlled lab measurements and do not represent field Core Web Vitals."
           } >> "$GITHUB_STEP_SUMMARY"

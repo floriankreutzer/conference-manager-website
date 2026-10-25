@@ -174,9 +174,11 @@ Run it after the real public HTTPS origin is available and the delivered product
 - three cold browser-context samples for `/en/`, with median lab LCP at or below 2.5 seconds;
 - cumulative layout shift at or below 0.1 on representative `/en/` and `/de/` routes;
 - delivered font requests remain same-origin;
-- 200% zoom/reflow keeps the primary heading and demo action visible without page-level horizontal overflow.
+- 200% browser-zoom-equivalent reflow in a 640 CSS-pixel viewport keeps the primary heading and demo action visible without page-level horizontal overflow.
 
-The workflow records EN, DE and 200%-zoom screenshots as 14-day GitHub Actions artifacts for final human visual review.
+The reflow check uses the same responsive width as the repository browser regression: 640 CSS pixels correspond to a 1280-pixel window at 200% zoom. It does not change or verify the browser's actual tab-zoom setting.
+
+The workflow records EN, DE and 200%-equivalent reflow screenshots as 14-day GitHub Actions artifacts for final human visual review.
 
 These measurements are controlled lab evidence from the GitHub-hosted runner. They must not be presented as real-user/field Core Web Vitals. Field data, if later collected through an approved privacy-compatible mechanism, is a different evidence source and requires its own governance decision.
 
