@@ -12,6 +12,7 @@ const examples = [
     coordination: 'See what is agreed and what is still open.',
     change: 'Review the impact of a change together.',
     changedCount: 'Requested 18',
+    previousCatering: 'Coffee-break package for 12',
     changedCatering: 'Coffee-break package for 18',
     costImpact: 'Six additional portions requested; review the resulting cost.',
   },
@@ -25,6 +26,7 @@ const examples = [
     coordination: 'Sehen, was geklärt ist und was noch offen bleibt.',
     change: 'Die Folgen einer Änderung zusammen prüfen.',
     changedCount: 'Angefragt 18',
+    previousCatering: 'Paket Kaffeepause für 12',
     changedCatering: 'Paket Kaffeepause für 18',
     costImpact: 'Sechs zusätzliche Portionen angefragt; entstehende Kosten prüfen.',
   },
@@ -62,7 +64,10 @@ for (const example of examples) {
     await expect(illustration.getByRole('tabpanel')).toHaveCount(1);
     await expect(illustration.getByRole('tabpanel').getByText(example.changedCount)).toBeVisible();
     await expect(
-      illustration.getByRole('tabpanel').getByText(example.changedCatering),
+      illustration.getByRole('tabpanel').getByText(example.previousCatering, { exact: true }),
+    ).toBeVisible();
+    await expect(
+      illustration.getByRole('tabpanel').getByText(example.changedCatering, { exact: true }),
     ).toBeVisible();
     await expect(illustration.getByRole('tabpanel').getByText(example.costImpact)).toBeVisible();
     await expect(illustration.getByText(example.meeting, { exact: true })).toBeVisible();
@@ -152,8 +157,12 @@ test('keeps all states readable at 320px and respects reduced motion', async ({ 
       height: element.getBoundingClientRect().height,
       transition: getComputedStyle(element).transitionDuration,
     }));
+    const panelAnimation = await illustration
+      .getByRole('tabpanel')
+      .evaluate((element) => getComputedStyle(element).animationDuration);
     expect(control.height).toBeGreaterThanOrEqual(44);
     expect(control.transition).toBe('0s');
+    expect(panelAnimation).toBe('0s');
   }
 });
 
