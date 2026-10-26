@@ -1,14 +1,15 @@
 ---
 interface Props {
+  tone?: 'default' | 'on-image';
   eyebrow: string;
   title?: string;
   titleId?: string;
   lead: string;
 }
-const { eyebrow, title, titleId, lead } = Astro.props;
+const { eyebrow, title, titleId, lead, tone = 'default' } = Astro.props;
 ---
 
-<div class="page-intro">
+<div class:list={['page-intro', { 'page-intro--on-image': tone === 'on-image' }]}>
   <p class="eyebrow">{eyebrow}</p>
   <h1 id={titleId}><slot name="title">{title}</slot></h1>
   <p class="page-intro__lead">{lead}</p>
@@ -23,6 +24,12 @@ const { eyebrow, title, titleId, lead } = Astro.props;
     gap: var(--page-hero-copy-gap);
     min-inline-size: 0;
     max-inline-size: var(--page-hero-copy-width);
+  }
+
+  .page-intro--on-image h1,
+  .page-intro--on-image .eyebrow,
+  .page-intro--on-image .page-intro__lead {
+    color: var(--color-on-accent);
   }
 
   h1 {

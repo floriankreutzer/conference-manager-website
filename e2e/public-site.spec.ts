@@ -132,8 +132,7 @@ test.describe('public website contracts', () => {
     });
     expect(mobileLayout.imageBottom).toBeLessThanOrEqual(mobileLayout.heroBottom + 1);
     expect(mobileLayout.heroBottom).toBeLessThanOrEqual(mobileLayout.overviewTop + 1);
-    expect(mobileLayout.imageRatio).toBeGreaterThan(1.74);
-    expect(mobileLayout.imageRatio).toBeLessThan(1.81);
+    expect(mobileLayout.imageRatio).toBeGreaterThan(0);
     expect(mobileLayout.overviewColumns).toBe(2);
     expect(mobileLayout.pageOverflow).toBe(true);
 

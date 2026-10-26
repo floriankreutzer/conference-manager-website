@@ -1,0 +1,92 @@
+/* The homepage is the intentional photo-led exception to the detail-page heroes. */
+main:has(> .home-page) {
+  width: 100%;
+}
+
+.home-page > :not(.home-hero) {
+  width: min(100% - 2rem, var(--content-max));
+  margin-inline: auto;
+}
+
+.home-hero {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  align-items: center;
+  min-block-size: var(--home-hero-height);
+  padding-block: var(--home-hero-padding);
+  padding-inline: max(1rem, calc((100% - var(--content-max)) / 2));
+  overflow-wrap: anywhere;
+  background: var(--color-ink);
+}
+
+.home-hero .hero__content {
+  position: relative;
+  z-index: 2;
+  max-inline-size: var(--page-hero-copy-width);
+}
+
+.home-hero .hero__outcome {
+  color: var(--color-camel-soft);
+}
+
+.home-hero .hero__visual {
+  position: absolute;
+  inset: 0;
+}
+
+.home-hero .hero__visual::after {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: var(--home-hero-scrim);
+  content: '';
+}
+
+.home-hero .brand-visual,
+.home-hero .brand-visual img {
+  inline-size: 100%;
+  block-size: 100%;
+  min-block-size: 0;
+  max-block-size: none;
+  aspect-ratio: auto;
+  border-radius: 0;
+}
+
+.home-hero .brand-visual img {
+  object-fit: cover;
+  object-position: 75% center;
+}
+
+.home-hero .hero-preview {
+  z-index: 2;
+  inset-inline-start: auto;
+  inset-inline-end: max(1rem, calc((100% - var(--content-max)) / 2));
+  inset-block-end: var(--space-5);
+  inline-size: 28rem;
+}
+
+.home-hero .button:focus-visible {
+  outline-color: var(--color-on-accent);
+}
+
+@media (max-width: 72rem) {
+  .home-hero .hero-preview {
+    display: none;
+  }
+
+  .home-hero .hero__visual::after {
+    background: var(--home-hero-mobile-scrim);
+  }
+}
+
+@media (max-width: 42rem) {
+  .home-hero {
+    min-block-size: 0;
+  }
+
+  .home-hero .hero__visual::after {
+    background: var(--home-hero-mobile-scrim);
+  }
+}

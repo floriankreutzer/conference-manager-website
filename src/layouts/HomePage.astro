@@ -33,19 +33,24 @@ const icons = [
 ---
 
 <div class="home-page">
-  <section class="hero section page-hero page-hero--split" aria-labelledby="hero-title">
+  <section class="hero section home-hero" aria-labelledby="hero-title">
     <div class="hero__content">
-      <PageIntro eyebrow={copy.hero.eyebrow} titleId="hero-title" lead={copy.hero.body}>
+      <PageIntro
+        eyebrow={copy.hero.eyebrow}
+        titleId="hero-title"
+        lead={copy.hero.body}
+        tone="on-image"
+      >
         <Fragment slot="title">
           <span>{copy.hero.title}</span>
           <span class="hero__outcome">{copy.hero.outcome}</span>
         </Fragment>
         <div class="cta-row">
-          <a class="button" href="#how-it-works">{copy.hero.action}</a>
+          <a class="button button--light" href="#how-it-works">{copy.hero.action}</a>
         </div>
       </PageIntro>
     </div>
-    <div class="hero__visual page-hero__media">
+    <div class="hero__visual home-hero__media">
       <BrandVisual locale={locale} variant="meeting" priority />
       <aside class="hero-preview" aria-label={copy.heroPreview.label}>
         <div class="hero-preview__header">

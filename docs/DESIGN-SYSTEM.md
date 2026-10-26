@@ -187,7 +187,20 @@ rather than assuming that a more descriptive selector wins. Keep the scope limit
 supporting images elsewhere retain their existing aspect ratios.
 
 Protect actual rendered relationships with `e2e/hero-consistency.spec.ts`: every
-localized route, comparison with the same-width homepage, shared intro top edge,
+localized route, comparison with the same-width product page, shared intro top edge,
 image height, containment, narrow reflow, zoom-equivalent width and static/no-JS
 content. Token/source checks alone do not establish visual consistency. Preserve the
 existing critical journey, font, accessibility, security and publication checks.
+
+
+### Homepage photo hero exception
+
+The EN/DE homepage intentionally uses a viewport-wide photograph with the existing
+localized title, lead and action over it. Shared Manrope/Inter typography remains;
+`home-hero.css` owns its full-width geometry and tokenized dark scrim. The text sits
+in normal flow so long German copy and zoom expand the hero rather than clip it.
+The image is an absolute background sibling, never the source of content height.
+White text and the pale warm outcome accent require a dark scrim; keyboard focus
+remains white and visible. Below 72rem the illustrative preparation card is hidden
+to avoid competing with the text. Other sections retain the content-width container;
+all detail-page heroes retain their common height and alignment contract.
