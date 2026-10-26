@@ -128,8 +128,9 @@ const formatDate = (date: Date) =>
   .insight-article__header h1 {
     max-width: 20ch;
     margin: 0;
-    font-size: clamp(2.5rem, 4.7vw, 4.5rem);
-    letter-spacing: -0.05em;
+    font-size: var(--page-title-size);
+    letter-spacing: var(--page-title-tracking);
+    line-height: var(--page-title-leading);
   }
 
   .insight-article__description {
@@ -153,6 +154,12 @@ const formatDate = (date: Date) =>
 
   .insight-article__visual {
     min-width: 0;
+  }
+
+  .insight-article__visual :global(.brand-visual img) {
+    block-size: var(--page-hero-image-height);
+    aspect-ratio: auto;
+    object-fit: cover;
   }
 
   .insight-article__contents h2 {
