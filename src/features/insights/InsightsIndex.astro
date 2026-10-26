@@ -89,8 +89,9 @@ const dateLocale = locale === 'de' ? 'de-DE' : 'en-GB';
   .insights-index__header h1 {
     max-width: 18ch;
     margin: 0;
-    font-size: clamp(2.6rem, 5.4vw, 5rem);
-    letter-spacing: -0.05em;
+    font-size: var(--page-title-size);
+    letter-spacing: var(--page-title-tracking);
+    line-height: var(--page-title-leading);
   }
 
   .insights-index__header > p:last-child,

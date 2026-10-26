@@ -10,8 +10,9 @@
   .info-page h1 {
     max-width: 16ch;
     margin: 0;
-    font-size: clamp(2.8rem, 6vw, 6rem);
-    letter-spacing: -0.05em;
+    font-size: var(--page-title-size);
+    letter-spacing: var(--page-title-tracking);
+    line-height: var(--page-title-leading);
   }
 
   .info-page__lead {

@@ -168,9 +168,9 @@ const hasVisual = Astro.slots.has('visual');
   .editorial-story__hero h1 {
     max-inline-size: 21ch;
     margin: 0;
-    font-size: clamp(2.4rem, 5vw, 4.8rem);
-    letter-spacing: -0.05em;
-    line-height: 1.08;
+    font-size: var(--page-title-size);
+    letter-spacing: var(--page-title-tracking);
+    line-height: var(--page-title-leading);
   }
 
   .editorial-story__visual {
@@ -182,9 +182,10 @@ const hasVisual = Astro.slots.has('visual');
   }
 
   .editorial-story__visual :global(.brand-visual img) {
-    aspect-ratio: 4 / 3;
+    block-size: var(--page-hero-image-height);
     min-block-size: 0;
-    max-block-size: 34rem;
+    max-block-size: none;
+    aspect-ratio: auto;
     object-fit: cover;
   }
 
