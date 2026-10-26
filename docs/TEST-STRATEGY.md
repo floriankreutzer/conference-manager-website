@@ -76,8 +76,8 @@ Application [PR #397](https://github.com/floriankreutzer/conference-manager/pull
 specific aggregate-budget correction after Main run `40388268236` reached its 20-minute job
 limit twice: 327 and 328 ordinary WebKit cases passed, respectively, while the remaining cases
 did not complete. No assertion failed in either cancelled job; the identical candidate tree had
-completed all 331 cases. The first 327 cases took 180.3 seconds longer on Main, distributed
-across 245 slower cases; this does not establish a hardware root cause. The bounded 25-minute
+completed all 331 cases. The first 327 cases took 180.3 seconds longer on Main;
+245 cases were over 0.1 seconds slower. This does not establish a hardware root cause. The bounded 25-minute
 job budget includes installation and existing canaries as well as the complete suite and upload.
 It changes neither individual test deadlines, `retries: 0`, one-worker execution, both full
 engine projects, correctness/security assertions nor protected/shared/permanent-scenario gates.
