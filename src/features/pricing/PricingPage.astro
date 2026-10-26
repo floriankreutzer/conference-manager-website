@@ -1,4 +1,5 @@
 ---
+import PageIntro from '@components/editorial/PageIntro.astro';
 import type { Locale } from '@config/locales';
 import { withBasePath } from '@domain/routing/basePath';
 import { getPricingCopy } from '@i18n/pricing';
@@ -16,14 +17,18 @@ const productHref = withBasePath(`/${locale}/product/`);
 ---
 
 <article class="pricing-page" aria-labelledby="pricing-title">
-  <header class="pricing-page__hero">
+  <header class="pricing-page__hero page-hero page-hero--split">
     <div class="pricing-page__intro">
-      <p class="eyebrow">{pageCopy.eyebrow}</p>
-      <h1 id="pricing-title">{pageCopy.title}</h1>
-      <p class="pricing-page__lead">{pageCopy.body}</p>
-      <div class="pricing-page__actions">
-        <a class="pricing-page__text-link" href={productHref}>{story.closing.secondaryCta}</a>
-      </div>
+      <PageIntro
+        eyebrow={pageCopy.eyebrow}
+        title={pageCopy.title}
+        titleId="pricing-title"
+        lead={pageCopy.body}
+      >
+        <div class="pricing-page__actions">
+          <a class="pricing-page__text-link" href={productHref}>{story.closing.secondaryCta}</a>
+        </div>
+      </PageIntro>
     </div>
 
     <section class="pricing-page__offer" aria-labelledby="pricing-offer-title">
@@ -72,14 +77,8 @@ const productHref = withBasePath(`/${locale}/product/`);
 
 <style>
   .pricing-page {
-    padding-block: clamp(3rem, 7vw, 7rem);
+    padding-block-end: var(--page-hero-space-end);
     overflow-wrap: anywhere;
-  }
-
-  .pricing-page__hero {
-    display: grid;
-    gap: var(--space-6);
-    align-items: start;
   }
 
   .pricing-page__intro,
@@ -95,22 +94,6 @@ const productHref = withBasePath(`/${locale}/product/`);
   .pricing-page h3,
   .pricing-page p {
     margin: 0;
-  }
-
-  .pricing-page h1 {
-    max-width: 20ch;
-    font-size: var(--page-title-size);
-    line-height: var(--page-title-leading);
-    letter-spacing: var(--page-title-tracking);
-    overflow-wrap: normal;
-    text-wrap: balance;
-  }
-
-  .pricing-page__lead {
-    max-width: var(--copy-max);
-    color: var(--color-text-muted);
-    font-size: clamp(1.05rem, 1.5vw, 1.25rem);
-    line-height: 1.7;
   }
 
   .pricing-page__actions {
@@ -269,11 +252,6 @@ const productHref = withBasePath(`/${locale}/product/`);
   }
 
   @media (min-width: 52rem) {
-    .pricing-page__hero {
-      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
-      gap: clamp(3rem, 6vw, 6rem);
-    }
-
     .pricing-page__steps {
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: clamp(1.5rem, 3vw, 3rem);

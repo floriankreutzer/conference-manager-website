@@ -1,4 +1,5 @@
 ---
+import PageIntro from '@components/editorial/PageIntro.astro';
 import BrandVisual from '@components/marketing/BrandVisual.astro';
 import type { Locale } from '@config/locales';
 import { withBasePath } from '@domain/routing/basePath';
@@ -18,10 +19,13 @@ const dateLocale = locale === 'de' ? 'de-DE' : 'en-GB';
 ---
 
 <section class="insights-index" aria-labelledby="insights-title">
-  <header class="insights-index__header">
-    <p class="eyebrow">{copy.eyebrow}</p>
-    <h1 id="insights-title">{copy.title}</h1>
-    <p>{copy.description}</p>
+  <header class="insights-index__header page-hero">
+    <PageIntro
+      eyebrow={copy.eyebrow}
+      title={copy.title}
+      titleId="insights-title"
+      lead={copy.description}
+    />
   </header>
 
   {
@@ -75,36 +79,15 @@ const dateLocale = locale === 'de' ? 'de-DE' : 'en-GB';
 
 <style>
   .insights-index {
-    padding-block: clamp(3rem, 7vw, 6rem);
+    padding-block-end: var(--page-hero-space-end);
     overflow-wrap: anywhere;
   }
 
-  .insights-index__header {
-    display: grid;
-    gap: var(--space-4);
-    max-width: 54rem;
-    margin-bottom: clamp(2.5rem, 6vw, 5rem);
-  }
-
-  .insights-index__header h1 {
-    max-width: 18ch;
-    margin: 0;
-    font-size: var(--page-title-size);
-    letter-spacing: var(--page-title-tracking);
-    line-height: var(--page-title-leading);
-  }
-
-  .insights-index__header > p:last-child,
   .insights-index__empty,
   .insights-list__description {
     margin: 0;
     color: var(--color-text-muted);
     line-height: 1.7;
-  }
-
-  .insights-index__header > p:last-child {
-    max-width: 44rem;
-    font-size: 1.15rem;
   }
 
   .insights-index__empty {

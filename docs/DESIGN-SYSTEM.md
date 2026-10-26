@@ -156,3 +156,38 @@ For implementation, read the current root `AGENTS.md`, `docs/CODING-STANDARDS.md
 Confluence retains product/brand rationale and historical documentation. It does not override current GitHub development requirements. Reconcile a missing or conflicting approved decision in the owning GitHub repository before implementing the affected material brand change; do not copy private documentation into this public repository.
 
 The optional [Pavurel Web Design profile](https://github.com/floriankreutzer/automatic-engineering-design-skills/blob/1e812a0f0f82cdd2669b5e2d3e5411ea79a5dd1d/skills/pavurel-web-design/SKILL.md) in [skills PR #1](https://github.com/floriankreutzer/automatic-engineering-design-skills/pull/1) helps apply these current sources to an authorized website task. This pinned candidate's acceptance state is recorded in that PR, and the reference does not install it. It must defer to the current repository requirements and tokens, preserve the existing website architecture and avoid a second design specification. Do not apply marketing-site defaults to the authenticated application.
+
+
+## 13. Shared public-page heroes
+
+All localized public pages use `PageIntro.astro` for the eyebrow, single page title,
+lead and optional reading/action metadata. Use the shared `page-hero` layout for the
+space below navigation and before the following content. `page-hero--split` places
+an image, offer or form beside the intro when there is enough space; both columns
+start at the same top edge. Content can grow without a fixed hero/text height.
+
+The semantic `--page-title-*` and `--page-hero-*` tokens in `src/styles/tokens.css`
+own the responsive type scale, readable widths, spacing and image height. All hero
+photographs use `page-hero__media`, the same height at the same viewport and the
+existing BrandVisual geometry without additional padded frames. Image width and
+motif may vary. Below the shared breakpoint, copy precedes the media in normal flow.
+Page titles remain complete, selectable text with natural wrapping in both locales.
+
+Text-led destinations (Insights index, demo access) and functional side panels
+(setup/pilot, demo request) share the intro hierarchy without decorative hero images.
+The article's back link and publication dates are metadata below its lead, preserving
+the shared title position. Homepage emphasis and its labelled illustrative preview
+remain specific to that page; they do not alter the common title scale or image height.
+
+`src/styles/page-hero.css` owns shared geometry and media sizing. It is deliberately
+unlayered. BrandVisual's intrinsic defaults are in the components cascade layer,
+so the shared hero media contract wins over its scoped aspect-ratio/height rules.
+Layering and Astro's generated scope selectors must be checked in the rendered CSS,
+rather than assuming that a more descriptive selector wins. Keep the scope limited to the hero media wrapper;
+supporting images elsewhere retain their existing aspect ratios.
+
+Protect actual rendered relationships with `e2e/hero-consistency.spec.ts`: every
+localized route, comparison with the same-width homepage, shared intro top edge,
+image height, containment, narrow reflow, zoom-equivalent width and static/no-JS
+content. Token/source checks alone do not establish visual consistency. Preserve the
+existing critical journey, font, accessibility, security and publication checks.

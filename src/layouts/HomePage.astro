@@ -1,4 +1,5 @@
 ---
+import PageIntro from '@components/editorial/PageIntro.astro';
 import BrandLockup from '@components/marketing/BrandLockup.astro';
 import BrandVisual from '@components/marketing/BrandVisual.astro';
 import ConferenceIcon from '@components/marketing/ConferenceIcon.astro';
@@ -32,19 +33,19 @@ const icons = [
 ---
 
 <div class="home-page">
-  <section class="hero section" aria-labelledby="hero-title">
+  <section class="hero section page-hero page-hero--split" aria-labelledby="hero-title">
     <div class="hero__content">
-      <p class="eyebrow">{copy.hero.eyebrow}</p>
-      <h1 id="hero-title">
-        <span>{copy.hero.title}</span>
-        <span class="hero__outcome">{copy.hero.outcome}</span>
-      </h1>
-      <p class="hero__copy">{copy.hero.body}</p>
-      <div class="cta-row">
-        <a class="button" href="#how-it-works">{copy.hero.action}</a>
-      </div>
+      <PageIntro eyebrow={copy.hero.eyebrow} titleId="hero-title" lead={copy.hero.body}>
+        <Fragment slot="title">
+          <span>{copy.hero.title}</span>
+          <span class="hero__outcome">{copy.hero.outcome}</span>
+        </Fragment>
+        <div class="cta-row">
+          <a class="button" href="#how-it-works">{copy.hero.action}</a>
+        </div>
+      </PageIntro>
     </div>
-    <div class="hero__visual">
+    <div class="hero__visual page-hero__media">
       <BrandVisual locale={locale} variant="meeting" priority />
       <aside class="hero-preview" aria-label={copy.heroPreview.label}>
         <div class="hero-preview__header">

@@ -160,6 +160,10 @@ label separately from the target page's `hreflang`.
 
 Responsive WebP sources have intrinsic dimensions. The hero loads eagerly; supporting images
 load lazily. No image CDN, tracking, external embed, UI framework or new package is introduced.
+All 24 public localized routes share the `PageIntro` hierarchy and `page-hero` spacing.
+Image-led heroes share top alignment, responsive image height and an unframed image treatment;
+text-led and functional destinations use the same title/lead system. The authoritative
+presentation contract is in `docs/DESIGN-SYSTEM.md` and the semantic hero tokens.
 Detail pages reuse the same meeting, catering and preparation motifs and original six-icon family.
 The photographs illustrate meeting preparation; they do not document customers or software UI.
 

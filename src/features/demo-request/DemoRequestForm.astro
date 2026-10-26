@@ -1,4 +1,5 @@
 ---
+import PageIntro from '@components/editorial/PageIntro.astro';
 import { getDemoRequestConfig } from '@config/demoRequest';
 import type { Locale } from '@config/locales';
 import { companySizeValues, demoRequestLimits } from '@domain/forms/demoRequest';
@@ -15,16 +16,20 @@ const config = getDemoRequestConfig();
 const pricingHref = withBasePath(`/${locale}/pricing/`);
 ---
 
-<section class="demo-request" aria-labelledby="demo-form-title">
+<section class="demo-request page-hero page-hero--split" aria-labelledby="demo-form-title">
   <div class="demo-request__intro">
-    <p class="eyebrow">{copy.eyebrow}</p>
-    <h1 id="demo-form-title">{copy.title}</h1>
-    <p class="demo-request__lead">{copy.intro}</p>
-    <section class="demo-request__offer" aria-labelledby="demo-pilot-title">
-      <h2 id="demo-pilot-title">{copy.pilotEyebrow}</h2>
-      <p>{copy.compactOffer}</p>
-      <a href={pricingHref}>{copy.setupDetails}</a>
-    </section>
+    <PageIntro
+      eyebrow={copy.eyebrow}
+      title={copy.title}
+      titleId="demo-form-title"
+      lead={copy.intro}
+    >
+      <section class="demo-request__offer" aria-labelledby="demo-pilot-title">
+        <h2 id="demo-pilot-title">{copy.pilotEyebrow}</h2>
+        <p>{copy.compactOffer}</p>
+        <a href={pricingHref}>{copy.setupDetails}</a>
+      </section>
+    </PageIntro>
   </div>
 
   <div class="demo-request__panel">
@@ -141,34 +146,6 @@ const pricingHref = withBasePath(`/${locale}/pricing/`);
 </section>
 
 <style>
-  .demo-request {
-    min-height: min(50rem, calc(100vh - 5rem));
-    display: grid;
-    grid-template-columns: minmax(0, 0.85fr) minmax(22rem, 1fr);
-    gap: clamp(3rem, 8vw, 8rem);
-    align-items: start;
-    padding-block: clamp(4rem, 9vw, 8rem);
-    overflow-wrap: anywhere;
-  }
-  .demo-request__intro {
-    display: grid;
-    gap: var(--space-4);
-  }
-  .demo-request h1 {
-    max-width: 20ch;
-    margin: 0;
-    font-size: var(--page-title-size);
-    line-height: var(--page-title-leading);
-    letter-spacing: var(--page-title-tracking);
-    overflow-wrap: normal;
-    text-wrap: balance;
-  }
-  .demo-request__lead {
-    margin: 0;
-    color: var(--color-text-muted);
-    font-size: clamp(1.05rem, 1.5vw, 1.25rem);
-    line-height: 1.7;
-  }
   .demo-request__offer {
     display: grid;
     gap: var(--space-3);
@@ -300,11 +277,6 @@ const pricingHref = withBasePath(`/${locale}/pricing/`);
     overflow: hidden;
     clip-path: inset(50%);
     white-space: nowrap;
-  }
-  @media (max-width: 54rem) {
-    .demo-request {
-      grid-template-columns: 1fr;
-    }
   }
   @media (max-width: 36rem) {
     .form-grid {

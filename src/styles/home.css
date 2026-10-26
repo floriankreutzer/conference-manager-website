@@ -56,32 +56,6 @@
     color: var(--color-bordeaux-soft);
   }
 
-  .hero {
-    display: grid;
-    grid-template-columns: minmax(0, 1.02fr) minmax(0, 0.98fr);
-    align-items: stretch;
-    gap: clamp(2rem, 4.5vw, 4.5rem);
-    padding-block: clamp(2rem, 4.5vw, 4rem);
-    border-top: 0;
-  }
-
-  .hero__content {
-    display: grid;
-    align-content: center;
-    justify-items: start;
-    gap: 1.35rem;
-    padding-block: 0.5rem;
-  }
-
-  .hero h1 {
-    max-width: none;
-    margin: 0.4rem 0;
-    font-size: var(--page-title-size);
-    line-height: var(--page-title-leading);
-    letter-spacing: var(--page-title-tracking);
-    text-wrap: initial;
-  }
-
   .hero h1 span {
     display: block;
   }
@@ -90,25 +64,9 @@
     color: var(--color-bordeaux);
   }
 
-  .hero__copy {
-    max-width: 42rem;
-    margin: 0;
-    color: var(--color-text-muted);
-    font-size: clamp(1.03rem, 1.4vw, 1.18rem);
-    line-height: 1.7;
-  }
-
   .hero__visual {
     position: relative;
     min-width: 0;
-  }
-
-  .hero__visual .brand-visual img {
-    height: var(--page-hero-image-height);
-    min-height: 0;
-    max-height: none;
-    aspect-ratio: auto;
-    object-fit: cover;
   }
 
   .hero-preview {
@@ -117,7 +75,7 @@
     inset-block-end: 1.25rem;
     display: grid;
     gap: var(--space-3);
-    max-inline-size: 23rem;
+    max-inline-size: 28rem;
     padding: 1rem;
     border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
@@ -181,7 +139,7 @@
 
   .hero-preview__items {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.3fr);
     gap: 0;
     padding: 0;
     list-style: none;
@@ -665,22 +623,13 @@
   }
 
   @media (max-width: 60rem) {
-    .hero,
     .pilot-section {
       grid-template-columns: minmax(0, 1fr);
       gap: 2.5rem;
     }
 
-    .hero__content {
-      max-width: 43rem;
-    }
-
     .hero-preview {
       max-inline-size: min(24rem, calc(100% - 2.5rem));
-    }
-
-    .hero h1 {
-      max-width: 18ch;
     }
 
     .request-overview__items {
@@ -718,23 +667,6 @@
   @media (max-width: 42rem) {
     .section {
       padding-block: 3.5rem;
-    }
-
-    .hero {
-      padding-block: 2rem 2.5rem;
-      gap: 2rem;
-    }
-
-    .hero__content {
-      gap: 1.15rem;
-    }
-
-    .hero h1 {
-      max-width: none;
-    }
-
-    .hero__copy {
-      font-size: 1rem;
     }
 
     .hero-preview {
