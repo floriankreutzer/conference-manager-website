@@ -18,7 +18,7 @@ scope, negative cases and evidence; the release operator verifies actual deploym
 | API HTTP/security integration | Real session, Tenant, CSRF, object ownership, response/error and outbound boundaries; protected API changes | API check plus Platform HTTP security tests; protocol fixtures do not prove live identity/provider acceptance |
 | Real PostgreSQL integration | SQL, constraints, transaction/audit atomicity, migrations, rollback and data integrity; persistence/fixture/database changes | API `npm run test:db`, PostgreSQL 18, fresh disposable database per file, unchanged 120-second per-file cap; job 20 minutes |
 | Fast application tests/static checks | Capability contracts, browser validation, i18n, state/persistence and architecture; affected app behavior | App `npm run check` and `npm run audit`; CI quality 10 minutes, including repository-owned Semgrep policy |
-| Application browser/accessibility | Visible roles/workflows, keyboard/focus, translations, error/loading states, responsive behavior, semantic accessibility | App `npm run test:e2e`, Chromium desktop and WebKit iPhone profile; CI job 20 minutes; isolated transport canary runs before journeys |
+| Application browser/accessibility | Visible roles/workflows, keyboard/focus, translations, error/loading states, responsive behavior, semantic accessibility | App `npm run test:e2e`, Chromium desktop and WebKit iPhone profile; aggregate CI job 25 minutes, including setup, canaries, complete suite and evidence upload; individual test deadlines unchanged |
 | Paired Shared Demo | Genuine PostgreSQL-backed Customer/Platform separation, roles/Tenants/CSRF/media and business CSV | App shared CI: immutable API commit, Chromium/WebKit, 50-minute job; dedicated actual 200% Chromium tab-zoom check is separate from viewport emulation |
 | Permanent three-customer/reset | Northwind rich booking, Contoso authoritative work, Fabrikam onboarding; relevant cross-repository/runtime/data changes | App `npm run test:e2e:saas37`; API CI pins the frontend and permanent acceptance source and runs all four Chromium/WebKit × PostgreSQL/object-fixture rows, 30 minutes per row |
 | Fast website/render checks | Public content, routing, locale/metadata, handoff allowlist, form-processing policy, assets and static output | Website Astro/TypeScript check, lint, format check, Vitest, font verification, build, static performance budgets and dependency/secret controls |
@@ -71,6 +71,18 @@ diagnostic. Session/Tenant/profile responses succeeded while rooms/requests retu
 fix applies the existing 61-second real-rate-window wait to both engines and persists diagnostics
 by attached file path. It does not add retries, raise quotas, weaken assertions or claim every future
 run is stable. The failed history and independently passing candidate/Main results remain linked.
+
+Application [PR #397](https://github.com/floriankreutzer/conference-manager/pull/397) records a
+specific aggregate-budget correction after Main run `40388268236` reached its 20-minute job
+limit twice: 327 and 328 ordinary WebKit cases passed, respectively, while the remaining cases
+did not complete. No assertion failed in either cancelled job; the identical candidate tree had
+completed all 331 cases. The first 327 cases took 180.3 seconds longer on Main, distributed
+across 245 slower cases; this does not establish a hardware root cause. The bounded 25-minute
+job budget includes installation and existing canaries as well as the complete suite and upload.
+It changes neither individual test deadlines, `retries: 0`, one-worker execution, both full
+engine projects, correctness/security assertions nor protected/shared/permanent-scenario gates.
+Retain both cancelled attempts; the adjustment requires fresh candidate and Main evidence and
+does not authorize further generic deadline increases or additional paid capacity.
 
 ## Execution, evidence and release decisions
 
