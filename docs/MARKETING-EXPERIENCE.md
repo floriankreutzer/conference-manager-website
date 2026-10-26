@@ -160,7 +160,9 @@ label separately from the target page's `hreflang`.
 
 Responsive WebP sources have intrinsic dimensions. The hero loads eagerly; supporting images
 load lazily. No image CDN, tracking, external embed, UI framework or new package is introduced.
-All 24 public localized routes share the `PageIntro` hierarchy and `page-hero` spacing.
+All 24 public localized routes share the `PageIntro` hierarchy. The homepage uses a
+full-width photo hero with text over a dark scrim in both locales; detail pages retain
+the common `page-hero` spacing and image-height contract.
 Image-led heroes share top alignment, responsive image height and an unframed image treatment;
 text-led and functional destinations use the same title/lead system. The authoritative
 presentation contract is in `docs/DESIGN-SYSTEM.md` and the semantic hero tokens.

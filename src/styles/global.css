@@ -3,6 +3,7 @@
 @import './home.css';
 @import './info.css';
 @import './page-hero.css';
+@import './home-hero.css';
 
 @layer reset, tokens, base, components;
 

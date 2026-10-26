@@ -9,7 +9,7 @@ const paths = [
   ]),
 ];
 
-for (const path of paths) {
+for (const path of paths.filter((path) => !/^\/(en|de)\/$/.test(path))) {
   test(`${path} shares the hero hierarchy, alignment and image height`, async ({ page }) => {
     await page.goto(path);
     await page.evaluate(() => document.fonts.ready);
@@ -54,9 +54,9 @@ for (const path of paths) {
         overflow: document.documentElement.scrollWidth > document.documentElement.clientWidth + 1,
       };
     });
-    // Compare every route with the same-width homepage: tokens alone would not
+    // Compare every route with the same-width product page: tokens alone would not
     // catch a template overriding the values or vertically centring its intro.
-    await page.goto(path.startsWith('/de/') ? '/de/' : '/en/');
+    await page.goto(path.startsWith('/de/') ? '/de/product/' : '/en/product/');
     const reference = await page.locator('.page-hero').evaluate((hero) => {
       const title = getComputedStyle(hero.querySelector('h1')!);
       return {

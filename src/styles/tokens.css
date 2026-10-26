@@ -52,6 +52,16 @@
     --page-hero-lead-width: 55ch;
     --page-hero-lead-size: clamp(1.0625rem, 1.4vw, 1.25rem);
 
+    --home-hero-height: 40rem;
+    --home-hero-padding: clamp(2.5rem, 6vw, 6rem);
+    --home-hero-scrim: linear-gradient(
+      90deg,
+      rgb(23 23 23 / 0.94) 0%,
+      rgb(23 23 23 / 0.82) 45%,
+      rgb(23 23 23 / 0.2) 100%
+    );
+    --home-hero-mobile-scrim: rgb(23 23 23 / 0.82);
+
     --shadow-soft: 0 1rem 3rem rgb(23 23 23 / 0.07);
   }
 
