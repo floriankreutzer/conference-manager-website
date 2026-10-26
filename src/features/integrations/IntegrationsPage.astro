@@ -123,9 +123,9 @@ const icons = {
   .integrations-page h1 {
     max-width: 20ch;
     margin: 0;
-    font-size: clamp(2.3rem, 4vw, 3.5rem);
-    letter-spacing: -0.05em;
-    line-height: 1.1;
+    font-size: var(--page-title-size);
+    letter-spacing: var(--page-title-tracking);
+    line-height: var(--page-title-leading);
     overflow-wrap: normal;
   }
 
@@ -142,6 +142,12 @@ const icons = {
     border: 1px solid var(--color-border);
     border-radius: var(--radius-lg);
     background: var(--color-surface);
+  }
+
+  .integrations-page__visual :global(.brand-visual img) {
+    block-size: var(--page-hero-image-height);
+    aspect-ratio: auto;
+    object-fit: cover;
   }
 
   .integrations-page__visual p {
