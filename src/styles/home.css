@@ -76,9 +76,9 @@
   .hero h1 {
     max-width: none;
     margin: 0.4rem 0;
-    font-size: clamp(2.7rem, 3.6vw, 3.5rem);
-    line-height: 1.12;
-    letter-spacing: -0.052em;
+    font-size: var(--page-title-size);
+    line-height: var(--page-title-leading);
+    letter-spacing: var(--page-title-tracking);
     text-wrap: initial;
   }
 
@@ -101,6 +101,14 @@
   .hero__visual {
     position: relative;
     min-width: 0;
+  }
+
+  .hero__visual .brand-visual img {
+    height: var(--page-hero-image-height);
+    min-height: 0;
+    max-height: none;
+    aspect-ratio: auto;
+    object-fit: cover;
   }
 
   .hero-preview {
@@ -723,7 +731,6 @@
 
     .hero h1 {
       max-width: none;
-      font-size: clamp(2.15rem, 8.6vw, 3.55rem);
     }
 
     .hero__copy {
