@@ -67,6 +67,11 @@ main:has(> .home-page) {
   inline-size: 28rem;
 }
 
+/* Keep the Bordeaux control visibly bounded against the dark photograph. */
+.home-hero .button {
+  border-color: var(--color-camel-soft);
+}
+
 .home-hero .button:focus-visible {
   outline-color: var(--color-on-accent);
 }

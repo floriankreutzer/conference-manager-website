@@ -27,9 +27,15 @@ const { eyebrow, title, titleId, lead, tone = 'default' } = Astro.props;
   }
 
   .page-intro--on-image h1,
-  .page-intro--on-image .eyebrow,
   .page-intro--on-image .page-intro__lead {
     color: var(--color-on-accent);
+  }
+
+  .page-intro--on-image .eyebrow {
+    padding: var(--space-1) var(--space-2);
+    border-radius: var(--radius-sm);
+    background: var(--color-camel-soft);
+    color: var(--color-bordeaux);
   }
 
   h1 {

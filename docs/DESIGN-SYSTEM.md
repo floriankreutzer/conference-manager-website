@@ -201,7 +201,9 @@ localized title, lead and action over it. Shared Manrope/Inter typography remain
 `home-hero.css` owns its full-width geometry and tokenized dark scrim. The text sits
 in normal flow so long German copy and zoom expand the hero rather than clip it.
 The image is an absolute background sibling, never the source of content height.
-White text and the pale warm outcome accent require a dark scrim; keyboard focus
-remains white and visible. Below 72rem the illustrative preparation card is hidden
+White title/lead text and the pale warm outcome accent require a dark scrim.
+The eyebrow uses Bordeaux text on an opaque pale warm label; the primary action
+uses the standard Bordeaux fill and white text, with a pale border to distinguish
+it from the dark photograph. Keyboard focus remains white and visible. Below 72rem the illustrative preparation card is hidden
 to avoid competing with the text. Other sections retain the content-width container;
 all detail-page heroes retain their common height and alignment contract.
