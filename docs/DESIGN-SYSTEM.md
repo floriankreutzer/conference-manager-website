@@ -167,7 +167,7 @@ an image, offer or form beside the intro when there is enough space; both column
 start at the same top edge. Content can grow without a fixed hero/text height.
 
 The semantic `--page-title-*` and `--page-hero-*` tokens in `src/styles/tokens.css`
-own the responsive type scale, readable widths, spacing and image height. All hero
+own the responsive type scale, readable widths, spacing and image height. All detail-page hero
 photographs use `page-hero__media`, the same height at the same viewport and the
 existing BrandVisual geometry without additional padded frames. Image width and
 motif may vary. Below the shared breakpoint, copy precedes the media in normal flow.
@@ -177,7 +177,8 @@ Text-led destinations (Insights index, demo access) and functional side panels
 (setup/pilot, demo request) share the intro hierarchy without decorative hero images.
 The article's back link and publication dates are metadata below its lead, preserving
 the shared title position. Homepage emphasis and its labelled illustrative preview
-remain specific to that page; they do not alter the common title scale or image height.
+remain specific to that page. The photo-led homepage exception below keeps the title
+scale but deliberately uses its own full-width image geometry.
 
 `src/styles/page-hero.css` owns shared geometry and media sizing. It is deliberately
 unlayered. BrandVisual's intrinsic defaults are in the components cascade layer,
