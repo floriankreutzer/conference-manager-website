@@ -50,7 +50,7 @@ test.describe('public website contracts', () => {
         name: 'Organise meetings. Reduce the follow-up.',
       }),
     ).toBeVisible();
-    await expect(page.locator('.hero__copy')).toHaveText(
+    await expect(page.locator('.hero .page-intro__lead')).toHaveText(
       'Software for meeting preparation: bring guests, catering and equipment together in one request. Your existing room-booking system continues to handle reservations.',
     );
     await expect(page.getByText('Your systems. One meeting workflow.')).toBeVisible();
@@ -422,7 +422,7 @@ test.describe('public website contracts', () => {
       }),
     ).toBeVisible();
     await expect(page.locator('html')).toHaveAttribute('lang', 'de');
-    await expect(page.locator('.hero__copy')).toHaveText(
+    await expect(page.locator('.hero .page-intro__lead')).toHaveText(
       'Die Software für Ihre Besprechungsvorbereitung: Gäste, Catering und Technik in einer Anfrage. Ihre bestehende Raumbuchung bleibt für Reservierungen zuständig.',
     );
     const tagline = page.locator('footer .brand-lockup__tagline');

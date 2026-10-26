@@ -1,4 +1,5 @@
 ---
+import PageIntro from '@components/editorial/PageIntro.astro';
 import type { Locale } from '@config/locales';
 import type { PublicPageSlug } from '@i18n/publicPages';
 import { getPublicPageCopy } from '@i18n/publicPages';
@@ -12,10 +13,8 @@ const { locale, slug } = Astro.props;
 const copy = getPublicPageCopy(locale, slug);
 ---
 
-<section class="info-page" aria-labelledby="info-title">
-  <p class="eyebrow">{copy.eyebrow}</p>
-  <h1 id="info-title">{copy.title}</h1>
-  <p class="info-page__lead">{copy.body}</p>
+<section class="info-page page-hero" aria-labelledby="info-title">
+  <PageIntro eyebrow={copy.eyebrow} title={copy.title} titleId="info-title" lead={copy.body} />
   {
     copy.note && (
       <aside class="info-page__note" aria-label={locale === 'de' ? 'Hinweis' : 'Note'}>

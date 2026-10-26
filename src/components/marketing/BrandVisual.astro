@@ -125,60 +125,62 @@ const srcset = visual.sources
 </figure>
 
 <style>
-  .brand-visual {
-    margin: 0;
-    overflow: hidden;
-    border-radius: var(--radius-md);
-    background: var(--color-canvas-soft);
-  }
-
-  .brand-visual img {
-    display: block;
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-  }
-
-  .brand-visual--hero img {
-    aspect-ratio: 16 / 9;
-  }
-
-  .brand-visual--workplace img,
-  .brand-visual--hospitality img,
-  .brand-visual--about img {
-    aspect-ratio: 8 / 5;
-  }
-  .brand-visual--meeting {
-    height: 100%;
-  }
-  .brand-visual--meeting img {
-    height: 100%;
-    min-height: 29rem;
-    aspect-ratio: 1 / 1.08;
-    object-position: 87% center;
-  }
-  .brand-visual--preparation img {
-    aspect-ratio: 3 / 2;
-  }
-  .brand-visual--catering img {
-    aspect-ratio: 16 / 10;
-  }
-  @media (max-width: 60rem) {
-    .brand-visual--meeting {
-      height: auto;
+  @layer components {
+    .brand-visual {
+      margin: 0;
+      overflow: hidden;
+      border-radius: var(--radius-md);
+      background: var(--color-canvas-soft);
     }
 
+    .brand-visual img {
+      display: block;
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+    }
+
+    .brand-visual--hero img {
+      aspect-ratio: 16 / 9;
+    }
+
+    .brand-visual--workplace img,
+    .brand-visual--hospitality img,
+    .brand-visual--about img {
+      aspect-ratio: 8 / 5;
+    }
+    .brand-visual--meeting {
+      height: 100%;
+    }
     .brand-visual--meeting img {
-      min-height: 0;
-      max-height: 28rem;
+      height: 100%;
+      min-height: 29rem;
+      aspect-ratio: 1 / 1.08;
+      object-position: 87% center;
+    }
+    .brand-visual--preparation img {
+      aspect-ratio: 3 / 2;
+    }
+    .brand-visual--catering img {
       aspect-ratio: 16 / 10;
     }
-  }
+    @media (max-width: 60rem) {
+      .brand-visual--meeting {
+        height: auto;
+      }
 
-  @media (max-width: 42rem) {
-    .brand-visual--meeting img {
-      max-height: none;
-      aspect-ratio: 16 / 9;
+      .brand-visual--meeting img {
+        min-height: 0;
+        max-height: 28rem;
+        aspect-ratio: 16 / 10;
+      }
+    }
+
+    @media (max-width: 42rem) {
+      .brand-visual--meeting img {
+        max-height: none;
+        aspect-ratio: 16 / 9;
+      }
     }
   }
 </style>

@@ -1,4 +1,5 @@
 ---
+import PageIntro from '@components/editorial/PageIntro.astro';
 import ConferenceIcon from '@components/marketing/ConferenceIcon.astro';
 import type { Locale } from '@config/locales';
 import { withBasePath } from '@domain/routing/basePath';
@@ -12,10 +13,13 @@ const copy = getDemoLaunchCopy(locale);
 ---
 
 <article class="demo-launch" aria-labelledby="demo-launch-title">
-  <header class="demo-launch__intro">
-    <p class="eyebrow">{copy.eyebrow}</p>
-    <h1 id="demo-launch-title">{copy.title}</h1>
-    <p class="demo-launch__lead">{copy.lead}</p>
+  <header class="demo-launch__intro page-hero">
+    <PageIntro
+      eyebrow={copy.eyebrow}
+      title={copy.title}
+      titleId="demo-launch-title"
+      lead={copy.lead}
+    />
   </header>
 
   <div class="demo-launch__grid">
@@ -57,27 +61,8 @@ const copy = getDemoLaunchCopy(locale);
 
 <style>
   .demo-launch {
-    padding-block: clamp(3rem, 7vw, 6rem);
+    padding-block-end: var(--page-hero-space-end);
     overflow-wrap: anywhere;
-  }
-
-  .demo-launch__intro {
-    max-width: 55rem;
-    margin-block-end: clamp(2.5rem, 5vw, 4rem);
-  }
-
-  .demo-launch h1 {
-    max-width: 17ch;
-    margin-block: var(--space-4);
-    font-size: var(--page-title-size);
-    letter-spacing: var(--page-title-tracking);
-    line-height: var(--page-title-leading);
-  }
-
-  .demo-launch__lead {
-    max-width: 56ch;
-    font-size: clamp(1.1rem, 2vw, 1.35rem);
-    color: var(--color-text-muted);
   }
 
   .demo-launch__grid {

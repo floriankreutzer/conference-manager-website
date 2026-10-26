@@ -1,4 +1,5 @@
 ---
+import PageIntro from '@components/editorial/PageIntro.astro';
 import BrandVisual from '@components/marketing/BrandVisual.astro';
 import ConferenceIcon from '@components/marketing/ConferenceIcon.astro';
 import type { Locale } from '@config/locales';
@@ -24,18 +25,25 @@ const icons = {
 ---
 
 <article class="integrations-page">
-  <header class="integrations-page__hero" aria-labelledby="integrations-title">
+  <header
+    class="integrations-page__hero page-hero page-hero--split"
+    aria-labelledby="integrations-title"
+  >
     <div class="integrations-page__intro">
-      <p class="eyebrow">{pageCopy.eyebrow}</p>
-      <h1 id="integrations-title">{pageCopy.title}</h1>
-      <p class="integrations-page__lead">{pageCopy.body}</p>
-      <div class="integrations-page__actions">
-        <a class="integrations-page__text-link" href="#integrations-overview">
-          {story.overviewCta}<span aria-hidden="true">↓</span>
-        </a>
-      </div>
+      <PageIntro
+        eyebrow={pageCopy.eyebrow}
+        title={pageCopy.title}
+        titleId="integrations-title"
+        lead={pageCopy.body}
+      >
+        <div class="integrations-page__actions">
+          <a class="integrations-page__text-link" href="#integrations-overview">
+            {story.overviewCta}<span aria-hidden="true">↓</span>
+          </a>
+        </div>
+      </PageIntro>
     </div>
-    <div class="integrations-page__visual">
+    <div class="integrations-page__visual page-hero__media">
       <BrandVisual locale={locale} variant="catering" priority />
       <p>{story.visualCaption}</p>
     </div>
@@ -104,50 +112,8 @@ const icons = {
 
 <style>
   .integrations-page {
-    padding-block: clamp(3rem, 8vw, 7rem);
+    padding-block-end: var(--page-hero-space-end);
     overflow-wrap: anywhere;
-  }
-
-  .integrations-page__hero {
-    display: grid;
-    gap: var(--space-6);
-    align-items: center;
-    padding-block-end: clamp(4rem, 8vw, 7rem);
-  }
-
-  .integrations-page__intro {
-    display: grid;
-    gap: var(--space-4);
-  }
-
-  .integrations-page h1 {
-    max-width: 20ch;
-    margin: 0;
-    font-size: var(--page-title-size);
-    letter-spacing: var(--page-title-tracking);
-    line-height: var(--page-title-leading);
-    overflow-wrap: normal;
-  }
-
-  .integrations-page__lead {
-    margin: 0;
-    color: var(--color-text-muted);
-    font-size: clamp(1.05rem, 1.5vw, 1.25rem);
-    line-height: 1.7;
-  }
-
-  .integrations-page__visual {
-    max-width: 30rem;
-    padding: var(--space-3);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
-    background: var(--color-surface);
-  }
-
-  .integrations-page__visual :global(.brand-visual img) {
-    block-size: var(--page-hero-image-height);
-    aspect-ratio: auto;
-    object-fit: cover;
   }
 
   .integrations-page__visual p {
@@ -312,10 +278,6 @@ const icons = {
   }
 
   @media (min-width: 48rem) {
-    .integrations-page__hero {
-      grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.8fr);
-    }
-
     .integrations-page__cards {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }

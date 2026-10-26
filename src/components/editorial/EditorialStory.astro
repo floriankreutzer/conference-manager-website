@@ -1,4 +1,5 @@
 ---
+import PageIntro from '@components/editorial/PageIntro.astro';
 import ConferenceIcon from '@components/marketing/ConferenceIcon.astro';
 
 type SectionIcon =
@@ -53,17 +54,18 @@ const hasVisual = Astro.slots.has('visual');
 
 <article class="editorial-story">
   <header
-    class:list={['editorial-story__hero', { 'editorial-story__hero--visual': hasVisual }]}
+    class:list={[
+      'editorial-story__hero page-hero',
+      { 'editorial-story__hero--visual page-hero--split': hasVisual },
+    ]}
     aria-labelledby={titleId}
   >
     <div class="editorial-story__intro">
-      <p class="eyebrow">{eyebrow}</p>
-      <h1 id={titleId}>{title}</h1>
-      <p class="editorial-story__lead">{lead}</p>
+      <PageIntro {eyebrow} {title} {titleId} {lead} />
     </div>
     {
       hasVisual && (
-        <div class="editorial-story__visual">
+        <div class="editorial-story__visual page-hero__media">
           <slot name="visual" />
         </div>
       )
@@ -148,59 +150,15 @@ const hasVisual = Astro.slots.has('visual');
 
 <style>
   .editorial-story {
-    padding-block: clamp(2.5rem, 6vw, 5rem) clamp(3rem, 7vw, 6rem);
+    padding-block-end: var(--page-hero-space-end);
     overflow-wrap: anywhere;
   }
 
-  .editorial-story__hero {
-    display: grid;
-    align-items: center;
-    gap: clamp(2rem, 5vw, 4rem);
-    padding-block-end: clamp(3rem, 6vw, 5rem);
-  }
-
-  .editorial-story__intro {
-    display: grid;
-    gap: var(--space-4);
-    max-inline-size: 58rem;
-  }
-
-  .editorial-story__hero h1 {
-    max-inline-size: 21ch;
-    margin: 0;
-    font-size: var(--page-title-size);
-    letter-spacing: var(--page-title-tracking);
-    line-height: var(--page-title-leading);
-  }
-
-  .editorial-story__visual {
-    min-inline-size: 0;
-    padding: var(--space-2);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
-    background: var(--color-camel-soft);
-  }
-
-  .editorial-story__visual :global(.brand-visual img) {
-    block-size: var(--page-hero-image-height);
-    min-block-size: 0;
-    max-block-size: none;
-    aspect-ratio: auto;
-    object-fit: cover;
-  }
-
-  .editorial-story__lead,
   .editorial-story__section-copy > p,
   .editorial-story__points p,
   .editorial-story__closing > p {
     color: var(--color-text-muted);
     line-height: 1.7;
-  }
-
-  .editorial-story__lead {
-    margin: 0;
-    max-inline-size: 58ch;
-    font-size: clamp(1.0625rem, 1.5vw, 1.25rem);
   }
 
   .editorial-story__actions {
@@ -395,10 +353,6 @@ const hasVisual = Astro.slots.has('visual');
   }
 
   @media (min-width: 58rem) {
-    .editorial-story__hero--visual {
-      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
-    }
-
     .editorial-story__contents ol {
       grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
     }

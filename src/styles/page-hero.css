@@ -1,0 +1,35 @@
+/* Shared geometry; each page continues to own its content and next step. */
+.page-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: start;
+  gap: var(--page-hero-column-gap);
+  padding-block: var(--page-hero-space-start) var(--page-hero-space-end);
+}
+
+.page-hero > * {
+  min-inline-size: 0;
+}
+
+.page-hero__media {
+  min-inline-size: 0;
+}
+
+.page-hero__media .brand-visual {
+  block-size: auto;
+}
+
+.page-hero__media .brand-visual img {
+  inline-size: 100%;
+  block-size: var(--page-hero-image-height);
+  min-block-size: 0;
+  max-block-size: none;
+  aspect-ratio: auto;
+  object-fit: cover;
+}
+
+@media (min-width: 60rem) {
+  .page-hero--split {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  }
+}
