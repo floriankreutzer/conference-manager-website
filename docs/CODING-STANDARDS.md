@@ -119,6 +119,7 @@ Rules:
 - Use official governed brand assets only.
 - Preserve original proportions and defined clear space for logos/signets.
 - Record asset provenance/licensing for production assets.
+- For new or changed UI icons, follow the [canonical Pavurel icon contract](https://github.com/floriankreutzer/conference-manager/blob/main/docs/ICON-SYSTEM.md) and reuse the versioned [product brand assets](https://github.com/floriankreutzer/conference-manager/tree/main/assets/brand). Keep renderer code in this website and record the exact source version for any governed local derivative. Manufacturer identity assets follow their separate guidance in that contract; do not reconstruct or restyle them as Pavurel icons.
 - Prefer modern image formats and responsive source sets where supported.
 - Always provide intrinsic dimensions to reduce layout shift.
 - Lazy-load below-the-fold non-critical images.

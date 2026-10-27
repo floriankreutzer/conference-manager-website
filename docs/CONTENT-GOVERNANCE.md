@@ -85,6 +85,8 @@ Do not:
 
 Future integrations must not be presented as current.
 
+When manufacturer identity assets are used, follow their separate guidance linked from the [canonical icon contract](https://github.com/floriankreutzer/conference-manager/blob/main/docs/ICON-SYSTEM.md). Keep Microsoft sign-in references distinct from the Pavurel functional icon family. An available logo, sign-in reference or preview does not establish an implemented integration, endorsement or security certification.
+
 ## 8. Room-booking language
 
 Maintain the approved differentiation:

@@ -66,6 +66,8 @@ These checks cover different parts of the website. They do not by themselves est
 
 Read [AGENTS.md](AGENTS.md), the [coding standards](docs/CODING-STANDARDS.md) and the guidance relevant to your change. Keep public product claims accurate, preserve both languages and use the existing design system.
 
+Shared functional icons and manufacturer identity references follow the [canonical icon contract](https://github.com/floriankreutzer/conference-manager/blob/main/docs/ICON-SYSTEM.md), with sources in the product repository's [brand assets](https://github.com/floriankreutzer/conference-manager/tree/main/assets/brand). The website currently renders its six original workflow icons; the shared working draft does not establish a completed website migration.
+
 ## Security
 
 Do not publish application credentials, customer data or private operational material. Use the private reporting route in [SECURITY.md](SECURITY.md) for suspected vulnerabilities.
