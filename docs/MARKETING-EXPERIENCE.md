@@ -169,6 +169,8 @@ presentation contract is in `docs/DESIGN-SYSTEM.md` and the semantic hero tokens
 Detail pages reuse the same meeting, catering and preparation motifs and original six-icon family.
 The photographs illustrate meeting preparation; they do not document customers or software UI.
 
+New or changed functional icons reuse the [canonical Pavurel family](https://github.com/floriankreutzer/conference-manager/blob/main/docs/ICON-SYSTEM.md), whose versioned source assets are maintained in the [product brand asset area](https://github.com/floriankreutzer/conference-manager/tree/main/assets/brand). The current website still renders the six originals described above. The shared working draft and its previews do not establish that the website or application has already adopted every motif.
+
 Social metadata uses the existing approved 1440 × 810 meeting-room image as a shared
 fallback, with an absolute URL that includes the configured site base path. English and
 German image descriptions are owned by the central site-metadata copy. This is editorial

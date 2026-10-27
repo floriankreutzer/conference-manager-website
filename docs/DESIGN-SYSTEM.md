@@ -133,6 +133,12 @@ Rules:
 
 The current app-icon production direction uses Bordeaux `#7A1F3D` with White `#FFFFFF` and Camel `#C29A6B` signet treatment. Confirm current governed assets before implementation.
 
+### Shared functional icons and manufacturer identity
+
+For new or changed UI icons, reuse the existing Pavurel family under the [canonical icon contract](https://github.com/floriankreutzer/conference-manager/blob/main/docs/ICON-SYSTEM.md). Its versioned sources live in the product repository's [brand assets](https://github.com/floriankreutzer/conference-manager/tree/main/assets/brand); this website keeps its own Astro renderer. The contract owns icon meaning, variants, accessible use and the separate manufacturer guidance, while this document remains the website's design authority.
+
+The website currently uses the six original workflow SVGs in `public/assets/icons/`. The shared working draft contains 32 motifs in 96 Light/Mono/Inverse files; availability of those sources does not mean they are already rendered here. Targeted family adoption is coordinated through [application issue #400](https://github.com/floriankreutzer/conference-manager/issues/400). Microsoft sign-in treatment is separate manufacturer work under [application issue #399](https://github.com/floriankreutzer/conference-manager/issues/399); the website's ordinary application Login handoff remains unchanged.
+
 ## 10. Interaction and motion
 
 Motion must be restrained and purposeful.

@@ -14,6 +14,20 @@ The official product name remains **Conference Manager**. `by Pavurel` is the su
 
 Do not redraw, stretch, rotate or arbitrarily recolour the signet. The signet is corporate framing, not a general-purpose UI icon.
 
+## Shared functional icons and manufacturer references
+
+The [canonical icon contract](https://github.com/floriankreutzer/conference-manager/blob/main/docs/ICON-SYSTEM.md)
+and versioned sources in the product repository's [brand assets](https://github.com/floriankreutzer/conference-manager/tree/main/assets/brand)
+own the shared Pavurel functional icon family. Reuse that family for new or changed
+UI icons; keep the website renderer and exact-source local derivatives within the
+website boundary. The six existing website workflow icons remain documented in
+`public/assets/icons/README.md`; the shared working draft is not a completed
+runtime migration.
+
+Manufacturer identity references, including Microsoft sign-in assets, retain their
+own usage guidance. They are distinct from both the corporate signet and the Pavurel
+functional icons. No additional archive or preview copy is maintained in this website.
+
 ## Approved AI key visuals
 
 The source package `PAVUREL_Bildpaket_komplett.zip` contains nine AI-generated key visuals and presentation crops from the PAVUREL Corporate Master context. On 2026-08-29 the owner explicitly approved these visuals for use on the public Conference Manager website and also approved creation of additional visuals in the same established style when required.
