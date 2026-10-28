@@ -11,7 +11,6 @@ test.describe('canonical static icons without JavaScript', () => {
       const icons = page.locator('img[src*="/assets/pavurel-icons/v0.1/"]');
       expect(await icons.count()).toBeGreaterThanOrEqual(6);
       for (const icon of await icons.all()) {
-        await icon.scrollIntoViewIfNeeded();
         await expect(icon).toHaveAttribute('alt', '');
         await expect(icon).toHaveAttribute('aria-hidden', 'true');
         await expect(icon).toHaveAttribute('width', '24');
