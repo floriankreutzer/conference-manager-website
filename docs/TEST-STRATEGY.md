@@ -16,7 +16,7 @@ scope, negative cases and evidence; the release operator verifies actual deploym
 | --- | --- | --- |
 | Fast API domain/application tests | Authorization, validation, workflow, errors, concurrency and provider-neutral policy; every affected rule | API `npm run check`, including native tests, architecture/static/secret/dependency gates and loopback HTTP DAST; quality job 10 minutes |
 | API HTTP/security integration | Real session, Tenant, CSRF, object ownership, response/error and outbound boundaries; protected API changes | API check plus Platform HTTP security tests; protocol fixtures do not prove live identity/provider acceptance |
-| Real PostgreSQL integration | SQL, constraints, transaction/audit atomicity, migrations, rollback and data integrity; persistence/fixture/database changes | API `npm run test:db`, PostgreSQL 18, fresh disposable database per file, unchanged 120-second per-file cap; job 20 minutes |
+| Real PostgreSQL integration | SQL, constraints, transaction/audit atomicity, migrations, rollback and data integrity; persistence/fixture/database changes | API `npm run test:db`, PostgreSQL 18, fresh disposable database per file, unchanged 120-second per-file cap; aggregate job 30 minutes |
 | Fast application tests/static checks | Capability contracts, browser validation, i18n, state/persistence and architecture; affected app behavior | App `npm run check` and `npm run audit`; CI quality 10 minutes, including repository-owned Semgrep policy |
 | Application browser/accessibility | Visible roles/workflows, keyboard/focus, translations, error/loading states, responsive behavior, semantic accessibility | App `npm run test:e2e`, Chromium desktop and WebKit iPhone profile; aggregate CI job 25 minutes, including setup, canaries, complete suite and evidence upload; individual test deadlines unchanged |
 | Paired Shared Demo | Genuine PostgreSQL-backed Customer/Platform separation, roles/Tenants/CSRF/media and business CSV | App shared CI: immutable API commit, Chromium/WebKit, 50-minute job; dedicated actual 200% Chromium tab-zoom check is separate from viewport emulation |
@@ -83,6 +83,26 @@ It changes neither individual test deadlines, `retries: 0`, one-worker execution
 engine projects, correctness/security assertions nor protected/shared/permanent-scenario gates.
 Retain both cancelled attempts; the adjustment requires fresh candidate and Main evidence and
 does not authorize further generic deadline increases or additional paid capacity.
+
+API participant acceptance adds a separately evidenced native aggregate-budget correction.
+[Run `40716074798`](https://github.com/floriankreutzer/conference-manager-api/actions/runs/40716074798),
+job `122915752303`, reached its 20-minute job limit after 338 successful TAP cases
+and zero assertion failures; the last regression/actual proof-expiry checks did not
+complete. Parallel candidate job `122915437554` completed 340 cases and the actual
+expiry probe in approximately 16 minutes 21 seconds. These are different candidate
+revisions with comparable shared regression work, not a controlled hardware experiment
+or evidence that a cancelled run passed. Retain the cancellation.
+
+The bounded 30-minute native aggregate includes container/setup work, focused
+preflights, the complete sequential persistence suite and actual elapsed proof
+expiry. New mailbox/Microsoft source-window and two-cycle participant progressions
+wait the unchanged real production windows; focused and complete execution both
+remain required. The 120-second per-file cap, zero retries, correctness/security
+assertions, test inventory and all permanent browser/storage rows remain unchanged.
+This is CI scheduling capacity, not a product latency target, permission to lengthen
+individual tests, paid capacity or evidence of deployed/provider/recovery acceptance.
+Fresh exact-head candidate and separate Main results are still required. The owning
+API workflow and this shared strategy must be reconciled when this correction merges.
 
 ## Execution, evidence and release decisions
 
