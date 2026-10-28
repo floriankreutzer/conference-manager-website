@@ -1,15 +1,18 @@
 ---
 import { withBasePath } from '@domain/routing/basePath';
+import { pavurelIconAsset } from './conferenceIconAssets';
+import type { PavurelIconName, PavurelIconVariant } from './conferenceIconAssets';
 
 interface Props {
-  name: 'request' | 'participants' | 'room-equipment' | 'catering' | 'changes' | 'coordination';
+  name: PavurelIconName;
+  variant?: PavurelIconVariant;
 }
 
-const { name } = Astro.props;
+const { name, variant = 'light' } = Astro.props;
 ---
 
 <img
-  src={withBasePath('/assets/icons/' + name + '.svg')}
+  src={withBasePath(pavurelIconAsset(name, variant))}
   width="24"
   height="24"
   alt=""
