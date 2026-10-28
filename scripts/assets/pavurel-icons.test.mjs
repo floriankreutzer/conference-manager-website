@@ -7,15 +7,11 @@ import {
   pavurelIconAsset,
 } from '../../src/components/marketing/conferenceIconAssets.ts';
 
-const manifest = JSON.parse(
-  readFileSync('public/assets/pavurel-icons/v0.1/manifest.json', 'utf8'),
-);
+const manifest = JSON.parse(readFileSync('public/assets/pavurel-icons/v0.1/manifest.json', 'utf8'));
 
 describe('canonical local functional icon bytes', () => {
   it('retains all names and all96 immutable variant hashes without active SVG content', () => {
-    expect([...PAVUREL_ICON_NAMES].sort()).toEqual(
-      manifest.icons.map((icon) => icon.name).sort(),
-    );
+    expect([...PAVUREL_ICON_NAMES].sort()).toEqual(manifest.icons.map((icon) => icon.name).sort());
     let count = 0;
     for (const icon of manifest.icons) {
       for (const variant of PAVUREL_ICON_VARIANTS) {
@@ -48,5 +44,4 @@ describe('canonical local functional icon bytes', () => {
       );
     }
   });
-
 });
