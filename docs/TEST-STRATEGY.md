@@ -18,7 +18,7 @@ scope, negative cases and evidence; the release operator verifies actual deploym
 | API HTTP/security integration | Real session, Tenant, CSRF, object ownership, response/error and outbound boundaries; protected API changes | API check plus Platform HTTP security tests; protocol fixtures do not prove live identity/provider acceptance |
 | Real PostgreSQL integration | SQL, constraints, transaction/audit atomicity, migrations, rollback and data integrity; persistence/fixture/database changes | API `npm run test:db`, PostgreSQL 18, fresh disposable database per file, unchanged 120-second per-file cap; aggregate job 30 minutes |
 | Fast application tests/static checks | Capability contracts, browser validation, i18n, state/persistence and architecture; affected app behavior | App `npm run check` and `npm run audit`; CI quality 10 minutes, including repository-owned Semgrep policy |
-| Application browser/accessibility | Visible roles/workflows, keyboard/focus, translations, error/loading states, responsive behavior, semantic accessibility | App `npm run test:e2e`, Chromium desktop and WebKit iPhone profile; aggregate CI job 25 minutes, including setup, canaries, complete suite and evidence upload; individual test deadlines unchanged |
+| Application browser/accessibility | Visible roles/workflows, keyboard/focus, translations, error/loading states, responsive behavior, semantic accessibility | App `npm run test:e2e`, Chromium desktop and WebKit iPhone profile; 40-minute CI job for each engine, including setup, canaries, complete suite and evidence upload; individual test deadlines unchanged |
 | Paired Shared Demo | Genuine PostgreSQL-backed Customer/Platform separation, roles/Tenants/CSRF/media and business CSV | App shared CI: immutable API commit, Chromium/WebKit, 50-minute job; dedicated actual 200% Chromium tab-zoom check is separate from viewport emulation |
 | Permanent three-customer/reset | Northwind rich booking, Contoso authoritative work, Fabrikam onboarding; relevant cross-repository/runtime/data changes | App `npm run test:e2e:saas37`; API CI pins the frontend and permanent acceptance source and runs all four Chromium/WebKit × PostgreSQL/object-fixture rows, 30 minutes per row |
 | Fast website/render checks | Public content, routing, locale/metadata, handoff allowlist, form-processing policy, assets and static output | Website Astro/TypeScript check, lint, format check, Vitest, font verification, build, static performance budgets and dependency/secret controls |
@@ -77,12 +77,25 @@ specific aggregate-budget correction after Main run `40388268236` reached its 20
 limit twice: 327 and 328 ordinary WebKit cases passed, respectively, while the remaining cases
 did not complete. No assertion failed in either cancelled job; the identical candidate tree had
 completed all 331 cases. The first 327 cases took 180.3 seconds longer on Main;
-245 cases were over 0.1 seconds slower. This does not establish a hardware root cause. The bounded 25-minute
-job budget includes installation and existing canaries as well as the complete suite and upload.
+245 cases were over 0.1 seconds slower. This does not establish a hardware root cause. That historical 25-minute
+job budget included installation and existing canaries as well as the complete suite and upload.
 It changes neither individual test deadlines, `retries: 0`, one-worker execution, both full
 engine projects, correctness/security assertions nor protected/shared/permanent-scenario gates.
 Retain both cancelled attempts; the adjustment requires fresh candidate and Main evidence and
 does not authorize further generic deadline increases or additional paid capacity.
+
+Subsequent application scheduling changes retained the complete engine matrix:
+[commit `cd94e14f`](https://github.com/floriankreutzer/conference-manager/commit/cd94e14f67ff221ef27e098c22f29f9ebbd21b02)
+set a 30-minute aggregate, and [commit `83f883db`](https://github.com/floriankreutzer/conference-manager/commit/83f883dbccd76a28050f1981c8431f18174f04e7)
+in [PR #465](https://github.com/floriankreutzer/conference-manager/pull/465) set the current
+40-minute budget per engine. Before the latter correction, WebKit job `129139247579`
+was cancelled after 434 successful ordinary cases without completing the suite;
+that failed qualification remains historical. The corrected candidate's
+[run `42619822780`](https://github.com/floriankreutzer/conference-manager/actions/runs/42619822780)
+and its separate merged Main's [run `42623874166`](https://github.com/floriankreutzer/conference-manager/actions/runs/42623874166)
+completed with all ordinary, protected and shared browser jobs successful.
+The table records this existing executable control; no individual deadline, assertion,
+retry policy or paid-capacity limit changes through this documentation reconciliation.
 
 API participant acceptance adds a separately evidenced native aggregate-budget correction.
 [Run `40716074798`](https://github.com/floriankreutzer/conference-manager-api/actions/runs/40716074798),
