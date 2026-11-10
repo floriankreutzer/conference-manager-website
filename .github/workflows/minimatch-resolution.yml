@@ -55,7 +55,7 @@ jobs:
           import * as prettier from 'prettier';
 
           const target = 'scripts/dependencies/resolve-minimatch-once.mjs';
-          const expectedBlob = 'acd8f08332daf672957fbeaa64868521b3495a23';
+          const expectedBlob = '281dbb8491680435c9de75d88f7f6596000739ba';
           const configPath = '.prettierrc.mjs';
           const configBlob = '29e02a1fb3634bbd347e429a91876173a28e1fe3';
           const maximum = 32_768;
@@ -100,7 +100,7 @@ jobs:
           const sourceSha = git('rev-parse', 'HEAD');
           assert.match(sourceSha, /^[a-f0-9]{40}$/u);
           assert.equal(sourceSha, process.env.GITHUB_SHA, 'FORMAT_SOURCE_IDENTITY');
-          assert.equal(git('rev-parse', 'HEAD^'), '05c1134f631cac0c47114ec5056537e7082e9e2e');
+          assert.equal(git('rev-parse', 'HEAD^'), '2dffae3c6a84a617a16271299b624b94cace1b38');
           assert.equal(git('status', '--porcelain', '--untracked-files=no'), '', 'FORMAT_READ_ONLY');
 
           const outputs = [{ kind: 'original', bytes: original }, { kind: 'formatted', bytes: formatted }];

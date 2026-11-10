@@ -9,7 +9,8 @@ import { isDeepStrictEqual } from 'node:util';
 
 export const BASE_SHA = '482cb3dec0bc31587f2bd0631c7b1d525befbe01';
 export const BASE_TREE = '8db5d0c3fb51b817c9d416cb64e238af7425e695';
-const PARENT_SHA = '05c1134f631cac0c47114ec5056537e7082e9e2e';
+const PARENT_SHA = '2dffae3c6a84a617a16271299b624b94cace1b38';
+const BOOTSTRAP_FIX_SHA = '05c1134f631cac0c47114ec5056537e7082e9e2e';
 const BOOTSTRAP_SHA = '8d194cc3b2f3cd5ea7b45ca34b1969efae69d5ea';
 export const PARENTS = {
   eslint: '10.9.1',
@@ -157,7 +158,8 @@ function sourceIdentity() {
   assert.equal(head, process.env.GITHUB_SHA);
   const lineage = git('rev-list', '--parents', '-n', '1', head).trim().split(' ');
   assert.deepEqual(lineage, [head, PARENT_SHA]);
-  assert.equal(git('rev-parse', PARENT_SHA + '^').trim(), BOOTSTRAP_SHA);
+  assert.equal(git('rev-parse', PARENT_SHA + '^').trim(), BOOTSTRAP_FIX_SHA);
+  assert.equal(git('rev-parse', BOOTSTRAP_FIX_SHA + '^').trim(), BOOTSTRAP_SHA);
   assert.equal(git('rev-parse', BOOTSTRAP_SHA + '^').trim(), BASE_SHA);
   assert.equal(git('rev-parse', BASE_SHA + '^{tree}').trim(), BASE_TREE);
   const paths = git('diff', '--name-only', '-z', BASE_SHA, head).split('\0').filter(Boolean);
@@ -184,9 +186,15 @@ async function lintInventory() {
   const eslint = new ESLint();
   const results = await eslint.lintFiles(['.']);
   assert.ok(results.length > 0, 'REAL_LINT_INVENTORY');
-  assert.ok(results.every((result) => result.errorCount === 0), 'LINT_ERRORS');
+  assert.ok(
+    results.every((result) => result.errorCount === 0),
+    'LINT_ERRORS',
+  );
   const paths = sorted(results.map((result) => relative(ROOT, result.filePath)));
-  assert.ok(paths.every((path) => !path.startsWith('..') && !isAbsolute(path)), 'LINT_PATHS');
+  assert.ok(
+    paths.every((path) => !path.startsWith('..') && !isAbsolute(path)),
+    'LINT_PATHS',
+  );
   for (const path of [
     'src/config/application.ts',
     'src/pages/en/index.astro',

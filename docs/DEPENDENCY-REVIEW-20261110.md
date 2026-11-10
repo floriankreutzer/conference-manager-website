@@ -126,3 +126,16 @@ boundary cases, and verifies that no tracked file changed. It writes no source
 file and still fails when formatting differs. A later reviewed source correction
 must pass all original gates before dependency bytes can be accepted. The exact
 published chain `05c1134 -> 8d194cc -> 482cb3d` remains required.
+
+The read-only [formatter run 42765851621](https://github.com/floriankreutzer/conference-manager-website/actions/runs/42765851621)
+on `2dffae3c6a84a617a16271299b624b94cace1b38` reached all five negative
+boundary checks, both positive bounds, the locked formatter and unchanged-source
+checks, then correctly failed because the bytes differed. Its complete receipt
+binds the original 14,350 bytes to SHA-256
+`eab30b01e58f01f2a5692ac1880ea06f1769aa5f2d20bd252391debefe1c5242`
+and the formatted 14,376 bytes to
+`2d067a96ac1f846a3075115971b904a6d0e39dd16052c0edeb43c7eaa6623668`.
+The source correction adopts only the two formatter-produced multiline assertions
+in lint inventory and updates the exact parent/receipt bindings for a normal child
+of that failed run. The read-only formatter and every original functional gate
+remain required; this failed diagnostic run proves no later dependency acceptance.
