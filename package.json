@@ -38,6 +38,15 @@
     "yaml": "2.9.1"
   },
   "overrides": {
-    "devalue": "5.9.4"
+    "devalue": "5.9.4",
+    "eslint@10.9.1": {
+      "minimatch": "11.0.5"
+    },
+    "@eslint/config-array@0.23.5": {
+      "minimatch": "11.0.5"
+    },
+    "@typescript-eslint/typescript-estree@8.68.0": {
+      "minimatch": "11.0.5"
+    }
   }
 }
