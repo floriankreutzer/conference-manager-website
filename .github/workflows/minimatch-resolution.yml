@@ -1,0 +1,106 @@
+name: CO-320 bounded minimatch resolution
+
+on:
+  push:
+    branches: [CO-320-minimatch-resolution]
+
+permissions:
+  contents: read
+
+jobs:
+  resolve-and-validate:
+    if: github.repository == 'floriankreutzer/conference-manager-website' && github.event.repository.private == false
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      PUBLIC_CM_APP_ORIGIN: https://app.example.invalid
+      PUBLIC_PREVIEW: 'true'
+      npm_config_registry: https://registry.npmjs.org/
+      npm_config_userconfig: ${{ runner.temp }}/cm-minimatch-empty.npmrc
+      npm_config_cache: ${{ runner.temp }}/cm-minimatch-npm-cache
+    steps:
+      - name: Checkout the reviewed one-shot source
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Use the unchanged website Node version without a shared cache
+        uses: actions/setup-node@v6
+        with:
+          node-version: '22.22.3'
+          package-manager-cache: false
+
+      - name: Require the exact source boundary
+        shell: bash
+        run: |
+          set -euo pipefail
+          umask 077
+          : > "$npm_config_userconfig"
+          node scripts/dependencies/resolve-minimatch-once.mjs source
+
+      - name: Install the existing baseline without lifecycle scripts
+        run: npm ci --ignore-scripts --no-audit --no-fund
+
+      - name: Check resolution boundaries and existing consumer behavior before the update
+        run: npx vitest run scripts/dependencies/resolve-minimatch-once.test.mjs
+
+      - name: Capture actual baseline lint coverage
+        run: node scripts/dependencies/resolve-minimatch-once.mjs baseline
+
+      - name: Let npm produce the narrowly scoped candidate lock
+        run: node scripts/dependencies/resolve-minimatch-once.mjs resolve
+
+      - name: Reinstall exclusively from the generated lock without lifecycle scripts
+        run: npm ci --ignore-scripts --no-audit --no-fund
+
+      - name: Verify each installed parent and identical lint coverage
+        run: node scripts/dependencies/resolve-minimatch-once.mjs installed
+
+      - name: Require a complete audit with zero vulnerabilities
+        shell: bash
+        run: |
+          set -euo pipefail
+          npm audit --json --audit-level=high > "$RUNNER_TEMP/cm-minimatch-review/audit.json"
+          node scripts/dependencies/resolve-minimatch-once.mjs audit
+
+      - name: Astro and TypeScript checks
+        run: npm run check
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Format check
+        run: npm run format:check
+
+      - name: All unit tests including resolution and actual consumer regressions
+        run: npm test
+
+      - name: Governed font asset verification
+        run: npm run test:fonts
+
+      - name: Production build
+        run: npm run build
+
+      - name: Static build performance budgets
+        run: npm run test:performance
+
+      - name: Install the unchanged Playwright Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Complete website browser, route and accessibility tests
+        run: npm run test:e2e
+
+      - name: Emit only verified package and lock bytes for independent review
+        run: node scripts/dependencies/resolve-minimatch-once.mjs emit
+
+      - name: Retain only the public candidate files and bounded resolution receipt
+        uses: actions/upload-artifact@v7
+        with:
+          name: website-minimatch-resolution-${{ github.sha }}
+          path: |
+            ${{ runner.temp }}/cm-minimatch-review/package.json
+            ${{ runner.temp }}/cm-minimatch-review/package-lock.json
+            ${{ runner.temp }}/cm-minimatch-review/resolution.json
+          if-no-files-found: error
+          retention-days: 7
