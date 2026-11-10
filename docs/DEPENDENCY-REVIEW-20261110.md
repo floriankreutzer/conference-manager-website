@@ -107,3 +107,22 @@ only those paths through `GITHUB_ENV`. It preserves the failed run and uses a
 normal child commit; the immutable source guard now requires that exact original
 parent and its original Main parent. All resolution, audit and acceptance gates
 remain unchanged and unexecuted until a later successful native run.
+
+## Native formatter receipt
+
+The corrected bootstrap [run 42764861561](https://github.com/floriankreutzer/conference-manager-website/actions/runs/42764861561)
+on `05c1134f631cac0c47114ec5056537e7082e9e2e` passed the source boundary,
+18 resolution tests, the bounded npm-generated dependency change, clean reinstall,
+three installed consumer contracts, identical 128-file lint coverage, a zero-finding
+audit, Astro/TypeScript and lint. Its format gate failed on the new resolution
+helper; the subsequent unit, build, browser and candidate-byte emission gates did
+not execute.
+
+A temporary read-only step immediately after the unchanged baseline install uses
+the locked Prettier 3.9.6 and repository configuration to report only that exact
+helper's original and formatted bytes. The receipt binds the source, regular-file
+Git blobs, byte limits, UTF-8, SHA-256 and formatter idempotence, checks rejected
+boundary cases, and verifies that no tracked file changed. It writes no source
+file and still fails when formatting differs. A later reviewed source correction
+must pass all original gates before dependency bytes can be accepted. The exact
+published chain `05c1134 -> 8d194cc -> 482cb3d` remains required.

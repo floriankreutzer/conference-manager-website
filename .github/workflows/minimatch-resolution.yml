@@ -43,6 +43,90 @@ jobs:
       - name: Install the existing baseline without lifecycle scripts
         run: npm ci --ignore-scripts --no-audit --no-fund
 
+      - name: Read the exact native formatter result without changing source
+        shell: bash
+        run: |
+          set -euo pipefail
+          node --input-type=module <<'NODE'
+          import assert from 'node:assert/strict';
+          import { execFileSync } from 'node:child_process';
+          import { createHash } from 'node:crypto';
+          import { lstatSync, readFileSync } from 'node:fs';
+          import * as prettier from 'prettier';
+
+          const target = 'scripts/dependencies/resolve-minimatch-once.mjs';
+          const expectedBlob = 'acd8f08332daf672957fbeaa64868521b3495a23';
+          const configPath = '.prettierrc.mjs';
+          const configBlob = '29e02a1fb3634bbd347e429a91876173a28e1fe3';
+          const maximum = 32_768;
+          const gitBlob = (bytes) => createHash('sha1')
+            .update('blob ' + bytes.length + '\0').update(bytes).digest('hex');
+          const sha256 = (bytes) => createHash('sha256').update(bytes).digest('hex');
+
+          function bounded(bytes, expected) {
+            assert.ok(Buffer.isBuffer(bytes), 'FORMAT_BUFFER');
+            assert.ok(bytes.length > 0 && bytes.length <= maximum, 'FORMAT_SIZE');
+            assert.ok(Buffer.from(bytes.toString('utf8'), 'utf8').equals(bytes), 'FORMAT_UTF8');
+            if (expected !== undefined) assert.equal(gitBlob(bytes), expected, 'FORMAT_GIT_BLOB');
+            return bytes;
+          }
+          function readFixed(path, expected) {
+            const entry = lstatSync(path);
+            assert.ok(entry.isFile() && !entry.isSymbolicLink(), 'FORMAT_REGULAR_FILE');
+            assert.ok(entry.size > 0 && entry.size <= maximum, 'FORMAT_SIZE');
+            return bounded(readFileSync(path), expected);
+          }
+
+          assert.throws(() => bounded('invalid'), /FORMAT_BUFFER/u);
+          assert.throws(() => bounded(Buffer.alloc(0)), /FORMAT_SIZE/u);
+          assert.throws(() => bounded(Buffer.alloc(maximum + 1)), /FORMAT_SIZE/u);
+          assert.throws(() => bounded(Buffer.from([255])), /FORMAT_UTF8/u);
+          assert.throws(() => bounded(Buffer.from('safe\n'), '0'.repeat(40)), /FORMAT_GIT_BLOB/u);
+          assert.equal(bounded(Buffer.from('safe\n')).toString('utf8'), 'safe\n');
+          assert.equal(bounded(Buffer.alloc(maximum, 32)).length, maximum);
+
+          assert.equal(prettier.version, '3.9.6', 'FORMAT_LOCKED_VERSION');
+          const original = readFixed(target, expectedBlob);
+          const configBytes = readFixed(configPath, configBlob);
+          const configuration = await prettier.resolveConfig(target, { editorconfig: true, useCache: false });
+          assert.ok(configuration && typeof configuration === 'object', 'FORMAT_REPOSITORY_CONFIGURATION');
+          const options = { ...configuration, filepath: target };
+          const formatted = bounded(Buffer.from(await prettier.format(original.toString('utf8'), options)));
+          assert.equal(await prettier.format(formatted.toString('utf8'), options),
+            formatted.toString('utf8'), 'FORMAT_IDEMPOTENCE');
+          assert.ok(readFixed(target, expectedBlob).equals(original), 'FORMAT_SOURCE_UNCHANGED');
+          assert.ok(readFixed(configPath, configBlob).equals(configBytes), 'FORMAT_CONFIGURATION_UNCHANGED');
+          const git = (...args) => execFileSync('git', args, { encoding: 'utf8', maxBuffer: 65_536 }).trim();
+          const sourceSha = git('rev-parse', 'HEAD');
+          assert.match(sourceSha, /^[a-f0-9]{40}$/u);
+          assert.equal(sourceSha, process.env.GITHUB_SHA, 'FORMAT_SOURCE_IDENTITY');
+          assert.equal(git('rev-parse', 'HEAD^'), '05c1134f631cac0c47114ec5056537e7082e9e2e');
+          assert.equal(git('status', '--porcelain', '--untracked-files=no'), '', 'FORMAT_READ_ONLY');
+
+          const outputs = [{ kind: 'original', bytes: original }, { kind: 'formatted', bytes: formatted }];
+          const changed = !original.equals(formatted);
+          const receipt = {
+            schemaVersion: 1, scope: 'website-minimatch-helper-format', sourceSha, path: target,
+            originalBlob: expectedBlob, configBlob, prettier: prettier.version, maximum, changed,
+            negativeCases: 5,
+            files: outputs.map(({ kind, bytes }, index) => ({
+              index, kind, bytes: bytes.length, sha256: sha256(bytes), gitBlob: gitBlob(bytes),
+            })),
+          };
+          console.log('CM_FORMAT_MANIFEST ' + JSON.stringify(receipt));
+          for (const [index, { bytes }] of outputs.entries()) {
+            const encoded = bytes.toString('base64');
+            for (let offset = 0; offset < encoded.length; offset += 3000) {
+              console.log('CM_FORMAT_DATA ' + index + ' ' + offset + ' ' + encoded.slice(offset, offset + 3000));
+            }
+            console.log('CM_FORMAT_END ' + index + ' ' + encoded.length);
+          }
+          console.log('CM_FORMAT_COMPLETE ' + JSON.stringify({
+            files: outputs.length, bytes: original.length + formatted.length, changed,
+          }));
+          assert.ok(!changed, 'FORMAT_DIFF_REQUIRES_REVIEWED_SOURCE_CHANGE');
+          NODE
+
       - name: Check resolution boundaries and existing consumer behavior before the update
         run: npx vitest run scripts/dependencies/resolve-minimatch-once.test.mjs
 
