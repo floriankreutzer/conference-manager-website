@@ -93,3 +93,17 @@ Remove each temporary parent-specific override when a reviewed published parent
 natively resolves a fixed minimatch version, then regenerate the lock through npm
 and run the same relevant gates. Preserve this dated finding and the native
 resolution evidence rather than treating a future package release as already tested.
+
+## Workflow bootstrap correction
+
+The initial native [run 42763867172](https://github.com/floriankreutzer/conference-manager-website/actions/runs/42763867172)
+on `8d194cc3b2f3cd5ea7b45ca34b1969efae69d5ea` failed before any job was
+created. No npm resolution, dependency test, audit or browser gate executed.
+The source placed `runner.temp` in the job-level environment, where GitHub's
+[context availability contract](https://docs.github.com/en/actions/reference/workflows-and-actions/contexts#context-availability)
+does not permit the runner context. The correction initializes the two private
+temporary npm paths inside the first shell step from `RUNNER_TEMP`, then passes
+only those paths through `GITHUB_ENV`. It preserves the failed run and uses a
+normal child commit; the immutable source guard now requires that exact original
+parent and its original Main parent. All resolution, audit and acceptance gates
+remain unchanged and unexecuted until a later successful native run.

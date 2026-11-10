@@ -9,6 +9,7 @@ import { isDeepStrictEqual } from 'node:util';
 
 export const BASE_SHA = '482cb3dec0bc31587f2bd0631c7b1d525befbe01';
 export const BASE_TREE = '8db5d0c3fb51b817c9d416cb64e238af7425e695';
+const PARENT_SHA = '8d194cc3b2f3cd5ea7b45ca34b1969efae69d5ea';
 export const PARENTS = {
   eslint: '10.9.1',
   '@eslint/config-array': '0.23.5',
@@ -154,7 +155,8 @@ function sourceIdentity() {
   assert.match(head, SOURCE_PATTERN);
   assert.equal(head, process.env.GITHUB_SHA);
   const lineage = git('rev-list', '--parents', '-n', '1', head).trim().split(' ');
-  assert.deepEqual(lineage, [head, BASE_SHA]);
+  assert.deepEqual(lineage, [head, PARENT_SHA]);
+  assert.equal(git('rev-parse', PARENT_SHA + '^').trim(), BASE_SHA);
   assert.equal(git('rev-parse', BASE_SHA + '^{tree}').trim(), BASE_TREE);
   const paths = git('diff', '--name-only', '-z', BASE_SHA, head).split('\0').filter(Boolean);
   assert.deepEqual(sorted(paths), sorted(ADDED_PATHS), 'SOURCE_ALLOWLIST');
@@ -163,7 +165,7 @@ function sourceIdentity() {
     assert.match(row, /^100644 blob [a-f0-9]{40}\t/u, 'SOURCE_REGULAR_FILE');
     assert.equal(git('ls-tree', BASE_SHA, '--', path), '', 'SOURCE_NEW_PATH');
   }
-  return { sourceSha: head, baseSha: BASE_SHA, baseTree: BASE_TREE };
+  return { sourceSha: head, parentSha: PARENT_SHA, baseSha: BASE_SHA, baseTree: BASE_TREE };
 }
 
 function files() {

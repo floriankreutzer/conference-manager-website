@@ -16,8 +16,6 @@ jobs:
       PUBLIC_CM_APP_ORIGIN: https://app.example.invalid
       PUBLIC_PREVIEW: 'true'
       npm_config_registry: https://registry.npmjs.org/
-      npm_config_userconfig: ${{ runner.temp }}/cm-minimatch-empty.npmrc
-      npm_config_cache: ${{ runner.temp }}/cm-minimatch-npm-cache
     steps:
       - name: Checkout the reviewed one-shot source
         uses: actions/checkout@v7
@@ -36,6 +34,9 @@ jobs:
         run: |
           set -euo pipefail
           umask 077
+          export npm_config_userconfig="$RUNNER_TEMP/cm-minimatch-empty.npmrc"
+          export npm_config_cache="$RUNNER_TEMP/cm-minimatch-npm-cache"
+          printf '%s\n' "npm_config_userconfig=$npm_config_userconfig" "npm_config_cache=$npm_config_cache" >> "$GITHUB_ENV"
           : > "$npm_config_userconfig"
           node scripts/dependencies/resolve-minimatch-once.mjs source
 
