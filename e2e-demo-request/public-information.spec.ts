@@ -42,9 +42,6 @@ for (const locale of ['en', 'de'] as const) {
       'href',
       'https://privacy.example.invalid/demo-request',
     );
-    await navigation.screenshot({
-      path: test.info().outputPath(`review-footer-${locale}.png`),
-    });
   });
 }
 
@@ -65,6 +62,10 @@ test.describe('automated accessibility of public information links', () => {
         .withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa'])
         .analyze();
       expect(accessibility.violations).toEqual([]);
+      // Diagnostic element capture must not delay the independent no-script link checks.
+      await navigation.screenshot({
+        path: test.info().outputPath(`review-footer-${locale}.png`),
+      });
     });
   }
 });

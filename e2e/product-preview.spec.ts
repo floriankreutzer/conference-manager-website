@@ -38,7 +38,6 @@ for (const locale of ['en', 'de'] as const) {
     expect(response.headers()['content-type']).toContain('image/png');
     await preview.getByRole('link').focus();
     await expect(preview.getByRole('link')).toBeFocused();
-    await preview.screenshot({ path: test.info().outputPath(`review-product-${locale}.png`) });
 
     await page.goto(`/${locale}/how-it-works/`);
     await expect(page.locator('.product-preview')).toHaveCount(0);
@@ -60,6 +59,9 @@ test.describe('automated accessibility of the product preview', () => {
         .withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa'])
         .analyze();
       expect(accessibility.violations).toEqual([]);
+      // Keep diagnostic element capture in this JavaScript-enabled context.
+      // Native rendering and keyboard behavior remain verified in the no-script cases above.
+      await preview.screenshot({ path: test.info().outputPath(`review-product-${locale}.png`) });
     });
   }
 });
