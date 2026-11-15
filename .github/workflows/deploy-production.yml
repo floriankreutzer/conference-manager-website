@@ -21,6 +21,12 @@ jobs:
       SCW_PRODUCTION_BUCKET: ${{ vars.SCW_PRODUCTION_BUCKET }}
       PUBLIC_SITE_ORIGIN: ${{ vars.PUBLIC_SITE_ORIGIN }}
       PUBLIC_CM_APP_ORIGIN: ${{ vars.PUBLIC_CM_APP_ORIGIN }}
+      PUBLIC_LEGAL_NOTICE_URL_EN: ${{ vars.PUBLIC_LEGAL_NOTICE_URL_EN }}
+      PUBLIC_LEGAL_NOTICE_URL_DE: ${{ vars.PUBLIC_LEGAL_NOTICE_URL_DE }}
+      PUBLIC_PRIVACY_URL_EN: ${{ vars.PUBLIC_PRIVACY_URL_EN }}
+      PUBLIC_PRIVACY_URL_DE: ${{ vars.PUBLIC_PRIVACY_URL_DE }}
+      PUBLIC_CONTACT_URL_EN: ${{ vars.PUBLIC_CONTACT_URL_EN }}
+      PUBLIC_CONTACT_URL_DE: ${{ vars.PUBLIC_CONTACT_URL_DE }}
       PUBLIC_DEMO_REQUEST_ENDPOINT: ${{ vars.PUBLIC_DEMO_REQUEST_ENDPOINT }}
       PUBLIC_DEMO_PRIVACY_URL: ${{ vars.PUBLIC_DEMO_PRIVACY_URL }}
       PUBLIC_PREVIEW: 'false'
@@ -38,6 +44,12 @@ jobs:
             SCW_PRODUCTION_BUCKET
             PUBLIC_SITE_ORIGIN
             PUBLIC_CM_APP_ORIGIN
+            PUBLIC_LEGAL_NOTICE_URL_EN
+            PUBLIC_LEGAL_NOTICE_URL_DE
+            PUBLIC_PRIVACY_URL_EN
+            PUBLIC_PRIVACY_URL_DE
+            PUBLIC_CONTACT_URL_EN
+            PUBLIC_CONTACT_URL_DE
           )
 
           for name in "${required[@]}"; do
@@ -73,7 +85,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
-          node-version: '22.22.3'
+          node-version: '22.23.4'
           cache: npm
 
       - name: Install dependencies

@@ -56,7 +56,7 @@ Primary navigation has four destinations:
 - How it works / So funktioniert es;
 - For your team / Für Ihr Team;
 - Integrations / Integrationen;
-- Setup & pilot / Einführung & Pilot.
+- Setup & pilot / Einrichtung & Pilot.
 
 Existing localized routes remain stable. Product, company, security/trust and Insights remain
 crawlable in the footer. The mobile menu is progressively enhanced; the complete navigation is
@@ -75,6 +75,17 @@ example further down that page. Detail pages use descriptive links to the next r
 The demo form retains its existing fields, POST contract, validation limits, honeypot, privacy
 acknowledgement and configuration gate. This redesign does not activate a missing endpoint or
 claim successful submission when processing is unavailable.
+
+The form's field columns respond to the available panel width, including the narrower
+desktop split layout. Native email constraints match the server contract and visible EN/DE
+hints explain the email format and message limit. Server-rendered validation feedback uses
+fixed localized correction hints without echoing submitted data; the JSON error contract
+remains generic.
+
+The footer renders approved legal-notice, website-privacy and contact destinations from
+explicit EN/DE configuration. Preview builds can omit unavailable destinations. An indexable
+build requires all six URLs; URL presence does not replace content or operational approval.
+These links remain separate from the demo-request endpoint and its purpose-specific notice.
 
 The detail pages continue the same customer journey in both languages:
 
@@ -169,6 +180,14 @@ presentation contract is in `docs/DESIGN-SYSTEM.md` and the semantic hero tokens
 Detail pages reuse the same meeting, catering and preparation motifs and original six-icon family.
 The photographs illustrate meeting preparation; they do not document customers or software UI.
 
+The product page additionally shows the actual application's welcome view in the matching
+language, labelled as sample data. Its unchanged PNGs come from the successful application
+test at commit `43118bff97298edeb2b7f97c32ebbe3067824f30`; provenance and hashes are recorded in
+[`public/assets/product/README.md`](../public/assets/product/README.md). The screenshot is
+static, retains the complete UI and offers a native full-size link. It does not open an app
+session or prove a live customer deployment. The small lossless files preserve UI text and
+remain subject to the existing image/build budgets.
+
 New or changed functional icons reuse the [canonical Pavurel family](https://github.com/floriankreutzer/conference-manager/blob/main/docs/ICON-SYSTEM.md), whose versioned source assets are maintained in the [product brand asset area](https://github.com/floriankreutzer/conference-manager/tree/main/assets/brand). The Website still renders the same six original motifs described above, from versioned canonical local copies with manifest/hash verification. The shared working draft and its previews do not establish that the website or application has already adopted every motif.
 
 Social metadata uses the existing approved 1440 × 810 meeting-room image as a shared
@@ -182,6 +201,9 @@ Native links, buttons and `details` retain browser behavior. Menu state and tab 
 synchronized with actual visibility. Focus remains visible, changes have text labels, the
 example can be operated with arrow keys, Home, End and Tab, and layout reflows to narrow screens.
 Reduced-motion preferences remain respected.
+
+The system-connection diagram stays static for every motion preference. Decorative connection
+points do not pulse continuously or imply live synchronization.
 
 The navigation and example controllers are external modules. Vite's `assetsInlineLimit: 0`
 prevents small controllers from being inlined in the built HTML. The production output must be

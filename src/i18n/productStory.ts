@@ -20,6 +20,13 @@ type ProductStoryClosing = {
   secondaryCta: string;
 };
 type ProductStoryCopy = {
+  productPreview?: {
+    title: string;
+    body: string;
+    alt: string;
+    caption: string;
+    fullSizeLabel: string;
+  };
   sections: readonly ProductStorySection[];
   closing: ProductStoryClosing;
 };
@@ -27,6 +34,13 @@ type ProductStoryCopy = {
 const stories: Record<Locale, Record<ProductStorySlug, ProductStoryCopy>> = {
   en: {
     product: {
+      productPreview: {
+        title: 'A view inside Conference Manager.',
+        body: 'Start a request or return to your existing bookings from the welcome view.',
+        alt: 'Conference Manager welcome view with navigation to meeting requests and bookings.',
+        caption: 'Conference Manager: welcome view with sample data.',
+        fullSizeLabel: 'Open the full-size product view',
+      },
       sections: [
         {
           eyebrow: 'The meeting request',
@@ -125,6 +139,13 @@ const stories: Record<Locale, Record<ProductStorySlug, ProductStoryCopy>> = {
   },
   de: {
     product: {
+      productPreview: {
+        title: 'Ein Blick in den Conference Manager.',
+        body: 'Starten Sie eine Anfrage oder kehren Sie über die Startansicht zu Ihren bestehenden Buchungen zurück.',
+        alt: 'Startansicht des Conference Managers mit Navigation zu Besprechungsanfragen und Buchungen.',
+        caption: 'Conference Manager: Startansicht mit Beispieldaten.',
+        fullSizeLabel: 'Produktansicht in voller Größe öffnen',
+      },
       sections: [
         {
           eyebrow: 'Die Besprechungsanfrage',

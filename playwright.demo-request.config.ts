@@ -23,6 +23,12 @@ export default defineConfig({
       PUBLIC_SITE_ORIGIN: 'https://preview.example.invalid',
       PUBLIC_DEMO_REQUEST_ENDPOINT: 'https://demo-request.example.invalid/submit',
       PUBLIC_DEMO_PRIVACY_URL: 'https://privacy.example.invalid/demo-request',
+      PUBLIC_LEGAL_NOTICE_URL_EN: 'https://information.example.invalid/en/legal/',
+      PUBLIC_LEGAL_NOTICE_URL_DE: 'https://information.example.invalid/de/impressum/',
+      PUBLIC_PRIVACY_URL_EN: 'https://information.example.invalid/en/privacy/',
+      PUBLIC_PRIVACY_URL_DE: 'https://information.example.invalid/de/datenschutz/',
+      PUBLIC_CONTACT_URL_EN: 'https://information.example.invalid/en/contact/',
+      PUBLIC_CONTACT_URL_DE: 'https://information.example.invalid/de/kontakt/',
     },
   },
 });

@@ -62,19 +62,19 @@ const copy: Record<Locale, HomepageCopy> = {
       cards: [
         {
           title: 'Too many emails and follow-ups',
-          body: 'The latest information is buried in different conversations.',
+          body: 'Keep meeting details and the current processing stage together in one request.',
         },
         {
           title: 'Missing guests, catering or equipment',
-          body: 'Your team has to ask for the details it needs to prepare.',
+          body: 'Capture guests, catering and equipment together before preparation starts.',
         },
         {
           title: 'What changed?',
-          body: 'A new requirement arrives after preparation has already started.',
+          body: 'Keep the agreed request and proposed changes together for review.',
         },
         {
           title: 'Who is taking care of it?',
-          body: 'The teams involved need to know who handles the next step.',
+          body: 'Your office or conference team coordinates the next steps around a shared request.',
         },
       ],
     },
@@ -186,19 +186,19 @@ const copy: Record<Locale, HomepageCopy> = {
       cards: [
         {
           title: 'Viele E-Mails und Rückfragen',
-          body: 'Der aktuelle Stand steckt in unterschiedlichen Nachrichten.',
+          body: 'Angaben und Bearbeitungsstand bleiben bei einer gemeinsamen Besprechungsanfrage.',
         },
         {
           title: 'Gäste, Catering oder Technik fehlen',
-          body: 'Ihr Team muss die Angaben für die Vorbereitung erst erfragen.',
+          body: 'Gäste, Catering und Technik werden gemeinsam für die Vorbereitung erfasst.',
         },
         {
           title: 'Was hat sich geändert?',
-          body: 'Neue Anforderungen kommen an, während die Vorbereitung schon läuft.',
+          body: 'Vereinbarte Angaben und vorgeschlagene Änderungen bleiben zusammen nachvollziehbar.',
         },
         {
           title: 'Wer kümmert sich darum?',
-          body: 'Die beteiligten Teams müssen wissen, wer den nächsten Schritt übernimmt.',
+          body: 'Ihr Office- oder Konferenzteam koordiniert die nächsten Schritte an einer gemeinsamen Anfrage.',
         },
       ],
     },

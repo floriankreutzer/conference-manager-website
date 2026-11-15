@@ -72,6 +72,8 @@ const hasVisual = Astro.slots.has('visual');
     }
   </header>
 
+  <slot name="after-intro" />
+
   <nav class="editorial-story__contents" aria-label={eyebrow}>
     <ol>
       {

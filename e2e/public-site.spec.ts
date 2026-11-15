@@ -272,11 +272,11 @@ test.describe('public website contracts', () => {
     await expect(closingButton).toBeVisible();
   });
 
-  test('uses a readable four-way system map and disables decorative motion when requested', async ({
+  test('keeps the readable four-way system map static for both motion preferences', async ({
     page,
   }) => {
     await page.setViewportSize({ width: 1280, height: 900 });
-    await page.emulateMedia({ reducedMotion: 'reduce' });
+    await page.emulateMedia({ reducedMotion: 'no-preference' });
     await page.goto('/de/');
 
     const systemMap = page.locator('.integration-map__nodes');
@@ -290,10 +290,13 @@ test.describe('public website contracts', () => {
     expect(desktopLayout.columns).toBe(4);
     expect(desktopLayout.overflow).toBe(true);
 
-    const reducedMotionAnimation = await nodes
-      .first()
-      .evaluate((element) => getComputedStyle(element, '::after').animationName);
-    expect(reducedMotionAnimation).toBe('none');
+    for (const reducedMotion of ['no-preference', 'reduce'] as const) {
+      await page.emulateMedia({ reducedMotion });
+      const connectorAnimations = await nodes.evaluateAll((elements) =>
+        elements.map((element) => getComputedStyle(element, '::after').animationName),
+      );
+      expect(connectorAnimations).toEqual(['none', 'none', 'none', 'none']);
+    }
 
     const headingAndBody = await nodes.first().evaluate((element) => {
       const heading = element.querySelector('h3');
@@ -456,6 +459,7 @@ test.describe('public website contracts', () => {
     );
     await expect(page.getByRole('button', { name: 'Request a demo' })).toBeDisabled();
     await expect(page.getByLabel(/Business email/)).toBeDisabled();
+    await expect(page.locator('.site-footer__information')).toHaveCount(0);
   });
 
   test('does not introduce page-level horizontal overflow on the responsive shell', async ({

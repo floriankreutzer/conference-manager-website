@@ -94,9 +94,10 @@ test.describe('native demo form completion without JavaScript', () => {
         await expect(form).toHaveAttribute('method', 'post');
         await expect(form).toHaveAttribute('aria-disabled', 'false');
         await expect(page.locator('[name="locale"]')).toHaveValue(locale);
-        // A single-label email domain passes native HTML validation but is rejected by
-        // the authoritative server schema, exercising a real server correction path.
-        await fillForm(page, outcome === 'invalid' ? 'synthetic@example' : undefined);
+        await fillForm(page);
+        // Native required validation accepts whitespace; the server normalizes it and
+        // returns a safe field-specific correction without reflecting the submission.
+        if (outcome === 'invalid') await page.locator('[name="company"]').fill(' ');
         expect(await form.evaluate((element: HTMLFormElement) => element.checkValidity())).toBe(
           true,
         );
@@ -128,6 +129,16 @@ test.describe('native demo form completion without JavaScript', () => {
         await expect(page.getByRole('main')).toContainText(
           locale === 'de' ? 'Zurück-Funktion Ihres Browsers' : 'browser’s Back button',
         );
+        if (outcome === 'invalid') {
+          await expect(page.getByRole('heading', { level: 2 })).toHaveText(
+            locale === 'de' ? 'Bitte korrigieren Sie diese Angaben' : 'Details to correct',
+          );
+          await expect(page.getByRole('listitem')).toHaveText(
+            locale === 'de'
+              ? 'Unternehmen: Geben Sie einen Namen mit höchstens 160 Zeichen in einer Zeile ein.'
+              : 'Company: enter a name of up to 160 characters on one line.',
+          );
+        }
         await expect(page.locator('script, form, input, button, iframe, img, a, link')).toHaveCount(
           0,
         );
@@ -194,6 +205,57 @@ test.describe('native demo form completion without JavaScript', () => {
       expect(fixture.sendCount()).toBe(0);
       expect(fixture.unexpectedRequests).toEqual([]);
     });
+
+    test(`${locale} explains and blocks an incomplete email address before any request`, async ({
+      page,
+      baseURL,
+    }) => {
+      const fixture = await isolateEndpoint(page, baseURL!);
+      await page.goto(`/${locale}/book-a-demo/`);
+      await fillForm(page, 'synthetic@example');
+      const email = page.locator('[name="email"]');
+      await expect(email).toHaveAttribute('aria-describedby', 'demo-email-hint');
+      await expect(page.locator('#demo-email-hint')).toBeVisible();
+      expect(
+        await email.evaluate((element: HTMLInputElement) => element.validity.patternMismatch),
+      ).toBe(true);
+      await page.locator('button[type="submit"]').focus();
+      await page.keyboard.press('Enter');
+      await expect(email).toBeFocused();
+      await expect(page).toHaveURL(new URL(`/${locale}/book-a-demo/`, baseURL).href);
+      expect(fixture.submissions).toEqual([]);
+      expect(fixture.sendCount()).toBe(0);
+      expect(fixture.unexpectedRequests).toEqual([]);
+    });
+
+    test(`${locale} submits a maximum-length Unicode message without exceeding the decoded-data budget`, async ({
+      page,
+      baseURL,
+    }) => {
+      const fixture = await isolateEndpoint(page, baseURL!);
+      await page.goto(`/${locale}/book-a-demo/`);
+      await fillForm(page);
+      await page.locator('[name="message"]').fill('界'.repeat(2000));
+      expect(
+        await page.locator('form').evaluate((element: HTMLFormElement) => element.checkValidity()),
+      ).toBe(true);
+      await page.locator('button[type="submit"]').focus();
+      const [response] = await Promise.all([
+        page.waitForResponse(endpoint),
+        page.keyboard.press('Enter'),
+      ]);
+      expect(response.status()).toBe(202);
+      expect(response.headers()['content-language']).toBe(locale);
+      await expect(page.getByRole('heading', { level: 1 })).toHaveText(
+        resultTitles[locale].accepted,
+      );
+      expect(fixture.submissions).toHaveLength(1);
+      expect(new TextEncoder().encode(fixture.submissions[0]!.postData()!).length).toBeGreaterThan(
+        12000,
+      );
+      expect(fixture.sendCount()).toBe(1);
+      expect(fixture.unexpectedRequests).toEqual([]);
+    });
   }
 });
 
@@ -210,7 +272,8 @@ test.describe('automated accessibility of the native result documents', () => {
       }) => {
         const fixture = await isolateEndpoint(page, baseURL!, outcome === 'unavailable');
         await page.goto(`/${locale}/book-a-demo/`);
-        await fillForm(page, outcome === 'invalid' ? 'synthetic@example' : undefined);
+        await fillForm(page);
+        if (outcome === 'invalid') await page.locator('[name="company"]').fill(' ');
         await page.locator('button[type="submit"]').click();
         await expect(page).toHaveURL(endpoint);
         await expect(page.getByRole('heading', { level: 1 })).toHaveText(

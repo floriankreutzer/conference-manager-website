@@ -14,11 +14,12 @@ const copy = {
     firstName: 'First name',
     lastName: 'Last name',
     email: 'Business email',
+    emailHint: 'Use a complete business email address, for example name@example.org.',
     company: 'Company',
     companySize: 'Company size',
     message: 'What would you like to discuss?',
     messageHint:
-      'For example, your current room-booking system or the steps you would like to explore.',
+      'For example, your current room-booking system or the steps you would like to explore. Up to 2,000 characters.',
     messageOptional: 'Optional',
     privacy: 'I have read the privacy information for this demo request.',
     privacyLink: 'Privacy',
@@ -42,11 +43,13 @@ const copy = {
     firstName: 'Vorname',
     lastName: 'Nachname',
     email: 'Geschäftliche E-Mail-Adresse',
+    emailHint:
+      'Verwenden Sie eine vollständige geschäftliche E-Mail-Adresse, zum Beispiel name@example.org.',
     company: 'Unternehmen',
     companySize: 'Unternehmensgröße',
     message: 'Was möchten Sie besprechen?',
     messageHint:
-      'Zum Beispiel Ihre heutige Raumbuchung oder die Abläufe, die Sie kennenlernen möchten.',
+      'Zum Beispiel Ihre heutige Raumbuchung oder die Abläufe, die Sie kennenlernen möchten. Höchstens 2.000 Zeichen.',
     messageOptional: 'Optional',
     privacy: 'Ich habe die Datenschutzhinweise für diese Demo-Anfrage gelesen.',
     privacyLink: 'Datenschutz',

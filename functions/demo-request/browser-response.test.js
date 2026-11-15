@@ -1,7 +1,7 @@
 import { createHash } from 'node:crypto';
 import { describe, expect, it } from 'vitest';
 import { createDemoResponse, prefersBrowserHtml } from './browser-response.js';
-import { demoResponseCopy } from './response-copy.js';
+import { demoResponseCopy, demoValidationCopy } from './response-copy.js';
 
 const nativeAccept = 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8';
 
@@ -94,7 +94,7 @@ describe('public result representations', () => {
           'Content-Type': 'text/html; charset=utf-8',
           'Content-Language': locale,
           'Cache-Control': 'no-store',
-          Vary: 'Accept',
+          Vary: 'Accept, Accept-Language',
           'X-Robots-Tag': 'noindex, nofollow',
           'X-Content-Type-Options': 'nosniff',
           'Referrer-Policy': 'no-referrer',
@@ -153,6 +153,85 @@ describe('public result representations', () => {
         expect(Object.keys(copy)).toEqual(['title', 'message', 'next']);
         for (const text of Object.values(copy)) expect(text.trim().length).toBeGreaterThan(0);
       }
+    }
+  });
+
+  it.each([
+    ['de-DE,de;q=0.9,en;q=0.8', 'de'],
+    ['en;q=0.4,de;q=0.9', 'de'],
+    ['de;q=0,en;q=0.7', 'en'],
+    ['de;q=invalid,en;q=1', 'en'],
+    ['fr, de;q=0.5', 'de'],
+    ['de"><script>alert(1)</script>', 'en'],
+    [`de,${'x'.repeat(512)}`, 'en'],
+  ])(
+    'uses only supported browser-language preferences as a bounded fallback: %s',
+    (acceptLanguage, locale) => {
+      const result = createDemoResponse(
+        400,
+        { status: 'error', code: 'invalid_request' },
+        { accept: nativeAccept, acceptLanguage },
+      );
+      expect(result.headers['Content-Language']).toBe(locale);
+    },
+  );
+
+  it('keeps the form language ahead of a different browser-language preference', () => {
+    const result = createDemoResponse(
+      400,
+      { status: 'error', code: 'invalid_request' },
+      { accept: nativeAccept, locale: 'en', acceptLanguage: 'de' },
+    );
+    expect(result.headers['Content-Language']).toBe('en');
+  });
+
+  it.each(['en', 'de'])(
+    '%s renders only constant, deduplicated correction text from the allowlist',
+    (locale) => {
+      const result = createDemoResponse(
+        400,
+        { status: 'error', code: 'invalid_request' },
+        {
+          accept: nativeAccept,
+          locale,
+          invalidFields: [
+            'email',
+            'email',
+            '<private-marker>',
+            '__proto__',
+            { company: 'private-value' },
+          ],
+        },
+      );
+      expect(result.body).toContain(
+        `<h2 id="correction-title">${demoValidationCopy[locale].title}</h2>`,
+      );
+      expect(result.body).toContain(demoValidationCopy[locale].fields.email);
+      expect(result.body.match(/<li>/gu)).toHaveLength(1);
+      expect(result.body).not.toContain('private-marker');
+      expect(result.body).not.toContain('private-value');
+      expect(result.body).not.toContain('__proto__');
+      expect(result.body).not.toContain(demoValidationCopy[locale].fields.company);
+    },
+  );
+
+  it('never adds correction details to success or the existing JSON error bytes', () => {
+    const options = { invalidFields: ['email'] };
+    expect(
+      createDemoResponse(400, { status: 'error', code: 'invalid_request' }, options).body,
+    ).toBe('{"status":"error","code":"invalid_request"}');
+    expect(
+      createDemoResponse(202, { status: 'accepted' }, { ...options, accept: nativeAccept }).body,
+    ).not.toContain('correction-title');
+  });
+
+  it('keeps correction fields complete and equivalent in both locales', () => {
+    expect(Object.keys(demoValidationCopy.en.fields)).toEqual(
+      Object.keys(demoValidationCopy.de.fields),
+    );
+    for (const catalogue of Object.values(demoValidationCopy)) {
+      expect(catalogue.title.trim()).not.toBe('');
+      for (const hint of Object.values(catalogue.fields)) expect(hint.trim()).not.toBe('');
     }
   });
 });

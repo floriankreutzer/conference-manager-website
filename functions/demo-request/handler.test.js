@@ -53,7 +53,10 @@ describe('demo request validation', () => {
   });
 
   it('rejects oversized encoded bodies', () => {
-    expect(parseFormBody(`message=${'a'.repeat(13000)}`)).toBeNull();
+    expect(parseFormBody(`message=${'a'.repeat(13000)}`)).toMatchObject({
+      fields: null,
+      issue: 'body',
+    });
   });
 
   it('keeps submitted markup as plain text rather than generating HTML', () => {
@@ -168,6 +171,35 @@ describe('native browser submission results', () => {
       expect(result.statusCode).toBe(400);
       expect(result.headers['Content-Language']).toBe(locale);
       expect(result.body).not.toContain('private-invalid-marker');
+      expect(result.body).toContain(
+        locale === 'de' ? 'Geschäftliche E-Mail-Adresse:' : 'Business email:',
+      );
+      expect(sendEmail).not.toHaveBeenCalled();
+    });
+
+    it(`${locale} accepts the maximum Unicode message without changing the field limit`, async () => {
+      const sendEmail = vi.fn().mockResolvedValue(undefined);
+      const handler = createHandler({ env: configuredEnv, sendEmail });
+      const message = 'ä'.repeat(2000);
+      const result = await handler(
+        event({ ...validFields, locale, message }, { headers: browserHeaders }),
+      );
+      expect(result.statusCode).toBe(202);
+      expect(result.headers['Content-Language']).toBe(locale);
+      expect(sendEmail).toHaveBeenCalledOnce();
+      expect(sendEmail.mock.calls[0][1].message).toBe(message);
+    });
+
+    it(`${locale} identifies an overlong message without reflecting it or sending mail`, async () => {
+      const sendEmail = vi.fn();
+      const handler = createHandler({ env: configuredEnv, sendEmail });
+      const result = await handler(
+        event({ ...validFields, locale, message: '界'.repeat(2001) }, { headers: browserHeaders }),
+      );
+      expect(result.statusCode).toBe(400);
+      expect(result.headers['Content-Language']).toBe(locale);
+      expect(result.body).toContain(locale === 'de' ? 'Nachricht:' : 'Message:');
+      expect(result.body).not.toContain('界');
       expect(sendEmail).not.toHaveBeenCalled();
     });
 
@@ -187,6 +219,32 @@ describe('native browser submission results', () => {
       expect(sendEmail).toHaveBeenCalledOnce();
     });
   }
+
+  it('preserves German on a bounded decoded-size rejection and uses browser language beyond the wire limit', async () => {
+    const sendEmail = vi.fn();
+    const handler = createHandler({ env: configuredEnv, sendEmail });
+    for (const count of [13000, 37000]) {
+      const result = await handler(
+        event(validFields, {
+          headers: { ...browserHeaders, 'Accept-Language': 'de-DE,de;q=0.9,en;q=0.8' },
+          body: new URLSearchParams({ locale: 'de', message: 'x'.repeat(count) }).toString(),
+        }),
+      );
+      expect(result.statusCode).toBe(400);
+      expect(result.headers['Content-Language']).toBe('de');
+      expect(result.body).toContain('Die Übermittlung ist zu groß.');
+    }
+    expect(sendEmail).not.toHaveBeenCalled();
+  });
+
+  it('keeps field validation out of the generic JSON error contract', async () => {
+    const sendEmail = vi.fn();
+    const handler = createHandler({ env: configuredEnv, sendEmail });
+    const result = await handler(event({ ...validFields, email: 'private-invalid-marker' }));
+    expect(result.statusCode).toBe(400);
+    expect(result.body).toBe('{"status":"error","code":"invalid_request"}');
+    expect(sendEmail).not.toHaveBeenCalled();
+  });
 
   it.each([
     [{ httpMethod: 'GET' }, 405],

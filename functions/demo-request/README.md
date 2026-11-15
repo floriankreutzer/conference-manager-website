@@ -18,16 +18,16 @@ Scaleway's function event contract provides `httpMethod`, `headers`, `body` and 
 
 The form continues to submit a normal URL-encoded POST without client JavaScript or CORS. When the request's `Accept` header explicitly prefers `text/html` over JSON, the function returns a complete HTML result document. Missing headers, wildcards alone, equal preferences, JSON preference and malformed negotiation retain the JSON response. Specific media ranges take precedence over wildcards.
 
-The document uses the allowlisted `en` or `de` locale from the bounded form body, with English as the fallback. A single function-owned bilingual catalogue supplies the result title and next-step instructions; it contains no submitted values or operational details. The function remains independently packageable.
+The document uses the allowlisted `en` or `de` locale from the bounded form body. A valid body locale takes precedence; if it is unavailable (including a rejected transport body), a bounded `Accept-Language` header may select English or German, with English as the final fallback. A single function-owned bilingual catalogue supplies the result title, correction hints and next-step instructions; it contains no submitted values or operational details. The function remains independently packageable.
 
 - `202` confirms acceptance for processing, not mailbox delivery or a booked appointment. Honeypot rejection retains the same generic accepted result without sending mail.
-- `400` asks the visitor to check the form using the browser's Back navigation.
+- `400` lists constant, localized hints for the invalid fields and asks the visitor to return using the browser's Back navigation. Only fixed allowlisted field identifiers select these hints; values, arbitrary property names and provider details are never rendered. Malformed or oversized submissions use a constant form/size hint.
 - `405` and `415` direct the visitor to the normal demo form.
 - `503` says that processing cannot be confirmed and asks the visitor not to immediately resubmit. The existing `Retry-After: 60` and no-automatic-retry semantics remain unchanged.
 
 Result pages contain no scripts, resubmit controls, automatic refresh, external assets, redirects or request-derived navigation URLs. The native browser's Back navigation provides the return path. HTML responses are non-cacheable and non-indexable, suppress referrers and MIME sniffing, and use a deny-by-default CSP with a SHA-256 allowance only for the constant layout stylesheet. This standalone response uses the website's native system-font fallback without introducing a second brand palette or loading font assets from another origin.
 
-The existing JSON status codes and bodies remain unchanged. `Vary: Accept` identifies the representation choice; no provider configuration or form data is exposed in either representation.
+The existing JSON status codes and bodies remain unchanged, including the generic `invalid_request` body. JSON retains `Vary: Accept`; HTML uses `Vary: Accept, Accept-Language` for representation and fallback-language negotiation. No provider configuration or submitted form data is exposed in either representation.
 
 ## Secret/environment configuration
 
@@ -63,6 +63,29 @@ Accepted fields:
 - `website` honeypot; must remain empty for humans
 
 Server-side limits are intentionally authoritative even though the browser has UX `maxlength` attributes.
+
+The existing field limits remain 80 characters each for first/last name, 254 for email,
+160 for company and 2,000 for the optional message. As with native HTML `maxlength`,
+these limits count UTF-16 code units. The browser's business-email pattern and field
+lengths are checked against the independently packaged server contract by unit tests.
+
+Body handling distinguishes data from transport encoding:
+
+- The decoded form representation, including field names and separators, is limited
+  to **12,000 UTF-8 bytes**. Percent-decoding is strict and occurs once for this size
+  check; parsing still uses the encoded representation, preserving escaped separators.
+- The URL-encoded transport is limited to **36,000 bytes**, derived from the maximum
+  three-byte `%HH` representation of each data byte. Thus a valid Unicode message is
+  not rejected merely because encoding expands its transport size.
+- A base64 event is bounded to **48,000 characters before decoding** and must use
+  canonical padded base64 and valid UTF-8. The same transport/data limits then apply.
+- Unknown or repeated field names, malformed escapes, invalid Unicode, overlong fields
+  and inappropriate control characters are rejected before email processing. Message
+  line breaks and tabs remain supported; single-line fields cannot contain them.
+
+When parsing a bounded transport succeeds, an allowlisted locale remains available
+for a subsequent decoded-size or field rejection. Content beyond the hard transport
+limit is not parsed merely to recover a language preference.
 
 ## Email handling
 
@@ -107,4 +130,4 @@ Before enabling the Astro form endpoint:
 
 `npm run test:e2e` retains the existing disabled-form website suite and also exercises a separately built, actively configured form. The active suite uses a synthetic HTTPS endpoint intercepted by Playwright and passes the native POST to this handler with a mocked email transport. It checks the JavaScript-free document transition and localized success/error results without sending real email. The active test build is isolated from the normal `dist/` deployment artifact.
 
-Unit tests cover content negotiation, language selection, constant output and security headers alongside the existing validation, honeypot, JSON and provider-failure contracts. These fixtures do not prove real Scaleway, rate-limit, privacy, provider or mailbox acceptance; issue #25 remains the operational gate.
+Unit tests cover content negotiation, language selection, constant output and security headers alongside validation, Unicode and transport boundaries, field-contract parity, malformed/duplicate input, honeypot, generic JSON and provider-failure contracts. The isolated browser suite also exercises native email rejection, a maximum-length Unicode message and the localized correction list. These fixtures do not prove real Scaleway, rate-limit, privacy, provider or mailbox acceptance; issue #25 remains the operational gate.

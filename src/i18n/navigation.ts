@@ -23,6 +23,10 @@ type NavigationCopy = {
     resourceLinks: NavigationItem[];
     demoLabel: string;
     loginLabel: string;
+    informationLabel: string;
+    legalNoticeLabel: string;
+    privacyLabel: string;
+    contactLabel: string;
   };
 };
 
@@ -61,6 +65,10 @@ const copy: Record<Locale, NavigationCopy> = {
       ],
       demoLabel: 'Book a demo',
       loginLabel: 'Customer login',
+      informationLabel: 'Legal information and contact',
+      legalNoticeLabel: 'Legal notice',
+      privacyLabel: 'Privacy',
+      contactLabel: 'Contact',
     },
   },
   de: {
@@ -68,7 +76,7 @@ const copy: Record<Locale, NavigationCopy> = {
       { label: 'So funktioniert es', href: '/de/how-it-works/' },
       { label: 'Für Ihr Team', href: '/de/workplace-teams/' },
       { label: 'Integrationen', href: '/de/integrations/' },
-      { label: 'Einführung & Pilot', href: '/de/pricing/' },
+      { label: 'Einrichtung & Pilot', href: '/de/pricing/' },
     ],
     login: 'Anmelden',
     menu: 'Menü',
@@ -92,11 +100,15 @@ const copy: Record<Locale, NavigationCopy> = {
       resourceLinks: [
         { label: 'Integrationen', href: '/de/integrations/' },
         { label: 'Sicherheit & Vertrauen', href: '/de/security-trust/' },
-        { label: 'Einführung & Pilot', href: '/de/pricing/' },
+        { label: 'Einrichtung & Pilot', href: '/de/pricing/' },
         { label: 'Insights', href: '/de/insights/' },
       ],
       demoLabel: 'Demo anfragen',
       loginLabel: 'Kunden-Login',
+      informationLabel: 'Rechtliche Informationen und Kontakt',
+      legalNoticeLabel: 'Impressum',
+      privacyLabel: 'Datenschutz',
+      contactLabel: 'Kontakt',
     },
   },
 };

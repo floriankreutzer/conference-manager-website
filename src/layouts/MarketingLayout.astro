@@ -2,6 +2,7 @@
 import SiteFooter from '@components/navigation/SiteFooter.astro';
 import SiteHeader from '@components/navigation/SiteHeader.astro';
 import type { Locale } from '@config/locales';
+import { getPublicInformationConfig } from '@config/publicInformation';
 import { getSeoConfig } from '@config/seo';
 import { withoutBasePath, withBasePath } from '@domain/routing/basePath';
 import { getSiteMetadataCopy } from '@i18n/siteMetadata';
@@ -20,6 +21,7 @@ const seo = getSeoConfig({
   development: import.meta.env.DEV,
   siteOrigin: import.meta.env.PUBLIC_SITE_ORIGIN,
 });
+const publicInformation = getPublicInformationConfig(seo.indexable);
 const canonicalBase = seo.siteOrigin ?? Astro.site ?? Astro.url.origin;
 const canonical = new URL(Astro.url.pathname, canonicalBase);
 const socialImage = new URL(withBasePath('/assets/brand/meeting-room-1440.webp'), canonicalBase);
@@ -71,6 +73,6 @@ const alternateSocialLocale = locale === 'de' ? 'en_US' : 'de_DE';
     <main id="main-content">
       <slot />
     </main>
-    <SiteFooter locale={locale} />
+    <SiteFooter locale={locale} publicInformation={publicInformation[locale]} />
   </body>
 </html>

@@ -12,7 +12,7 @@ The website provides public information. Application authentication, sessions an
 
 ## Requirements
 
-- Node.js 22.22.3 or a compatible Node.js 22 release within the range declared in `package.json`.
+- Node.js 22.23.4 or a compatible Node.js 22 release within the range declared in `package.json`.
 - npm.
 
 ## Local development
@@ -33,7 +33,9 @@ PUBLIC_PREVIEW=true PUBLIC_CM_APP_ORIGIN=https://app.example.invalid npm run bui
 npm run preview
 ```
 
-The generated site is written to `dist/`. A production build requires valid public site and application origins. The demo-request endpoint and privacy URL are optional: leave them unset until demo processing is accepted. Without both values, the demo-request form remains disabled.
+The generated site is written to `dist/`. An indexable production build requires valid public site and application origins, plus approved legal-notice, privacy and contact destinations in both languages. The six `PUBLIC_LEGAL_NOTICE_URL_EN/DE`, `PUBLIC_PRIVACY_URL_EN/DE` and `PUBLIC_CONTACT_URL_EN/DE` values are described in [deployment configuration](docs/DEPLOYMENT.md#public-information-destinations). A preview can omit them and renders only configured destinations.
+
+The demo-request endpoint and its separate `PUBLIC_DEMO_PRIVACY_URL` remain optional: leave them unset until demo processing is accepted. Without both values, the demo-request form remains disabled. Footer information links do not activate form processing or establish legal approval.
 
 ## Project layout
 
