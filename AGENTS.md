@@ -224,13 +224,11 @@ Cover at least:
 
 Only mark an item fulfilled when implementation and executed verification support the claim.
 
-## Supplementary website design profile
+## Required website design-skill routing
 
-The optional [Pavurel Web Design profile](https://github.com/floriankreutzer/automatic-engineering-design-skills/blob/1e812a0f0f82cdd2669b5e2d3e5411ea79a5dd1d/skills/pavurel-web-design/SKILL.md) in [skills PR #1](https://github.com/floriankreutzer/automatic-engineering-design-skills/pull/1) supports task-specific marketing-site design work. This pinned reference identifies the review candidate from that PR; check its current merge status before adoption. It does not install a skill or replace a repository standard.
+For authorized website design, planning, implementation and review, apply the [mandatory design-skill policy](https://github.com/floriankreutzer/automatic-engineering-design-skills/blob/3f7f7bcd7dc5949b9867119a353d480eb87f9f71/SKILL_POLICY.md) and [Pavurel Web Design profile](https://github.com/floriankreutzer/automatic-engineering-design-skills/blob/3f7f7bcd7dc5949b9867119a353d480eb87f9f71/skills/pavurel-web-design/SKILL.md) from the accepted source at `3f7f7bc`. Assess the complete central catalog, read and apply every applicable skill, and record Applied, Not applicable with a concrete reason, or Blocked. Missing sources or tools do not make an applicable skill optional or complete its gate. Keep the catalog central rather than copying it here.
 
-Before applying the profile, read the current repository instructions and relevant design, content, architecture, security and test sources from the target repository root, and identify current `main` and the exact work/base ref. The profile must reference and apply these current GitHub requirements rather than duplicate normative rules, freeze a historical baseline or use Confluence as a parallel development authority. Current repository requirements and executable gates prevail over profile defaults; reconcile material conflicts in the owning repository.
-
-Referencing a profile does not install it or authorize dependencies, publication, deployment or merging.
+Use installed skills or source files from that reviewed release. Before adopting a different source, review it against current repository requirements and record its exact ref. Current repository rules, tokens, architecture, truthful content, security, accessibility and executable gates remain authoritative. Skills do not authorize dependencies, installations, publication, deployment or merging. Non-UI repository maintenance does not acquire unrelated design work.
 
 ## Cost-constrained execution
 

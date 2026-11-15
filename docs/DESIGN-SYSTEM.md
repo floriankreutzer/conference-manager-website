@@ -155,13 +155,15 @@ Colour, typography, imagery, and interaction must meet the WCAG 2.2 AA target de
 
 Do not use colour as the only state indicator. Ensure text contrast, link distinction, focus visibility, readable line height, and responsive text scaling.
 
-## 12. Current development sources and supplementary profile
+## 12. Current development sources and required skill routing
 
 For implementation, read the current root `AGENTS.md`, `docs/CODING-STANDARDS.md`, `docs/CONTENT-GOVERNANCE.md`, `docs/MARKETING-EXPERIENCE.md` and `src/styles/tokens.css` together with this document from the target website repository. Representations of implemented application UI must also follow the current application repository's design system and tokens.
 
 Confluence retains product/brand rationale and historical documentation. It does not override current GitHub development requirements. Reconcile a missing or conflicting approved decision in the owning GitHub repository before implementing the affected material brand change; do not copy private documentation into this public repository.
 
-The optional [Pavurel Web Design profile](https://github.com/floriankreutzer/automatic-engineering-design-skills/blob/1e812a0f0f82cdd2669b5e2d3e5411ea79a5dd1d/skills/pavurel-web-design/SKILL.md) in [skills PR #1](https://github.com/floriankreutzer/automatic-engineering-design-skills/pull/1) helps apply these current sources to an authorized website task. This pinned candidate's acceptance state is recorded in that PR, and the reference does not install it. It must defer to the current repository requirements and tokens, preserve the existing website architecture and avoid a second design specification. Do not apply marketing-site defaults to the authenticated application.
+For authorized website design, planning, implementation and review, apply the [mandatory design-skill policy](https://github.com/floriankreutzer/automatic-engineering-design-skills/blob/3f7f7bcd7dc5949b9867119a353d480eb87f9f71/SKILL_POLICY.md) and [Pavurel Web Design profile](https://github.com/floriankreutzer/automatic-engineering-design-skills/blob/3f7f7bcd7dc5949b9867119a353d480eb87f9f71/skills/pavurel-web-design/SKILL.md) from the accepted source at `3f7f7bc`. Assess the complete central catalog, read and apply every applicable skill, and record Applied, Not applicable with a concrete reason, or Blocked. Missing sources or tools do not make an applicable skill optional or complete its gate. Keep the catalog central rather than copying it here.
+
+Use installed skills or source files from that reviewed release. Before adopting a different source, review it against current repository requirements and record its exact ref. Current repository rules, tokens, architecture, truthful content, security, accessibility and executable gates remain authoritative. Skills do not authorize dependencies, installations, publication, deployment or merging. Non-UI repository maintenance does not acquire unrelated design work.
 
 
 ## 13. Shared public-page heroes
