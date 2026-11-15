@@ -42,13 +42,29 @@ for (const locale of ['en', 'de'] as const) {
       'href',
       'https://privacy.example.invalid/demo-request',
     );
-    const accessibility = await new AxeBuilder({ page })
-      .include('.site-footer__information')
-      .withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa'])
-      .analyze();
-    expect(accessibility.violations).toEqual([]);
     await navigation.screenshot({
       path: test.info().outputPath(`review-footer-${locale}.png`),
     });
   });
 }
+
+test.describe('automated accessibility of public information links', () => {
+  // Keep axe's JavaScript timers separate from the native no-script link checks above.
+  test.use({ javaScriptEnabled: true });
+
+  for (const locale of ['en', 'de'] as const) {
+    test(`${locale} public information links have no automated WCAG A/AA violations`, async ({
+      page,
+    }) => {
+      await page.goto(`/${locale}/book-a-demo/`);
+      const navigation = page.locator('.site-footer__information');
+      await navigation.scrollIntoViewIfNeeded();
+      await expect(navigation).toBeVisible();
+      const accessibility = await new AxeBuilder({ page })
+        .include('.site-footer__information')
+        .withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa'])
+        .analyze();
+      expect(accessibility.violations).toEqual([]);
+    });
+  }
+});

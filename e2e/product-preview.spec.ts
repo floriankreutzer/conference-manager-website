@@ -38,14 +38,28 @@ for (const locale of ['en', 'de'] as const) {
     expect(response.headers()['content-type']).toContain('image/png');
     await preview.getByRole('link').focus();
     await expect(preview.getByRole('link')).toBeFocused();
-    const accessibility = await new AxeBuilder({ page })
-      .include('.product-preview')
-      .withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa'])
-      .analyze();
-    expect(accessibility.violations).toEqual([]);
     await preview.screenshot({ path: test.info().outputPath(`review-product-${locale}.png`) });
 
     await page.goto(`/${locale}/how-it-works/`);
     await expect(page.locator('.product-preview')).toHaveCount(0);
   });
 }
+
+test.describe('automated accessibility of the product preview', () => {
+  // Axe needs JavaScript timers; the rendering, focus and image checks above stay no-script.
+  test.use({ javaScriptEnabled: true });
+
+  for (const locale of ['en', 'de'] as const) {
+    test(`${locale} product preview has no automated WCAG A/AA violations`, async ({ page }) => {
+      await page.goto(`/${locale}/product/`);
+      const preview = page.locator('.product-preview');
+      await preview.scrollIntoViewIfNeeded();
+      await expect(preview).toBeVisible();
+      const accessibility = await new AxeBuilder({ page })
+        .include('.product-preview')
+        .withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa'])
+        .analyze();
+      expect(accessibility.violations).toEqual([]);
+    });
+  }
+});
