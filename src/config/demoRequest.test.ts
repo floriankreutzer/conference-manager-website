@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { parseDemoRequestConfig, parsePublicHttpsUrl } from './demoRequest';
+import { parseDemoRequestConfig } from './demoRequest';
+import { parsePublicHttpsUrl } from './publicUrl';
 
 describe('demo request configuration', () => {
   it('stays disabled until both endpoint and privacy URL exist', () => {

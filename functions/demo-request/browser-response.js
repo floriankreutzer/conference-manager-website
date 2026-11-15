@@ -1,5 +1,5 @@
 import { createHash } from 'node:crypto';
-import { demoResponseCopy } from './response-copy.js';
+import { demoResponseCopy, demoValidationCopy } from './response-copy.js';
 
 const relevantMediaRanges = new Set([
   'text/html',
@@ -62,8 +62,22 @@ const htmlHeaders = {
   'Referrer-Policy': 'no-referrer',
 };
 
-function responseLocale(value) {
-  return typeof value === 'string' && value.trim().toLowerCase() === 'de' ? 'de' : 'en';
+function responseLocale(value, acceptLanguage) {
+  const locale = typeof value === 'string' ? value.trim().toLowerCase() : '';
+  if (locale === 'de' || locale === 'en') return locale;
+  if (typeof acceptLanguage !== 'string' || acceptLanguage.length > 512) return 'en';
+  const preferences = acceptLanguage.split(',').flatMap((range) => {
+    const match =
+      /^(en|de)(?:-[a-z0-9]{1,8})*(?:\s*;\s*q=(0(?:\.\d{0,3})?|1(?:\.0{0,3})?))?$/iu.exec(
+        range.trim(),
+      );
+    if (!match) return [];
+    return [{ locale: match[1].toLowerCase(), quality: Number(match[2] ?? 1) }];
+  });
+  return (
+    preferences.filter((item) => item.quality > 0).sort((a, b) => b.quality - a.quality)[0]
+      ?.locale ?? 'en'
+  );
 }
 
 function escapeText(value) {
@@ -72,7 +86,11 @@ function escapeText(value) {
   });
 }
 
-export function createDemoResponse(statusCode, payload, { accept, locale, headers = {} } = {}) {
+export function createDemoResponse(
+  statusCode,
+  payload,
+  { accept, locale, acceptLanguage, invalidFields, headers = {} } = {},
+) {
   const commonHeaders = { ...headers, 'Cache-Control': 'no-store', Vary: 'Accept' };
   if (!prefersBrowserHtml(accept)) {
     return {
@@ -82,16 +100,36 @@ export function createDemoResponse(statusCode, payload, { accept, locale, header
     };
   }
 
-  const language = responseLocale(locale);
+  const language = responseLocale(locale, acceptLanguage);
   const catalogue = demoResponseCopy[language];
   const outcome = payload.status === 'accepted' ? 'accepted' : payload.code;
   const copy = Object.hasOwn(catalogue, outcome)
     ? catalogue[outcome]
     : catalogue.temporarily_unavailable;
+  const validationCopy = demoValidationCopy[language];
+  const fields = Array.isArray(invalidFields)
+    ? [...new Set(invalidFields.filter((field) => typeof field === 'string'))]
+    : [];
+  // Iterate the fixed catalogue, never submitted values or arbitrary property names.
+  const corrections = Object.entries(validationCopy.fields)
+    .filter(([field]) => fields.includes(field))
+    .map(([, message]) => message);
+  if (outcome === 'invalid_request' && corrections.length === 0) {
+    corrections.push(validationCopy.fields.form);
+  }
+  const correctionHtml =
+    outcome === 'invalid_request'
+      ? `<section aria-labelledby="correction-title"><h2 id="correction-title">${escapeText(validationCopy.title)}</h2><ul>${corrections.map((message) => `<li>${escapeText(message)}</li>`).join('')}</ul></section>`
+      : '';
 
   return {
     statusCode,
-    headers: { ...commonHeaders, ...htmlHeaders, 'Content-Language': language },
+    headers: {
+      ...commonHeaders,
+      ...htmlHeaders,
+      Vary: 'Accept, Accept-Language',
+      'Content-Language': language,
+    },
     body: `<!doctype html>
 <html lang="${language}">
 <head>
@@ -106,6 +144,7 @@ export function createDemoResponse(statusCode, payload, { accept, locale, header
 <p>Conference Manager</p>
 <h1 id="request-result-title">${escapeText(copy.title)}</h1>
 <p>${escapeText(copy.message)}</p>
+${correctionHtml}
 <p>${escapeText(copy.next)}</p>
 </main>
 </body>

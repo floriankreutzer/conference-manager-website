@@ -2,16 +2,23 @@
 import BrandLockup from '@components/marketing/BrandLockup.astro';
 import { getLoginUrl } from '@config/application';
 import type { Locale } from '@config/locales';
+import type { PublicInformationLinks } from '@config/publicInformation';
 import { withBasePath } from '@domain/routing/basePath';
 import { getNavigationCopy } from '@i18n/navigation';
 
 interface Props {
   locale: Locale;
+  publicInformation: PublicInformationLinks;
 }
 
-const { locale } = Astro.props;
+const { locale, publicInformation } = Astro.props;
 const navigation = getNavigationCopy(locale);
 const footer = navigation.footer;
+const informationLinks = [
+  { href: publicInformation.legalNotice, label: footer.legalNoticeLabel },
+  { href: publicInformation.privacy, label: footer.privacyLabel },
+  { href: publicInformation.contact, label: footer.contactLabel },
+].filter((link) => link.href);
 ---
 
 <footer class="site-footer">
@@ -54,6 +61,19 @@ const footer = navigation.footer;
       >
     </div>
   </div>
+  {
+    informationLinks.length > 0 && (
+      <nav class="site-footer__information" aria-label={footer.informationLabel}>
+        <ul>
+          {informationLinks.map((link) => (
+            <li>
+              <a href={link.href}>{link.label}</a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    )
+  }
 </footer>
 
 <style>
@@ -101,7 +121,8 @@ const footer = navigation.footer;
   }
 
   .site-footer__nav a,
-  .site-footer__login {
+  .site-footer__login,
+  .site-footer__information a {
     color: var(--color-text-muted);
     text-decoration-thickness: 0.08em;
     text-underline-offset: 0.25em;
@@ -115,6 +136,28 @@ const footer = navigation.footer;
 
   .site-footer__login {
     font-weight: 700;
+  }
+
+  .site-footer__information {
+    inline-size: min(100% - 2rem, var(--content-max));
+    margin-inline: auto;
+    padding-block: var(--space-3);
+    border-block-start: 1px solid var(--color-border);
+  }
+
+  .site-footer__information ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-5);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .site-footer__information a {
+    display: inline-flex;
+    align-items: center;
+    min-block-size: 2.75rem;
   }
 
   @media (max-width: 64rem) {

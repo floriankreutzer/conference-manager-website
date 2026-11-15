@@ -12,7 +12,10 @@ function getHeader(headers, name) {
 
 export function createHandler({ env = process.env, sendEmail = sendTransactionalEmail } = {}) {
   return async function demoRequestHandler(event) {
-    const responseOptions = { accept: getHeader(event?.headers, 'accept') };
+    const responseOptions = {
+      accept: getHeader(event?.headers, 'accept'),
+      acceptLanguage: getHeader(event?.headers, 'accept-language'),
+    };
     if (event?.httpMethod !== 'POST') {
       return response(405, { status: 'error', code: 'method_not_allowed' }, responseOptions);
     }
@@ -25,14 +28,21 @@ export function createHandler({ env = process.env, sendEmail = sendTransactional
       return response(415, { status: 'error', code: 'unsupported_media_type' }, responseOptions);
     }
 
-    const raw = parseFormBody(event.body, event.isBase64Encoded === true);
-    const formResponseOptions = { ...responseOptions, locale: raw?.locale };
-    const validation = validateDemoRequest(raw);
+    const parsed = parseFormBody(event.body, event.isBase64Encoded === true);
+    const formResponseOptions = { ...responseOptions, locale: parsed.locale };
+    const validation = validateDemoRequest(parsed.fields);
     if (!validation.ok) {
       // Honeypot rejection intentionally looks like a normal accepted request to bots.
       if (validation.code === 'rejected')
         return response(202, { status: 'accepted' }, formResponseOptions);
-      return response(400, { status: 'error', code: 'invalid_request' }, formResponseOptions);
+      return response(
+        400,
+        { status: 'error', code: 'invalid_request' },
+        {
+          ...formResponseOptions,
+          invalidFields: parsed.issue ? [parsed.issue] : validation.fields,
+        },
+      );
     }
 
     const config = readRequiredEnv(env);

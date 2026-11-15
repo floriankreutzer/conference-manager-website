@@ -2,7 +2,11 @@
 import PageIntro from '@components/editorial/PageIntro.astro';
 import { getDemoRequestConfig } from '@config/demoRequest';
 import type { Locale } from '@config/locales';
-import { companySizeValues, demoRequestLimits } from '@domain/forms/demoRequest';
+import {
+  companySizeValues,
+  demoRequestEmailPattern,
+  demoRequestLimits,
+} from '@domain/forms/demoRequest';
 import { withBasePath } from '@domain/routing/basePath';
 import { getDemoRequestCopy } from '@i18n/demoRequest';
 
@@ -70,18 +74,24 @@ const pricingHref = withBasePath(`/${locale}/pricing/`);
             disabled={!config.enabled}
           />
         </label>
-        <label class="form-grid__wide">
-          <span>{copy.email} <small>{copy.required}</small></span>
-          <input
-            type="email"
-            name="email"
-            autocomplete="email"
-            inputmode="email"
-            required
-            maxlength={demoRequestLimits.email}
-            disabled={!config.enabled}
-          />
-        </label>
+        <div class="form-grid__wide">
+          <label>
+            <span>{copy.email} <small>{copy.required}</small></span>
+            <input
+              type="email"
+              name="email"
+              autocomplete="email"
+              inputmode="email"
+              pattern={demoRequestEmailPattern}
+              aria-describedby="demo-email-hint"
+              title={copy.emailHint}
+              required
+              maxlength={demoRequestLimits.email}
+              disabled={!config.enabled}
+            />
+          </label>
+          <p class="demo-request__hint" id="demo-email-hint">{copy.emailHint}</p>
+        </div>
         <label>
           <span>{copy.company} <small>{copy.required}</small></span>
           <input
@@ -172,6 +182,7 @@ const pricingHref = withBasePath(`/${locale}/pricing/`);
     text-underline-offset: 0.25em;
   }
   .demo-request__panel {
+    container-type: inline-size;
     padding: clamp(1.5rem, 4vw, 3rem);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
@@ -192,14 +203,23 @@ const pricingHref = withBasePath(`/${locale}/pricing/`);
   }
   .form-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: 1rem;
+  }
+  @container (min-width: 29rem) {
+    .form-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  .form-grid > * {
+    min-inline-size: 0;
   }
   .form-grid__wide {
     grid-column: 1 / -1;
   }
   label {
     display: grid;
+    min-inline-size: 0;
     gap: 0.45rem;
     font-weight: 650;
   }
@@ -219,6 +239,7 @@ const pricingHref = withBasePath(`/${locale}/pricing/`);
   select,
   textarea {
     width: 100%;
+    min-inline-size: 0;
     min-height: 3rem;
     padding: 0.7rem 0.8rem;
     border: 1px solid var(--color-border);
@@ -277,13 +298,5 @@ const pricingHref = withBasePath(`/${locale}/pricing/`);
     overflow: hidden;
     clip-path: inset(50%);
     white-space: nowrap;
-  }
-  @media (max-width: 36rem) {
-    .form-grid {
-      grid-template-columns: 1fr;
-    }
-    .form-grid__wide {
-      grid-column: auto;
-    }
   }
 </style>

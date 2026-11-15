@@ -1,5 +1,9 @@
+import { TextDecoder } from 'node:util';
+
 export const demoRequestServerLimits = Object.freeze({
+  // Preserve the data budget independently of percent-encoding overhead.
   bodyBytes: 12_000,
+  encodedBodyBytes: 36_000,
   firstName: 80,
   lastName: 80,
   email: 254,
@@ -19,46 +23,96 @@ const allowedCompanySizes = new Set([
   '10000+',
 ]);
 const allowedLocales = new Set(['en', 'de']);
-const businessEmailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/u;
+export const businessEmailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/u;
+const allowedFields = new Set([
+  'firstName',
+  'lastName',
+  'email',
+  'company',
+  'companySize',
+  'message',
+  'locale',
+  'website',
+  'privacyAcknowledged',
+]);
 
 function normalize(value) {
   return typeof value === 'string' ? value.trim().replace(/\r\n?/gu, '\n') : '';
 }
 
-function hasControlCharacters(value) {
+function hasControlCharacters(value, multiline = false) {
   return [...value].some((character) => {
     const codePoint = character.codePointAt(0);
     if (codePoint === undefined) return false;
     return (
-      (codePoint >= 0 && codePoint <= 8) ||
-      codePoint === 11 ||
-      codePoint === 12 ||
-      (codePoint >= 14 && codePoint <= 31) ||
+      (codePoint >= 0 && codePoint <= 31 && !(multiline && [9, 10].includes(codePoint))) ||
       codePoint === 127
     );
   });
 }
 
 export function parseFormBody(body, isBase64Encoded = false) {
-  if (typeof body !== 'string') return null;
+  const rejected = (locale, issue = 'form') => ({ fields: null, locale, issue });
+  if (typeof body !== 'string') return rejected();
 
   let decodedBody = body;
   if (isBase64Encoded) {
+    // Bound allocation before decoding. Only canonical, padded base64 is accepted.
+    const maxBase64Length = 4 * Math.ceil(demoRequestServerLimits.encodedBodyBytes / 3);
+    if (body.length > maxBase64Length) return rejected(undefined, 'body');
+    if (!/^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/u.test(body)) {
+      return rejected();
+    }
     try {
-      decodedBody = Buffer.from(body, 'base64').toString('utf8');
+      const bytes = Buffer.from(body, 'base64');
+      if (bytes.toString('base64') !== body) return rejected();
+      decodedBody = new TextDecoder('utf-8', { fatal: true }).decode(bytes);
     } catch {
-      return null;
+      return rejected();
     }
   }
 
-  if (Buffer.byteLength(decodedBody, 'utf8') > demoRequestServerLimits.bodyBytes) return null;
+  if (
+    decodedBody.length > demoRequestServerLimits.encodedBodyBytes ||
+    Buffer.byteLength(decodedBody, 'utf8') > demoRequestServerLimits.encodedBodyBytes
+  ) {
+    return rejected(undefined, 'body');
+  }
+  if (!decodedBody.isWellFormed()) return rejected();
 
   const params = new URLSearchParams(decodedBody);
-  return Object.fromEntries(params.entries());
+  const locales = params.getAll('locale');
+  const locale = locales.length === 1 ? normalize(locales[0]).toLowerCase() : undefined;
+  const responseLocale = allowedLocales.has(locale) ? locale : undefined;
+
+  // Decode once for strict UTF-8/escape validation and the unchanged data budget.
+  // Parsing still uses the encoded input, so escaped separators remain field data.
+  try {
+    const formData = decodeURIComponent(decodedBody.replace(/\+/gu, ' '));
+    if (Buffer.byteLength(formData, 'utf8') > demoRequestServerLimits.bodyBytes) {
+      return rejected(responseLocale, 'body');
+    }
+  } catch {
+    return rejected(responseLocale);
+  }
+
+  const seen = new Set();
+  for (const key of params.keys()) {
+    if (!allowedFields.has(key) || seen.has(key)) return rejected(responseLocale);
+    seen.add(key);
+  }
+  return { fields: Object.fromEntries(params.entries()), locale: responseLocale, issue: null };
 }
 
 export function validateDemoRequest(raw) {
-  if (!raw || typeof raw !== 'object') return { ok: false, code: 'invalid_request' };
+  if (
+    !raw ||
+    typeof raw !== 'object' ||
+    Array.isArray(raw) ||
+    Object.entries(raw).some(([key, value]) => !allowedFields.has(key) || typeof value !== 'string')
+  ) {
+    return { ok: false, code: 'invalid_request', fields: ['form'] };
+  }
 
   const request = {
     firstName: normalize(raw.firstName),
@@ -74,9 +128,12 @@ export function validateDemoRequest(raw) {
 
   if (request.website) return { ok: false, code: 'rejected' };
 
+  const errors = new Set();
   const required = ['firstName', 'lastName', 'email', 'company', 'companySize', 'locale'];
-  if (required.some((field) => !request[field])) return { ok: false, code: 'invalid_request' };
-  if (request.privacyAcknowledged !== 'true') return { ok: false, code: 'invalid_request' };
+  for (const field of required) {
+    if (!request[field]) errors.add(field);
+  }
+  if (request.privacyAcknowledged !== 'true') errors.add('privacyAcknowledged');
 
   const lengthChecks = [
     ['firstName', demoRequestServerLimits.firstName],
@@ -89,15 +146,16 @@ export function validateDemoRequest(raw) {
     ['website', demoRequestServerLimits.honeypot],
   ];
 
-  if (lengthChecks.some(([field, max]) => request[field].length > max)) {
-    return { ok: false, code: 'invalid_request' };
+  for (const [field, max] of lengthChecks) {
+    if (request[field].length > max || hasControlCharacters(request[field], field === 'message')) {
+      errors.add(field);
+    }
   }
 
-  if (Object.values(request).some(hasControlCharacters))
-    return { ok: false, code: 'invalid_request' };
-  if (!businessEmailPattern.test(request.email)) return { ok: false, code: 'invalid_request' };
-  if (!allowedCompanySizes.has(request.companySize)) return { ok: false, code: 'invalid_request' };
-  if (!allowedLocales.has(request.locale)) return { ok: false, code: 'invalid_request' };
+  if (!businessEmailPattern.test(request.email)) errors.add('email');
+  if (!allowedCompanySizes.has(request.companySize)) errors.add('companySize');
+  if (!allowedLocales.has(request.locale)) errors.add('locale');
+  if (errors.size) return { ok: false, code: 'invalid_request', fields: [...errors] };
 
   return { ok: true, value: request };
 }

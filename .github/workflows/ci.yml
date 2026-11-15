@@ -59,7 +59,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
-          node-version: '22.22.3'
+          node-version: '22.23.4'
           cache: npm
 
       - name: Install dependencies
@@ -94,6 +94,15 @@ jobs:
 
       - name: Browser, route and accessibility tests
         run: npm run test:e2e
+
+      - name: Retain synthetic desktop and mobile review screenshots
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: website-review-${{ github.sha }}
+          path: test-results/**/review-*.png
+          if-no-files-found: ignore
+          retention-days: 7
 
       - name: Upload validated static build
         uses: actions/upload-artifact@v7

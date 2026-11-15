@@ -14,6 +14,7 @@ interface Props {
 const { locale, slug } = Astro.props;
 const pageCopy = getPublicPageCopy(locale, slug);
 const story = getProductStoryCopy(locale, slug);
+const productImage = withBasePath(`/assets/product/welcome-${locale}.png`);
 const primaryHref = withBasePath(
   slug === 'product' ? `/${locale}/how-it-works/` : `/${locale}/#how-it-works`,
 );
@@ -41,4 +42,83 @@ const secondaryHref = withBasePath(
     variant={slug === 'product' ? 'catering' : 'meeting'}
     priority
   />
+  {
+    story.productPreview && (
+      <section slot="after-intro" class="product-preview" aria-labelledby="product-preview-title">
+        <div class="product-preview__intro">
+          <h2 id="product-preview-title">{story.productPreview.title}</h2>
+          <p>{story.productPreview.body}</p>
+        </div>
+        <figure>
+          <img
+            src={productImage}
+            alt={story.productPreview.alt}
+            width="1280"
+            height="1242"
+            loading="lazy"
+            decoding="async"
+          />
+          <figcaption>
+            <span>{story.productPreview.caption}</span>
+            <a href={productImage}>{story.productPreview.fullSizeLabel}</a>
+          </figcaption>
+        </figure>
+      </section>
+    )
+  }
 </EditorialStory>
+
+<style>
+  .product-preview {
+    display: grid;
+    gap: var(--space-5);
+    margin-block-end: var(--space-6);
+  }
+
+  .product-preview__intro {
+    display: grid;
+    gap: var(--space-3);
+    max-inline-size: 65ch;
+  }
+
+  .product-preview h2 {
+    font-size: clamp(1.75rem, 3vw, 2.75rem);
+    line-height: 1.16;
+  }
+
+  .product-preview p,
+  .product-preview figure {
+    margin: 0;
+  }
+
+  .product-preview p,
+  .product-preview figcaption {
+    color: var(--color-text-muted);
+    line-height: 1.6;
+  }
+
+  .product-preview img {
+    display: block;
+    inline-size: 100%;
+    block-size: auto;
+    border: 1px solid var(--color-border);
+  }
+
+  .product-preview figcaption {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2) var(--space-4);
+    padding-block-start: var(--space-2);
+    font-size: 0.875rem;
+  }
+
+  .product-preview figcaption a {
+    display: inline-flex;
+    align-items: center;
+    min-block-size: 2.75rem;
+    color: var(--color-bordeaux);
+    text-underline-offset: 0.25em;
+  }
+</style>

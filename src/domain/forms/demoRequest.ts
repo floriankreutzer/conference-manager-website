@@ -6,6 +6,9 @@ export const demoRequestLimits = {
   message: 2000,
 } as const;
 
+// Mirrors the independently packaged function's business-email format rule.
+export const demoRequestEmailPattern = String.raw`[^\s@]+@[^\s@]+\.[^\s@]+`;
+
 export const companySizeValues = [
   '1-49',
   '50-249',
